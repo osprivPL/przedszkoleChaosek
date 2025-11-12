@@ -149,3 +149,6 @@ main {
     right: 0;
     top: 0;
 }
+.error{
+    color: red;
+}

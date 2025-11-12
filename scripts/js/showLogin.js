@@ -1,6 +1,6 @@
-function PanelOn(){
+function loginOn(){
     document.getElementById("panelWrapper").style.visibility = "visible";
 }
-function PanelOff(){
+function loginOff(){
     document.getElementById("panelWrapper").style.visibility = "hidden";
 }

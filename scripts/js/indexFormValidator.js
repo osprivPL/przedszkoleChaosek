@@ -7,21 +7,21 @@ document.getElementById("loginPanel").addEventListener("submit", function(e){
 
     if (email.value==="" || !email.value.includes("@") || !email.value.includes(".")){
         email.style.borderColor="red";
-        document.getElementById("emailError").style.display="block";
+        document.getElementById("emailError").innerHTML="Wprowadź poprawny email";
         error = true;
     }
     else{
         email.style.borderColor="initial";
-        document.getElementById("emailError").style.display="none";
+        document.getElementById("emailError").innerHTML="";
     }
     if (password.value===""){
         password.style.borderColor="red";
-        document.getElementById("passwordError").style.display="block";
+        document.getElementById("passwordError").innerHTML="Wprowadź hasło";
         error=true;
     }
     else{
         email.style.borderColor="initial";
-        document.getElementById("passwordError").style.display="none";
+        document.getElementById("passwordError").innerHTML="";
     }
     if (error) return;
 

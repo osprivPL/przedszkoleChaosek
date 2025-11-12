@@ -1,3 +1,21 @@
+<?php
+session_start();
+require_once "./scripts/php/printArr.php";
+if (!isset($_SESSION['logged'])) {
+    $_SESSION['logged'] = false;
+}
+if (!isset($_SESSION['error']) ) {
+    $_SESSION['error'] = -1;
+} else if ($_SESSION['error'] != -1) {
+    echo '<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var loginEl = document.getElementById("login");
+            if (loginEl) loginEl.click();
+        });
+    </script>';
+}
+?>
+
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -17,30 +35,40 @@
 </head>
 <body>
 <header>
-    <a href="./index.html" id="logo">
-        <img src="assets/pochita.png" alt="logo">
+    <a href="./index.php" id="logo">
+        <img src="assets/logo_tornado.svg" alt="logo">
         <span>Przedszkole Chaosek</span>
     </a>
     <!--stasiek zrob to lepiej-->
-    <img id="login" src="./assets/person.png" alt="login" onclick="PanelOn()">
+    <img id="login" src="./assets/person.png" alt="login"
+            <?php
+            if ($_SESSION['logged']) {
+
+            } else {
+                echo 'onclick="loginOn()"';
+            }
+            ?>>
 </header>
 <nav>
-    <a href="./index.html">
+    <a href="./index.php">
         <span>O nas</span>
     </a>
-    <a href="./index.html">
+    <a href="./index.php">
         <span>Aktualności</span>
     </a>
-    <a href="./index.html">
+    <a href="./index.php">
         <span>Jak dojechać?</span>
     </a>
-    <a href="./index.html">
+    <a href="./index.php">
         <span>REKRUTACJA</span>
     </a>
-    <a href="./index.html">
+    <a href="./index.php">
         <span>Kontakt</span>
     </a>
 </nav>
+<main>
+    <?php printArr($_SESSION); ?>
+</main>
 
 <!-- logowanie-->
 
@@ -79,18 +107,31 @@
                 <div>
                     <label for="tbxEmail">Email</label>
                     <input type="email" name="tbxEmail" id="tbxEmail"><br>
-                    <span class="error" id="emailError">Wprowadź poprawny email</span>
+                    <span class="error" id="emailError"></span>
                 </div>
                 <div>
                     <label for="tbxHaslo">Hasło</label>
                     <input type="text" name="tbxHaslo" id="tbxHaslo">
-                    <span class="error" id="passwordError">Wprowadź poprawne hasło</span>
+                    <span class="error" id="passwordError"></span>
                 </div>
             </div>
         </div>
         <button id="btnLogin">Zaloguj</button>
     </form>
-    <button onclick="PanelOff()" class="offButton">X</button>
+    <span id="loginError" name="loginError" class="error">
+        <?php
+        if (isset($_SESSION['error'])) {
+        }
+        if ($_SESSION['error'] == 1) {
+            echo "Nie znaleziono użytkownika o podanym emailu";
+            unset($_SESSION['error']);
+        } else if ($_SESSION['error'] == 0) {
+            echo "Błąd serwera, spróbuj ponownie później";
+            unset($_SESSION['error']);
+        }
+        ?>
+    </span>
+    <button onclick="loginOff()" class="offButton">X</button>
 </div>
 
 
