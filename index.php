@@ -29,16 +29,16 @@
             <span>O nas</span>
         </a>
         <a href="./index.html">
-            <span>O nas</span>
+            <span>Aktualności</span>
         </a>
         <a href="./index.html">
-            <span>O nas</span>
+            <span>Jak dojechać?</span>
         </a>
         <a href="./index.html">
-            <span>O nas</span>
+            <span>REKRUTACJA</span>
         </a>
         <a href="./index.html">
-            <span>O nas</span>
+            <span>Kontakt</span>
         </a>
     </nav>
 </body>
