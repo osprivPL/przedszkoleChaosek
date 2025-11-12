@@ -1,0 +1,51 @@
+/*misiaki w roocie sa zmienne do kolorow, taki szpont by nie pisac tego 100razy*/
+@import "root.css";
+
+.panelWrapper {
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    visibility: hidden;
+    z-index: 1000;
+}
+
+.panel {
+    flex-direction: column;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: solid 3px black;
+    padding: 1em;
+}
+
+.Login {
+    display: flex;
+
+    gap: 1em;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    width: 15vw;
+}
+
+.Login > input {
+    height: 1.5em;
+    width: 10em;
+}
+
+.LogIn {
+    background: var(--main-color);
+}
+
+.offButton {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.error{
+    display: none;
+}

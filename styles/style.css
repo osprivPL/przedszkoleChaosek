@@ -1,32 +1,36 @@
+@import "root.css";
+
 :root{
     /* https://www.canva.com/colors/color-palettes/pastel-meltaways */
     --main-color: #FEE7E6;
     --secondary-color: #ECFDF1;
     --darker-main: #F86A62; /*stasiu to jest do paska do headera, troche chujowizna wiec zmiencie */
     --darker-darker-main: #F74036
-
 }
 
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: "Pacifico", "Comic Sans MS", serif;
     font-weight: 400;
     font-style: normal;
 }
-body{
+
+body {
     width: 100vw;
     height: 200vh;
     background-color: var(--main-color);
     overflow-x: hidden;
 }
-header{
+
+header {
     width: 99%;
     height: 10vh;
     padding-bottom: 1.2vh;
     font-size: 36px;
 }
-header #logo{
+
+header #logo {
     text-decoration: none;
     height: 10vh;
     display: flex;
@@ -35,18 +39,22 @@ header #logo{
     color: var(--darker-main);
     float: left;
 }
-a{
+
+a {
     text-decoration: none;
     text-decoration-color: var(--darker-main);
 }
-img{
+
+img {
     max-width: 10vh;
 }
-header #login{
+
+header #login {
     float: right;
     height: 100%;
 }
-nav{
+
+nav {
     position: sticky;
     top: 0;
     max-width: 100vw;
@@ -55,7 +63,8 @@ nav{
     /*border-bottom: 5px solid var(--dark-line);*/
     text-align: center;
 }
-nav a{
+
+nav a {
     box-sizing: border-box;
     width: 20%;
     background-color: var(--darker-main);
@@ -63,23 +72,26 @@ nav a{
     margin: 0;
     border: 4px outset var(--darker-darker-main);
 }
-nav a:hover{
+
+nav a:hover {
     background-color: var(--darker-darker-main);
     border: 4px inset var(--darker-main);
     transition: 0.2s;
 }
-nav a:active{
+
+nav a:active {
     background-color: #9D0E07;
     color: white;
     border: 4px inset var(--darker-darker-main);
 }
-main{
+
+main {
     width: 100vw;
     height: 100vh;
     padding: 18px;
 }
 
-.panelWrapper{
+.panelWrapper {
     position: absolute;
     left: 50%;
     top: 25%;
@@ -87,10 +99,10 @@ main{
     visibility: hidden;
 }
 
-.panel{
+.panel {
     position: relative;
-    left:-50%;
-    top:-25%;
+    left: -50%;
+    top: -25%;
 
     width: 30vw;
     height: 30vh;
@@ -103,10 +115,12 @@ main{
 
     border: solid 3px black;
 }
-.panel h3{
+
+.panel h3 {
     grid-area: 1 / 1 / 2 / 3;
 }
-.SignInLogIn{
+
+.SignInLogIn {
     display: grid;
     gap: 1em;
     grid-template-columns:1fr 1fr;
@@ -117,19 +131,20 @@ main{
     width: 15vw;
 }
 
-.SignInLogIn>input{
+.SignInLogIn > input {
     height: 1.5em;
     width: 10em;
 }
 
-.SignUp{
+.SignUp {
     background: lightskyblue;
 }
-.LogIn{
+
+.LogIn {
     background: deepskyblue;
 }
 
-.offButton{
+.offButton {
     position: absolute;
     right: 0;
     top: 0;
