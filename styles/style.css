@@ -73,3 +73,8 @@ nav a:active{
     color: white;
     border: 4px inset var(--darker-darker-main);
 }
+main{
+    width: 100vw;
+    height: 100vh;
+    padding: 18px;
+}

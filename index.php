@@ -1,3 +1,9 @@
+<?php
+    if (isset($_POST["error"])) {
+        echo $_POST["error"];
+    }
+?>
+
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -14,32 +20,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
     <title>Przedszkole Chaosek</title>
+    <link rel="stylesheet" href="styles/index.css">
 </head>
 <body>
-    <header>
-        <a href="./index.html" id="logo">
-            <img src="assets/pochita.png" alt="logo">
-            <span>Przedszkole Chaosek</span>
-        </a>
-        <!--stasiek zrob to lepiej-->
-        <img id="login" src="./assets/person.png" alt="login">
-    </header>
-    <nav>
-        <a href="./index.html">
-            <span>O nas</span>
-        </a>
-        <a href="./index.html">
-            <span>O nas</span>
-        </a>
-        <a href="./index.html">
-            <span>O nas</span>
-        </a>
-        <a href="./index.html">
-            <span>O nas</span>
-        </a>
-        <a href="./index.html">
-            <span>O nas</span>
-        </a>
-    </nav>
+<header>
+
+    <a href="./index.php" id="logo">
+        <img src="assets/logo_tornado.svg" alt="logo">
+        <span>Przedszkole Chaosek</span>
+    </a>
+    <!--stasiek zrob to lepiej-->
+    <img id="login" src="./assets/person.png" alt="login">
+</header>
+<nav>
+    <a href="./index.php">
+        <span>O nas</span>
+    </a>
+    <a href="./index.html">
+        <span>O nas</span>
+    </a>
+    <a href="./index.html">
+        <span>O nas</span>
+    </a>
+    <a href="./index.html">
+        <span>O nas</span>
+    </a>
+    <a href="./index.html">
+        <span>O nas</span>
+    </a>
+</nav>
+<main>
+
+</main>
 </body>
 </html>
