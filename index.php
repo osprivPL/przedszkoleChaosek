@@ -34,12 +34,62 @@
         <a href="./index.html">
             <span>Jak dojechać?</span>
         </a>
-        <a href="./index.html">
+        <a onclick="PanelOn()">
             <span>REKRUTACJA</span>
         </a>
         <a href="./index.html">
             <span>Kontakt</span>
         </a>
     </nav>
+
+
+
+
+    <div class="panelWrapper" id="panelWrapper">
+        <form action="get" class="panel">
+            <div class="SignUp">
+                <h3>Sign up</h3>
+                <div class="SignInLogIn">
+                    <label for="tbxImie_singUp">Imie</label>
+                    <input type="text" name="tbxImie_singUp" id="tbxImie_singUp">
+
+                    <label for="tbxNazw_singUp">Nazwisko</label>
+                    <input type="text" name="tbxNazw_singUp" id="tbxNazw_singUp">
+
+                    <label for="tbxNum_singUp">Numer telefonu</label>
+                    <input type="number" name="tbxNum_singUp" id="tbxNum_singUp">
+                    <label for="tbxPesel_singUp">Pesel</label>
+                    <input type="text" name="tbxPesel_singUp" id="tbxPesel_singUp">
+
+                    <label for="tbxAdres_singUp">Miejsce zamieszkania</label>
+                    <input type="text" name="tbxAdres_singUp" id="tbxAdres_singUp">
+
+                    <label for="tbxHaslo_singUp">Hasło</label>
+                    <input type="text" name="tbxHaslo_singUp" id="tbxHaslo_singUp">
+
+                    <label for="tbxHasloRep_singUp">Powturzenie hasła</label>
+                    <input type="text" name="tbxHasloRep_singUp" id="tbxHasloRep_singUp">
+                </div>
+            </div>
+            <div class="LogIn">
+                <h3>Log in</h3>
+                <div class="SignInLogIn">
+                    <label for="tbxImie_logIn">Imie</label>
+                    <input type="text" name="tbxImie_logIn" id="tbxImie_logIn">
+
+                    <label for="tbxNazw_logIn">Nazwisko</label>
+                    <input type="text" name="tbxNazw_logIn" id="tbxNazw_logIn">
+
+                    <label for="tbxHaslo_logIn">Hasło</label>
+                    <input type="text" name="tbxHaslo_logIn" id="tbxHaslo_logIn">
+                </div>
+            </div>
+            <input type="button" value="X" onclick="PanelOff()" class="offButton">
+        </form>
+    </div>
+
+
+<script src="scripts/script.js"></script>
+
 </body>
 </html>
