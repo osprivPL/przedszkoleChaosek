@@ -1,8 +1,7 @@
-:root{
-    /* https://www.canva.com/colors/color-palettes/pastel-meltaways */
-    --main-color: #8CE4FF;
-    --secondary-color: #FEEE91;
-    --darker-main: #FFA239; /*stasiu to jest do paska do headera, troche chujowizna wiec zmiencie */
-    --darker-darker-main: #FF5656;
-    --border: groove 3px #FF5656;
+:root {
+    --main-color: #AEE3FF;
+    --secondary-color: #FFEBA1;
+    --darker-main: #FF9E6B;
+    --darker-darker-main: #E65C5C;
+    --border: groove 3px #E65C5C;
 }
