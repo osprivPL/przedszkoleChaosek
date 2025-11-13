@@ -42,6 +42,7 @@ if (!isset($_SESSION['error'])) {
     <title>Przedszkole Chaosek</title>
 </head>
 <body id='body'>
+    <!--przyciemnione tło jak odpalasz logowanie-->
     <div id="dark_bg"></div>
 <!-- ============================= -->
 <!-- HEADER -->
