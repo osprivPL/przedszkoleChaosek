@@ -1,5 +1,6 @@
 <?php
 session_start();
+//session_destroy();
 require_once "./scripts/php/printArr.php";
 if (!isset($_SESSION['logged'])) {
     $_SESSION['logged'] = false;
@@ -51,11 +52,6 @@ if (!isset($_SESSION['error'])) {
                 echo 'onclick="loginOn()"';
             }
             ?>>
-    <?php
-    if ($_SESSION['logged']) {
-        echo "aaa";
-    }
-    ?>
 </header>
 <!-- ============================= -->
 <!-- NAVIGATION -->
@@ -115,7 +111,7 @@ if (!isset($_SESSION['error'])) {
 <!-- ============================= -->
 <!-- LOGIN PANEL -->
 <!-- ============================= -->
-<div class="panelWrapper" id="panelWrapper">
+<div class="wrapper" id="loginWrapper">
     <form class="panel" action="./scripts/php/login.php" method="post" id="loginPanel">
         <h3>Log in</h3>
         <div class="Login">
@@ -147,20 +143,26 @@ if (!isset($_SESSION['error'])) {
         ?>
     </span>
 </div>
-<div id="userPanel" class="userPanel">
-    <p>Imię: <?php echo $_SESSION['imie'] ?></p>
-    <p>Nazwisko: <?php echo $_SESSION['nazwisko'] ?></p>
-    <p>Typ konta:
-        <?php
-        if ($_SESSION['typ'] == 0) {
-            echo "Rodzic";
-        } else if ($_SESSION['typ'] == 1) {
-            echo "Nauczyciel(ka)";
-        } else {
-            echo "Dyrekcja";
-        }
-        ?>
-    </p>
+
+<div class="wrapper" id="userWrapper">
+    <div id="userPanel" class="panel">
+        <p>Imię: <?php echo $_SESSION['imie'] ?></p>
+        <p>Nazwisko: <?php echo $_SESSION['nazwisko'] ?></p>
+        <p>Typ konta:
+            <?php
+            if ($_SESSION['typ'] == 0) {
+                echo "Rodzic";
+            } else if ($_SESSION['typ'] == 1) {
+                echo "Nauczyciel(ka)";
+            } else {
+                echo "Dyrekcja";
+            }
+            ?>
+        </p>
+        <form action="./scripts/php/logout.php" method="post">
+            <button type="submit">Wyloguj</button>
+        </form>
+    </div>
 </div>
 
 

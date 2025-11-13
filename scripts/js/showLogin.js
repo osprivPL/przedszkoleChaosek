@@ -1,12 +1,12 @@
 function loginOn(){
-    document.getElementById("panelWrapper").style.visibility = "visible";
+    document.getElementById("loginWrapper").style.visibility = "visible";
 }
 function loginOff(){
-    document.getElementById("panelWrapper").style.visibility = "hidden";
+    document.getElementById("loginWrapper").style.visibility = "hidden";
 }
 function userPanelOn(){
-    document.getElementById("userPanel").style.visibility = "visible";
+    document.getElementById("userWrapper").style.visibility = "visible";
 }
 function userPanelOff(){
-    document.getElementById("userPanel").style.visibility = "hidden";
+    document.getElementById("userWrapper").style.visibility = "hidden";
 }
