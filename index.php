@@ -147,6 +147,7 @@ if (!isset($_SESSION['error'])) {
 
 <div class="wrapper" id="userWrapper">
     <div id="userPanel" class="panel">
+        <button onclick="userPanelOff()" class="offButton">X</button>
         <p>Imię: <?php echo $_SESSION['imie'] ?></p>
         <p>Nazwisko: <?php echo $_SESSION['nazwisko'] ?></p>
         <p>Typ konta:
@@ -160,7 +161,25 @@ if (!isset($_SESSION['error'])) {
             }
             ?>
         </p>
-        <button onclick="userPanelOff()" class="offButton">X</button>
+        <a href="
+        <?php
+        if ($_SESSION['typ'] == 0) {
+            echo "./panels/parents.html";
+        } else {
+            echo "./panels/parents.html";
+        }
+        ?>
+        ">
+            <button>
+                <?php
+                    if ($_SESSION['typ'] == 0) {
+                        echo "Panel Rodzica";
+                    } else {
+                        echo "Panel Pracownika";
+                    }
+                ?>
+            </button>
+        </a>
         <form action="./scripts/php/logout.php" method="post">
             <button type="submit">Wyloguj</button>
         </form>
