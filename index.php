@@ -4,7 +4,7 @@ require_once "./scripts/php/printArr.php";
 if (!isset($_SESSION['logged'])) {
     $_SESSION['logged'] = false;
 }
-if (!isset($_SESSION['error']) ) {
+if (!isset($_SESSION['error'])) {
     $_SESSION['error'] = -1;
 } else if ($_SESSION['error'] != -1) {
     echo '<script>
@@ -46,11 +46,16 @@ if (!isset($_SESSION['error']) ) {
     <img id="login" src="./assets/person.png" alt="login"
             <?php
             if ($_SESSION['logged']) {
-
+                echo 'onclick="userPanelOn()"';
             } else {
                 echo 'onclick="loginOn()"';
             }
             ?>>
+    <?php
+    if ($_SESSION['logged']) {
+        echo "aaa";
+    }
+    ?>
 </header>
 <!-- ============================= -->
 <!-- NAVIGATION -->
@@ -143,16 +148,15 @@ if (!isset($_SESSION['error']) ) {
     </span>
 </div>
 <div id="userPanel" class="userPanel">
-    <p>Imię: <?php echo $_SESSION['imie']?></p>
-    <p>Nazwisko: <?php echo $_SESSION['nazwisko']?></p>
+    <p>Imię: <?php echo $_SESSION['imie'] ?></p>
+    <p>Nazwisko: <?php echo $_SESSION['nazwisko'] ?></p>
     <p>Typ konta:
         <?php
-        if ($_SESSION['typ'] == 0){
+        if ($_SESSION['typ'] == 0) {
             echo "Rodzic";
-        }
-        else if ($_SESSION['typ'] == 1) {
+        } else if ($_SESSION['typ'] == 1) {
             echo "Nauczyciel(ka)";
-        }else{
+        } else {
             echo "Dyrekcja";
         }
         ?>

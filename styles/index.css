@@ -7,11 +7,9 @@
     top: 0;
     width: 100vw;
     height: 100vh;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     visibility: hidden;
     z-index: 1000;
 }
@@ -26,18 +24,15 @@
     align-items: center;
     overflow: hidden;
     height: 14vw;
-
     text-align: center;
     border: var(--border);
     background: var(--main-color);
     background: linear-gradient(to right top, color-mix(in srgb, var(--main-color) 50%, white 15%), color-mix(in srgb, var(--main-color) 50%, black 15%));
     border-radius: 10px;
-
 }
 
 .Login {
     display: flex;
-
     gap: 1em;
     flex-wrap: wrap;
     align-content: center;
@@ -50,18 +45,14 @@
     width: 10em;
 }
 
-
 .offButton {
     color: black;
     background: red;
     background: linear-gradient(to right top, rgb(255, 0, 0), rgb(180, 0, 0));
     border: var(--border);
     border-radius: 5px;
-
     width: 1.8em;
     height: 1.8em;
-    
-
     position: absolute;
     right: 0;
     top: 0;
