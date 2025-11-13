@@ -28,7 +28,7 @@ if (!isset($_SESSION['error'])) {
 
     <!-- style -->
     <link rel="stylesheet" href="./styles/style.css">
-<!--    <link rel="stylesheet" href="./styles/index.css">-->
+    <link rel="stylesheet" href="./styles/index.css">
 
     <!-- czcionka -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
