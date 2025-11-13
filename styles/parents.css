@@ -1,0 +1,18 @@
+@import "root.css";
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+aside{
+    float: left;
+    width: 33.3%;
+}
+main{
+    float: left;
+    width: 64%;
+}
+aside, main{
+    height: 80vh;
+}

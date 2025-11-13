@@ -15,7 +15,6 @@ printArr($_POST);
 $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
 if (!$connection) {
-    $_POST["error"] = "Wystąpił błąd, spróbuj ponownie później";
     $_SESSION['error'] = 0;
     unset($_POST);
     header('Location: ./../../index.php');
@@ -28,6 +27,7 @@ if (!$connection) {
             $result=$result->fetch_assoc();
             echo password_hash("haslo", PASSWORD_DEFAULT);
             if (password_verify($password, $result['haslo'])) {
+                $_SESSION['id'] = $result['ID'];
                 $_SESSION['logged'] = true;
                 $_SESSION['imie'] = $result['imie'];
                 $_SESSION['nazwisko'] = $result['nazwisko'];

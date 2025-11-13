@@ -9,11 +9,11 @@ if (!isset($_SESSION['logged'])) {
 if (!isset($_SESSION['error'])) {
     $_SESSION['error'] = -1;
 }
-if (!isset($_SESSION['typ'])){
+if (!isset($_SESSION['typ'])) {
     header('Location: ./../../index.php');
     die();
 }
-if (!$_SESSION['logged']){
+if (!$_SESSION['logged']) {
     header("Location: ./../index.php");
     die();
 }
@@ -39,7 +39,7 @@ if (!$_SESSION['logged']){
     <link rel="icon" type="image/x-icon" href="./../assets/logo_tornado.svg">
 
     <title>Przedszkole Chaosek - <?php
-        if (isset($_SESSION['typ']) && $_SESSION['typ']==0){
+        if (isset($_SESSION['typ']) && $_SESSION['typ'] == 0) {
             echo "Panel Rodzica";
         } else {
             echo "Panel administratora";
@@ -49,7 +49,7 @@ if (!$_SESSION['logged']){
 <body>
 <header>
     <a href="./../index.php" id="logo">
-         <img src="./../assets/logo_tornado.svg" alt="logo">
+        <img src="./../assets/logo_tornado.svg" alt="logo">
         <span>Przedszkole Chaosek</span>
     </a>
     <!--stasiek zrob to lepiej-->
@@ -85,6 +85,27 @@ if (!$_SESSION['logged']){
 <!-- ============================= -->
 <!-- MAIN -->
 <!-- ============================= -->
+<aside>
+    <ul>
+        <?php
+        $connection = mysqli_connect("localhost", "root", "", "przedszkole");
+        if (!$connection) {
+            echo "Brak połączenia z bazą danych";
+        } else {
+            $json = array();
+            if ($result = $connection->query(sprintf("SELECT imie, nazwisko, pesel, adres, grupa FROM dzieci WHERE IDrodzica='%s'", mysqli_real_escape_string($connection, $_SESSION['id'])))) {
+                $result = $result->fetch_all();
+                foreach ($result as $row) {
+                    echo "<li>" . $row[0] . " " . $row[1] . " - " . $row[4] . "</li>";
+                    $json[] = $row;
+                }
+            }
+        }
+        $connection->close();
+        ?>
+    </ul>
+
+</aside>
 <main>
     <?php printArr($_SESSION); ?>
     <div class="wrapper" id="userWrapper">
