@@ -132,6 +132,7 @@ if (!isset($_SESSION['error'])) {
     <span id="loginError" name="loginError" class="error">
         <?php
         if (isset($_SESSION['error'])) {
+
         }
         if ($_SESSION['error'] == 1) {
             echo "Nie znaleziono użytkownika o podanym emailu";
@@ -159,6 +160,7 @@ if (!isset($_SESSION['error'])) {
             }
             ?>
         </p>
+        <button onclick="userPanelOff()" class="offButton">X</button>
         <form action="./scripts/php/logout.php" method="post">
             <button type="submit">Wyloguj</button>
         </form>
