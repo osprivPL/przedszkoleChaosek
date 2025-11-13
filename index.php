@@ -1,10 +1,11 @@
 <?php
 session_start();
+//session_destroy();
 require_once "./scripts/php/printArr.php";
 if (!isset($_SESSION['logged'])) {
     $_SESSION['logged'] = false;
 }
-if (!isset($_SESSION['error']) ) {
+if (!isset($_SESSION['error'])) {
     $_SESSION['error'] = -1;
 } else if ($_SESSION['error'] != -1) {
     echo '<script>
@@ -98,8 +99,11 @@ if (!isset($_SESSION['error']) ) {
 <!--    </div>-->
 <!--</div>-->
 
+<?php
+if ($_SESSION['logged']) {
 
-<div class="panelWrapper" id="panelWrapper">
+} else {
+    echo '<div class="panelWrapper" id="panelWrapper">
     <form class="panel" action="./scripts/php/login.php" method="post" id="loginPanel">
         <div class="LogIn">
             <h3>Log in</h3>
@@ -119,21 +123,21 @@ if (!isset($_SESSION['error']) ) {
         <button id="btnLogin">Zaloguj</button>
         <button onclick="loginOff()" class="offButton">X</button>
     </form>
-    <span id="loginError" name="loginError" class="error">
-        <?php
-        if (isset($_SESSION['error'])) {
-        }
-        if ($_SESSION['error'] == 1) {
-            echo "Nie znaleziono użytkownika o podanym emailu";
-            unset($_SESSION['error']);
-        } else if ($_SESSION['error'] == 0) {
-            echo "Błąd serwera, spróbuj ponownie później";
-            unset($_SESSION['error']);
-        }
-        ?>
-    </span>
-    
-</div>
+    <span id="loginError" name="loginError" class="error">';
+    if (isset($_SESSION['error'])) {
+
+    }
+    if ($_SESSION['error'] == 1) {
+        echo "Nie znaleziono użytkownika o podanym emailu";
+        unset($_SESSION['error']);
+    } else if ($_SESSION['error'] == 0) {
+        echo "Błąd serwera, spróbuj ponownie później";
+        unset($_SESSION['error']);
+    }
+    echo '</span></div>';
+
+}
+?>
 
 
 <script src="./scripts/js/showLogin.js"></script>
