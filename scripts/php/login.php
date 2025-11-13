@@ -3,7 +3,7 @@
 //1 - nie znaleziono uzytkownika
 session_start();
 require_once "printArr.php";
-if (isset($_POST['logged']) && $_POST['logged'] == 'true') {
+if (isset($_SESSION['logged']) && $_SESSION['logged']) {
     header('Location: ./../../index.php');
     die();
 }
@@ -22,16 +22,21 @@ if (!$connection) {
 } else {
     $email = htmlentities($_POST['tbxEmail'], ENT_QUOTES, 'UTF-8');
     $password = htmlentities($_POST['tbxHaslo'], ENT_QUOTES, 'UTF-8');
-    if ($result = $connection->query(sprintf("SELECT * FROM uzytkownicy WHERE email='%s'", mysqli_real_escape_string($connection, $email)))) {
+    if ($result = $connection->query(sprintf("SELECT * FROM uzytkownicy WHERE login='%s'", mysqli_real_escape_string($connection, $email)))) {
         if ($result->num_rows > 0){
             $result=$result->fetch_assoc();
-            print_r($result);
-            if (password_verify(password_hash($password, PASSWORD_DEFAULT), $result['haslo'])) {
+            echo password_hash("haslo", PASSWORD_DEFAULT);
+            if (password_verify($password, $result['haslo'])) {
                 $_SESSION['logged'] = true;
                 $_SESSION['imie'] = $result['imie'];
+                $_SESSION['nazwisko'] = $result['nazwisko'];
+                $_SESSION['typ'] = $result['typ'];
+//                printArr($_SESSION);
+//                printArr($result);
                 unset($_SESSION['error']);
                 unset($_POST);
-                if ()
+                header('Location: ./../../index.php');
+                die();
             }
 
         }
