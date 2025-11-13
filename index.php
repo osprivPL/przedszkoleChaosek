@@ -146,6 +146,10 @@ if (!isset($_SESSION['error'])) {
             echo "Błąd serwera, spróbuj ponownie później";
             unset($_SESSION['error']);
         }
+        else if ($_SESSION['error'] == 2) {
+            echo "Nieprawidłowe hasło";
+            unset($_SESSION['error']);
+        }
         ?>
     </span>
     </form>
@@ -179,11 +183,11 @@ if (!isset($_SESSION['error'])) {
         ">
             <button>
                 <?php
-                    if ($_SESSION['typ'] == 0) {
-                        echo "Panel Rodzica";
-                    } else {
-                        echo "Panel Pracownika";
-                    }
+                if ($_SESSION['typ'] == 0) {
+                    echo "Panel Rodzica";
+                } else {
+                    echo "Panel Pracownika";
+                }
                 ?>
             </button>
         </a>

@@ -1,6 +1,7 @@
 <?php
 //0 - błęd połączenia
 //1 - nie znaleziono uzytkownika
+//2 - nieprawidłowe hasło
 session_start();
 require_once "printArr.php";
 if (isset($_SESSION['logged']) && $_SESSION['logged']) {
@@ -34,6 +35,12 @@ if (!$connection) {
 //                printArr($_SESSION);
 //                printArr($result);
                 unset($_SESSION['error']);
+                unset($_POST);
+                header('Location: ./../../index.php');
+                die();
+            }
+            else{
+                $_SESSION['error'] = 2;
                 unset($_POST);
                 header('Location: ./../../index.php');
                 die();
