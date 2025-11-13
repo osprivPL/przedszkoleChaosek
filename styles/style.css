@@ -35,7 +35,7 @@ header {
     align-items: center;
     padding: 1.5vh;
     background: linear-gradient(to right, var(--secondary-color), color-mix(in srgb, var(--secondary-color) 70%, white 20%));
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 header #logo {
@@ -45,7 +45,8 @@ header #logo {
     align-items: center;
     color: black;
 }
-header #logo img{
+
+header #logo img {
     height: 100%;
 }
 
@@ -71,7 +72,7 @@ nav {
     text-align: center;
     z-index: 10;
     background: var(--darker-main);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 nav a {
@@ -140,7 +141,7 @@ main {
     background: linear-gradient(to right top, color-mix(in srgb, var(--main-color) 60%, white 20%), color-mix(in srgb, var(--secondary-color) 70%, white 10%));
     border-radius: 12px;
     transform: scale(2);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 .offButton {
@@ -157,27 +158,31 @@ main {
 .offButton:hover {
     background: #D22E2E;
 }
-.logo_dziennik{
+
+.logo_dziennik {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width:95%;
+    width: 95%;
     padding: 0 2.5%;
     height: 4vh;
     font-size: 12px;
     position: absolute;
     top: 0;
-    background-color: rgba(0,0,0,0.25);
+    background-color: rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(3px);
     font-family: "Pacifico", "Comic Sans MS", serif;
 }
-.logo_dziennik img{
+
+.logo_dziennik img {
     height: 4vh;
 }
-.logo_dziennik > div{
+
+.logo_dziennik > div {
     display: flex;
     align-items: center;
 }
+
 #btnLogin {
     border: var(--border);
     padding: 0.4em 2em;
@@ -192,8 +197,24 @@ main {
 }
 
 #userPanel {
-    align-self: flex-start;
-    float: right;
-    width: 10vw;
-    left: 43.6vw;
+    width: 22vw;
+    max-width: 400px;
+}
+
+aside ul {
+    list-style-type: disc;
+    list-style-position: outside;
+    padding-left: 40px;
+    margin: 0;
+}
+
+
+aside ul, aside li {
+    display: block;
+}
+
+
+aside li::marker {
+    content: "•\00a0";
+    color: inherit;
 }

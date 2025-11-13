@@ -53,7 +53,7 @@ if (!$_SESSION['logged']) {
         <span>Przedszkole Chaosek</span>
     </a>
     <!--stasiek zrob to lepiej-->
-    <img id="login" src="./../assets/person.png" alt="login"
+    <img id="login" src="./../assets/user.png" alt="login"
             <?php
             if ($_SESSION['logged']) {
                 echo 'onclick="userPanelOn()"';
@@ -86,26 +86,30 @@ if (!$_SESSION['logged']) {
 <!-- MAIN -->
 <!-- ============================= -->
 <aside>
-    <ul>
+    <ul id="listaDzieci">
         <?php
         $connection = mysqli_connect("localhost", "root", "", "przedszkole");
+        $json = array();
         if (!$connection) {
             echo "Brak połączenia z bazą danych";
         } else {
-            $json = array();
             if ($result = $connection->query(sprintf("SELECT imie, nazwisko, pesel, adres, grupa FROM dzieci WHERE IDrodzica='%s'", mysqli_real_escape_string($connection, $_SESSION['id'])))) {
                 $result = $result->fetch_all();
                 foreach ($result as $row) {
-                    echo "<li>" . $row[0] . " " . $row[1] . " - " . $row[4] . "</li>";
                     $json[] = $row;
                 }
             }
         }
         $connection->close();
         ?>
-    </ul>
 
+    </ul>
+    <script>
+        let php = <?php echo json_encode($json); ?>;
+        showChildren(php);
+    </script>
 </aside>
+<script src="./../scripts/js/childrens.js"></script>
 <main>
     <?php printArr($_SESSION); ?>
     <div class="wrapper" id="userWrapper">

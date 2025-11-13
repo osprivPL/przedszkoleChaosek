@@ -7,11 +7,12 @@
 
 aside{
     float: left;
-    width: 33.3%;
+    width: 20%;
+    border-right: 3px solid var(--darker-main);
 }
 main{
     float: left;
-    width: 64%;
+    width: 77%;
 }
 aside, main{
     height: 80vh;

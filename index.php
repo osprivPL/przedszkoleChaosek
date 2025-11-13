@@ -125,7 +125,7 @@ if (!isset($_SESSION['error'])) {
         <h1 class='logo_dziennik'>
             <div>
                 <img src="assets/logo_tornado.svg" alt="logo">
-                <span>Dzienniczek Chaosu</span>
+<!--                <span>Dzienniczek Chaosu</span>-->
             </div>
 
             <button onclick="loginOff()" class="offButton">X</button>
