@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 session_start();
 //session_destroy();
@@ -24,13 +25,18 @@ if (!isset($_SESSION['error'])) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="author" content="Michał Ożdżyński Stanisław Odrowski Piotr Peryt">
+
+    <!-- style -->
     <link rel="stylesheet" href="./styles/style.css">
-    <link rel="stylesheet" href="./styles/index.css">
+<!--    <link rel="stylesheet" href="./styles/index.css">-->
 
     <!-- czcionka -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- ikonka -->
+    <link rel="icon" type="image/x-icon" href="./assets/logo_tornado.svg">
 
     <title>Przedszkole Chaosek</title>
 </head>
@@ -128,8 +134,7 @@ if (!isset($_SESSION['error'])) {
             <button onclick="loginOff()" class="offButton">X</button>
         </div>
         <button id="btnLogin">Zaloguj</button>
-    </form>
-    <span id="loginError" name="loginError" class="error">
+        <span id="loginError" name="loginError" class="error">
         <?php
         if (isset($_SESSION['error'])) {
 
@@ -143,6 +148,8 @@ if (!isset($_SESSION['error'])) {
         }
         ?>
     </span>
+    </form>
+
 </div>
 
 <div class="wrapper" id="userWrapper">
@@ -164,9 +171,9 @@ if (!isset($_SESSION['error'])) {
         <a href="
         <?php
         if ($_SESSION['typ'] == 0) {
-            echo "./panels/parents.html";
+            echo "./panels/parents.php";
         } else {
-            echo "./panels/parents.html";
+            echo "./panels/admin.html";
         }
         ?>
         ">
