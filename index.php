@@ -101,7 +101,6 @@ if (!isset($_SESSION['error']) ) {
 
 <div class="panelWrapper" id="panelWrapper">
     <form class="panel" action="./scripts/php/login.php" method="post" id="loginPanel">
-        <div class="LogIn">
             <h3>Log in</h3>
             <div class="Login">
                 <div>
@@ -114,10 +113,9 @@ if (!isset($_SESSION['error']) ) {
                     <input type="text" name="tbxHaslo" id="tbxHaslo">
                     <span class="error" id="passwordError"></span>
                 </div>
+                <button onclick="loginOff()" class="offButton">X</button>
             </div>
-        </div>
         <button id="btnLogin">Zaloguj</button>
-        <button onclick="loginOff()" class="offButton">X</button>
     </form>
     <span id="loginError" name="loginError" class="error">
         <?php

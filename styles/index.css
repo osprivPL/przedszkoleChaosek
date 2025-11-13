@@ -3,23 +3,36 @@
 
 .panelWrapper {
     position: absolute;
-    left: 50%;
-    top: 25%;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     visibility: hidden;
     z-index: 1000;
 }
 
 .panel {
-    flex-direction: column;
     position: relative;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     gap: 1em;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    height: 14vw;
+
     text-align: center;
-    border: solid 3px black;
-    padding: 1em;
+    border: var(--border);
+    background: var(--main-color);
+    background: linear-gradient(to right top, color-mix(in srgb, var(--main-color) 50%, white 15%), color-mix(in srgb, var(--main-color) 50%, black 15%));
+    border-radius: 10px;
+
 }
 
 .Login {
@@ -37,11 +50,18 @@
     width: 10em;
 }
 
-.LogIn {
-    background: var(--main-color);
-}
 
 .offButton {
+    color: black;
+    background: red;
+    background: linear-gradient(to right top, rgb(255, 0, 0), rgb(180, 0, 0));
+    border: var(--border);
+    border-radius: 5px;
+
+    width: 1.8em;
+    height: 1.8em;
+    
+
     position: absolute;
     right: 0;
     top: 0;
