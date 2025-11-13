@@ -20,7 +20,7 @@ document.getElementById("loginPanel").addEventListener("submit", function(e){
         error=true;
     }
     else{
-        email.style.borderColor="initial";
+        password.style.borderColor="initial";
         document.getElementById("passwordError").innerHTML="";
     }
     if (error) return;

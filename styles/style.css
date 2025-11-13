@@ -14,13 +14,26 @@ body {
     background: var(--main-color);
     background: linear-gradient(to right top, var(--main-color)), color-mix(in srgb, var(--main-color) 50%, black 10%);
     overflow-x: hidden;
+    overflow-y: scroll;
+}
+#dark_bg{
+    background-color: rgba(0,0,0,0.25);
+    height: 400vh;
+    width: 100%;
+    position: absolute;
+    pointer-events: none;
+    visibility: hidden;
 }
 
 header {
-    width: 99%;
+    width: 97%;
     height: 10vh;
-    padding-bottom: 1.2vh;
     font-size: 36px;
+    border: var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5vh;
 }
 
 header #logo {
@@ -28,24 +41,31 @@ header #logo {
     height: 10vh;
     display: flex;
     align-items: center;
-    margin: auto;
-    color: var(--darker-main);
-    float: left;
+    color: black;
+}
+
+header #login{
+    background-image: url('./../assets/user.png');
+    height: 10vh;
+    width: 10vh;
+    background-size:cover;
+    transition: background-image 0.2s;
+    cursor: pointer;
+}
+
+header #login:hover{
+    background-image: url('./../assets/user_hover.png');
 }
 
 a {
     text-decoration: none;
     text-decoration-color: var(--darker-main);
 }
-
-img {
-    max-width: 10vh;
+img{
+    max-width:10vh;
 }
 
-header #login {
-    float: right;
-    height: 100%;
-}
+
 
 nav {
     position: sticky;
@@ -61,15 +81,18 @@ nav a {
     box-sizing: border-box;
     width: 20%;
     background-color: var(--darker-main);
-    /* stasiu do zmiany */
     margin: 0;
     border: 4px outset var(--darker-darker-main);
+    color: white;
+    font-size: 32px;
+    -webkit-text-stroke: var(--darker-darker-main) 1px;
 }
 
 nav a:hover {
     background-color: var(--darker-darker-main);
     border: 4px inset var(--darker-main);
     transition: 0.2s;
+    -webkit-text-stroke: 0px;
 }
 
 nav a:active {
@@ -115,6 +138,7 @@ main {
     background: var(--main-color);
     background: linear-gradient(to right top, color-mix(in srgb, var(--main-color) 50%, white 15%), color-mix(in srgb, var(--main-color) 50%, black 15%));
     border-radius: 10px;
+    transform: scale(2);
 }
 .offButton {
     color: black;
@@ -125,8 +149,20 @@ main {
     width: 1.8em;
     height: 1.8em;
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 1vh;
+    top: 1vh;
+    cursor: pointer;
+}
+.offButton:hover{
+    background: darkred;
+}
+#btnLogin{
+    border: var(--border);
+    padding: 0 2em 0 2em;
+    cursor: pointer;
+}
+#btnLogin:hover{
+    background-color: lightgray;
 }
 #userPanel{
     align-self: flex-start;

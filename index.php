@@ -40,7 +40,8 @@ if (!isset($_SESSION['error'])) {
 
     <title>Przedszkole Chaosek</title>
 </head>
-<body>
+<body id='body'>
+    <div id="dark_bg"></div>
 <!-- ============================= -->
 <!-- HEADER -->
 <!-- ============================= -->
@@ -49,15 +50,15 @@ if (!isset($_SESSION['error'])) {
         <img src="assets/logo_tornado.svg" alt="logo">
         <span>Przedszkole Chaosek</span>
     </a>
-    <!--stasiek zrob to lepiej-->
-    <img id="login" src="./assets/person.png" alt="login"
+    <!--zrobilem troche lepiej -->
+    <div id="login"
             <?php
             if ($_SESSION['logged']) {
                 echo 'onclick="userPanelOn()"';
             } else {
                 echo 'onclick="loginOn()"';
             }
-            ?>>
+            ?>></div>
 </header>
 <!-- ============================= -->
 <!-- NAVIGATION -->
@@ -73,7 +74,7 @@ if (!isset($_SESSION['error'])) {
         <span>Jak dojechać?</span>
     </a>
     <a href="./index.php">
-        <span>REKRUTACJA</span>
+        <span>Rekrutacja</span>
     </a>
     <a href="./index.php">
         <span>Kontakt</span>
@@ -128,7 +129,7 @@ if (!isset($_SESSION['error'])) {
             </div>
             <div>
                 <label for="tbxHaslo">Hasło</label>
-                <input type="text" name="tbxHaslo" id="tbxHaslo">
+                <input type="text" name="tbxHaslo" id="tbxHaslo"><br>
                 <span class="error" id="passwordError"></span>
             </div>
             <button onclick="loginOff()" class="offButton">X</button>
