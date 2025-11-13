@@ -34,6 +34,7 @@ if (!isset($_SESSION['error'])) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&display=swap" rel="stylesheet">
 
     <!-- ikonka -->
     <link rel="icon" type="image/x-icon" href="./assets/logo_tornado.svg">
@@ -120,6 +121,14 @@ if (!isset($_SESSION['error'])) {
 <!-- ============================= -->
 <div class="wrapper" id="loginWrapper">
     <form class="panel" action="./scripts/php/login.php" method="post" id="loginPanel">
+        <h1 class='logo_dziennik'>
+            <div>
+                <img src="assets/logo_tornado.svg" alt="logo">
+                <span>Dzienniczek Chaosu</span>
+            </div>
+
+            <button onclick="loginOff()" class="offButton">X</button>
+        </h1>
         <h3>Log in</h3>
         <div class="Login">
             <div>
@@ -132,7 +141,6 @@ if (!isset($_SESSION['error'])) {
                 <input type="text" name="tbxHaslo" id="tbxHaslo"><br>
                 <span class="error" id="passwordError"></span>
             </div>
-            <button onclick="loginOff()" class="offButton">X</button>
         </div>
         <button id="btnLogin">Zaloguj</button>
         <span id="loginError" name="loginError" class="error">

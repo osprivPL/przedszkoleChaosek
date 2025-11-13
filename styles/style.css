@@ -3,18 +3,18 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: "Pacifico", "Comic Sans MS", serif;
     font-weight: 400;
     font-style: normal;
 }
 
 body {
-    width: 100vw;
+    width: 100%;
     height: 200vh;
     background: var(--main-color);
     background: linear-gradient(to right top, var(--main-color)), color-mix(in srgb, var(--main-color) 50%, black 10%);
     overflow-x: hidden;
     overflow-y: scroll;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
 #dark_bg{
     background-color: rgba(0,0,0,0.25);
@@ -26,14 +26,15 @@ body {
 }
 
 header {
-    width: 97%;
+    width: 96.75%;
     height: 10vh;
     font-size: 36px;
     border: var(--border);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5vh;
+    padding: 1.5%;
+    font-family: "Pacifico", "Comic Sans MS", serif;
 }
 
 header #logo {
@@ -85,7 +86,8 @@ nav a {
     border: 4px outset var(--darker-darker-main);
     color: white;
     font-size: 32px;
-    -webkit-text-stroke: var(--darker-darker-main) 1px;
+    -webkit-text-stroke: var(--darker-darker-main) 1.5px;
+    font-family: "Momo Trust Display", sans-serif;
 }
 
 nav a:hover {
@@ -132,7 +134,8 @@ main {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    height: 14vw;
+    height: 30vh;
+    min-height: 200px;
     text-align: center;
     border: var(--border);
     background: var(--main-color);
@@ -148,14 +151,33 @@ main {
     border-radius: 5px;
     width: 1.8em;
     height: 1.8em;
-    position: absolute;
-    right: 1vh;
-    top: 1vh;
     cursor: pointer;
 }
 .offButton:hover{
     background: darkred;
 }
+.logo_dziennik{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:95%;
+    padding: 0 2.5%;
+    height: 4vh;
+    font-size: 12px;
+    position: absolute;
+    top: 0;
+    background-color: rgba(0,0,0,0.25);
+    backdrop-filter: blur(3px);
+    font-family: "Pacifico", "Comic Sans MS", serif;
+}
+.logo_dziennik img{
+    height: 4vh;
+}
+.logo_dziennik > div{
+    display: flex;
+    align-items: center;
+}
+
 #btnLogin{
     border: var(--border);
     padding: 0 2em 0 2em;
