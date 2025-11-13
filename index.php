@@ -117,6 +117,7 @@ if (!isset($_SESSION['error']) ) {
             </div>
         </div>
         <button id="btnLogin">Zaloguj</button>
+        <button onclick="loginOff()" class="offButton">X</button>
     </form>
     <span id="loginError" name="loginError" class="error">
         <?php
@@ -131,7 +132,7 @@ if (!isset($_SESSION['error']) ) {
         }
         ?>
     </span>
-    <button onclick="loginOff()" class="offButton">X</button>
+    
 </div>
 
 
