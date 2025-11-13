@@ -34,6 +34,9 @@ if (!isset($_SESSION['error']) ) {
     <title>Przedszkole Chaosek</title>
 </head>
 <body>
+<!-- ============================================== -->
+<!-- HEADER -->
+<!-- ============================================== -->
 <header>
     <a href="./index.php" id="logo">
         <img src="assets/logo_tornado.svg" alt="logo">
@@ -49,6 +52,9 @@ if (!isset($_SESSION['error']) ) {
             }
             ?>>
 </header>
+<!-- ============================================== -->
+<!-- NAVIGATION -->
+<!-- ============================================== -->
 <nav>
     <a href="./index.php">
         <span>O nas</span>
@@ -66,6 +72,9 @@ if (!isset($_SESSION['error']) ) {
         <span>Kontakt</span>
     </a>
 </nav>
+<!-- ============================================== -->
+<!-- MAIN -->
+<!-- ============================================== -->
 <main>
     <?php printArr($_SESSION); ?>
 </main>
@@ -98,7 +107,9 @@ if (!isset($_SESSION['error']) ) {
 <!--    </div>-->
 <!--</div>-->
 
-
+<!-- ============================================== -->
+<!-- LOGIN PANEL -->
+<!-- ============================================== -->
 <div class="panelWrapper" id="panelWrapper">
     <form class="panel" action="./scripts/php/login.php" method="post" id="loginPanel">
             <h3>Log in</h3>
