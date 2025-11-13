@@ -44,7 +44,7 @@ if (!isset($_SESSION['error'])) {
     <img id="login" src="./assets/person.png" alt="login"
             <?php
             if ($_SESSION['logged']) {
-
+                echo 'onclick=userPanelOn()';
             } else {
                 echo 'onclick="loginOn()"';
             }
@@ -139,6 +139,21 @@ if ($_SESSION['logged']) {
 }
 ?>
 
+<div id="userPanel" class="userPanel">
+    <p>Imię: <?php echo $_SESSION['imie'] ?></p>
+    <p>Nazwisko: <?php echo $_SESSION['nazwisko'] ?></p>
+    <p>Typ konta:
+        <?php
+        if ($_SESSION['typ'] == 0) {
+            echo "Rodzic";
+        } else if ($_SESSION['typ'] == 1) {
+            echo "Nauczyciel(ka)";
+        } else {
+            echo "Dyrekcja";
+        }
+        ?>
+    </p>
+</div>
 
 <script src="./scripts/js/showLogin.js"></script>
 <script src="./scripts/js/indexFormValidator.js"></script>

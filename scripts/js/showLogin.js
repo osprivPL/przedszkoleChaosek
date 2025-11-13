@@ -4,3 +4,9 @@ function loginOn(){
 function loginOff(){
     document.getElementById("panelWrapper").style.visibility = "hidden";
 }
+function userPanelOn(){
+    document.getElementById("userPanel").style.visibility = "visible";
+}
+function userPanelOff(){
+    document.getElementById("userPanel").style.visibility = "hidden";
+}

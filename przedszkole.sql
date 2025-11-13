@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 13, 2025 at 12:51 PM
+-- Generation Time: Nov 13, 2025 at 01:39 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -71,7 +71,7 @@ CREATE TABLE `uzytkownicy` (
   `ID` int(11) NOT NULL,
   `imie` varchar(50) NOT NULL,
   `nazwisko` varchar(50) NOT NULL,
-  `Typ` int(11) NOT NULL COMMENT '0 - rodzic, 1- nauczyciel, 2-dyrekcja',
+  `typ` int(11) NOT NULL COMMENT '0 - rodzic, 1- nauczyciel, 2-dyrekcja',
   `login` varchar(16) NOT NULL,
   `haslo` varchar(257) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
@@ -80,8 +80,8 @@ CREATE TABLE `uzytkownicy` (
 -- Dumping data for table `uzytkownicy`
 --
 
-INSERT INTO `uzytkownicy` (`ID`, `imie`, `nazwisko`, `Typ`, `login`, `haslo`) VALUES
-(1, 'Jan', 'Kruk', 0, '', ''),
+INSERT INTO `uzytkownicy` (`ID`, `imie`, `nazwisko`, `typ`, `login`, `haslo`) VALUES
+(1, 'Jan', 'Kruk', 0, 'jKruk@gmail.com', '$2y$10$V5DNoqC33NA5fe9CJ/QTMu7SSHWuKcPZfgl6GIaPtlA4hwGrwQWfq'),
 (2, 'Stanisław', 'Odrowski', 1, '', ''),
 (3, 'Jeremiasz', 'Michorczyk', 2, '', '');
 
