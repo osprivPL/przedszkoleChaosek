@@ -104,55 +104,58 @@ if (!$_SESSION['logged']) {
         ?>
 
     </ul>
-    <script>
-        let php = <?php echo json_encode($json); ?>;
-        showChildren(php);
-    </script>
 </aside>
-<script src="./../scripts/js/childrens.js"></script>
-<main>
+
+<main id="main">
     <?php printArr($_SESSION); ?>
-    <div class="wrapper" id="userWrapper">
-        <div id="userPanel" class="panel">
-            <button onclick="userPanelOff()" class="offButton">X</button>
-            <p>Imię: <?php echo $_SESSION['imie'] ?></p>
-            <p>Nazwisko: <?php echo $_SESSION['nazwisko'] ?></p>
-            <p>Typ konta:
-                <?php
-                if ($_SESSION['typ'] == 0) {
-                    echo "Rodzic";
-                } else if ($_SESSION['typ'] == 1) {
-                    echo "Nauczyciel(ka)";
-                } else {
-                    echo "Dyrekcja";
-                }
-                ?>
-            </p>
-            <a href="
-        <?php
-            if ($_SESSION['typ'] == 0) {
-                echo "./parents.php";
-            } else {
-                echo "./admin.html";
-            }
-            ?>
-        ">
-                <button>
-                    <?php
-                    if ($_SESSION['typ'] == 0) {
-                        echo "Panel Rodzica";
-                    } else {
-                        echo "Panel Pracownika";
-                    }
-                    ?>
-                </button>
-            </a>
-            <form action="./../scripts/php/logout.php" method="post">
-                <button type="submit">Wyloguj</button>
-            </form>
-        </div>
-    </div>
+
     <script src="./../scripts/js/showLogin.js"></script>
 </main>
+<div class="wrapper" id="userWrapper">
+    <div id="userPanel" class="panel">
+        <button onclick="userPanelOff()" class="offButton">X</button>
+        <p>Imię: <?php echo $_SESSION['imie'] ?></p>
+        <p>Nazwisko: <?php echo $_SESSION['nazwisko'] ?></p>
+        <p>Typ konta:
+            <?php
+            if ($_SESSION['typ'] == 0) {
+                echo "Rodzic";
+            } else if ($_SESSION['typ'] == 1) {
+                echo "Nauczyciel(ka)";
+            } else {
+                echo "Dyrekcja";
+            }
+            ?>
+        </p>
+        <a href="
+        <?php
+        if ($_SESSION['typ'] == 0) {
+            echo "./parents.php";
+        } else {
+            echo "./admin.html";
+        }
+        ?>
+        ">
+            <button>
+                <?php
+                if ($_SESSION['typ'] == 0) {
+                    echo "Panel Rodzica";
+                } else {
+                    echo "Panel Pracownika";
+                }
+                ?>
+            </button>
+        </a>
+        <form action="./../scripts/php/logout.php" method="post">
+            <button type="submit">Wyloguj</button>
+        </form>
+    </div>
+</div>
+<script src="./../scripts/js/childrens.js"></script>
+<script>
+    let php = <?php echo json_encode($json); ?>;
+    showOnAside(php);
+    // console.log(php);
+</script>
 </body>
 </html>
