@@ -86,7 +86,10 @@ if (!isset($_SESSION['error'])) {
 <!-- MAIN -->
 <!-- ============================= -->
 <main>
-
+    <?php printArr($_SESSION); ?>
+    <form action="./scripts/php/loginAsParent.php" method="post">
+        <button type="submit" id="btnLoginAsParent">Zaloguj się jako Rodzic (demo)</button>
+    </form>
 </main>
 
 
