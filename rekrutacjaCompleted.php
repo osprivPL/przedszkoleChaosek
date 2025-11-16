@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <?php
 session_start();
-//session_destroy();
 require_once "./scripts/php/printArr.php";
+if (!isset($_SESSION['registered']))
 if (!isset($_SESSION['logged'])) {
     $_SESSION['logged'] = false;
 }
@@ -83,19 +83,9 @@ if (!isset($_SESSION['error'])) {
         printArr($_SESSION);
     ?>
     <div id="container">
-        <h1>Podaj kod wysłany na Twój email</h1>
-        <form action="./scripts/php/verifyCode.php" method="post" id="codeForm">
-            <label for="tbxCode" >Kod:</label>
-            <input type="text" name="tbxCode" id="tbxCode" maxlength="6" required>
-            <span class="error" id="codeError"></span><br>
-            <button type="submit" id="btnVerifyCode">Zweryfikuj kod</button>
-        </form>
-        <?php
-            if ($_SESSION['error'] == 3) {
-                echo "<span class='error'>Nieprawidłowy kod</span>";
-                unset($_SESSION['error']);
-            }
-        ?>
+        <h1>WNIOSEK ZŁOŻONY POMYŚLNIE!</h1>
+        <p>Dziękujemy za złożenie wniosku o przyjęcie dziecka do naszego przedszkola. Wkrótce otrzymają Państwo
+            wiadomość e-mail z informacją o wyniku rekrutacji.</p>
     </div>
 </main>
 

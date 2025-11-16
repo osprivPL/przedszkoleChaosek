@@ -83,15 +83,14 @@ if (!isset($_SESSION['error'])) {
     <!--    --><?php //printArr($_SESSION); ?>
     <div id="container">
         <h1>ZAPISZ SWOJE DZIECKO JUŻ TERAZ</h1>
-        <form id="frmRekrutacja" action=
+        <form id="frmRekrutacja" method="post" action=
         <?php
         if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
             echo "./scripts/php/dodanoDziecko.php";
         } else {
             echo "./scripts/php/MAIL.php";
         }
-        ?>
-        >
+        ?>>
             <div id="frmChild">
                 <input type="text" id="frmChildImie" name="frmChildImie" placeholder="Imię dziecka" required>
                 <input type="text" id="frmChildNazwisko" name="frmChildNazwisko" placeholder="Nazwisko dziecka"
