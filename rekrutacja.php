@@ -8,13 +8,6 @@ if (!isset($_SESSION['logged'])) {
 }
 if (!isset($_SESSION['error'])) {
     $_SESSION['error'] = -1;
-} else if ($_SESSION['error'] != -1) {
-    echo '<script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var loginEl = document.getElementById("login");
-            if (loginEl) loginEl.click();
-        });
-    </script>';
 }
 ?>
 
@@ -28,7 +21,7 @@ if (!isset($_SESSION['error'])) {
 
     <!-- style -->
     <link rel="stylesheet" href="./styles/style.css">
-    <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="./styles/rekrutacja.css">
 
     <!-- czcionka -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -86,9 +79,37 @@ if (!isset($_SESSION['error'])) {
 <!-- MAIN -->
 <!-- ============================= -->
 <main>
-
+    <!--    --><?php //printArr($_SESSION); ?>
+    <div id="container">
+        <h1>ZAPISZ SWOJE DZIECKO JUŻ TERAZ</h1>
+        <form id="frmRekrutacja">
+            <div id="frmChild">
+                <input type="text" id="frmChildImie" name="frmChildImie" placeholder="Imię dziecka" required>
+                <input type="text" id="frmChildNazwisko" name="frmChildNazwisko" placeholder="Nazwisko dziecka"
+                       required>
+                <input type="text" id="frmChildPesel" name="frmChildPesel" placeholder="Pesel dziecka" required>
+                <input type="text" id="frmChildAdres" name="frmChildAdres" placeholder="Adres zamieszkania dziecka"
+                       required>
+                <input type="text" id="frmInne" name="frmInne" placeholder="Inne ważne informacje"
+                       style="width: 200px; height: 100px;">
+            </div>
+            <div id="frmParent" <?php
+            if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
+                echo 'style="display:none;"';
+            }
+            ?>>
+                <input type="text" id="frmParentImie" name="frmParentImie" placeholder="Imię rodzica/opiekuna" required>
+                <input type="text" id="frmParentNazwisko" name="frmParentNazwisko"
+                       placeholder="Nazwisko rodzica/opiekuna" required>
+                <input type="text" id="frmParentTelefon" name="frmParentTelefon"
+                       placeholder="Numer telefonu rodzica/opiekuna"
+                       required>
+                <input type="email" id="frmParentEmail" name="frmParentEmail" placeholder="Email rodzica/opiekuna"
+                       required>
+            </div>
+        </form>
+    </div>
 </main>
-
 
 <!-- ============================= -->
 <!-- LOGIN PANEL -->
@@ -98,9 +119,7 @@ if (!isset($_SESSION['error'])) {
         <h1 class='logo_dziennik'>
             <div>
                 <img src="assets/logo_tornado.svg" alt="logo">
-                <!--                <span>Dzienniczek Chaosu</span>-->
             </div>
-
             <button onclick="loginOff()" class="offButton">X</button>
         </h1>
         <h3>Log in</h3>

@@ -26,14 +26,15 @@ body {
 }
 
 header {
-    width: 97.5%;
+    width: 100vw;
     height: 10vh;
     font-size: 36px;
     border: var(--border);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5vh;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
     background: linear-gradient(to right, var(--secondary-color), color-mix(in srgb, var(--secondary-color) 70%, white 20%));
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -57,6 +58,7 @@ header #login {
     background-size: cover;
     transition: background-image 0.2s, transform 0.2s;
     cursor: pointer;
+    margin-right: 1vh;
 }
 
 header #login:hover {
@@ -73,6 +75,7 @@ nav {
     z-index: 10;
     background: var(--darker-main);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    height: 7vh;
 }
 
 nav a {
@@ -103,7 +106,6 @@ nav a:active {
 
 main {
     width: 100vw;
-    height: 100vh;
     padding: 18px;
 }
 
@@ -128,6 +130,7 @@ main {
 
 .panel {
     position: relative;
+    width: 15vw;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
