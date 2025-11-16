@@ -21,7 +21,7 @@ if (!isset($_SESSION['error'])) {
 
     <!-- style -->
     <link rel="stylesheet" href="./styles/style.css">
-    <link rel="stylesheet" href="./styles/rekrutacja.css">
+    <link rel="stylesheet" href="./styles/mailCode.css">
 
     <!-- czcionka -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +33,6 @@ if (!isset($_SESSION['error'])) {
     <link rel="icon" type="image/x-icon" href="./assets/logo_tornado.svg">
 
     <title>Przedszkole Chaosek</title>
-    <script src="scripts/js/registerValidator.js"></script>
 </head>
 <body id='body'>
 <!--przyciemnione tło jak odpalasz logowanie-->
@@ -48,13 +47,13 @@ if (!isset($_SESSION['error'])) {
     </a>
     <!--zrobilem troche lepiej -->
     <div id="login"
-            <?php
-            if ($_SESSION['logged']) {
-                echo 'onclick="userPanelOn()"';
-            } else {
-                echo 'onclick="loginOn()"';
-            }
-            ?>></div>
+        <?php
+        if ($_SESSION['logged']) {
+            echo 'onclick="userPanelOn()"';
+        } else {
+            echo 'onclick="loginOn()"';
+        }
+        ?>></div>
 </header>
 <!-- ============================= -->
 <!-- NAVIGATION -->
@@ -80,71 +79,9 @@ if (!isset($_SESSION['error'])) {
 <!-- MAIN -->
 <!-- ============================= -->
 <main>
-    <!--    --><?php //printArr($_SESSION); ?>
-    <div id="container">
-        <h1>ZAPISZ SWOJE DZIECKO JUŻ TERAZ</h1>
-        <form id="frmRekrutacja" action=
-        <?php
-        if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
-            echo "./scripts/php/dodanoDziecko.php";
-        } else {
-            echo "./scripts/php/MAIL.php";
-        }
-        ?>
-        >
-            <div id="frmChild">
-                <input type="text" id="frmChildImie" name="frmChildImie" placeholder="Imię dziecka" required>
-                <input type="text" id="frmChildNazwisko" name="frmChildNazwisko" placeholder="Nazwisko dziecka"
-                       required>
-                <input type="text" id="frmChildPesel" name="frmChildPesel" placeholder="Pesel dziecka" required>
-                <input type="text" id="frmChildAdres" name="frmChildAdres" placeholder="Adres zamieszkania dziecka"
-                       required>
-                <input type="text" id="frmInne" name="frmInne" placeholder="Inne ważne informacje"
-                       style="width: 200px; height: 100px;">
-            </div>
-            <div id="frmParent" <?php
-            if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
-                echo 'style="display:none;"';
-            }
-            ?>>
-                <input type="text" id="frmParentImie" name="frmParentImie" placeholder="Imię rodzica/opiekuna" required
-                <?php
-                    if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
-                        echo 'value="' . $_SESSION['imie'] . '" readonly';
-                    }
-                ?>>
-                <input type="text" id="frmParentNazwisko" name="frmParentNazwisko"
-                       placeholder="Nazwisko rodzica/opiekuna" required
-                        <?php
-                        if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
-                            echo 'value="' . $_SESSION['nazwisko'] . '" readonly';
-                        }
-                        ?>>
-                <input type="text" id="frmParentTelefon" name="frmParentTelefon"
-                       placeholder="Numer telefonu rodzica/opiekuna"
-                       required
-                <?php
-                if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
-                    echo 'value="' . $_SESSION['telefon'] . '" readonly';
-                }
-                ?>>
-                <input type="email" id="frmParentEmail" name="frmParentEmail" placeholder="Email rodzica/opiekuna"
-                       required
-                       <?php
-                       if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
-                           echo 'value="' . $_SESSION['email'] . '" readonly';
-                       }?>
-                >
-            </div>
-            <button id="btnRekrutacja">Zapisz dziecko!</button>
-            <?php
-            if ($_SESSION['error'] == 2) {
-                echo '<span class="error">Wystąpił błąd podczas wysyłania formularza. Spróbuj ponownie później.</span>';
-                unset($_SESSION['error']);
-            } ?>
-            <span id="registerError" class="error"></span>
-        </form>
-    </div>
+    <?php
+        printArr($_POST);
+    ?>
 </main>
 
 <!-- ============================= -->
