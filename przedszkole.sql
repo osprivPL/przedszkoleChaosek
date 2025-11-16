@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 13, 2025 at 01:39 PM
+-- Generation Time: Nov 16, 2025 at 10:58 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,17 +48,43 @@ INSERT INTO `artykuly` (`ID`, `naglowek`, `tresc`, `img`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dziecko`
+-- Table structure for table `dzieci`
 --
 
-CREATE TABLE `dziecko` (
+CREATE TABLE `dzieci` (
   `ID` int(11) NOT NULL,
-  `Imie` varchar(50) NOT NULL,
-  `Nazwisko` varchar(50) NOT NULL,
-  `Pesel` varchar(11) NOT NULL,
-  `Adres` varchar(100) NOT NULL,
-  `Grupa` varchar(10) NOT NULL,
-  `ID Rodzica` int(11) NOT NULL
+  `imie` varchar(50) NOT NULL,
+  `nazwisko` varchar(50) NOT NULL,
+  `pesel` varchar(11) NOT NULL,
+  `adres` varchar(100) NOT NULL,
+  `grupa` varchar(20) DEFAULT NULL,
+  `img` varchar(50) NOT NULL,
+  `IDRodzica` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Dumping data for table `dzieci`
+--
+
+INSERT INTO `dzieci` (`ID`, `imie`, `nazwisko`, `pesel`, `adres`, `grupa`, `img`, `IDRodzica`) VALUES
+(1, 'Jonaszek', 'Kruk', '21241201290', 'Łódź, ul. Sienkiewicza 6, m. 7', 'I - jeżyki', 'Jonaszek_Kruk.png', 1),
+(2, 'Aldona', 'Kruk', '20271912145', 'Łódź, ul. Sienkiewicza 6, m. 7', 'II - słoniki', 'Aldona_Kruk.png', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `oczekujace`
+--
+
+CREATE TABLE `oczekujace` (
+  `imieRodzica` varchar(50) NOT NULL,
+  `nazwiskoRodzica` varchar(50) NOT NULL,
+  `numerTelefonu` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `imieDziecka` varchar(50) NOT NULL,
+  `nazwiskoDziecka` varchar(50) NOT NULL,
+  `pesel` varchar(50) NOT NULL,
+  `adres` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 -- --------------------------------------------------------
@@ -72,6 +98,7 @@ CREATE TABLE `uzytkownicy` (
   `imie` varchar(50) NOT NULL,
   `nazwisko` varchar(50) NOT NULL,
   `typ` int(11) NOT NULL COMMENT '0 - rodzic, 1- nauczyciel, 2-dyrekcja',
+  `numerTelefonu` varchar(15) NOT NULL,
   `login` varchar(16) NOT NULL,
   `haslo` varchar(257) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
@@ -80,10 +107,10 @@ CREATE TABLE `uzytkownicy` (
 -- Dumping data for table `uzytkownicy`
 --
 
-INSERT INTO `uzytkownicy` (`ID`, `imie`, `nazwisko`, `typ`, `login`, `haslo`) VALUES
-(1, 'Jan', 'Kruk', 0, 'jKruk@gmail.com', '$2y$10$V5DNoqC33NA5fe9CJ/QTMu7SSHWuKcPZfgl6GIaPtlA4hwGrwQWfq'),
-(2, 'Stanisław', 'Odrowski', 1, '', ''),
-(3, 'Jeremiasz', 'Michorczyk', 2, '', '');
+INSERT INTO `uzytkownicy` (`ID`, `imie`, `nazwisko`, `typ`, `numerTelefonu`, `login`, `haslo`) VALUES
+(1, 'Jan', 'Kruk', 0, '123456789', 'jKruk@gmail.com', '$2y$10$V5DNoqC33NA5fe9CJ/QTMu7SSHWuKcPZfgl6GIaPtlA4hwGrwQWfq'),
+(2, 'Stanisław', 'Odrowski', 1, '', '', ''),
+(3, 'Jeremiasz', 'Michorczyk', 2, '', '', '');
 
 --
 -- Indexes for dumped tables
@@ -96,11 +123,11 @@ ALTER TABLE `artykuly`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `dziecko`
+-- Indexes for table `dzieci`
 --
-ALTER TABLE `dziecko`
+ALTER TABLE `dzieci`
   ADD PRIMARY KEY (`ID`),
-  ADD KEY `ID Rodzica` (`ID Rodzica`);
+  ADD KEY `ID Rodzica` (`IDRodzica`);
 
 --
 -- Indexes for table `uzytkownicy`
@@ -119,10 +146,10 @@ ALTER TABLE `artykuly`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `dziecko`
+-- AUTO_INCREMENT for table `dzieci`
 --
-ALTER TABLE `dziecko`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `dzieci`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `uzytkownicy`
@@ -135,10 +162,10 @@ ALTER TABLE `uzytkownicy`
 --
 
 --
--- Constraints for table `dziecko`
+-- Constraints for table `dzieci`
 --
-ALTER TABLE `dziecko`
-  ADD CONSTRAINT `dziecko_ibfk_1` FOREIGN KEY (`ID Rodzica`) REFERENCES `uzytkownicy` (`ID`);
+ALTER TABLE `dzieci`
+  ADD CONSTRAINT `dzieci_ibfk_1` FOREIGN KEY (`IDRodzica`) REFERENCES `uzytkownicy` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

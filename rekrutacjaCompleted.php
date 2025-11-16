@@ -2,12 +2,19 @@
 <?php
 session_start();
 require_once "./scripts/php/printArr.php";
-if (!isset($_SESSION['registered']))
+if (!isset($_SESSION['registered'])){
+    $_SESSION['registered'] = false;
+    header('Location: ./index.php');
+    die();
+}
 if (!isset($_SESSION['logged'])) {
     $_SESSION['logged'] = false;
 }
 if (!isset($_SESSION['error'])) {
     $_SESSION['error'] = -1;
+}
+if ($_SESSION['registered'] && $_SESSION['error'] == -1){
+
 }
 ?>
 
