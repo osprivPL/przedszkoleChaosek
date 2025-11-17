@@ -86,7 +86,7 @@ if (!isset($_SESSION['error'])) {
         <form id="frmRekrutacja" method="post" action=
         <?php
         if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
-            echo "./scripts/php/dodanoDziecko.php";
+            echo "rekrutacjaCompleted.php";
         } else {
             echo "./scripts/php/MAIL.php";
         }

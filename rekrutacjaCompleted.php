@@ -2,21 +2,62 @@
 <?php
 session_start();
 require_once "./scripts/php/printArr.php";
-if (!isset($_SESSION['registered'])){
+if (!isset($_SESSION['logged'])) {
+    $_SESSION['logged'] = false;
+} elseif ($_SESSION['logged']) {
+    $connection = mysqli_connect("localhost", "root", "", "przedszkole");
+    $_SESSION['registered'] = true;
+    if ($connection) {
+        printArr($_POST);
+        $childName = htmlentities($_POST['frmChildImie'], ENT_QUOTES, 'UTF-8');
+        $childSurname = htmlentities($_POST['frmChildNazwisko'], ENT_QUOTES, 'UTF-8');
+        $childPesel = htmlentities($_POST['frmChildPesel'], ENT_QUOTES, 'UTF-8');
+        $childAdres = htmlentities($_POST['frmChildAdres'], ENT_QUOTES, 'UTF-8');
+        $parentName = $_SESSION['imie'];
+        $parentSurname = $_SESSION['nazwisko'];
+        $parentNumer = $_SESSION['telefon'];
+        $parentEmail = $_SESSION['email'];
+        if ($connection->query(sprintf("SELECT * FROM oczekujace WHERE imieRodzica = '%s' AND nazwiskoRodzica = '%s' AND numerTelefonu = '%s' AND email='%s' AND imieDziecka = '%s' AND nazwiskoDziecka = '%s' AND pesel = '%s' AND adres = '%s'",
+                        mysqli_real_escape_string($connection, $parentName),
+                        mysqli_real_escape_string($connection, $parentSurname),
+                        mysqli_real_escape_string($connection, $parentNumer),
+                        mysqli_real_escape_string($connection, $parentEmail),
+                        mysqli_real_escape_string($connection, $childName),
+                        mysqli_real_escape_string($connection, $childSurname),
+                        mysqli_real_escape_string($connection, $childPesel),
+                        mysqli_real_escape_string($connection, $childAdres)))->num_rows > 0) {
+            $_SESSION['error'] = 5;
+        } else {
+            $sql = sprintf("INSERT INTO oczekujace(imieRodzica, nazwiskoRodzica, numerTelefonu, email, imieDziecka, nazwiskoDziecka, pesel, adres) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+                    mysqli_real_escape_string($connection, $parentName),
+                    mysqli_real_escape_string($connection, $parentSurname),
+                    mysqli_real_escape_string($connection, $parentNumer),
+                    mysqli_real_escape_string($connection, $parentEmail),
+                    mysqli_real_escape_string($connection, $childName),
+                    mysqli_real_escape_string($connection, $childSurname),
+                    mysqli_real_escape_string($connection, $childPesel),
+                    mysqli_real_escape_string($connection, $childAdres)
+            );
+        }
+        if (!$connection->query($sql)) {
+            $_SESSION['error'] = 4;
+        }
+    }
+}
+if (!isset($_SESSION['registered'])) {
     $_SESSION['registered'] = false;
     header('Location: ./index.php');
     die();
 }
-if (!isset($_SESSION['logged'])) {
-    $_SESSION['logged'] = false;
-}
+
 if (!isset($_SESSION['error'])) {
     $_SESSION['error'] = -1;
 }
-if ($_SESSION['registered'] && $_SESSION['error'] == -1){
+if ($_SESSION['registered'] && $_SESSION['error'] == -1) {
 
 }
 ?>
+
 
 <html lang="pl">
 <head>
@@ -54,13 +95,13 @@ if ($_SESSION['registered'] && $_SESSION['error'] == -1){
     </a>
     <!--zrobilem troche lepiej -->
     <div id="login"
-        <?php
-        if ($_SESSION['logged']) {
-            echo 'onclick="userPanelOn()"';
-        } else {
-            echo 'onclick="loginOn()"';
-        }
-        ?>></div>
+            <?php
+            if ($_SESSION['logged']) {
+                echo 'onclick="userPanelOn()"';
+            } else {
+                echo 'onclick="loginOn()"';
+            }
+            ?>></div>
 </header>
 <!-- ============================= -->
 <!-- NAVIGATION -->
@@ -87,12 +128,28 @@ if ($_SESSION['registered'] && $_SESSION['error'] == -1){
 <!-- ============================= -->
 <main>
     <?php
-        printArr($_SESSION);
+    printArr($_SESSION);
     ?>
     <div id="container">
-        <h1>WNIOSEK ZŁOŻONY POMYŚLNIE!</h1>
-        <p>Dziękujemy za złożenie wniosku o przyjęcie dziecka do naszego przedszkola. Wkrótce otrzymają Państwo
-            wiadomość e-mail z informacją o wyniku rekrutacji.</p>
+        <?php
+        if ($_SESSION['error'] == 4) {
+            echo '<h1>WNIOSEK ZŁOŻONY POMYŚLNIE!</h1>
+            <p>Dziękujemy za złożenie wniosku o przyjęcie dziecka do naszego przedszkola. Wkrótce otrzymają Państwo
+            wiadomość e-mail z informacją o wyniku rekrutacji.</p>';
+        }
+        elseif{
+            if ($_SESSION['error'] == 5){
+
+            }
+        }
+        else {
+            echo '<h1>WYSTĄPIŁ BŁĄD PODCZAS SKŁADANIA WNIOSKU!</h1>
+            <p>Przepraszamy, ale podczas składania wniosku o przyjęcie dziecka do naszego przedszkola wystąpił błąd.
+            Prosimy spróbować ponownie później. Jeśli problem będzie się powtarzał, prosimy o kontakt z administracją
+            przedszkola.</p>';
+        }
+        ?>
+
     </div>
 </main>
 
