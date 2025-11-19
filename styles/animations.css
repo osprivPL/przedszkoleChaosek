@@ -58,3 +58,34 @@
         opacity: 1;
     }
 }
+@keyframes slideUp {
+    0% {
+        transform: translateY(100%) scale(0.5);
+        opacity: 0;
+    }
+    5%,
+    20% {
+        transform: translateY(100%) scale(0.7);
+        opacity: 0.8;
+    }
+
+    25%,
+    40% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    45%,
+    60% {
+        transform: translateY(-100%) scale(0.7);
+        opacity: 0.8;
+    }
+
+    65%,
+    100% {
+        transform: translateY(-100%) scale(0.5);
+        opacity: 0;
+        pointer-events: none;
+    }
+}

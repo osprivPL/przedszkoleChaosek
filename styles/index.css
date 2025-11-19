@@ -4,18 +4,17 @@
 
 /*Do image, żeby przez przypadek ich nie draggować*/
 
-.logo-font{
+.logo-font {
     color: white;
     font-family: 'Pacifico';
-    text-shadow:
-            5px 5px 0 var(--green-darker),
-            -5px 5px 0 var(--green-darker),
-            5px -5px 0 var(--green-darker),
-            -5px -5px 0 var(--green-darker),
-            5px 0 0 var(--green-darker),
-            -5px 0 0 var(--green-darker),
-            0 5px 0 var(--green-darker),
-            0 -5px 0 var(--green-darker);
+    text-shadow: 5px 5px 0 var(--green-darker),
+    -5px 5px 0 var(--green-darker),
+    5px -5px 0 var(--green-darker),
+    -5px -5px 0 var(--green-darker),
+    5px 0 0 var(--green-darker),
+    -5px 0 0 var(--green-darker),
+    0 5px 0 var(--green-darker),
+    0 -5px 0 var(--green-darker);
 }
 
 /*Sticky nav przed scrollem*/
@@ -52,44 +51,44 @@
 }
 
 /*Ten inny kolor po lewo w navie*/
-.sticky-banner .square{
+.sticky-banner .square {
     z-index: 0;
 }
 
 /*Logo w navie*/
-.sticky-banner .logo{
+.sticky-banner .logo {
     z-index: 1;
     height: 100%;
     display: flex;
     font-size: 36px;
     align-items: center;
     font-family: 'Pacifico';
-    text-shadow:
-            2px 2px 0 var(--green-darker),
-            -2px 2px 0 var(--green-darker),
-            2px -2px 0 var(--green-darker),
-            -2px -2px 0 var(--green-darker),
-            2px 0 0 var(--green-darker),
-            -2px 0 0 var(--green-darker),
-            0 2px 0 var(--green-darker),
-            0 -2px 0 var(--green-darker);
+    text-shadow: 2px 2px 0 var(--green-darker),
+    -2px 2px 0 var(--green-darker),
+    2px -2px 0 var(--green-darker),
+    -2px -2px 0 var(--green-darker),
+    2px 0 0 var(--green-darker),
+    -2px 0 0 var(--green-darker),
+    0 2px 0 var(--green-darker),
+    0 -2px 0 var(--green-darker);
     text-decoration: none;
 }
 
-.sticky-banner .logo img{
+.sticky-banner .logo img {
     height: 100%;
     margin-right: 25px;
 }
 
 /*sekcja z linkami w navie*/
-.sticky-banner .nav{
+.sticky-banner .nav {
     z-index: 1;
     width: 50%;
     display: flex;
     justify-content: space-around;
 }
+
 /*główny slide*/
-.header{
+.header {
     z-index: 500;
     background-color: var(--green-vibrant);
     display: flex;
@@ -101,8 +100,9 @@
     position: relative;
     margin-top: -155px;
 }
+
 /*Inny kolor po lewo zrobiony przez obracanie kwadratu*/
-.square{
+.square {
     transform: rotate(-25deg);
     background-color: var(--green-dark);
     position: absolute;
@@ -111,11 +111,12 @@
     height: 150%;
     width: 100%;
 }
+
 /*Linki na głównym slidzie*/
-.header .nav{
+.header .nav {
     position: absolute;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
 
     width: 84vw;
     height: 100px;
@@ -127,7 +128,8 @@
     animation-delay: 0.5s;
     opacity: 0;
 }
-.nav a{
+
+.nav a {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: white;
     font-weight: bold;
@@ -138,48 +140,54 @@
     text-align: center;
     padding: 0.5em 1em;
 }
-.nav a:hover{
-    background-color: rgba(0,0,0,0.1)
+
+.nav a:hover {
+    background-color: rgba(0, 0, 0, 0.1)
 }
-.nav a:active{
-    background-color: rgba(0,0,0,0.2)
+
+.nav a:active {
+    background-color: rgba(0, 0, 0, 0.2)
 }
+
 /*logo na środku*/
-.header .logo{
+.header .logo {
     display: flex;
     height: 70vh;
     width: 80vw;
     z-index: 999;
     animation: appear_logo 1.5s ease;
 }
+
 /*container z imagem loga na środku*/
-.header .logo .logo_img_container{
-    width:40%;
-    height:100%;
+.header .logo .logo_img_container {
+    width: 40%;
+    height: 100%;
 }
-.logo_img_container img{
+
+.logo_img_container img {
     width: 100%;
     height: 100%;
     pointer-events: none;
 }
+
 /*Text na głównym slidzie*/
-.header .logo .text{
+.header .logo .text {
     width: 60%;
     font-size: 8vw;
     line-height: 10vw;
     display: flex;
     align-items: center;
-    text-shadow:
-            5px 5px 0 var(--green-darker),
-            -5px 5px 0 var(--green-darker),
-            5px -5px 0 var(--green-darker),
-            -5px -5px 0 var(--green-darker),
-            5px 0 0 var(--green-darker),
-            -5px 0 0 var(--green-darker),
-            0 5px 0 var(--green-darker),
-            0 -5px 0 var(--green-darker);
+    text-shadow: 5px 5px 0 var(--green-darker),
+    -5px 5px 0 var(--green-darker),
+    5px -5px 0 var(--green-darker),
+    -5px -5px 0 var(--green-darker),
+    5px 0 0 var(--green-darker),
+    -5px 0 0 var(--green-darker),
+    0 5px 0 var(--green-darker),
+    0 -5px 0 var(--green-darker);
 }
-.slide{
+
+.slide {
     scroll-margin-top: 155px;
     min-height: 80vh;
     width: 100vw;
@@ -187,12 +195,14 @@
     box-sizing: border-box;
     overflow: hidden;
 }
-.o_nas{
+
+.o_nas {
     padding: 3em;
     position: relative;
     background-color: rgb(79, 144, 88);
 }
-h1{
+
+h1 {
     font-family: 'Pacifico';
     font-size: 120px;
     margin: 0 0 20px 0;
@@ -207,24 +217,28 @@ h1{
     display: inline-block;
     position: relative;
 }
-.hide_brush{
+
+.hide_brush {
     width: 100%;
     height: 300px;
     position: absolute;
     opacity: 0;
     top: 0;
 }
-.o_nas .hide_brush{
+
+.o_nas .hide_brush {
     background-color: rgb(79, 144, 88);
     left: -10%;
 }
-.o_nas .hide_brush.in-view{
+
+.o_nas .hide_brush.in-view {
     animation: draw1 1s ease-out;
 }
-.o_nas .text{
+
+.o_nas .text {
     font-size: 36px;
     text-align: justify;
-    width:60%;
+    width: 60%;
     font-family: "Sour Gummy", sans-serif;
     font-weight: 400;
     border-left: 25px var(--green-dark) solid;
@@ -234,7 +248,8 @@ h1{
     max-height: none;
     opacity: 0;
 }
-.o_nas img{
+
+.o_nas img {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -243,11 +258,12 @@ h1{
     object-fit: contain;
 }
 
-.o_nas .text.in-view{
+.o_nas .text.in-view {
     animation: grow1 1s ease forwards;
     animation-delay: 0.75s;
 }
-.aktualnosci{
+
+.aktualnosci {
     padding: 3em;
     display: flex;
     justify-content: center;
@@ -257,25 +273,30 @@ h1{
     background-repeat: no-repeat;
     max-height: 80vh;
 }
-.aktualnosci .slider{
+
+.aktualnosci .slider {
     width: 50%;
 }
-.aktualnosci .text_container{
+
+.aktualnosci .text_container {
     width: 50%;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     padding-top: 1em;
 }
-.aktualnosci .hide_brush{
+
+.aktualnosci .hide_brush {
     right: -10%;
     background-color: var(--green-vibrant);
     z-index: 0;
 }
-.aktualnosci .hide_brush.in-view{
+
+.aktualnosci .hide_brush.in-view {
     animation: draw2 1.5s ease-out;
 }
-.aktualnosci .text{
+
+.aktualnosci .text {
     font-size: 36px;
     text-align: justify;
     font-family: "Sour Gummy", sans-serif;
@@ -289,10 +310,12 @@ h1{
     max-height: 40vh;
     overflow-y: auto;
 }
-.aktualnosci .text.in-view{
+
+.aktualnosci .text.in-view {
     animation: grow2 1s ease forwards;
     animation-delay: 0.75s;
 }
+
 .slider {
     display: grid;
     place-items: center;
@@ -304,7 +327,8 @@ h1{
     color: white;
     font-family: "Sour Gummy", sans-serif;
 }
-.slides{
+
+.slides {
     position: relative;
     display: flex;
     align-items: center;
@@ -313,6 +337,7 @@ h1{
     width: 100%;
     height: 100%;
 }
+
 .slider_element {
     position: absolute;
     opacity: 0;
@@ -324,39 +349,43 @@ h1{
     background-repeat: no-repeat;
     border-radius: 25px;
     box-sizing: border-box;
+    pointer-events: none; /* Add this */
 }
-.slide_content{
+
+.slide_content {
     position: relative;
     width: 100%;
     height: 100%;
     overflow: hidden;
     border-radius: 25px;
 }
-.slide_content .title{
+
+.slide_content .title {
     padding: 0 .5em;
     font-size: 36px;
     background-color: rgba(0, 71, 31, 0.7);
     text-wrap: nowrap;
-    font-family:'Pacifico';
-    text-shadow:
-            2px 2px 0 var(--green-darker),
-            -2px 2px 0 var(--green-darker),
-            2px -2px 0 var(--green-darker),
-            -2px -2px 0 var(--green-darker),
-            2px 0 0 var(--green-darker),
-            -2px 0 0 var(--green-darker),
-            0 2px 0 var(--green-darker),
-            0 -2px 0 var(--green-darker);
+    font-family: 'Pacifico';
+    text-shadow: 2px 2px 0 var(--green-darker),
+    -2px 2px 0 var(--green-darker),
+    2px -2px 0 var(--green-darker),
+    -2px -2px 0 var(--green-darker),
+    2px 0 0 var(--green-darker),
+    -2px 0 0 var(--green-darker),
+    0 2px 0 var(--green-darker),
+    0 -2px 0 var(--green-darker);
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     box-sizing: border-box;
 }
-.slide_content .title > span{
+
+.slide_content .title > span {
     float: right;
 }
-.slide_content .context{
+
+.slide_content .context {
     padding: .5em;
     font-size: 30px;
     font-weight: 300;
@@ -370,56 +399,28 @@ h1{
     opacity: 0;
     transition: all 0.3s;
 }
-.slide_content:hover .context{
+
+.slide_content:hover .context {
     transform: translateY(0);
     opacity: 1;
 }
+
 .slides .slider_element:nth-child(1) {
     animation-delay: 0s;
-    background-image: url('./../assets/dzieci.png');
+    /*background-image: url('./../assets/dzieci.png');*/
 }
 
 .slides .slider_element:nth-child(2) {
     animation-delay: 3s;
-    background-image: url('./../assets/dzieci2.png');
+    /*background-image: url('./../assets/dzieci2.png');*/
 }
 
 .slides .slider_element:nth-child(3) {
     animation-delay: 6s;
-    background-image: url('./../assets/dzieci3.png');
+    /*background-image: url('./../assets/dzieci3.png');*/
 }
 
 .slides .slider_element:nth-child(4) {
     animation-delay: 9s;
-    background-image: url('./../assets/dzieci4.png');
-}
-@keyframes slideUp {
-    0% {
-        transform: translateY(100%) scale(0.5);
-        opacity: 0;
-    }
-
-    5%,
-    20% {
-        transform: translateY(100%) scale(0.7);
-        opacity: 0.8;
-    }
-
-    25%,
-    40% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-    }
-
-    45%,
-    60% {
-        transform: translateY(-100%) scale(0.7);
-        opacity: 0.8;
-    }
-
-    65%,
-    100% {
-        transform: translateY(-100%) scale(0.5);
-        opacity: 0;
-    }
+    /*background-image: url('./../assets/dzieci4.png');*/
 }
