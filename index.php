@@ -9,179 +9,139 @@ if (!isset($_SESSION['logged'])) {
 if (!isset($_SESSION['error'])) {
     $_SESSION['error'] = -1;
 } else if ($_SESSION['error'] != -1) {
-    echo '<script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var loginEl = document.getElementById("login");
-            if (loginEl) loginEl.click();
-        });
-    </script>';
+//    echo '<script>
+//        document.addEventListener("DOMContentLoaded", function() {
+//            var loginEl = document.getElementById("login");
+//            if (loginEl) loginEl.click();
+//        });
+//    </script>';
 }
 ?>
-
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="author" content="Michał Ożdżyński Stanisław Odrowski Piotr Peryt">
-
-    <!-- style -->
-    <link rel="stylesheet" href="./styles/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEST</title>
     <link rel="stylesheet" href="./styles/index.css">
-
-    <!-- czcionka -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&display=swap" rel="stylesheet">
-
-    <!-- ikonka -->
-    <link rel="icon" type="image/x-icon" href="./assets/logo_tornado.svg">
-
-    <title>Przedszkole Chaosek</title>
+    <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<body id='body'>
-<!--przyciemnione tło jak odpalasz logowanie-->
-<div id="dark_bg"></div>
-<!-- ============================= -->
-<!-- HEADER -->
-<!-- ============================= -->
-<header>
-    <a href="./index.php" id="logo">
-        <img src="assets/logo_tornado.svg" alt="logo">
-        <span>Przedszkole Chaosek</span>
-    </a>
-    <!--zrobilem troche lepiej -->
-    <div id="login"
-            <?php
-            if ($_SESSION['logged']) {
-                echo 'onclick="userPanelOn()"';
-            } else {
-                echo 'onclick="loginOn()"';
-            }
-            ?>></div>
-</header>
-<!-- ============================= -->
-<!-- NAVIGATION -->
-<!-- ============================= -->
-<nav>
-    <a href="./index.php">
-        <span>O nas</span>
-    </a>
-    <a href="./index.php">
-        <span>Aktualności</span>
-    </a>
-    <a href="./index.php">
-        <span>Jak dojechać?</span>
-    </a>
-    <a href="./rekrutacja.php">
-        <span>REKRUTACJA</span>
-    </a>
-    <a href="./index.php">
-        <span>Kontakt</span>
-    </a>
-</nav>
-<!-- ============================= -->
-<!-- MAIN -->
-<!-- ============================= -->
-<main>
-    <?php printArr($_SESSION); ?>
-    <form action="./scripts/php/loginAsParent.php" method="post">
-        <button type="submit" id="btnLoginAsParent">Zaloguj się jako Rodzic (demo)</button>
-    </form>
-</main>
+<body>
 
+    <!--============================-->
+    <!--Sticky nav-->
+    <!--============================-->
+    <div class="sticky-banner">
+        <div class="square"></div>
+        <a class="logo" href="#header">
+            <img src="./assets/logo_tornado.svg">
+            <div class="text logo-font">Przedszkole Chaosek</div>
+        </a>
+        <div class="nav">
+<!--            --><?php //printArr($_SESSION); ?>
+            <form action="./scripts/php/loginAsParent.php" method="post">
+                <button type="submit" id="btnLoginAsParent">Zaloguj się jako Rodzic (demo)</button>
+            </form>
+            <a href="#o_nas">O nas</a>
+            <a href="#aktualnosci">Aktualności</a>
+            <a href="#dojazd">Dojazd</a>
+            <a href="#rejestracja">Rejestracja</a>
+            <a href="#kontakt">Kontakt</a>
+            <a href="#phpOutputs">php</a>
+        </div>
+    </div>
 
-<!-- ============================= -->
-<!-- LOGIN PANEL -->
-<!-- ============================= -->
-<div class="wrapper" id="loginWrapper">
-    <form class="panel" action="./scripts/php/login.php" method="post" id="loginPanel">
-        <h1 class='logo_dziennik'>
-            <div>
-                <img src="assets/logo_tornado.svg" alt="logo">
-                <!--                <span>Dzienniczek Chaosu</span>-->
+    <!--============================-->
+    <!--Pierwszy, główny "slide"-->
+    <!--============================-->
+    <div class="header" id="header">
+        <div class="square"></div>
+        <div class="nav">
+            <a href="#o_nas">O nas</a>
+            <a href="#aktualnosci">Aktualności</a>
+            <a href="#dojazd">Dojazd</a>
+            <a href="#rejestracja">Rejestracja</a>
+            <a href="#kontakt">Kontakt</a>
+            <a href="#phpOutputs">php</a>
+        </div>
+        <div class="logo">
+            <div class="logo_img_container">
+                <img src="./assets/logo_tornado.svg" class='no_drag' draggable="false">
             </div>
+            <div class="text logo-font">Przedszkole<br>Chaosek</div>
+        </div>
+    </div>
 
-            <button onclick="loginOff()" class="offButton">X</button>
-        </h1>
-        <h3>Log in</h3>
-        <div class="Login">
-            <div>
-                <label for="tbxEmail">Email</label>
-                <input type="email" name="tbxEmail" id="tbxEmail"><br>
-                <span class="error" id="emailError"></span>
-            </div>
-            <div>
-                <label for="tbxHaslo">Hasło</label>
-                <input type="text" name="tbxHaslo" id="tbxHaslo"><br>
-                <span class="error" id="passwordError"></span>
+    <!--============================-->
+    <!--Slide o Nas-->
+    <!--============================-->
+    <div class="slide o_nas" id="o_nas">
+        <div class="text_container">
+            <h1 class="logo-font"><div class="hide_brush"></div><span>O nas</span></h1>
+            <div class="text">
+                W Chaosku tworzymy przyjazne środowisko, w którym dzieci mogą swobodnie poznawać świat przez zabawę. Nasza wykwalifikowana kadra łączy opiekę z metodami wspierającymi rozwój emocjonalny, społeczny i poznawczy. Kładziemy nacisk na kreatywność, samodzielność i współpracę — codzienne zajęcia są pełne eksperymentów, ruchu i zajęć artystycznych. Bezpieczeństwo i otwartość na potrzeby rodziny są dla nas priorytetem.
             </div>
         </div>
-        <button id="btnLogin">Zaloguj</button>
-        <span id="loginError" name="loginError" class="error">
-        <?php
-        if ($_SESSION['error'] == 1) {
-            echo "Nie znaleziono użytkownika o podanym emailu";
-            unset($_SESSION['error']);
-        } else if ($_SESSION['error'] == 0) {
-            echo "Błąd serwera, spróbuj ponownie później";
-            unset($_SESSION['error']);
-        } else if ($_SESSION['error'] == 2) {
-            echo "Nieprawidłowe hasło";
-            unset($_SESSION['error']);
-        }
-        ?>
-    </span>
-    </form>
-
-</div>
-
-<div class="wrapper" id="userWrapper">
-    <div id="userPanel" class="panel">
-        <button onclick="userPanelOff()" class="offButton">X</button>
-        <p>Imię: <?php echo $_SESSION['imie'] ?></p>
-        <p>Nazwisko: <?php echo $_SESSION['nazwisko'] ?></p>
-        <p>Typ konta:
-            <?php
-            if ($_SESSION['typ'] == 0) {
-                echo "Rodzic";
-            } else if ($_SESSION['typ'] == 1) {
-                echo "Nauczyciel(ka)";
-            } else {
-                echo "Dyrekcja";
-            }
-            ?>
-        </p>
-        <a href="
-        <?php
-        if ($_SESSION['typ'] == 0) {
-            echo "./panels/parents.php";
-        } else {
-            echo "./panels/admin.html";
-        }
-        ?>
-        ">
-            <button>
-                <?php
-                if ($_SESSION['typ'] == 0) {
-                    echo "Panel Rodzica";
-                } else {
-                    echo "Panel Pracownika";
-                }
-                ?>
-            </button>
-        </a>
-        <form action="./scripts/php/logout.php" method="post">
-            <button type="submit">Wyloguj</button>
-        </form>
+        <img src="./resources/onasimage1.png">
     </div>
-</div>
 
+    <!--============================-->
+    <!--Slide Aktualności-->
+    <!--============================-->
+    <div class="slide aktualnosci" id="aktualnosci">
+        <div class="slider">
+            <div class="slides">
+                <div class="slider_element">
+                    <div class="slide_content">
+                        <div class="title">Wyjście do Parku <span>21.03.2025</span></div>
+                        <div class="context">Dzieci bawiące się na dworze pokazują, że przedszkole stawia na aktywność i codzienny kontakt z naturą.</div>
+                    </div>
+                </div>
+                <div class="slider_element">
+                    <div class="slide_content">
+                        <div class="title">Wielkanoc<span>20.04.2025</span></div>
+                        <div class="context">Sesja zdjęciowa na wielkanoc tworzy ciepłą atmosferę i buduje wyjątkowe tradycje w naszej placówce.</div>
+                    </div>
+                </div>
+                <div class="slider_element">
+                    <div class="slide_content">
+                        <div class="title">Dzień nauczyciela<span>14.10.2025</span></div>
+                        <div class="context">Dzieci w świetnie wyposażonej sali uczą się i rozwijają w bezpiecznym, inspirującym otoczeniu.</div>
+                    </div>
+                </div>
+                <div class="slider_element">
+                    <div class="slide_content">
+                        <div class="title">Halloween<span>31.10.2025</span></div>
+                        <div class="context">Przebieranki na Halloween rozwijają kreatywność i sprawiają, że wspólna zabawa staje się prawdziwą przygodą.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text_container">
+            <h1 class="logo-font"><div class="hide_brush"></div><span>Aktualności</span></h1>
+            <div class="text">W Przedszkolu Chaosek każdy dzień to pełna radości i kreatywnej zabawy przygoda. Nasze sale tętnią energią, a dzieci biorą udział w różnorodnych zajęciach rozwijających wyobraźnię i ciekawość świata.Szukasz miejsca bez nudy, pełnego ciepła i inspiracji? Chaosek to świetny wybór - zapraszamy do zapisów!</div>
+        </div>
+    </div>
+    
+    <!--============================-->
+    <!--Slide Dojazd-->
+    <!--============================-->
+    <div class="slide dojazd" id="dojazd">
 
-<script src="./scripts/js/showLogin.js"></script>
-<script src="./scripts/js/indexFormValidator.js"></script>
+    </div>
 
+    <!--============================-->
+    <!--Slide Kontakt-->
+    <!--============================-->
+    <div class="slide kontakt" id="kontakt">
+
+    </div>
+    <div id="phpOutputs">
+        <?php
+        printArr($_SESSION);
+        ?>
+
+    </div>
+    <script src="./scripts/js/indexUtilities.js"></script>
 </body>
 </html>

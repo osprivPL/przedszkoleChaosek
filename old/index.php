@@ -8,6 +8,13 @@ if (!isset($_SESSION['logged'])) {
 }
 if (!isset($_SESSION['error'])) {
     $_SESSION['error'] = -1;
+} else if ($_SESSION['error'] != -1) {
+    echo '<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var loginEl = document.getElementById("login");
+            if (loginEl) loginEl.click();
+        });
+    </script>';
 }
 ?>
 
@@ -20,8 +27,8 @@ if (!isset($_SESSION['error'])) {
     <meta name="author" content="Michał Ożdżyński Stanisław Odrowski Piotr Peryt">
 
     <!-- style -->
-    <link rel="stylesheet" href="old/style.css">
-    <link rel="stylesheet" href="./styles/rekrutacja.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../styles/index.css">
 
     <!-- czcionka -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,10 +37,9 @@ if (!isset($_SESSION['error'])) {
     <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&display=swap" rel="stylesheet">
 
     <!-- ikonka -->
-    <link rel="icon" type="image/x-icon" href="./assets/logo_tornado.svg">
+    <link rel="icon" type="image/x-icon" href="../assets/logo_tornado.svg">
 
     <title>Przedszkole Chaosek</title>
-    <script src="scripts/js/registerValidator.js"></script>
 </head>
 <body id='body'>
 <!--przyciemnione tło jak odpalasz logowanie-->
@@ -42,8 +48,8 @@ if (!isset($_SESSION['error'])) {
 <!-- HEADER -->
 <!-- ============================= -->
 <header>
-    <a href="./index.php" id="logo">
-        <img src="assets/logo_tornado.svg" alt="logo">
+    <a href="index.php" id="logo">
+        <img src="../assets/logo_tornado.svg" alt="logo">
         <span>Przedszkole Chaosek</span>
     </a>
     <!--zrobilem troche lepiej -->
@@ -60,19 +66,19 @@ if (!isset($_SESSION['error'])) {
 <!-- NAVIGATION -->
 <!-- ============================= -->
 <nav>
-    <a href="./index.php">
+    <a href="index.php">
         <span>O nas</span>
     </a>
-    <a href="./index.php">
+    <a href="index.php">
         <span>Aktualności</span>
     </a>
-    <a href="./index.php">
+    <a href="index.php">
         <span>Jak dojechać?</span>
     </a>
-    <a href="./rekrutacja.php">
+    <a href="../rekrutacja.php">
         <span>REKRUTACJA</span>
     </a>
-    <a href="./index.php">
+    <a href="index.php">
         <span>Kontakt</span>
     </a>
 </nav>
@@ -80,81 +86,24 @@ if (!isset($_SESSION['error'])) {
 <!-- MAIN -->
 <!-- ============================= -->
 <main>
-    <!--    --><?php //printArr($_SESSION); ?>
-    <div id="container">
-        <h1>ZAPISZ SWOJE DZIECKO JUŻ TERAZ</h1>
-        <form id="frmRekrutacja" method="post" action=
-        <?php
-        if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
-            echo "rekrutacjaCompleted.php";
-        } else {
-            echo "./scripts/php/MAIL.php";
-        }
-        ?>>
-            <div id="frmChild">
-                <input type="text" id="frmChildImie" name="frmChildImie" placeholder="Imię dziecka" required>
-                <input type="text" id="frmChildNazwisko" name="frmChildNazwisko" placeholder="Nazwisko dziecka"
-                       required>
-                <input type="text" id="frmChildPesel" name="frmChildPesel" placeholder="Pesel dziecka" required>
-                <input type="text" id="frmChildAdres" name="frmChildAdres" placeholder="Adres zamieszkania dziecka"
-                       required>
-                <input type="text" id="frmInne" name="frmInne" placeholder="Inne ważne informacje"
-                       style="width: 200px; height: 100px;">
-            </div>
-            <div id="frmParent" <?php
-            if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
-                echo 'style="display:none;"';
-            }
-            ?>>
-                <input type="text" id="frmParentImie" name="frmParentImie" placeholder="Imię rodzica/opiekuna" required
-                <?php
-                    if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
-                        echo 'value="' . $_SESSION['imie'] . '" readonly';
-                    }
-                ?>>
-                <input type="text" id="frmParentNazwisko" name="frmParentNazwisko"
-                       placeholder="Nazwisko rodzica/opiekuna" required
-                        <?php
-                        if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
-                            echo 'value="' . $_SESSION['nazwisko'] . '" readonly';
-                        }
-                        ?>>
-                <input type="text" id="frmParentTelefon" name="frmParentTelefon"
-                       placeholder="Numer telefonu rodzica/opiekuna"
-                       required
-                <?php
-                if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
-                    echo 'value="' . $_SESSION['telefon'] . '" readonly';
-                }
-                ?>>
-                <input type="email" id="frmParentEmail" name="frmParentEmail" placeholder="Email rodzica/opiekuna"
-                       required
-                       <?php
-                       if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
-                           echo 'value="' . $_SESSION['email'] . '" readonly';
-                       }?>
-                >
-            </div>
-            <button id="btnRekrutacja">Zapisz dziecko!</button>
-            <?php
-            if ($_SESSION['error'] == 2) {
-                echo '<span class="error">Wystąpił błąd podczas wysyłania formularza. Spróbuj ponownie później.</span>';
-                unset($_SESSION['error']);
-            } ?>
-            <span id="registerError" class="error"></span>
+        <?php printArr($_SESSION); ?>
+        <form action="../scripts/php/loginAsParent.php" method="post">
+            <button type="submit" id="btnLoginAsParent">Zaloguj się jako Rodzic (demo)</button>
         </form>
-    </div>
 </main>
+
 
 <!-- ============================= -->
 <!-- LOGIN PANEL -->
 <!-- ============================= -->
 <div class="wrapper" id="loginWrapper">
-    <form class="panel" action="./scripts/php/login.php" method="post" id="loginPanel">
+    <form class="panel" action="../scripts/php/login.php" method="post" id="loginPanel">
         <h1 class='logo_dziennik'>
             <div>
-                <img src="assets/logo_tornado.svg" alt="logo">
+                <img src="../assets/logo_tornado.svg" alt="logo">
+                <!--                <span>Dzienniczek Chaosu</span>-->
             </div>
+
             <button onclick="loginOff()" class="offButton">X</button>
         </h1>
         <h3>Log in</h3>
@@ -224,15 +173,15 @@ if (!isset($_SESSION['error'])) {
                 ?>
             </button>
         </a>
-        <form action="./scripts/php/logout.php" method="post">
+        <form action="../scripts/php/logout.php" method="post">
             <button type="submit">Wyloguj</button>
         </form>
     </div>
 </div>
 
 
-<script src="./scripts/js/showLogin.js"></script>
-<script src="./scripts/js/indexFormValidator.js"></script>
+<script src="../scripts/js/showLogin.js"></script>
+<script src="../scripts/js/indexFormValidator.js"></script>
 
 </body>
 </html>

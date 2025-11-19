@@ -20,7 +20,7 @@ if (!isset($_SESSION['error'])) {
     <meta name="author" content="Michał Ożdżyński Stanisław Odrowski Piotr Peryt">
 
     <!-- style -->
-    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="old/style.css">
     <link rel="stylesheet" href="./styles/mailCode.css">
 
     <!-- czcionka -->

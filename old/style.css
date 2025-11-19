@@ -1,4 +1,4 @@
-@import "root.css";
+@import "../styles/root.css";
 
 * {
     margin: 0;
@@ -52,7 +52,7 @@ header #logo img {
 }
 
 header #login {
-    background-image: url('./../assets/user.png');
+    background-image: url('../assets/user.png');
     height: 10vh;
     width: 10vh;
     background-size: cover;
@@ -62,7 +62,7 @@ header #login {
 }
 
 header #login:hover {
-    background-image: url('./../assets/user_hover.png');
+    background-image: url('../assets/user_hover.png');
     transform: scale(1.05);
 }
 

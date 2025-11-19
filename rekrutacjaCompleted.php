@@ -68,7 +68,7 @@ if ($_SESSION['registered'] && $_SESSION['error'] == -1) {
     <meta name="author" content="Michał Ożdżyński Stanisław Odrowski Piotr Peryt">
 
     <!-- style -->
-    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="old/style.css">
     <link rel="stylesheet" href="./styles/mailCode.css">
 
     <!-- czcionka -->
@@ -89,7 +89,7 @@ if ($_SESSION['registered'] && $_SESSION['error'] == -1) {
 <!-- HEADER -->
 <!-- ============================= -->
 <header>
-    <a href="./index.php" id="logo">
+    <a href="old/index.php" id="logo">
         <img src="assets/logo_tornado.svg" alt="logo">
         <span>Przedszkole Chaosek</span>
     </a>
@@ -107,19 +107,19 @@ if ($_SESSION['registered'] && $_SESSION['error'] == -1) {
 <!-- NAVIGATION -->
 <!-- ============================= -->
 <nav>
-    <a href="./index.php">
+    <a href="old/index.php">
         <span>O nas</span>
     </a>
-    <a href="./index.php">
+    <a href="old/index.php">
         <span>Aktualności</span>
     </a>
-    <a href="./index.php">
+    <a href="old/index.php">
         <span>Jak dojechać?</span>
     </a>
     <a href="./rekrutacja.php">
         <span>REKRUTACJA</span>
     </a>
-    <a href="./index.php">
+    <a href="old/index.php">
         <span>Kontakt</span>
     </a>
 </nav>
@@ -137,11 +137,11 @@ if ($_SESSION['registered'] && $_SESSION['error'] == -1) {
             <p>Dziękujemy za złożenie wniosku o przyjęcie dziecka do naszego przedszkola. Wkrótce otrzymają Państwo
             wiadomość e-mail z informacją o wyniku rekrutacji.</p>';
         }
-        elseif{
-            if ($_SESSION['error'] == 5){
-
-            }
-        }
+//        elseif(){
+//            if ($_SESSION['error'] == 5){
+//
+//            }
+//        }
         else {
             echo '<h1>WYSTĄPIŁ BŁĄD PODCZAS SKŁADANIA WNIOSKU!</h1>
             <p>Przepraszamy, ale podczas składania wniosku o przyjęcie dziecka do naszego przedszkola wystąpił błąd.
