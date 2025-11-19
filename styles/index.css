@@ -124,7 +124,7 @@
     display: flex;
     justify-content: space-between;
 
-    animation: appear_navbar 1.5s ease-out forwards;
+    animation: header_nav_animation 1.5s ease-out forwards;
     animation-delay: 0.5s;
     opacity: 0;
 }
@@ -155,7 +155,7 @@
     height: 70vh;
     width: 80vw;
     z-index: 999;
-    animation: appear_logo 1.5s ease;
+    animation: header_title_animation 1.5s ease;
 }
 
 /*container z imagem loga na środku*/
@@ -177,7 +177,8 @@
     line-height: 10vw;
     display: flex;
     align-items: center;
-    text-shadow: 5px 5px 0 var(--green-darker),
+    text-shadow: 
+    5px 5px 0 var(--green-darker),
     -5px 5px 0 var(--green-darker),
     5px -5px 0 var(--green-darker),
     -5px -5px 0 var(--green-darker),
@@ -199,7 +200,7 @@
 .o_nas {
     padding: 3em;
     position: relative;
-    background-color: rgb(79, 144, 88);
+    background-color: var(--o_nas);
 }
 
 h1 {
@@ -227,12 +228,12 @@ h1 {
 }
 
 .o_nas .hide_brush {
-    background-color: rgb(79, 144, 88);
+    background-color: var(--o_nas);
     left: -10%;
 }
 
 .o_nas .hide_brush.in-view {
-    animation: draw1 1s ease-out;
+    animation: o_nas_brush_animation 1s ease-out;
 }
 
 .o_nas .text {
@@ -259,7 +260,7 @@ h1 {
 }
 
 .o_nas .text.in-view {
-    animation: grow1 1s ease forwards;
+    animation: o_nas_text_animation 1s ease forwards;
     animation-delay: 0.75s;
 }
 
@@ -268,7 +269,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url('./../assets/tlo.png');
+    background-image: url('./../assets/tlo_aktualnosci.png');
     background-size: cover;
     background-repeat: no-repeat;
     max-height: 80vh;
@@ -293,7 +294,7 @@ h1 {
 }
 
 .aktualnosci .hide_brush.in-view {
-    animation: draw2 1.5s ease-out;
+    animation: aktualnosci_brush_animation 1.5s ease-out;
 }
 
 .aktualnosci .text {
@@ -312,7 +313,7 @@ h1 {
 }
 
 .aktualnosci .text.in-view {
-    animation: grow2 1s ease forwards;
+    animation: aktualnosci_text_animation 1s ease forwards;
     animation-delay: 0.75s;
 }
 
@@ -343,7 +344,7 @@ h1 {
     opacity: 0;
     width: 100%;
     height: 70%;
-    animation: slideUp 15s infinite;
+    animation: aktualnosci_slider_animation 15s infinite;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -423,4 +424,79 @@ h1 {
 .slides .slider_element:nth-child(4) {
     animation-delay: 9s;
     /*background-image: url('./../assets/dzieci4.png');*/
+}
+.dojazd{
+    display: flex;
+    background-image: url('../assets/tlo_dojazd.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow: hidden;
+}
+.dojazd .text_container{
+    width: 50%;
+    padding-top: 3em;
+}
+.dojazd .slide_title{
+    border-left: 50px solid var(--green-dark);
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(3px);
+    font-size: 120px;
+    padding:  .25em 1em;
+}
+.slide_title.in-view{
+    animation: dojazd_title_animation 2s ease;
+}
+.dojazd .text{
+    box-sizing: border-box;
+    border-radius: 25px;
+    background-color: var(--green-dark);
+    max-height: 60%;
+    margin: 1em;
+    padding: 1em;
+    text-align: justify;
+    overflow-y: auto;
+    color: white;
+    font-family: "Sour Gummy", sans-serif;
+    font-size: 36px;
+    opacity: 0;
+}
+.dojazd .text.in-view{
+    animation: dojazd_text_animation 2s ease forwards;
+    animation-delay: 1.5s;
+}
+.dojazd .container_google_map{
+    padding: 5%;
+    width: 50%;
+    max-height: 100%;
+    box-sizing: border-box;
+}
+.dojazd .container_google_map > div{
+    height: 100%;
+    position: relative;
+}
+.border_part{
+    width: 108%;
+    height: 110%;
+    position: absolute; 
+    background-color: var(--green-dark);
+    z-index: 1;
+}
+.border_part:nth-child(1){
+    top: -5%;
+    left: -4%;
+}
+.border_part:nth-child(2){
+    bottom: -5%;
+    right: -4%;
+}
+.border_part.in-view{
+    animation: dojazd_border_animation ease 3s;
+}
+.dojazd .google_map{
+    width:100%;
+    height:100%;
+    border: none;
+    position: absolute;
+    z-index: 2;
 }

@@ -24,7 +24,7 @@ if (!isset($_SESSION['error'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TEST</title>
 
-    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="./styles/index.css">
     <link rel="stylesheet" href="./styles/style.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
@@ -102,9 +102,9 @@ if (!isset($_SESSION['error'])) {
     <div class="slider">
         <div class="slides">
             <?php
-            $connection = new mysqli("localhost", "root", "", "przedszkole");
+            /*$connection = new mysqli("localhost", "root", "", "przedszkole");
             $connection->set_charset("utf8");
-            if ($connection->connect_errno != 0) {
+            if ($connection->connect_errno != 0) {*/
                 echo '<div class="slider_element">
                     <div class="slide_content">
                         <div class="title">Wyjście do Parku <span>21.03.2025</span></div>
@@ -129,7 +129,7 @@ if (!isset($_SESSION['error'])) {
                         <div class="context">Przebieranki na Halloween rozwijają kreatywność i sprawiają, że wspólna zabawa staje się prawdziwą przygodą.</div>
                     </div>
                 </div>';
-            }
+            /*}
             else{
                 $sql = "SELECT naglowek, tresc, data, img FROM artykuly ORDER BY data DESC LIMIT 6";
                 $result = $connection->query($sql)->fetch_all();
@@ -152,7 +152,7 @@ if (!isset($_SESSION['error'])) {
                 }
             }
 
-            ?>
+            */?>
 
         </div>
     </div>
@@ -172,7 +172,19 @@ if (!isset($_SESSION['error'])) {
 <!--Slide Dojazd-->
 <!--============================-->
 <div class="slide dojazd" id="dojazd">
-
+    <div class="text_container">
+        <h1 class="slide_title logo-font">Dojazd</h1>
+        <div class="text">
+            Nasze przedszkole w Starych Skoszewach znajduje się w świetnie skomunikowanej lokalizacji. Łatwy dojazd z Łodzi i okolicznych miejscowości, bliskość przystanków autobusowych oraz wygodny parking sprawiają, że codzienne przywożenie i odbieranie dzieci jest szybkie i komfortowe.
+        </div>
+    </div>
+    <div class="container_google_map">
+        <div>
+            <div class="border_part"></div>
+            <div class="border_part"></div>
+            <iframe class='google_map' src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d7824.618771014988!2d19.63342578315211!3d51.84998972814613!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spl!2spl!4v1763577523975!5m2!1spl!2spl" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
 </div>
 
 <!--============================-->
@@ -187,6 +199,6 @@ if (!isset($_SESSION['error'])) {
     ?>
 
 </div>
-<script src="./scripts/js/indexUtilities.js"></script>
+    <script src='./scripts/js/indexUtilities.js'></script>
 </body>
 </html>

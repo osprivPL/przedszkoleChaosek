@@ -17,3 +17,5 @@ const observer = new IntersectionObserver((entries) => {
 });
 document.querySelectorAll('.hide_brush').forEach(el => observer.observe(el));
 document.querySelectorAll('.text').forEach(el => observer.observe(el));
+document.querySelectorAll('.border_part').forEach(el => observer.observe(el));
+document.querySelectorAll('.slide_title').forEach(el => observer.observe(el));
