@@ -1,0 +1,223 @@
+@import "../styles/root.css";
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Pacifico", "Comic Sans MS", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    width: 100vw;
+    height: 200vh;
+    background: linear-gradient(to right top, color-mix(in srgb, var(--main-color) 90%, white 10%), color-mix(in srgb, var(--secondary-color) 85%, white 15%));
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+#dark_bg {
+    background-color: rgba(0, 0, 0, 0.25);
+    height: 400vh;
+    width: 100%;
+    position: absolute;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+header {
+    width: 100vw;
+    height: 10vh;
+    font-size: 36px;
+    border: var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    background: linear-gradient(to right, var(--secondary-color), color-mix(in srgb, var(--secondary-color) 70%, white 20%));
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header #logo {
+    text-decoration: none;
+    height: 12vh;
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+header #logo img {
+    height: 100%;
+}
+
+header #login {
+    background-image: url('../assets/user.png');
+    height: 10vh;
+    width: 10vh;
+    background-size: cover;
+    transition: background-image 0.2s, transform 0.2s;
+    cursor: pointer;
+    margin-right: 1vh;
+}
+
+header #login:hover {
+    background-image: url('../assets/user_hover.png');
+    transform: scale(1.05);
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    width: 100vw;
+    display: flex;
+    text-align: center;
+    z-index: 10;
+    background: var(--darker-main);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    height: 7vh;
+}
+
+nav a {
+    box-sizing: border-box;
+    width: 20%;
+    background-color: var(--darker-main);
+    margin: 0;
+    border: 4px outset var(--darker-darker-main);
+    color: white;
+    font-size: 32px;
+    -webkit-text-stroke: var(--darker-darker-main) 1px;
+    transition: 0.2s ease;
+}
+
+nav a:hover {
+    background-color: var(--darker-darker-main);
+    border: 4px inset var(--darker-main);
+    -webkit-text-stroke: 0 black;
+    color: #fff6f0;
+    transform: scale(1.02);
+}
+
+nav a:active {
+    background-color: #D43D3D;
+    color: white;
+    border: 4px inset var(--darker-darker-main);
+}
+
+main {
+    width: 100vw;
+    padding: 18px;
+}
+
+.error {
+    color: red;
+}
+
+
+.wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    z-index: 1000;
+    backdrop-filter: blur(3px);
+}
+
+.panel {
+    position: relative;
+    width: 15vw;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 14vw;
+    text-align: center;
+    border: var(--border);
+    background: linear-gradient(to right top, color-mix(in srgb, var(--main-color) 60%, white 20%), color-mix(in srgb, var(--secondary-color) 70%, white 10%));
+    border-radius: 12px;
+    transform: scale(2);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.offButton {
+    color: white;
+    background: linear-gradient(to right top, #FF6B6B, #E63946);
+    border: var(--border);
+    border-radius: 6px;
+    width: 1.8em;
+    height: 1.8em;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.offButton:hover {
+    background: #D22E2E;
+}
+
+.logo_dziennik {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    padding: 0 2.5%;
+    height: 4vh;
+    font-size: 12px;
+    position: absolute;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(3px);
+    font-family: "Pacifico", "Comic Sans MS", serif;
+}
+
+.logo_dziennik img {
+    height: 4vh;
+}
+
+.logo_dziennik > div {
+    display: flex;
+    align-items: center;
+}
+
+#btnLogin {
+    border: var(--border);
+    padding: 0.4em 2em;
+    cursor: pointer;
+    background: color-mix(in srgb, var(--secondary-color) 80%, white 15%);
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+#btnLogin:hover {
+    background-color: color-mix(in srgb, var(--secondary-color) 60%, var(--main-color) 40%);
+}
+
+#userPanel {
+    width: 22vw;
+    max-width: 400px;
+}
+
+aside ul {
+    list-style-type: disc;
+    list-style-position: outside;
+    padding-left: 40px;
+    margin: 0;
+}
+
+
+aside ul, aside li {
+    display: block;
+}
+
+
+aside li::marker {
+    content: "•\00a0";
+    color: inherit;
+}

@@ -1,7 +1,5 @@
-:root {
-    --main-color: #AEE3FF;
-    --secondary-color: #FFEBA1;
-    --darker-main: #FF9E6B;
-    --darker-darker-main: #E65C5C;
-    --border: groove 3px #E65C5C;
+:root{
+    --green-vibrant: #328f3b;
+    --green-dark: #23642b;
+    --green-darker: rgb(31, 67, 38);
 }

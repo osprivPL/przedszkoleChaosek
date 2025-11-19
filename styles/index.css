@@ -1,31 +1,425 @@
 @import "root.css";
+@import "animations.css";
 
-.Login {
+
+/*Do image, żeby przez przypadek ich nie draggować*/
+
+.logo-font{
+    color: white;
+    font-family: 'Pacifico';
+    text-shadow:
+            5px 5px 0 var(--green-darker),
+            -5px 5px 0 var(--green-darker),
+            5px -5px 0 var(--green-darker),
+            -5px -5px 0 var(--green-darker),
+            5px 0 0 var(--green-darker),
+            -5px 0 0 var(--green-darker),
+            0 5px 0 var(--green-darker),
+            0 -5px 0 var(--green-darker);
+}
+
+/*Sticky nav przed scrollem*/
+.sticky-banner {
+    position: sticky;
+    top: 0;
+
+    background: rgba(0, 23, 10, 0.9);
+    backdrop-filter: blur(5px);
+    color: white;
+    padding: 15px;
+    text-align: center;
+
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: all 0.35s ease;
+    pointer-events: none;
+    z-index: 9999;
+    height: 125px;
+    overflow: hidden;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    width: 98vw;
+
     display: flex;
-    gap: 1em;
-    flex-wrap: wrap;
-    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/*Sticky nav po scrollu*/
+.sticky-banner.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/*Ten inny kolor po lewo w navie*/
+.sticky-banner .square{
+    z-index: 0;
+}
+
+/*Logo w navie*/
+.sticky-banner .logo{
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    font-size: 36px;
+    align-items: center;
+    font-family: 'Pacifico';
+    text-shadow:
+            2px 2px 0 var(--green-darker),
+            -2px 2px 0 var(--green-darker),
+            2px -2px 0 var(--green-darker),
+            -2px -2px 0 var(--green-darker),
+            2px 0 0 var(--green-darker),
+            -2px 0 0 var(--green-darker),
+            0 2px 0 var(--green-darker),
+            0 -2px 0 var(--green-darker);
+    text-decoration: none;
+}
+
+.sticky-banner .logo img{
+    height: 100%;
+    margin-right: 25px;
+}
+
+/*sekcja z linkami w navie*/
+.sticky-banner .nav{
+    z-index: 1;
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+/*główny slide*/
+.header{
+    z-index: 500;
+    background-color: var(--green-vibrant);
+    display: flex;
     justify-content: center;
-    width: 15vw;
+    align-items: center;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    margin-top: -155px;
+}
+/*Inny kolor po lewo zrobiony przez obracanie kwadratu*/
+.square{
+    transform: rotate(-25deg);
+    background-color: var(--green-dark);
+    position: absolute;
+    left: -50vw;
+    top: 0;
+    height: 150%;
+    width: 100%;
+}
+/*Linki na głównym slidzie*/
+.header .nav{
+    position: absolute;
+    top:0;
+    left:0;
+
+    width: 84vw;
+    height: 100px;
+    padding: 3vh 8vw;
+    display: flex;
+    justify-content: space-between;
+
+    animation: appear_navbar 1.5s ease-out forwards;
+    animation-delay: 0.5s;
+    opacity: 0;
+}
+.nav a{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    text-decoration: none;
+    height: fit-content;
+    width: 150px;
+    text-align: center;
+    padding: 0.5em 1em;
+}
+.nav a:hover{
+    background-color: rgba(0,0,0,0.1)
+}
+.nav a:active{
+    background-color: rgba(0,0,0,0.2)
+}
+/*logo na środku*/
+.header .logo{
+    display: flex;
+    height: 70vh;
+    width: 80vw;
+    z-index: 999;
+    animation: appear_logo 1.5s ease;
+}
+/*container z imagem loga na środku*/
+.header .logo .logo_img_container{
+    width:40%;
+    height:100%;
+}
+.logo_img_container img{
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+/*Text na głównym slidzie*/
+.header .logo .text{
+    width: 60%;
+    font-size: 8vw;
+    line-height: 10vw;
+    display: flex;
+    align-items: center;
+    text-shadow:
+            5px 5px 0 var(--green-darker),
+            -5px 5px 0 var(--green-darker),
+            5px -5px 0 var(--green-darker),
+            -5px -5px 0 var(--green-darker),
+            5px 0 0 var(--green-darker),
+            -5px 0 0 var(--green-darker),
+            0 5px 0 var(--green-darker),
+            0 -5px 0 var(--green-darker);
+}
+.slide{
+    scroll-margin-top: 155px;
+    min-height: 80vh;
+    width: 100vw;
+    border: 3px var(--green-dark) solid;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.o_nas{
+    padding: 3em;
+    position: relative;
+    background-color: rgb(79, 144, 88);
+}
+h1{
+    font-family: 'Pacifico';
+    font-size: 120px;
+    margin: 0 0 20px 0;
+    line-height: 120px;
+    padding: 50px 100px;
+    background-image: url('./../assets/brushstroke.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    max-width: 90%;
+    width: auto;
+    text-align: center;
+    display: inline-block;
+    position: relative;
+}
+.hide_brush{
+    width: 100%;
+    height: 300px;
+    position: absolute;
+    opacity: 0;
+    top: 0;
+}
+.o_nas .hide_brush{
+    background-color: rgb(79, 144, 88);
+    left: -10%;
+}
+.o_nas .hide_brush.in-view{
+    animation: draw1 1s ease-out;
+}
+.o_nas .text{
+    font-size: 36px;
+    text-align: justify;
+    width:60%;
+    font-family: "Sour Gummy", sans-serif;
+    font-weight: 400;
+    border-left: 25px var(--green-dark) solid;
+    border-right: 25px var(--green-dark) solid;
+    padding: 0.5em 1.5em 0.5em 1.5em;
+    background-color: rgba(255, 255, 255, 0.3);
+    max-height: none;
+    opacity: 0;
+}
+.o_nas img{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
 }
 
-.Login > input {
-    height: 1.5em;
-    width: 10em;
-    border: 2px solid var(--darker-main);
-    border-radius: 5px;
-    padding: 0.2em 0.5em;
-    background-color: color-mix(in srgb, var(--main-color) 80%, white 15%);
-    transition: 0.2s;
+.o_nas .text.in-view{
+    animation: grow1 1s ease forwards;
+    animation-delay: 0.75s;
+}
+.aktualnosci{
+    padding: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./../assets/tlo.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    max-height: 80vh;
+}
+.aktualnosci .slider{
+    width: 50%;
+}
+.aktualnosci .text_container{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-top: 1em;
+}
+.aktualnosci .hide_brush{
+    right: -10%;
+    background-color: var(--green-vibrant);
+    z-index: 0;
+}
+.aktualnosci .hide_brush.in-view{
+    animation: draw2 1.5s ease-out;
+}
+.aktualnosci .text{
+    font-size: 36px;
+    text-align: justify;
+    font-family: "Sour Gummy", sans-serif;
+    font-weight: 400;
+    border-top: 25px var(--green-dark) solid;
+    border-bottom: 25px var(--green-dark) solid;
+    padding: 0.5em 1.5em 0.5em 1.5em;
+    background-color: rgba(255, 255, 255, 0.3);
+    opacity: 0;
+    width: 80%;
+    max-height: 40vh;
+    overflow-y: auto;
+}
+.aktualnosci .text.in-view{
+    animation: grow2 1s ease forwards;
+    animation-delay: 0.75s;
+}
+.slider {
+    display: grid;
+    place-items: center;
+    min-height: 180px;
+    height: 80vh;
+    overflow: hidden;
+    -webkit-mask-box-image: -webkit-linear-gradient(
+            top, transparent, transparent 0, white 10%, white 80%, transparent 100%);
+    color: white;
+    font-family: "Sour Gummy", sans-serif;
+}
+.slides{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+.slider_element {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 70%;
+    animation: slideUp 15s infinite;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 25px;
+    box-sizing: border-box;
+}
+.slide_content{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 25px;
+}
+.slide_content .title{
+    padding: 0 .5em;
+    font-size: 36px;
+    background-color: rgba(0, 71, 31, 0.7);
+    text-wrap: nowrap;
+    font-family:'Pacifico';
+    text-shadow:
+            2px 2px 0 var(--green-darker),
+            -2px 2px 0 var(--green-darker),
+            2px -2px 0 var(--green-darker),
+            -2px -2px 0 var(--green-darker),
+            2px 0 0 var(--green-darker),
+            -2px 0 0 var(--green-darker),
+            0 2px 0 var(--green-darker),
+            0 -2px 0 var(--green-darker);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+.slide_content .title > span{
+    float: right;
+}
+.slide_content .context{
+    padding: .5em;
+    font-size: 30px;
+    font-weight: 300;
+    color: white;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 71, 31, 0.7);
+    transform: translateY(100%);
+    opacity: 0;
+    transition: all 0.3s;
+}
+.slide_content:hover .context{
+    transform: translateY(0);
+    opacity: 1;
+}
+.slides .slider_element:nth-child(1) {
+    animation-delay: 0s;
+    background-image: url('./../assets/dzieci.png');
 }
 
-.Login > input:focus {
-    outline: none;
-    background-color: color-mix(in srgb, var(--secondary-color) 70%, white 20%);
-    border-color: var(--darker-darker-main);
+.slides .slider_element:nth-child(2) {
+    animation-delay: 3s;
+    background-image: url('./../assets/dzieci2.png');
 }
 
-label {
-    font-size: 1em;
-    color: #333;
+.slides .slider_element:nth-child(3) {
+    animation-delay: 6s;
+    background-image: url('./../assets/dzieci3.png');
+}
+
+.slides .slider_element:nth-child(4) {
+    animation-delay: 9s;
+    background-image: url('./../assets/dzieci4.png');
+}
+@keyframes slideUp {
+    0% {
+        transform: translateY(100%) scale(0.5);
+        opacity: 0;
+    }
+
+    5%,
+    20% {
+        transform: translateY(100%) scale(0.7);
+        opacity: 0.8;
+    }
+
+    25%,
+    40% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    45%,
+    60% {
+        transform: translateY(-100%) scale(0.7);
+        opacity: 0.8;
+    }
+
+    65%,
+    100% {
+        transform: translateY(-100%) scale(0.5);
+        opacity: 0;
+    }
 }
