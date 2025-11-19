@@ -1,85 +1,9 @@
-:root{
-    --green-vibrant: #328f3b;
-    --green-dark: #23642b;
-    --green-darker: rgb(31, 67, 38);
-}
-@keyframes appear_logo{
-    from{
-        opacity: 0;
-        transform: translateY(-200px);
-    }
-    to{
-        opacity: 1;
-        transform: translateY(0px);
-    }
-}
+@import "root.css";
+@import "animations.css";
 
-@keyframes appear_navbar{
-    from{
-        transform: translateX(100vw);
-        opacity: 0;
-    }
-    to{
-        transform: translateY(0vw);
-        opacity: 1;
-    }
-}
-@keyframes draw1{
-    from{opacity: 1;}
-    to{  opacity: 1;transform: translateX(-110%);}
-}
-@keyframes draw2{
-    from{opacity: 1;}
-    to{  opacity: 1;transform: translateX(110%);}
-}
-@keyframes grow1{
-    from{
-        width:0;
-        color: rgba(0,0,0,0);
-        overflow: hidden;
-        height: 40vh;
-    }
-    90%{
-        color: rgba(0,0,0,0);
-        overflow: hidden;
-        height: 40vh;
-    }
-    to{
-        width: 60%;
-        color: black;
-        overflow-y:auto;
-        opacity: 1;
-    }
-}
-@keyframes grow2{
-    from{
-        transform: scaleY(0);
-        color: rgba(0,0,0,0);
-        opacity: 0;
-    }
-    to{
-        transform: scaleY(1);
-        color: black;
-        opacity: 1;
-    }
-}
-html{
-    scroll-behavior: smooth;
-}
-body{
-    height: 400vh;
-    overflow-y:scroll;
-    overflow-x:hidden;
-    margin: 0;
-}
+
 /*Do image, żeby przez przypadek ich nie draggować*/
-.no_drag {
-    user-select: none;
-    -webkit-user-drag: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-}
+
 .logo-font{
     color: white;
     font-family: 'Pacifico';
