@@ -10,12 +10,12 @@ if (!isset($_SESSION['logged'])) {
 if (!isset($_SESSION['error'])) {
     $_SESSION['error'] = -1;
 } else if ($_SESSION['error'] != -1) {
-//    echo '<script>
-//        document.addEventListener("DOMContentLoaded", function() {
-//            var loginEl = document.getElementById("login");
-//            if (loginEl) loginEl.click();
-//        });
-//    </script>';
+   echo '<script>
+       document.addEventListener("DOMContentLoaded", function() {
+            var loginEl = document.getElementById("login");
+            if (loginEl) loginEl.click();
+        });
+    </script>';
 }
 ?>
 <html lang="pl">
@@ -31,17 +31,17 @@ if (!isset($_SESSION['error'])) {
     <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
 </head>
-<body>
+<body id="body"> <!--- <333333 -->
     <div id="dark_bg"></div>
     <div class="wrapper" id="loginWrapper">
-        <form class="panel" action="./scripts/php/login.php" method="post" id="loginPanel">
+           <form class="panel" action="./scripts/php/login.php" method="post" id="loginPanel">
+            <div onclick="loginOff()" class="offButton"><p>X</p></div>
             <h1 class='logo_dziennik'>
                 <div>
                     <img src="./assets/logo_tornado.svg" alt="logo">
-                    <!--                <span>Dzienniczek Chaosu</span>-->
+                                   <span>Dzienniczek Chaosu</span>
                 </div>
 
-                <button onclick="loginOff()" class="offButton">X</button>
             </h1>
             <h3>Log in</h3>
             <div class="Login">

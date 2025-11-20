@@ -488,8 +488,6 @@ h1 {
     z-index: 2;
 }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 .slides .slider_element:nth-child(1) {
     animation-delay: 0s;
 }
@@ -510,9 +508,7 @@ h1 {
 }
 .slides .slider_element:nth-child(6) {
     animation-delay: 15s;
-=======
-=======
->>>>>>> Stashed changes
+}
 
 .error {
     color: red;
@@ -521,6 +517,7 @@ h1 {
 
 .wrapper {
     position: absolute;
+
     left: 0;
     top: 0;
     width: 100vw;
@@ -553,6 +550,9 @@ h1 {
 }
 
 .offButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: white;
     background: linear-gradient(to right top, #FF6B6B, #E63946);
     border: var(--border);
@@ -561,6 +561,10 @@ h1 {
     height: 1.8em;
     cursor: pointer;
     font-weight: bold;
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    z-index: 999
 }
 
 .offButton:hover {
@@ -607,8 +611,4 @@ h1 {
 #userPanel {
     width: 22vw;
     max-width: 400px;
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 }
