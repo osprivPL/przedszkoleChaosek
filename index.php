@@ -18,7 +18,7 @@ if (!isset($_SESSION['error'])) {
 //    </script>';
 }
 ?>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -102,9 +102,9 @@ if (!isset($_SESSION['error'])) {
     <div class="slider">
         <div class="slides">
             <?php
-            /*$connection = new mysqli("localhost", "root", "", "przedszkole");
+            $connection = new mysqli("localhost", "root", "", "przedszkole");
             $connection->set_charset("utf8");
-            if ($connection->connect_errno != 0) {*/
+            if ($connection->connect_errno != 0) {
                 echo '<div class="slider_element">
                     <div class="slide_content">
                         <div class="title">Wyjście do Parku <span>21.03.2025</span></div>
@@ -129,30 +129,28 @@ if (!isset($_SESSION['error'])) {
                         <div class="context">Przebieranki na Halloween rozwijają kreatywność i sprawiają, że wspólna zabawa staje się prawdziwą przygodą.</div>
                     </div>
                 </div>';
-            /*}
-            else{
+            }
+            else {
                 $sql = "SELECT naglowek, tresc, data, img FROM artykuly ORDER BY data DESC LIMIT 6";
                 $result = $connection->query($sql)->fetch_all();
-                printArr($result);
-                $i = 0;
-                foreach($result as $row){
-                    $bg = "background-image: url('".$row[3]."')";
+
+                for ($i = 0; $i < 6; $i++){
+                    $bg = "background-image: url('".$result[$i][3]."')";
                     $style = 'style="'.$bg.'"';
                     echo'<div class="slider_element"'.$style.'>';
                         echo '<div class="slide_content">';
-                            echo '<div class="title">'.$row[0]."<span>".$row[2]."</span></div>";
-                            echo '<div class="context">'.$row[1]."</div>";
+                            echo '<div class="title">'.$result[$i][0]."<span>".$result[$i][2]."</span></div>";
+                            echo '<div class="context">'.$result[$i][1]."</div>";
                         echo '</div>';
                     echo'</div>';
-                    $i++;
-                    if ($i == 2){
-                        die();
-                    }
+//                    if ($i == 2){
+//                        die();
+//                    }
 
                 }
             }
 
-            */?>
+            ?>
 
         </div>
     </div>
@@ -182,7 +180,7 @@ if (!isset($_SESSION['error'])) {
         <div>
             <div class="border_part"></div>
             <div class="border_part"></div>
-            <iframe class='google_map' src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d7824.618771014988!2d19.63342578315211!3d51.84998972814613!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spl!2spl!4v1763577523975!5m2!1spl!2spl" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe class="google_map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d616.1463937555037!2d19.635769074586868!3d51.850263974032025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471bceee1b893ee7%3A0xdd4b854606d4e!2sStare%20Skoszewy%2018%2C%2092-701%20Stare%20Skoszewy!5e0!3m2!1sen!2spl!4v1763641031850!5m2!1sen!2spl" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
 </div>
@@ -196,6 +194,7 @@ if (!isset($_SESSION['error'])) {
 <div id="phpOutputs">
     <?php
     printArr($_SESSION);
+    printArr($result);
     ?>
 
 </div>
