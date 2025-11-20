@@ -489,6 +489,7 @@ h1 {
 }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 .slides .slider_element:nth-child(1) {
     animation-delay: 0s;
 }
@@ -510,6 +511,8 @@ h1 {
 .slides .slider_element:nth-child(6) {
     animation-delay: 15s;
 =======
+=======
+>>>>>>> Stashed changes
 
 .error {
     color: red;
@@ -604,5 +607,8 @@ h1 {
 #userPanel {
     width: 22vw;
     max-width: 400px;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
