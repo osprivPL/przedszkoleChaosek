@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2025 at 10:58 PM
+-- Generation Time: Nov 20, 2025 at 10:55 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -31,6 +31,7 @@ CREATE TABLE `artykuly` (
   `ID` int(11) NOT NULL,
   `naglowek` varchar(100) NOT NULL,
   `tresc` text NOT NULL,
+  `data` date NOT NULL,
   `img` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
@@ -38,12 +39,12 @@ CREATE TABLE `artykuly` (
 -- Dumping data for table `artykuly`
 --
 
-INSERT INTO `artykuly` (`ID`, `naglowek`, `tresc`, `img`) VALUES
-(1, 'Jesienna wycieczka do parku', 'W październiku nasze przedszkolaki wybrały się na kolorową wycieczkę do parku, gdzie obserwowały zmieniającą się przyrodę. Dzieci zbierały liście i bawiły się na świeżym powietrzu.', 'https://images.unsplash.com/photo-1506744038136-46273834b3fb'),
-(2, 'Dzień Pluszowego Misia', 'W naszym przedszkolu obchodziliśmy Dzień Pluszowego Misia. Dzieci przyniosły swoje ulubione maskotki, uczestniczyły w zabawach i konkursach.', 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308'),
-(3, 'Warsztaty kulinarne – robimy sałatkę owocową', 'Przedszkolaki własnoręcznie przygotowały zdrową i pyszną sałatkę owocową, ucząc się rozpoznawać różne owoce oraz dbając o higienę.', 'https://images.unsplash.com/photo-1504674900247-0877df9cc836'),
-(4, 'Teatrzyk kukiełkowy', 'Nauczyciele przygotowali przedstawienie kukiełkowe, które bardzo spodobało się dzieciom i zainspirowało je do własnej twórczości.', 'https://images.unsplash.com/photo-1464983953574-0892a716854b'),
-(5, 'Bal karnawałowy', 'Przedszkolny bal karnawałowy dał dzieciom okazję do przebrania się w ulubione postacie, tańców oraz wspólnej zabawy.', 'https://images.unsplash.com/photo-1542727305-141b74791343');
+INSERT INTO `artykuly` (`ID`, `naglowek`, `tresc`, `data`, `img`) VALUES
+(1, 'Jesienna wycieczka do parku', 'W październiku nasze przedszkolaki wybrały się na kolorową wycieczkę do parku, gdzie obserwowały zmieniającą się przyrodę. Dzieci zbierały liście i bawiły się na świeżym powietrzu.', '2025-11-19', './assets/articles/park.png'),
+(2, 'Dzień Pluszowego Misia', 'W naszym przedszkolu obchodziliśmy Dzień Pluszowego Misia. Dzieci przyniosły swoje ulubione maskotki, uczestniczyły w zabawach i konkursach.', '2025-11-25', './assets/articles/mis.png'),
+(3, 'Warsztaty kulinarne – robimy sałatkę owocową', 'Przedszkolaki własnoręcznie przygotowały zdrową i pyszną sałatkę owocową, ucząc się rozpoznawać różne owoce oraz dbając o higienę.', '2025-10-10', './assets/articles/salatka.png'),
+(4, 'Teatrzyk kukiełkowy', 'Nauczyciele przygotowali przedstawienie kukiełkowe, które bardzo spodobało się dzieciom i zainspirowało je do własnej twórczości.', '2025-10-27', './assets/articles/teatrzyk.png'),
+(5, 'Bal karnawałowy', 'Przedszkolny bal karnawałowy dał dzieciom okazję do przebrania się w ulubione postacie, tańców oraz wspólnej zabawy.', '2025-01-13', './assets/articles/karnawal.png');
 
 -- --------------------------------------------------------
 
@@ -77,6 +78,7 @@ INSERT INTO `dzieci` (`ID`, `imie`, `nazwisko`, `pesel`, `adres`, `grupa`, `img`
 --
 
 CREATE TABLE `oczekujace` (
+  `ID` int(11) NOT NULL,
   `imieRodzica` varchar(50) NOT NULL,
   `nazwiskoRodzica` varchar(50) NOT NULL,
   `numerTelefonu` varchar(50) NOT NULL,
@@ -130,6 +132,12 @@ ALTER TABLE `dzieci`
   ADD KEY `ID Rodzica` (`IDRodzica`);
 
 --
+-- Indexes for table `oczekujace`
+--
+ALTER TABLE `oczekujace`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
@@ -150,6 +158,12 @@ ALTER TABLE `artykuly`
 --
 ALTER TABLE `dzieci`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `oczekujace`
+--
+ALTER TABLE `oczekujace`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `uzytkownicy`
