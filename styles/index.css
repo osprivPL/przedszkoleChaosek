@@ -129,7 +129,7 @@
     opacity: 0;
 }
 
-.nav a {
+.nav a{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: white;
     font-weight: bold;
@@ -147,6 +147,13 @@
 
 .nav a:active {
     background-color: rgba(0, 0, 0, 0.2)
+}
+.header .nav img{
+    height: 75%;
+    position: absolute;
+    padding: 0 1%;
+    top: 0;
+    right: 1%;
 }
 
 /*logo na środku*/
@@ -481,6 +488,7 @@ h1 {
     z-index: 2;
 }
 
+<<<<<<< Updated upstream
 .slides .slider_element:nth-child(1) {
     animation-delay: 0s;
 }
@@ -501,4 +509,100 @@ h1 {
 }
 .slides .slider_element:nth-child(6) {
     animation-delay: 15s;
+=======
+
+.error {
+    color: red;
+}
+
+
+.wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    z-index: 1000;
+    backdrop-filter: blur(3px);
+}
+
+.panel {
+    position: relative;
+    width: 15vw;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 14vw;
+    text-align: center;
+    border: var(--border);
+    background: linear-gradient(to right top, color-mix(in srgb, var(--main-color) 60%, white 20%), color-mix(in srgb, var(--secondary-color) 70%, white 10%));
+    border-radius: 12px;
+    transform: scale(2);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.offButton {
+    color: white;
+    background: linear-gradient(to right top, #FF6B6B, #E63946);
+    border: var(--border);
+    border-radius: 6px;
+    width: 1.8em;
+    height: 1.8em;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.offButton:hover {
+    background: #D22E2E;
+}
+
+.logo_dziennik {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    padding: 0 2.5%;
+    height: 4vh;
+    font-size: 12px;
+    position: absolute;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(3px);
+    font-family: "Pacifico", "Comic Sans MS", serif;
+}
+
+.logo_dziennik img {
+    height: 4vh;
+}
+
+.logo_dziennik > div {
+    display: flex;
+    align-items: center;
+}
+
+#btnLogin {
+    border: var(--border);
+    padding: 0.4em 2em;
+    cursor: pointer;
+    background: color-mix(in srgb, var(--secondary-color) 80%, white 15%);
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+#btnLogin:hover {
+    background-color: color-mix(in srgb, var(--secondary-color) 60%, var(--main-color) 40%);
+}
+
+#userPanel {
+    width: 22vw;
+    max-width: 400px;
+>>>>>>> Stashed changes
 }

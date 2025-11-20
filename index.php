@@ -32,6 +32,48 @@ if (!isset($_SESSION['error'])) {
           rel="stylesheet">
 </head>
 <body>
+    <div id="dark_bg"></div>
+    <div class="wrapper" id="loginWrapper">
+        <form class="panel" action="./scripts/php/login.php" method="post" id="loginPanel">
+            <h1 class='logo_dziennik'>
+                <div>
+                    <img src="./assets/logo_tornado.svg" alt="logo">
+                    <!--                <span>Dzienniczek Chaosu</span>-->
+                </div>
+
+                <button onclick="loginOff()" class="offButton">X</button>
+            </h1>
+            <h3>Log in</h3>
+            <div class="Login">
+                <div>
+                    <label for="tbxEmail">Email</label>
+                    <input type="email" name="tbxEmail" id="tbxEmail"><br>
+                    <span class="error" id="emailError"></span>
+                </div>
+                <div>
+                    <label for="tbxHaslo">Hasło</label>
+                    <input type="text" name="tbxHaslo" id="tbxHaslo"><br>
+                    <span class="error" id="passwordError"></span>
+                </div>
+            </div>
+            <button id="btnLogin">Zaloguj</button>
+            <span id="loginError" name="loginError" class="error">
+            <?php
+            if ($_SESSION['error'] == 1) {
+                echo "Nie znaleziono użytkownika o podanym emailu";
+                unset($_SESSION['error']);
+            } else if ($_SESSION['error'] == 0) {
+                echo "Błąd serwera, spróbuj ponownie później";
+                unset($_SESSION['error']);
+            } else if ($_SESSION['error'] == 2) {
+                echo "Nieprawidłowe hasło";
+                unset($_SESSION['error']);
+            }
+            ?>
+        </span>
+        </form>
+
+    </div>
 
 <!--============================-->
 <!--Sticky nav-->
@@ -53,6 +95,7 @@ if (!isset($_SESSION['error'])) {
         <a href="#rejestracja">Rejestracja</a>
         <a href="#kontakt">Kontakt</a>
         <a href="#phpOutputs">php</a>
+        <img src="./assets/user.svg"></img>
     </div>
 </div>
 
@@ -68,6 +111,7 @@ if (!isset($_SESSION['error'])) {
         <a href="#rejestracja">Rejestracja</a>
         <a href="#kontakt">Kontakt</a>
         <a href="#phpOutputs">php</a>
+        <img onclick="loginOn()" src="./assets/user.svg"></img>
     </div>
     <div class="logo">
         <div class="logo_img_container">
@@ -199,5 +243,6 @@ if (!isset($_SESSION['error'])) {
 
 </div>
     <script src='./scripts/js/indexUtilities.js'></script>
+    <script src='./scripts/js/showLogin.js'></script>
 </body>
 </html>
