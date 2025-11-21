@@ -34,8 +34,8 @@ if (!$connection) {
                 $_SESSION['typ'] = $result['typ'];
                 $_SESSION['telefon'] = $result['numerTelefonu'];
                 $_SESSION['email'] = $result['login'];
-//                printArr($_SESSION);
-//                printArr($result);
+                printArr($_SESSION);
+                printArr($result);
                 unset($_SESSION['error']);
                 unset($_POST);
                 header('Location: ./../../index.php');

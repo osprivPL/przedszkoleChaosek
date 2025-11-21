@@ -10,9 +10,9 @@ if (!isset($_SESSION['logged'])) {
 if (!isset($_SESSION['error'])) {
     $_SESSION['error'] = -1;
 } else if ($_SESSION['error'] != -1) {
-   echo '<script>
+    echo '<script>
        document.addEventListener("DOMContentLoaded", function() {
-            var loginEl = document.getElementById("login");
+            let loginEl = document.getElementById("login");
             if (loginEl) loginEl.click();
         });
     </script>';
@@ -32,32 +32,32 @@ if (!isset($_SESSION['error'])) {
           rel="stylesheet">
 </head>
 <body id="body"> <!--- <333333 -->
-    <div id="dark_bg"></div>
-    <div class="wrapper" id="loginWrapper">
-           <form class="panel" action="./scripts/php/login.php" method="post" id="loginPanel">
-            <div onclick="loginOff()" class="offButton"><p>X</p></div>
-            <h1 class='logo_dziennik'>
-                <div>
-                    <img src="./assets/logo_tornado.svg" alt="logo">
-                                   <span>Dzienniczek Chaosu</span>
-                </div>
-
-            </h1>
-            <h3>Log in</h3>
-            <div class="Login">
-                <div>
-                    <label for="tbxEmail">Email</label>
-                    <input type="email" name="tbxEmail" id="tbxEmail"><br>
-                    <span class="error" id="emailError"></span>
-                </div>
-                <div>
-                    <label for="tbxHaslo">Hasło</label>
-                    <input type="text" name="tbxHaslo" id="tbxHaslo"><br>
-                    <span class="error" id="passwordError"></span>
-                </div>
+<div id="dark_bg"></div>
+<div class="wrapper" id="loginWrapper">
+    <div onclick="loginOff()" class="offButton"><p>X</p></div>
+    <form class="panel" action="./scripts/php/login.php" method="post" id="loginPanel">
+        <h1 class='logo_dziennik'>
+            <div>
+                <img src="./assets/logo_tornado.svg" alt="logo">
+                <span>Dzienniczek Chaosu</span>
             </div>
-            <button id="btnLogin">Zaloguj</button>
-            <span id="loginError" name="loginError" class="error">
+
+        </h1>
+        <h3>Log in</h3>
+        <div class="Login">
+            <div>
+                <label for="tbxEmail">Email</label>
+                <input type="email" name="tbxEmail" id="tbxEmail"><br>
+                <span class="error" id="emailError"></span>
+            </div>
+            <div>
+                <label for="tbxHaslo">Hasło</label>
+                <input type="text" name="tbxHaslo" id="tbxHaslo"><br>
+                <span class="error" id="passwordError"></span>
+            </div>
+        </div>
+        <button id="btnLogin">Zaloguj</button>
+        <span id="loginError" name="loginError" class="error">
             <?php
             if ($_SESSION['error'] == 1) {
                 echo "Nie znaleziono użytkownika o podanym emailu";
@@ -71,9 +71,48 @@ if (!isset($_SESSION['error'])) {
             }
             ?>
         </span>
+    </form>
+</div>
+<div class="wrapper" id="userWrapper">
+    <div id="userPanel" class="panel">
+        <button onclick="userPanelOff()" class="offButton">X</button>
+        <p>Imię: <?php echo $_SESSION['imie'] ?></p>
+        <p>Nazwisko: <?php echo $_SESSION['nazwisko'] ?></p>
+        <p>Typ konta:
+            <?php
+            if ($_SESSION['typ'] == 0) {
+                echo "Rodzic";
+            } else if ($_SESSION['typ'] == 1) {
+                echo "Nauczyciel(ka)";
+            } else {
+                echo "Dyrekcja";
+            }
+            ?>
+        </p>
+        <a href="
+        <?php
+        if ($_SESSION['typ'] == 0) {
+            echo "./panels/parents.php";
+        } else {
+            echo "./panels/admin.html";
+        }
+        ?>
+        ">
+            <button>
+                <?php
+                if ($_SESSION['typ'] == 0) {
+                    echo "Panel Rodzica";
+                } else {
+                    echo "Panel Pracownika";
+                }
+                ?>
+            </button>
+        </a>
+        <form action="./scripts/php/logout.php" method="post">
+            <button type="submit">Wyloguj</button>
         </form>
-
     </div>
+</div>
 
 <!--============================-->
 <!--Sticky nav-->
@@ -111,7 +150,15 @@ if (!isset($_SESSION['error'])) {
         <a href="#rejestracja">Rejestracja</a>
         <a href="#kontakt">Kontakt</a>
         <a href="#phpOutputs">php</a>
-        <img onclick="loginOn()" src="./assets/user.svg"></img>
+        <img <?php
+             if ($_SESSION['logged']){
+                echo 'onclick="userPanelOn()"';
+             }
+             else{
+                echo 'onclick="loginOn()"';
+             }
+
+             ?> src="./assets/user.svg">
     </div>
     <div class="logo">
         <div class="logo_img_container">
@@ -173,20 +220,19 @@ if (!isset($_SESSION['error'])) {
                         <div class="context">Przebieranki na Halloween rozwijają kreatywność i sprawiają, że wspólna zabawa staje się prawdziwą przygodą.</div>
                     </div>
                 </div>';
-            }
-            else {
+            } else {
                 $sql = "SELECT naglowek, tresc, data, img FROM artykuly ORDER BY data DESC LIMIT 6";
                 $result = $connection->query($sql)->fetch_all();
 
-                for ($i = 0; $i < 6; $i++){
-                    $bg = "background-image: url('".$result[$i][3]."')";
-                    $style = 'style="'.$bg.'"';
-                    echo'<div class="slider_element"'.$style.'>';
-                        echo '<div class="slide_content">';
-                            echo '<div class="title">'.$result[$i][0]."<span>".$result[$i][2]."</span></div>";
-                            echo '<div class="context">'.$result[$i][1]."</div>";
-                        echo '</div>';
-                    echo'</div>';
+                for ($i = 0; $i < 6; $i++) {
+                    $bg = "background-image: url('" . $result[$i][3] . "')";
+                    $style = 'style="' . $bg . '"';
+                    echo '<div class="slider_element"' . $style . '>';
+                    echo '<div class="slide_content">';
+                    echo '<div class="title">' . $result[$i][0] . "<span>" . $result[$i][2] . "</span></div>";
+                    echo '<div class="context">' . $result[$i][1] . "</div>";
+                    echo '</div>';
+                    echo '</div>';
 //                    if ($i == 2){
 //                        die();
 //                    }
@@ -217,14 +263,18 @@ if (!isset($_SESSION['error'])) {
     <div class="text_container">
         <h1 class="slide_title logo-font">Dojazd</h1>
         <div class="text">
-            Nasze przedszkole w Starych Skoszewach znajduje się w świetnie skomunikowanej lokalizacji. Łatwy dojazd z Łodzi i okolicznych miejscowości, bliskość przystanków autobusowych oraz wygodny parking sprawiają, że codzienne przywożenie i odbieranie dzieci jest szybkie i komfortowe.
+            Nasze przedszkole w Starych Skoszewach znajduje się w świetnie skomunikowanej lokalizacji. Łatwy dojazd z
+            Łodzi i okolicznych miejscowości, bliskość przystanków autobusowych oraz wygodny parking sprawiają, że
+            codzienne przywożenie i odbieranie dzieci jest szybkie i komfortowe.
         </div>
     </div>
     <div class="container_google_map">
         <div>
             <div class="border_part"></div>
             <div class="border_part"></div>
-            <iframe class="google_map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d616.1463937555037!2d19.635769074586868!3d51.850263974032025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471bceee1b893ee7%3A0xdd4b854606d4e!2sStare%20Skoszewy%2018%2C%2092-701%20Stare%20Skoszewy!5e0!3m2!1sen!2spl!4v1763641031850!5m2!1sen!2spl" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe class="google_map"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d616.1463937555037!2d19.635769074586868!3d51.850263974032025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471bceee1b893ee7%3A0xdd4b854606d4e!2sStare%20Skoszewy%2018%2C%2092-701%20Stare%20Skoszewy!5e0!3m2!1sen!2spl!4v1763641031850!5m2!1sen!2spl"
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
 </div>
@@ -242,7 +292,7 @@ if (!isset($_SESSION['error'])) {
     ?>
 
 </div>
-    <script src='./scripts/js/indexUtilities.js'></script>
-    <script src='./scripts/js/showLogin.js'></script>
+<script src='./scripts/js/indexUtilities.js'></script>
+<script src='./scripts/js/showLogin.js'></script>
 </body>
 </html>
