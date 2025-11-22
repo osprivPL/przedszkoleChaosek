@@ -33,25 +33,26 @@ if (!isset($_SESSION['error'])) {
 </head>
 <body id="body"> <!--- <333333 -->
 <div id="dark_bg"></div>
-<div class="wrapper" id="loginWrapper">
+<div class="wrapper" id="loginWrapper">\
     <div onclick="loginOff()" class="offButton"><p>X</p></div>
     <form class="panel" action="./scripts/php/login.php" method="post" id="loginPanel">
-        <h1 class='logo_dziennik'>
+        <div class='logo_dziennik'>
             <div>
+                <div class="square"></div>
                 <img src="./assets/logo_tornado.svg" alt="logo">
-                <span>Dzienniczek Chaosu</span>
+                <span class='font-logo-small'>Dzienniczek Chaosu</span>
             </div>
 
-        </h1>
-        <h3>Log in</h3>
+        </div>
+        <h3 class='font-logo-small'>Logowanie</h3>
         <div class="Login">
-            <div>
-                <label for="tbxEmail">Email</label>
+            <div class='inputGroup'>
+                <label for="tbxEmail">Email</label><br>
                 <input type="email" name="tbxEmail" id="tbxEmail"><br>
                 <span class="error" id="emailError"></span>
             </div>
-            <div>
-                <label for="tbxHaslo">Hasło</label>
+            <div class='inputGroup'>
+                <label for="tbxHaslo">Hasło</label><br>
                 <input type="text" name="tbxHaslo" id="tbxHaslo"><br>
                 <span class="error" id="passwordError"></span>
             </div>
@@ -60,7 +61,7 @@ if (!isset($_SESSION['error'])) {
         <span id="loginError" name="loginError" class="error">
             <?php
             if ($_SESSION['error'] == 1) {
-                echo "Nie znaleziono użytkownika o podanym emailu";
+                echo "Email nie istnieje w bazie danych";
                 unset($_SESSION['error']);
             } else if ($_SESSION['error'] == 0) {
                 echo "Błąd serwera, spróbuj ponownie później";
@@ -73,13 +74,13 @@ if (!isset($_SESSION['error'])) {
         </span>
     </form>
 </div>
-<div class="wrapper" id="userWrapper">
+<!--<div class="wrapper" id="userWrapper">
     <div id="userPanel" class="panel">
         <button onclick="userPanelOff()" class="offButton">X</button>
-        <p>Imię: <?php echo $_SESSION['imie'] ?></p>
-        <p>Nazwisko: <?php echo $_SESSION['nazwisko'] ?></p>
+        <p>Imię: <?php echo $_SESSION['imie']; ?></p>
+        <p>Nazwisko: <?php echo $_SESSION['nazwisko'];?></p>
         <p>Typ konta:
-            <?php
+            <?php 
             if ($_SESSION['typ'] == 0) {
                 echo "Rodzic";
             } else if ($_SESSION['typ'] == 1) {
@@ -112,7 +113,7 @@ if (!isset($_SESSION['error'])) {
             <button type="submit">Wyloguj</button>
         </form>
     </div>
-</div>
+</div>-->
 
 <!--============================-->
 <!--Sticky nav-->
