@@ -135,7 +135,6 @@ if (!isset($_SESSION['error'])) {
         <a href="#rejestracja">Rejestracja</a>
         <a href="#kontakt">Kontakt</a>
         <a href="#phpOutputs">php</a>
-        <img src="./assets/user.svg"></img>
     </div>
 </div>
 

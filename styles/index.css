@@ -103,7 +103,7 @@
     pointer-events: none;
     z-index: 999;
     background-color: rgba(0,0,0,.3);
-    visibility: visible;
+    visibility: hidden;
 }
 
 .wrapper {
@@ -115,7 +115,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    visibility: visible;
+    visibility: hidden;
     z-index: 1000;
     backdrop-filter: blur(3px);
 }
