@@ -74,46 +74,46 @@ if (!isset($_SESSION['error'])) {
         </span>
     </form>
 </div>
-<!--<div class="wrapper" id="userWrapper">
+<div class="wrapper" id="userWrapper">
     <div id="userPanel" class="panel">
         <button onclick="userPanelOff()" class="offButton">X</button>
         <p>Imię: <?php echo $_SESSION['imie']; ?></p>
-        <p>Nazwisko: <?php echo $_SESSION['nazwisko'];?></p>
+        <p>Nazwisko: <?php echo $_SESSION['nazwisko']; ?></p>
         <p>Typ konta:
-            <?php 
-            if ($_SESSION['typ'] == 0) {
-                echo "Rodzic";
-            } else if ($_SESSION['typ'] == 1) {
-                echo "Nauczyciel(ka)";
-            } else {
-                echo "Dyrekcja";
-            }
-            ?>
+            <?php
+if ($_SESSION['typ'] == 0) {
+    echo "Rodzic";
+} else if ($_SESSION['typ'] == 1) {
+    echo "Nauczyciel(ka)";
+} else {
+    echo "Dyrekcja";
+}
+?>
         </p>
         <a href="
         <?php
-        if ($_SESSION['typ'] == 0) {
-            echo "./panels/parents.php";
-        } else {
-            echo "./panels/admin.html";
-        }
-        ?>
+if ($_SESSION['typ'] == 0) {
+    echo "./panels/parents.php";
+} else {
+    echo "./panels/admin.html";
+}
+?>
         ">
             <button>
                 <?php
-                if ($_SESSION['typ'] == 0) {
-                    echo "Panel Rodzica";
-                } else {
-                    echo "Panel Pracownika";
-                }
-                ?>
+if ($_SESSION['typ'] == 0) {
+    echo "Panel Rodzica";
+} else {
+    echo "Panel Pracownika";
+}
+?>
             </button>
         </a>
         <form action="./scripts/php/logout.php" method="post">
             <button type="submit">Wyloguj</button>
         </form>
     </div>
-</div>-->
+</div>
 
 <!--============================-->
 <!--Sticky nav-->
@@ -151,14 +151,13 @@ if (!isset($_SESSION['error'])) {
         <a href="#kontakt">Kontakt</a>
         <a href="#phpOutputs">php</a>
         <img <?php
-             if ($_SESSION['logged']){
-                echo 'onclick="userPanelOn()"';
-             }
-             else{
-                echo 'onclick="loginOn()"';
-             }
+        if ($_SESSION['logged']) {
+            echo 'onclick="userPanelOn()"';
+        } else {
+            echo 'onclick="loginOn()"';
+        }
 
-             ?> src="./assets/user.svg">
+        ?> src="./assets/user.svg">
     </div>
     <div class="logo">
         <div class="logo_img_container">

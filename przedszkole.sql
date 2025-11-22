@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2025 at 10:55 AM
+-- Generation Time: Nov 23, 2025 at 12:17 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -44,7 +44,9 @@ INSERT INTO `artykuly` (`ID`, `naglowek`, `tresc`, `data`, `img`) VALUES
 (2, 'Dzień Pluszowego Misia', 'W naszym przedszkolu obchodziliśmy Dzień Pluszowego Misia. Dzieci przyniosły swoje ulubione maskotki, uczestniczyły w zabawach i konkursach.', '2025-11-25', './assets/articles/mis.png'),
 (3, 'Warsztaty kulinarne – robimy sałatkę owocową', 'Przedszkolaki własnoręcznie przygotowały zdrową i pyszną sałatkę owocową, ucząc się rozpoznawać różne owoce oraz dbając o higienę.', '2025-10-10', './assets/articles/salatka.png'),
 (4, 'Teatrzyk kukiełkowy', 'Nauczyciele przygotowali przedstawienie kukiełkowe, które bardzo spodobało się dzieciom i zainspirowało je do własnej twórczości.', '2025-10-27', './assets/articles/teatrzyk.png'),
-(5, 'Bal karnawałowy', 'Przedszkolny bal karnawałowy dał dzieciom okazję do przebrania się w ulubione postacie, tańców oraz wspólnej zabawy.', '2025-01-13', './assets/articles/karnawal.png');
+(5, 'Bal karnawałowy', 'Przedszkolny bal karnawałowy dał dzieciom okazję do przebrania się w ulubione postacie, tańców oraz wspólnej zabawy.', '2025-01-13', './assets/articles/karnawal.png'),
+(8, 'Chaotyczna Wielkanoc', 'Sesja zdjęciowa na wielkanoc tworzy ciepłą atmosferę i buduje wyjątkowe tradycje w naszej placówce.', '2025-04-20', './assets/articles/wielkanoc.png'),
+(9, 'Halloween', 'Przebieranki na Halloween rozwijają kreatywność i sprawiają, że wspólna zabawa staje się prawdziwą przygodą.', '2025-10-31', './assets/articles/halloween.png');
 
 -- --------------------------------------------------------
 
@@ -151,7 +153,7 @@ ALTER TABLE `uzytkownicy`
 -- AUTO_INCREMENT for table `artykuly`
 --
 ALTER TABLE `artykuly`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `dzieci`
