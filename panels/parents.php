@@ -55,7 +55,7 @@ if (!$_SESSION['logged']) {
     <!--Tymon zrobił by to lepiej-->
     <div class="header-ui">
     <img id="mail" src="./../assets/mail.png" alt="mail">
-    <img id="login" src="./../assets/.png" alt="login"
+    <img id="login" src="./../assets/user.svg" alt="login"
             <?php
             if ($_SESSION['logged']) {
                 echo 'onclick="userPanelOn()"';
@@ -98,9 +98,32 @@ if (!$_SESSION['logged']) {
 <!-- ============================= -->
 <main id="main">
 
+    <!-- Mój zamysł na działanie tego są takie że bedzie to działało jak panel rodzica jak się zalogujesz -->
+    <!-- Gdy kliknie się na któreś z .nav-child to korespondujacy .main-panel się pokaże -->
 
+    <div class="main-panel main-main">
+        <div class="main-panel-cell test-plan">1</div>
+        <div class="main-panel-cell test-grades">2</div>
+        <div class="main-panel-cell test-changes">3</div>
+        <div class="main-panel-cell test-plan">4</div>
+        <div class="main-panel-cell test-grades">5</div>
+        <div class="main-panel-cell test-changes">6</div>
+        <div class="main-panel-cell test-plan">7</div>
+        <div class="main-panel-cell test-grades">8</div>
+        <div class="main-panel-cell test-changes">9</div>
+    </div>
+    <div class="main-panel main-child">
 
+    </div>
+    <div class="main-panel main-school">
 
+    </div>
+    <div class="main-panel main-food">
+
+    </div>
+    <div class="main-panel main-news">
+
+    </div>
 
 
 

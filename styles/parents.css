@@ -43,7 +43,10 @@ header #logo {
 header #logo img {
     height: 100%;
 }
-
+#login{
+    filter: grayscale(100%)
+    /*MAKE IT BLACK ;-; czemu saturation koloruje biały w SVG którego nie powinno dotykać bo tam nie ma białego tylko przezroczyte(chyba)*/
+}
 header #mail, #login{
     background-image: url('../assets/mail.png');
     height: 10vh;
@@ -54,7 +57,7 @@ header #mail, #login{
     margin-right: 1vh;
 }
 header #login{
-    background-image: url('../assets/login.png');
+    background-image: url('../assets/user.svg');
 }
 
 header #mail:hover {
@@ -63,7 +66,7 @@ header #mail:hover {
 }
 
 header #login:hover {
-    background-image: url('../assets/login.png');
+    background-image: url('../assets/user_hover.svg');
     transform: scale(1.05);
 }
 .layout{
@@ -94,13 +97,13 @@ nav{
 }
 
 .nav_child:before{
-    width: 122.5%;
+    width: 125%;
     height: 110%;
     position: absolute;
-    left: -120%;
+    left: -122.5%;
     content: "";
     background: var(--green-vibrant);
-    transition: transform ease-out 0.5s;
+    transition: transform ease-out 0.3s;
 }
 
 .nav_child:hover:before{
@@ -120,7 +123,39 @@ nav{
 
 main{
     grid-area: main;
+    position: relative;
+    padding: 1.5vw;
+    height: 100%;
+
 }
+.main-panel{
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    columns: 3;
+    column-gap: 20px;
+}
+.main-main{
+    opacity: 1;
+}
+.main-panel-cell{
+    margin-bottom: 10px;
+    background: var(--green-vibrant);
+}
+.main-main>.test-plan{
+    height: 40em;
+}
+.main-main>.test-grades{
+    height: 12em;
+}
+.main-main>.test-changes{
+    height: 8em;
+}
+
 
 aside, main{
     height: 80vh;
