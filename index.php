@@ -22,7 +22,8 @@ if (!isset($_SESSION['error'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEST</title>
+    <title>Przedszkole Chaosek</title>
+    <link rel="icon" type="image/x-icon" href="./assets/logo_tornado.svg">
 
     <link rel="stylesheet" href="./styles/index.css">
     <link rel="stylesheet" href="./styles/style.css">
@@ -35,7 +36,8 @@ if (!isset($_SESSION['error'])) {
 <div id="dark_bg"></div>
 <div class="wrapper" id="loginWrapper" onclick="loginOff()">
     <div onclick="loginOff()" class="offButton"><p>X</p></div>
-    <form class="panel" action="./scripts/php/login.php" method="post" id="loginPanel" onclick="event.stopPropagation()">
+    <form class="panel" action="./scripts/php/login.php" method="post" id="loginPanel"
+          onclick="event.stopPropagation()"> <!-- STOP PROPAGANDA -->
         <div class='logo_dziennik'>
             <div>
                 <div class="square"></div>
@@ -81,32 +83,32 @@ if (!isset($_SESSION['error'])) {
         <p>Nazwisko: <?php echo $_SESSION['nazwisko']; ?></p>
         <p>Typ konta:
             <?php
-if ($_SESSION['typ'] == 0) {
-    echo "Rodzic";
-} else if ($_SESSION['typ'] == 1) {
-    echo "Nauczyciel(ka)";
-} else {
-    echo "Dyrekcja";
-}
-?>
+            if ($_SESSION['typ'] == 0) {
+                echo "Rodzic";
+            } else if ($_SESSION['typ'] == 1) {
+                echo "Nauczyciel(ka)";
+            } else {
+                echo "Dyrekcja";
+            }
+            ?>
         </p>
         <a href="
         <?php
-if ($_SESSION['typ'] == 0) {
-    echo "./panels/parents.php";
-} else {
-    echo "./panels/admin.html";
-}
-?>
+        if ($_SESSION['typ'] == 0) {
+            echo "./panels/parents.php";
+        } else {
+            echo "./panels/admin.html";
+        }
+        ?>
         ">
             <button>
                 <?php
-if ($_SESSION['typ'] == 0) {
-    echo "Panel Rodzica";
-} else {
-    echo "Panel Pracownika";
-}
-?>
+                if ($_SESSION['typ'] == 0) {
+                    echo "Panel Rodzica";
+                } else {
+                    echo "Panel Pracownika";
+                }
+                ?>
             </button>
         </a>
         <form action="./scripts/php/logout.php" method="post">
@@ -121,7 +123,7 @@ if ($_SESSION['typ'] == 0) {
 <div class="sticky-banner">
     <div class="square"></div>
     <a class="logo" href="#header">
-        <img src="./assets/logo_tornado.svg">
+        <img src="./assets/logo_tornado.svg" alt="logo">
         <div class="text logo-font">Przedszkole Chaosek</div>
     </a>
     <div class="nav">
@@ -287,7 +289,7 @@ if ($_SESSION['typ'] == 0) {
 <div id="phpOutputs">
     <?php
     printArr($_SESSION);
-    printArr($result);
+//    printArr($result);
     ?>
 
 </div>
