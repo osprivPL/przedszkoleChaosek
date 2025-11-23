@@ -33,9 +33,9 @@ if (!isset($_SESSION['error'])) {
 </head>
 <body id="body"> <!--- <333333 -->
 <div id="dark_bg"></div>
-<div class="wrapper" id="loginWrapper">\
+<div class="wrapper" id="loginWrapper" onclick="loginOff()">
     <div onclick="loginOff()" class="offButton"><p>X</p></div>
-    <form class="panel" action="./scripts/php/login.php" method="post" id="loginPanel">
+    <form class="panel" action="./scripts/php/login.php" method="post" id="loginPanel" onclick="event.stopPropagation()">
         <div class='logo_dziennik'>
             <div>
                 <div class="square"></div>
