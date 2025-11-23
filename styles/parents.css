@@ -71,7 +71,7 @@ nav{
 }
 
 .nav_child>span{
-
+    padding-bottom: 0.5em;
 }
 .nav_child>img{
     height:50px;
