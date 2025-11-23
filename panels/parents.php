@@ -91,7 +91,7 @@ if (!$_SESSION['logged']) {
 <!-- MAIN -->
 <!-- ============================= -->
 <main id="main">
-    <img src="./assets/playing.png" alt="">
+
 
 
 

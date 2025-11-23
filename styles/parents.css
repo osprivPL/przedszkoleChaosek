@@ -86,13 +86,13 @@ nav{
     position: absolute;
     left: -120%;
     content: "";
-    background: var(--green-vibrant);
-    border-radius: 50px;
-    transition: transform 0.5s;
+    background: var(--green-vibrant);0
+    transition: transform ease-out 0.5s;
 }
 
 .nav_child:hover:before{
     transform: translateX(60%);
+    border-radius: 50px;
 }
 
 .nav_child>img{
