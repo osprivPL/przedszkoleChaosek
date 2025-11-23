@@ -137,6 +137,24 @@ if (!isset($_SESSION['error'])) {
         <a href="#rejestracja">Rejestracja</a>
         <a href="#kontakt">Kontakt</a>
         <a href="#phpOutputs">php</a>
+        <?php
+            if($_SESSION['logged'] == true){
+                $typ = "";
+                if ($_SESSION['typ'] == 0) {
+                        $typ = "Rodzic";
+                    } else if ($_SESSION['typ'] == 1) {
+                        $typ = "Nauczyciel(ka)";
+                    } else {
+                        $typ = "Dyrekcja";
+                    }
+                echo '<a onclick="userPanelOn()" class="user">
+                    <div>'.$_SESSION['imie'].' '.$_SESSION['nazwisko'].'<br>'.$typ.'</div>
+                    <img src="./assets/user.svg" alt="user icon">
+                </a>';
+            } else {
+                echo '<a onclick="loginOn()" class="loginButton">Zaloguj się</a>';
+            }
+        ?>
     </div>
 </div>
 
@@ -152,14 +170,16 @@ if (!isset($_SESSION['error'])) {
         <a href="#rejestracja">Rejestracja</a>
         <a href="#kontakt">Kontakt</a>
         <a href="#phpOutputs">php</a>
-        <img <?php
-        if ($_SESSION['logged']) {
-            echo 'onclick="userPanelOn()"';
-        } else {
-            echo 'onclick="loginOn()"';
-        }
-
-        ?> src="./assets/user.svg">
+        <?php
+            if($_SESSION['logged'] == true){
+                echo '<a onclick="userPanelOn()" class="user">
+                    <div>'.$_SESSION['imie'].' '.$_SESSION['nazwisko'].'<br>'.$typ.'</div>
+                    <img src="./assets/user.svg" alt="user icon">
+                </a>';
+            } else {
+                echo '<a onclick="loginOn()" class="loginButton">Zaloguj się</a>';
+            }
+        ?>
     </div>
     <div class="logo">
         <div class="logo_img_container">
