@@ -9,8 +9,8 @@ function loginOff(){
     document.getElementById('body').style.overflowY = "scroll";
 }
 function userPanelOn(){
-    document.getElementById("userWrapper").style.visibility = "visible";
+    document.getElementById("userWrapper").classList.add('visible');
 }
 function userPanelOff(){
-    document.getElementById("userWrapper").style.visibility = "hidden";
+    document.getElementById("userWrapper").classList.remove('visible');
 }
