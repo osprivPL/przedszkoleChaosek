@@ -39,7 +39,7 @@ header #logo img {
     height: 100%;
 }
 
-header #login {
+header #mail {
     background-image: url('../assets/mail.png');
     height: 10vh;
     width: 10vh;
@@ -49,7 +49,7 @@ header #login {
     margin-right: 1vh;
 }
 
-header #login:hover {
+header #mail:hover {
     background-image: url('../assets/mail.png');
     transform: scale(1.05);
 }
@@ -64,16 +64,35 @@ nav{
     justify-content: flex-start;
     align-content:  flex-start;
 
-    font-size: 24px;
+    font-size: 30px;
     color: #ececec;
     background: var(--green-darker);
     min-height: 96vh;
 }
 
 .nav_child{
+    position: relative;
+    z-index: 999;
     display: flex;
     align-items: center;
-    margin: 10px;
+    padding: 10px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.nav_child:before{
+    width: 122.5%;
+    height: 110%;
+    position: absolute;
+    left: -120%;
+    content: "";
+    background: var(--green-vibrant);
+    border-radius: 50px;
+    transition: transform 0.5s;
+}
+
+.nav_child:hover:before{
+    transform: translateX(60%);
 }
 
 .nav_child>img{
@@ -81,6 +100,9 @@ nav{
     width: 50px;
     padding: 2px;
     filter: invert(100%);
+}
+.nav_child>span{
+    z-index: 9;
 }
 
 main{

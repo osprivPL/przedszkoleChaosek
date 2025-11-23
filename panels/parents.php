@@ -53,13 +53,14 @@ if (!$_SESSION['logged']) {
         <span>Przedszkole Chaosek</span>
     </a>
     <!--Tymon zrobił by to lepiej-->
-    <img id="login" src="./../assets/mail.png" alt="login"
+    <img id="mail" src="./../assets/mail.png" alt="mail"
             <?php
-            if ($_SESSION['logged']) {
-                echo 'onclick="userPanelOn()"';
-            } else {
-                echo 'onclick="loginOn()"';
-            }
+            //To ma być do mail kod był kradziony z login
+//            if ($_SESSION['logged']) {
+//                echo 'onclick="userPanelOn()"';
+//            } else {
+//                echo 'onclick="loginOn()"';
+//            }
             ?>>
 </header>
 
