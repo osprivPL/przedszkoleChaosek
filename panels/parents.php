@@ -27,7 +27,7 @@ if (!$_SESSION['logged']) {
     <meta name="author" content="Michał Ożdżyński Stanisław Odrowski Piotr Peryt">
 
     <!-- style -->
-    <link rel="stylesheet" href="../old/style.css">
+    <link rel="stylesheet" href="../styles/style.css">
     <link rel="stylesheet" href="./../styles/parents.css">
 
     <!-- czcionka -->
@@ -52,8 +52,8 @@ if (!$_SESSION['logged']) {
         <img src="./../assets/logo_tornado.svg" alt="logo">
         <span>Przedszkole Chaosek</span>
     </a>
-    <!--stasiek zrob to lepiej-->
-    <img id="login" src="./../assets/user.png" alt="login"
+    <!--Tymon zrobił by to lepiej-->
+    <img id="login" src="./../assets/mail.png" alt="login"
             <?php
             if ($_SESSION['logged']) {
                 echo 'onclick="userPanelOn()"';
@@ -62,55 +62,70 @@ if (!$_SESSION['logged']) {
             }
             ?>>
 </header>
-<!-- ============================= -->
-<!-- NAVIGATION -->
-<!-- ============================= -->
+
+<div class="layout">
+    <!-- ============================= -->
+    <!-- NAVIGATION -->
+    <!-- ============================= -->
 <nav>
-    <a href="./../index.php">
-        <span>O nas</span>
-    </a>
-    <a href="./../index.php">
-        <span>Aktualności</span>
-    </a>
-    <a href="./../index.php">
-        <span>Jak dojechać?</span>
-    </a>
-    <a href="./../index.php">
-        <span>REKRUTACJA</span>
-    </a>
-    <a href="./../index.php">
-        <span>Kontakt</span>
-    </a>
+    <div class="nav_child nav_child_dzieci">
+        <img src="./assets/playing.png" alt="">
+        <span>Dziecko</span>
+    </div>
+    <div class="nav_child nav_child_szkola">
+        <img src="./assets/school.png" alt="">
+        <span>o Szkole</span>
+    </div>
+    <div class="nav_child ">
+        <img src="./assets/restaurant.png" alt="">
+        <span>Stołówka</span>
+    </div>
+    <div class="nav_child">
+        <img src="./assets/speaker.png" alt="">
+        <span>Ogłoszenia</span>
+    </div>
 </nav>
+
 <!-- ============================= -->
 <!-- MAIN -->
 <!-- ============================= -->
-<aside>
-    <ul id="listaDzieci">
-        <?php
-        $connection = mysqli_connect("localhost", "root", "", "przedszkole");
-        $json = array();
-        if (!$connection) {
-            echo "Brak połączenia z bazą danych";
-        } else {
-            if ($result = $connection->query(sprintf("SELECT imie, nazwisko, pesel, adres, grupa FROM dzieci WHERE IDrodzica='%s'", mysqli_real_escape_string($connection, $_SESSION['id'])))) {
-                $result = $result->fetch_all();
-                foreach ($result as $row) {
-                    $json[] = $row;
+<main id="main">
+    <img src="./assets/playing.png" alt="">
+
+
+
+
+
+
+
+
+
+    <!--<aside>
+        <ul id="listaDzieci">
+            <?php
+            $connection = mysqli_connect("localhost", "root", "", "przedszkole");
+            $json = array();
+            if (!$connection) {
+                echo "Brak połączenia z bazą danych";
+            } else {
+                if ($result = $connection->query(sprintf("SELECT imie, nazwisko, pesel, adres, grupa FROM dzieci WHERE IDrodzica='%s'", mysqli_real_escape_string($connection, $_SESSION['id'])))) {
+                    $result = $result->fetch_all();
+                    foreach ($result as $row) {
+                        $json[] = $row;
+                    }
                 }
             }
-        }
-        $connection->close();
-        ?>
+            $connection->close();
+            ?>
 
-    </ul>
-</aside>
-
-<main id="main">
+        </ul>
+    </aside>
     <?php printArr($_SESSION); ?>
 
-    <script src="./../scripts/js/showLogin.js"></script>
+    <script src="./../scripts/js/showLogin.js"></script>-->
+
 </main>
+</div>
 <div class="wrapper" id="userWrapper">
     <div id="userPanel" class="panel">
         <button onclick="userPanelOff()" class="offButton">X</button>

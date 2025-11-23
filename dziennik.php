@@ -13,8 +13,8 @@
     <header>
         <img src="./assets/logo_tornado.svg" alt="logo tornada">
         <img src="./assets/mail.png" alt="" id="mail">
+
     </header>
-    <div class="wrapper">
     <nav>
         <div class="nav_child nav_child_dzieci">
             <img src="./assets/playing.png" alt="">
@@ -36,6 +36,5 @@
     <main>
         12431
     </main>
-    </div>
 </body>
 </html>

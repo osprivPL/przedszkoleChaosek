@@ -34,7 +34,7 @@ header>img{
     overflow: hidden;
 }
 
-.wrapper{
+.layout{
     display: grid;
     grid-template-columns: [nav]0.3fr [main]1fr;
 }
