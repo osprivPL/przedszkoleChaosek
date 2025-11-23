@@ -66,13 +66,16 @@ nav{
 
     font-size: 24px;
     color: #ececec;
-    background: #151515;
+    background: var(--green-darker);
     min-height: 96vh;
 }
 
-.nav_child>span{
-    padding-bottom: 0.5em;
+.nav_child{
+    display: flex;
+    align-items: center;
+    margin: 10px;
 }
+
 .nav_child>img{
     height:50px;
     width: 50px;
