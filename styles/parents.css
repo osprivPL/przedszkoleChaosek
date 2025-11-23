@@ -80,9 +80,7 @@ nav{
     height:50px;
     width: 50px;
     padding: 2px;
-    background: #fff;
-    border-radius: 10px;
-    overflow: hidden;
+    filter: invert(100%);
 }
 
 main{

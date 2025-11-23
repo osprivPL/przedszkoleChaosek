@@ -69,19 +69,19 @@ if (!$_SESSION['logged']) {
     <!-- ============================= -->
 <nav>
     <div class="nav_child nav_child_dzieci">
-        <img src="./assets/playing.png" alt="">
+        <img src="./../assets/playing.png" alt="">
         <span>Dziecko</span>
     </div>
     <div class="nav_child nav_child_szkola">
-        <img src="./assets/school.png" alt="">
+        <img src="./../assets/school.png" alt="">
         <span>o Szkole</span>
     </div>
     <div class="nav_child ">
-        <img src="./assets/restaurant.png" alt="">
+        <img src="./../assets/restaurant.png" alt="">
         <span>Stołówka</span>
     </div>
     <div class="nav_child">
-        <img src="./assets/speaker.png" alt="">
+        <img src="./../assets/speaker.png" alt="">
         <span>Ogłoszenia</span>
     </div>
 </nav>
