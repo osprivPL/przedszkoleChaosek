@@ -27,6 +27,11 @@ header{
     background: linear-gradient(to right, var(--secondary-color), color-mix(in srgb, var(--secondary-color) 70%, white 20%));
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+.header-ui{
+    height: 10vh;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
 header #logo {
     text-decoration: none;
     height: 12vh;
@@ -39,7 +44,7 @@ header #logo img {
     height: 100%;
 }
 
-header #mail {
+header #mail, #login{
     background-image: url('../assets/mail.png');
     height: 10vh;
     width: 10vh;
@@ -48,9 +53,17 @@ header #mail {
     cursor: pointer;
     margin-right: 1vh;
 }
+header #login{
+    background-image: url('../assets/login.png');
+}
 
 header #mail:hover {
     background-image: url('../assets/mail.png');
+    transform: scale(1.05);
+}
+
+header #login:hover {
+    background-image: url('../assets/login.png');
     transform: scale(1.05);
 }
 .layout{
@@ -86,7 +99,7 @@ nav{
     position: absolute;
     left: -120%;
     content: "";
-    background: var(--green-vibrant);0
+    background: var(--green-vibrant);
     transition: transform ease-out 0.5s;
 }
 

@@ -53,15 +53,17 @@ if (!$_SESSION['logged']) {
         <span>Przedszkole Chaosek</span>
     </a>
     <!--Tymon zrobił by to lepiej-->
-    <img id="mail" src="./../assets/mail.png" alt="mail"
+    <div class="header-ui">
+    <img id="mail" src="./../assets/mail.png" alt="mail">
+    <img id="login" src="./../assets/.png" alt="login"
             <?php
-            //To ma być do mail kod był kradziony z login
-//            if ($_SESSION['logged']) {
-//                echo 'onclick="userPanelOn()"';
-//            } else {
-//                echo 'onclick="loginOn()"';
-//            }
+            if ($_SESSION['logged']) {
+                echo 'onclick="userPanelOn()"';
+            } else {
+                echo 'onclick="loginOn()"';
+            }
             ?>>
+    </div>
 </header>
 
 <div class="layout">
@@ -69,6 +71,10 @@ if (!$_SESSION['logged']) {
     <!-- NAVIGATION -->
     <!-- ============================= -->
 <nav>
+    <div class="nav_child">
+        <img src="./../assets/main_page.png" alt="">
+        <span>Panel główny</span>
+    </div>
     <div class="nav_child nav_child_dzieci">
         <img src="./../assets/playing.png" alt="">
         <span>Dziecko</span>
