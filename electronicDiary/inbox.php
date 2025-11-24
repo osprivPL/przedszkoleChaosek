@@ -28,6 +28,7 @@ if (!$_SESSION['logged']) {
 
     <!-- style -->
     <link rel="stylesheet" href="./../styles/style.css">
+    <link rel="stylesheet" href="./../styles/panels.css">
     <link rel="stylesheet" href="./../styles/parents.css">
 
     <!-- czcionka -->
@@ -48,14 +49,14 @@ if (!$_SESSION['logged']) {
 </head>
 <body>
 <header>
-    <a href="./../index.php" id="logo">
+    <a href="../index.php" id="logo">
         <img src="./../assets/logo_tornado.svg" alt="logo">
         <span>Przedszkole Chaosek</span>
     </a>
     <!--Tymon zrobił by to lepiej-->
     <div class="header-ui">
-    <img id="mail" src="./../assets/mail.png" alt="mail">
-    <img id="login" src="./../assets/user.svg" alt="login"
+        <a href="./inbox.php"><img id="mail" src="./../assets/mail.png" alt="mail"></a>
+        <img id="login" src="./../assets/user.svg" alt="login"
             <?php
             if ($_SESSION['logged']) {
                 echo 'onclick="userPanelOn()"';
@@ -70,83 +71,64 @@ if (!$_SESSION['logged']) {
     <!-- ============================= -->
     <!-- NAVIGATION -->
     <!-- ============================= -->
-<nav>
-    <div class="nav_child">
-        <img src="./../assets/main_page.png" alt="">
-        <span>Panel główny</span>
-    </div>
-    <div class="nav_child nav_child_dzieci">
-        <img src="./../assets/playing.png" alt="">
-        <span>Dziecko</span>
-    </div>
-    <div class="nav_child nav_child_szkola">
-        <img src="./../assets/school.png" alt="">
-        <span>o Szkole</span>
-    </div>
-    <div class="nav_child ">
-        <img src="./../assets/restaurant.png" alt="">
-        <span>Stołówka</span>
-    </div>
-    <div class="nav_child">
-        <img src="./../assets/speaker.png" alt="">
-        <span>Ogłoszenia</span>
-    </div>
-</nav>
+    <nav>
+        <!-- ZROBIC IKONKI DO TEGO, CZYT. ZMIENIC -->
+        <div class="nav_child">
+            <img src="./../assets/main_page.png" alt="">
+            <span>Odebrane</span>
+        </div>
+        <div class="nav_child nav_child_dzieci">
+            <img src="./../assets/playing.png" alt="">
+            <span>Wysłane</span>
+        </div>
+        <div class="nav_child nav_child_szkola">
+            <img src="./../assets/school.png" alt="">
+            <span>Usunięte</span>
+        </div>
+        <div class="nav_child ">
+            <img src="./../assets/restaurant.png" alt="">
+            <span>Kopie robocze</span>
+        </div>
+    </nav>
 
-<!-- ============================= -->
-<!-- MAIN -->
-<!-- ============================= -->
-<main id="main">
+    <!-- ============================= -->
+    <!-- MAIN -->
+    <!-- ============================= -->
+    <main id="main">
 
-    <!-- Mój zamysł na działanie tego są takie że bedzie to działało jak panel rodzica jak się zalogujesz -->
-    <!-- Gdy kliknie się na któreś z .nav-child to korespondujacy .main-panel się pokaże -->
+        <!-- Mój zamysł na działanie tego są takie że bedzie to działało jak panel rodzica jak się zalogujesz -->
+        <!-- Gdy kliknie się na któreś z .nav-child to korespondujacy .main-panel się pokaże -->
 
-    <div class="main-panel main-main">
-        <div class="main-panel-cell test-plan">1</div>
-        <div class="main-panel-cell test-grades">2</div>
-        <div class="main-panel-cell test-changes">3</div>
-        <div class="main-panel-cell test-plan">4</div>
-        <div class="main-panel-cell test-grades">5</div>
-        <div class="main-panel-cell test-changes">6</div>
-        <div class="main-panel-cell test-plan">7</div>
-        <div class="main-panel-cell test-grades">8</div>
-        <div class="main-panel-cell test-changes">9</div>
-    </div>
-    <div class="main-panel main-child">
-
-    </div>
-    <div class="main-panel main-school">
-
-    </div>
-    <div class="main-panel main-food">
-
-    </div>
-    <div class="main-panel main-news">
-
-    </div>
+        <div class="main-panel main-main">
+            <div class="main-panel-cell test-plan">Plan lekcji</div>
+            <div class="main-panel-cell test-grades">W przedszkolu nie ma ocen</div>
+            <div class="main-panel-cell test-changes">Zmiany w planie</div>
+            <div class="main-panel-cell test-plan">Prace domowe</div>
+            <div class="main-panel-cell test-grades">Ogłoszenia</div>
+            <div class="main-panel-cell test-changes">Wychowawca</div>
+            <div class="main-panel-cell test-plan">7</div>
+            <div class="main-panel-cell test-grades">8</div>
+            <div class="main-panel-cell test-changes">9</div>
+        </div>
 
 
-
-
-
-
-    <!--<aside>
+        <!--<aside>
         <ul id="listaDzieci">
             <?php
-            $connection = mysqli_connect("localhost", "root", "", "przedszkole");
-            $json = array();
-            if (!$connection) {
-                echo "Brak połączenia z bazą danych";
-            } else {
-                if ($result = $connection->query(sprintf("SELECT imie, nazwisko, pesel, adres, grupa FROM dzieci WHERE IDrodzica='%s'", mysqli_real_escape_string($connection, $_SESSION['id'])))) {
-                    $result = $result->fetch_all();
-                    foreach ($result as $row) {
-                        $json[] = $row;
-                    }
+        $connection = mysqli_connect("localhost", "root", "", "przedszkole");
+        $json = array();
+        if (!$connection) {
+            echo "Brak połączenia z bazą danych";
+        } else {
+            if ($result = $connection->query(sprintf("SELECT imie, nazwisko, pesel, adres, grupa FROM dzieci WHERE IDrodzica='%s'", mysqli_real_escape_string($connection, $_SESSION['id'])))) {
+                $result = $result->fetch_all();
+                foreach ($result as $row) {
+                    $json[] = $row;
                 }
             }
-            $connection->close();
-            ?>
+        }
+        $connection->close();
+        ?>
 
         </ul>
     </aside>
@@ -154,7 +136,7 @@ if (!$_SESSION['logged']) {
 
     <script src="./../scripts/js/showLogin.js"></script>-->
 
-</main>
+    </main>
 </div>
 <div class="wrapper" id="userWrapper">
     <div id="userPanel" class="panel">

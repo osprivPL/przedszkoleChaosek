@@ -41,7 +41,7 @@ if (!isset($_SESSION['error'])) {
 <!-- HEADER -->
 <!-- ============================= -->
 <header>
-    <a href="./index.php" id="logo">
+    <a href="index.php" id="logo">
         <img src="assets/logo_tornado.svg" alt="logo">
         <span>Przedszkole Chaosek</span>
     </a>
@@ -59,19 +59,19 @@ if (!isset($_SESSION['error'])) {
 <!-- NAVIGATION -->
 <!-- ============================= -->
 <nav>
-    <a href="./index.php">
+    <a href="index.php">
         <span>O nas</span>
     </a>
-    <a href="./index.php">
+    <a href="index.php">
         <span>Aktualności</span>
     </a>
-    <a href="./index.php">
+    <a href="index.php">
         <span>Jak dojechać?</span>
     </a>
     <a href="./rekrutacja.php">
         <span>REKRUTACJA</span>
     </a>
-    <a href="./index.php">
+    <a href="index.php">
         <span>Kontakt</span>
     </a>
 </nav>

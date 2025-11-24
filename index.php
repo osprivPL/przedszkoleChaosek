@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <?php
-echo "<script src='./scripts/js/indexUtilities.js'></script>";
 echo "<script src='./scripts/js/showLogin.js'></script>";
 header("Cache-Control: no-cache");
+require_once __DIR__ . '/models/User.php';
+
+use models\User;
 session_start();
+
+
 //session_destroy();
 require_once "./scripts/php/printArr.php";
+$user = new User();
 if (!isset($_SESSION['logged'])) {
     $_SESSION['logged'] = false;
+} else if ($_SESSION['logged']) {
+    $user = $_SESSION['user'];
 }
 if (!isset($_SESSION['error'])) {
     $_SESSION['error'] = -1;
@@ -19,7 +26,6 @@ if (!isset($_SESSION['error'])) {
 
     loginOn();
 //       document.addEventListener("DOMContentLoaded", function() {
-//            console.log("cum");
             
 //        });
 //    </script>';
@@ -38,11 +44,12 @@ if (!isset($_SESSION['error'])) {
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
+
 </head>
 <body id="body"> <!--- <333333 -->
 <div id="dark_bg"></div>
 <div class="wrapper" id="loginWrapper" onclick="loginOff()">
-    <div onclick="loginOff()" class="offButton"><p>X</p></div>
+    <div onclick="loginOff()" class="offButton" id="siur"><p>X</p></div>
     <form class="panel" action="./scripts/php/login.php" method="post" id="loginPanel"
           onclick="event.stopPropagation()"> <!-- STOP PROPAGANDA -->
         <div class='logo_dziennik'>
@@ -86,13 +93,17 @@ if (!isset($_SESSION['error'])) {
 <div class="wrapper" id="userWrapper">
     <div id="userPanel" class="panel">
         <button onclick="userPanelOff()" class="offButton">X</button>
-        <p>Imię: <?php echo $_SESSION['imie']; ?></p>
-        <p>Nazwisko: <?php echo $_SESSION['nazwisko']; ?></p>
+        <p>Imię: <?php
+            if ($user != null) {
+                echo $user->imie;
+            }
+            ?></p>
+        <p>Nazwisko: <?php echo $user->nazwisko ?></p>
         <p>Typ konta:
             <?php
-            if ($_SESSION['typ'] == 0) {
+            if ($user->typ == 0) {
                 echo "Rodzic";
-            } else if ($_SESSION['typ'] == 1) {
+            } else if ($user->typ == 1) {
                 echo "Nauczyciel(ka)";
             } else {
                 echo "Dyrekcja";
@@ -101,16 +112,16 @@ if (!isset($_SESSION['error'])) {
         </p>
         <a href="
         <?php
-        if ($_SESSION['typ'] == 0) {
-            echo "./panels/parents.php";
+        if ($user->typ == 0) {
+            echo "./electronicDiary/parents.php";
         } else {
-            echo "./panels/admin.html";
+            echo "./electronicDiary/admin.html";
         }
         ?>
         ">
             <button>
                 <?php
-                if ($_SESSION['typ'] == 0) {
+                if ($user->typ == 0) {
                     echo "Panel Rodzica";
                 } else {
                     echo "Panel Pracownika";
@@ -141,26 +152,26 @@ if (!isset($_SESSION['error'])) {
         <a href="#o_nas">O nas</a>
         <a href="#aktualnosci">Aktualności</a>
         <a href="#dojazd">Dojazd</a>
-        <a href="#rejestracja">Rejestracja</a>
+        <a href="./rekrutacja.php">Rekrutacja</a>
         <a href="#kontakt">Kontakt</a>
         <a href="#phpOutputs">php</a>
         <?php
-            if($_SESSION['logged'] == true){
-                $typ = "";
-                if ($_SESSION['typ'] == 0) {
-                        $typ = "Rodzic";
-                    } else if ($_SESSION['typ'] == 1) {
-                        $typ = "Nauczyciel(ka)";
-                    } else {
-                        $typ = "Dyrekcja";
-                    }
-                echo '<a onclick="userPanelOn()" class="user">
-                    <div>'.$_SESSION['imie'].' '.$_SESSION['nazwisko'].'<br>'.$typ.'</div>
+        $typ = "";
+        if ($_SESSION['logged'] == true) {
+            if ($user->typ == 0) {
+                $typ = "Rodzic";
+            } else if ($user->typ == 1) {
+                $typ = "Nauczyciel(ka)";
+            } else {
+                $typ = "Dyrekcja";
+            }
+            echo '<a onclick="userPanelOn()" class="user">
+                    <div>' . $user->imie . ' ' . $user->nazwisko . '<br>' . $typ . '</div>
                     <img src="./assets/user.svg" alt="user icon">
                 </a>';
-            } else {
-                echo '<a onclick="loginOn()" class="loginButton">Zaloguj się</a>';
-            }
+        } else {
+            echo '<a onclick="loginOn()" class="loginButton">Zaloguj się</a>';
+        }
         ?>
     </div>
 </div>
@@ -174,18 +185,18 @@ if (!isset($_SESSION['error'])) {
         <a href="#o_nas">O nas</a>
         <a href="#aktualnosci">Aktualności</a>
         <a href="#dojazd">Dojazd</a>
-        <a href="#rejestracja">Rejestracja</a>
+        <a href="./rekrutacja.php">REKRUTACJA</a>
         <a href="#kontakt">Kontakt</a>
         <a href="#phpOutputs">php</a>
         <?php
-            if($_SESSION['logged'] == true){
-                echo '<a onclick="userPanelOn()" class="user">
-                    <div>'.$_SESSION['imie'].' '.$_SESSION['nazwisko'].'<br>'.$typ.'</div>
+        if ($_SESSION['logged'] == true) {
+            echo '<a onclick="userPanelOn()" class="user">
+                    <div>' . $user->imie . ' ' . $user->nazwisko . '<br>' . $typ . '</div>
                     <img src="./assets/user.svg" alt="user icon">
                 </a>';
-            } else {
-                echo '<a onclick="loginOn()" class="loginButton">Zaloguj się</a>';
-            }
+        } else {
+            echo '<a onclick="loginOn()" class="loginButton">Zaloguj się</a>';
+        }
         ?>
     </div>
     <div class="logo">
@@ -315,10 +326,12 @@ if (!isset($_SESSION['error'])) {
 </div>
 <div id="phpOutputs">
     <?php
+    //     echo $_SESSION['logged'];
     printArr($_SESSION);
-//    printArr($result);
+    //    printArr($result);
     ?>
 
 </div>
+<script src='./scripts/js/indexUtilities.js'></script>
 </body>
 </html>
