@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <?php
+echo "<script src='./scripts/js/indexUtilities.js'></script>";
+echo "<script src='./scripts/js/showLogin.js'></script>";
 header("Cache-Control: no-cache");
 session_start();
 //session_destroy();
@@ -11,11 +13,16 @@ if (!isset($_SESSION['error'])) {
     $_SESSION['error'] = -1;
 } else if ($_SESSION['error'] != -1) {
     echo '<script>
-       document.addEventListener("DOMContentLoaded", function() {
-            let loginEl = document.getElementById("login");
-            if (loginEl) loginEl.click();
-        });
-    </script>';
+    setTimeout(function() {
+        loginOn();
+    }, 3000);
+
+    loginOn();
+//       document.addEventListener("DOMContentLoaded", function() {
+//            console.log("cum");
+            
+//        });
+//    </script>';
 }
 ?>
 <html lang="pl">
@@ -313,7 +320,5 @@ if (!isset($_SESSION['error'])) {
     ?>
 
 </div>
-<script src='./scripts/js/indexUtilities.js'></script>
-<script src='./scripts/js/showLogin.js'></script>
 </body>
 </html>
