@@ -91,56 +91,14 @@ if (!isset($_SESSION['error'])) {
         </span>
     </form>
 </div>
-<div class="wrapper" id="userWrapper">
-    <div id="userPanel" class="panel">
-        <button onclick="userPanelOff()" class="offButton">X</button>
-        <p>Imię: <?php
-            if ($user != null) {
-                echo $user->imie;
-            }
-            ?></p>
-        <p>Nazwisko: <?php echo $user->nazwisko ?></p>
-        <p>Typ konta:
-            <?php
-            if ($user->typ == 0) {
-                echo "Rodzic";
-            } else if ($user->typ == 1) {
-                echo "Nauczyciel(ka)";
-            } else {
-                echo "Dyrekcja";
-            }
-            ?>
-        </p>
-        <a href="
-        <?php
-        if ($user->typ == 0) {
-            echo "./electronicDiary/parents.php";
-        } else {
-            echo "./electronicDiary/admin.html";
-        }
-        ?>
-        ">
-            <button>
-                <?php
-                if ($user->typ == 0) {
-                    echo "Panel Rodzica";
-                } else {
-                    echo "Panel Pracownika";
-                }
-                ?>
-            </button>
-        </a>
-        <form action="./scripts/php/logout.php" method="post">
-            <button type="submit">Wyloguj</button>
-        </form>
-    </div>
-</div>
 
 <!--============================-->
 <!--Sticky nav-->
 <!--============================-->
 <div class="sticky-banner">
-    <div class="square"></div>
+    <div class="square_container">
+        <div class="square"></div>
+    </div>
     <a class="logo" href="#header">
         <img src="./assets/logo_tornado.svg" alt="logo">
         <div class="text logo-font">Przedszkole Chaosek</div>
@@ -166,13 +124,23 @@ if (!isset($_SESSION['error'])) {
             } else {
                 $typ = "Dyrekcja";
             }
-            echo '<a onclick="userPanelOn()" class="user">
+            echo '<div onclick="userPanel(1)" class="user">
                     <div>' . $user->imie . ' ' . $user->nazwisko . '<br>' . $typ . '</div>
                     <img src="./assets/user.svg" alt="user icon">
-                </a>';
+                    <div class="user_pop_up" id="user_pop_up1">
+                        <a href="';
+                    if ($user->typ == 0) {
+                        echo "./electronicDiary/parents.php";
+                    } else {
+                        echo "./electronicDiary/admin.html";
+                    } 
+                        echo '">Panel  '. $typ .' </a>
+                        <a href="./scripts/php/logout.php">Wyloguj Się</a>
+                    </div>
+                </div>';
         } else {
             echo '<a onclick="loginOn()" class="loginButton">Zaloguj się</a>';
-        }
+        } 
         ?>
     </div>
 </div>
@@ -191,13 +159,23 @@ if (!isset($_SESSION['error'])) {
         <a href="#phpOutputs">php</a>
         <?php
         if ($_SESSION['logged'] == true) {
-            echo '<a onclick="userPanelOn()" class="user">
+            echo '<div onclick="userPanel(2)" class="user">
                     <div>' . $user->imie . ' ' . $user->nazwisko . '<br>' . $typ . '</div>
                     <img src="./assets/user.svg" alt="user icon">
-                </a>';
+                    <div class="user_pop_up" id="user_pop_up2">
+                        <a href="';
+                    if ($user->typ == 0) {
+                        echo "./electronicDiary/parents.php";
+                    } else {
+                        echo "./electronicDiary/admin.html";
+                    } 
+                        echo '">Panel  '. $typ .' </a>
+                        <a href="./scripts/php/logout.php">Wyloguj Się</a>
+                    </div>
+                </div>';
         } else {
             echo '<a onclick="loginOn()" class="loginButton">Zaloguj się</a>';
-        }
+        } 
         ?>
     </div>
     <div class="logo">
