@@ -324,22 +324,22 @@ if (!isset($_SESSION['error'])) {
 <!--============================-->
 <div class="slide kontakt" id="kontakt">
         <div class="sub_container">
-            <div class="title logo-font">Firma</div>
-            <a>Jesteś</a>
-            <a>Super</a>
-            <a>Człowiekiem</a>
+            <div class="title font-logo-small">Firma</div>
+            <a href="#header">Przedszkole Chaosek</a>
+            <a>Data założenia 25.11.2025</a>
+            <a href="https://pl.wikipedia.org/wiki/Sp%C3%B3%C5%82ka_z_ograniczon%C4%85_odpowiedzialno%C5%9Bci%C4%85" target="_blank">Spółka z ogarniczoną odpowiedzialnością</a>
         </div>
         <div class="sub_container">
-            <div class="title logo-font">Kontakt</div>
-            <a>Polecam</a>
-            <a>Cię</a>
-            <a>Na</a>
+            <div class="title font-logo-small">Kontakt</div>
+            <a href="mailto:przedszkole.chaosek@outlook.com">Email<br>przedszkole.chaosek@gmail.com</a>
+            <a href="Tel:+48535091970">Nr Tel<br>+48 535 091 970</a>
+            <a href="#dojazd">Adres<br>Stare Skoszewy 44aa</a>
         </div>
         <div class="sub_container">
-            <div class="title logo-font">Linki</div>
-            <a>Przyszłość</a>
-            <a>!</a>
-            <a>!!!!</a>
+            <div class="title font-logo-small">Założyciele</div>
+            <a href="https://www.instagram.com/michas.cpp/" target="_blank">Michał Ożdżyński</a>
+            <a href="https://www.instagram.com/piotrek.peryt/" target="_blank">Piotr Peryt</a>
+            <a href="https://www.instagram.com/odroww/" target="_blank">Stanisław Odrowski</a>
         </div>
 </div>
 

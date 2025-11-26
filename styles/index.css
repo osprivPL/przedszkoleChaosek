@@ -697,28 +697,32 @@ h1 {
 .kontakt{
     display: flex;
     justify-content: space-around;
-    align-items: center;
-    height: 60vh;
-    min-height: 60vh;  
+    height: 40vh;
+    min-height: 40vh;  
+    background-image: url('../assets/tlo_kontakt.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    filter:brightness(75%);
 }
 .kontakt .sub_container{
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-direction: column;
-    width: 30%;
-    height: 30vh;
-    padding: 20vh 0 10vh 0;
+    width: 20%;
+    height: 40vh;
+    padding-bottom: 3vh;
+    box-sizing: border-box;
     position: relative;
     font-family: 'Sour Gummy', sans-serif;
     font-size: 24px;
 }
 .kontakt .title{
-    font-size: 72px;
-    background-color: rgba(255,255,255,0.3);
-    border-top: 20px solid var(--green-darker);
-    width: 60%;
-    position: absolute;
-    top: 0;
+    font-size: 36px;
+}
+.kontakt a{
+    color: white;
+    text-decoration: none;
+    width: 100%;
     text-align: center;
 }
