@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2025 at 12:17 AM
+-- Generation Time: Nov 26, 2025 at 10:21 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -91,6 +91,13 @@ CREATE TABLE `oczekujace` (
   `adres` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
+--
+-- Dumping data for table `oczekujace`
+--
+
+INSERT INTO `oczekujace` (`ID`, `imieRodzica`, `nazwiskoRodzica`, `numerTelefonu`, `email`, `imieDziecka`, `nazwiskoDziecka`, `pesel`, `adres`) VALUES
+(14, 'Jan', 'Kruk', '123456789', 'jKruk@gmail.com', 'dziecko', 's', '22210309979', 'Spermastyczna 67');
+
 -- --------------------------------------------------------
 
 --
@@ -115,6 +122,22 @@ INSERT INTO `uzytkownicy` (`ID`, `imie`, `nazwisko`, `typ`, `numerTelefonu`, `lo
 (1, 'Jan', 'Kruk', 0, '123456789', 'jKruk@gmail.com', '$2y$10$V5DNoqC33NA5fe9CJ/QTMu7SSHWuKcPZfgl6GIaPtlA4hwGrwQWfq'),
 (2, 'Stanisław', 'Odrowski', 1, '', '', ''),
 (3, 'Jeremiasz', 'Michorczyk', 2, '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wiadomosci`
+--
+
+CREATE TABLE `wiadomosci` (
+  `id` int(11) NOT NULL,
+  `tytul` varchar(256) NOT NULL,
+  `tresc` varchar(10000) NOT NULL,
+  `dataWyslania` date NOT NULL,
+  `nadawcaID` int(11) NOT NULL,
+  `odbiorcaID` int(11) NOT NULL,
+  `odczytane` int(11) NOT NULL COMMENT '0 - nie, 1 - tak'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 --
 -- Indexes for dumped tables
@@ -146,6 +169,14 @@ ALTER TABLE `uzytkownicy`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `wiadomosci`
+--
+ALTER TABLE `wiadomosci`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `odbiorcaID` (`odbiorcaID`),
+  ADD KEY `nadawcaID` (`nadawcaID`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -165,13 +196,19 @@ ALTER TABLE `dzieci`
 -- AUTO_INCREMENT for table `oczekujace`
 --
 ALTER TABLE `oczekujace`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `wiadomosci`
+--
+ALTER TABLE `wiadomosci`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -182,6 +219,13 @@ ALTER TABLE `uzytkownicy`
 --
 ALTER TABLE `dzieci`
   ADD CONSTRAINT `dzieci_ibfk_1` FOREIGN KEY (`IDRodzica`) REFERENCES `uzytkownicy` (`ID`);
+
+--
+-- Constraints for table `wiadomosci`
+--
+ALTER TABLE `wiadomosci`
+  ADD CONSTRAINT `wiadomosci_ibfk_1` FOREIGN KEY (`odbiorcaID`) REFERENCES `uzytkownicy` (`ID`),
+  ADD CONSTRAINT `wiadomosci_ibfk_2` FOREIGN KEY (`nadawcaID`) REFERENCES `uzytkownicy` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
