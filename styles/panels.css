@@ -95,7 +95,8 @@ header #login:hover {
     left: -122.5%;
     content: "";
     background: var(--green-vibrant);
-    transition: transform ease-out 0.3s;
+    transition: all ease 0.5s;
+    border-radius: 0px;
 }
 
 .nav_child:hover:before{
