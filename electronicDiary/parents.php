@@ -99,6 +99,7 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
         <!-- Gdy kliknie się na któreś z .nav-child to korespondujacy .main-panel się pokaże -->
 
         <div class="main-panel main-main">
+            <div class="main-style-panel">
             <div class="main-panel-cell test-plan">Plan lekcji</div>
             <div class="main-panel-cell test-grades">W przedszkolu nie ma ocen</div>
             <div class="main-panel-cell test-changes">Zmiany w planie</div>
@@ -108,6 +109,7 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
             <div class="main-panel-cell test-plan">7</div>
             <div class="main-panel-cell test-grades">8</div>
             <div class="main-panel-cell test-changes">9</div>
+            </div>
         </div>
 
 
