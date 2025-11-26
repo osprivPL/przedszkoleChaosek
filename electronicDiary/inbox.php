@@ -9,10 +9,6 @@ if (!isset($_SESSION['logged'])) {
 if (!isset($_SESSION['error'])) {
     $_SESSION['error'] = -1;
 }
-if (!isset($_SESSION['typ'])) {
-    header('Location: ./../../index.php');
-    die();
-}
 if (!$_SESSION['logged']) {
     header("Location: ./../index.php");
     die();

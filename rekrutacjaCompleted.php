@@ -11,7 +11,7 @@ if (isset($_SESSION['user'])) {
 }
 if (!isset($_SESSION['logged'])) {
     $_SESSION['logged'] = false;
-} elseif ($_SESSION['logged']) {
+} else {
     $connection = mysqli_connect("localhost", "root", "", "przedszkole");
     $_SESSION['registered'] = true;
     if ($connection) {
@@ -50,6 +50,7 @@ if (!isset($_SESSION['logged'])) {
             if ($connection->query($sql)) {
                 $_SESSION['error'] = 4;
                 $_SESSION['info'] = 'jest g';
+                $_SESSION['registered'] = true;
             }
         }
     }

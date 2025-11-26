@@ -694,3 +694,31 @@ h1 {
 .slides .slider_element:nth-child(6) {
     animation-delay: 15s;
 }
+.kontakt{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 60vh;
+    min-height: 60vh;  
+}
+.kontakt .sub_container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    width: 30%;
+    height: 30vh;
+    padding: 20vh 0 10vh 0;
+    position: relative;
+    font-family: 'Sour Gummy', sans-serif;
+    font-size: 24px;
+}
+.kontakt .title{
+    font-size: 72px;
+    background-color: rgba(255,255,255,0.3);
+    border-top: 20px solid var(--green-darker);
+    width: 60%;
+    position: absolute;
+    top: 0;
+    text-align: center;
+}

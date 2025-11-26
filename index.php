@@ -323,8 +323,26 @@ if (!isset($_SESSION['error'])) {
 <!--Slide Kontakt-->
 <!--============================-->
 <div class="slide kontakt" id="kontakt">
-            
+        <div class="sub_container">
+            <div class="title logo-font">Firma</div>
+            <a>Jesteś</a>
+            <a>Super</a>
+            <a>Człowiekiem</a>
+        </div>
+        <div class="sub_container">
+            <div class="title logo-font">Kontakt</div>
+            <a>Polecam</a>
+            <a>Cię</a>
+            <a>Na</a>
+        </div>
+        <div class="sub_container">
+            <div class="title logo-font">Linki</div>
+            <a>Przyszłość</a>
+            <a>!</a>
+            <a>!!!!</a>
+        </div>
 </div>
+
 <div id="phpOutputs">
     <?php
     //     echo $_SESSION['logged'];
