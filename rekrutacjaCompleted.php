@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <?php
+require_once __DIR__ . '/models/User.php';
+
+use models\User;
 session_start();
 require_once "./scripts/php/printArr.php";
+$user = new User();
+if (isset($_SESSION['user'])) {
+    $user = $_SESSION['user'];
+}
 if (!isset($_SESSION['logged'])) {
     $_SESSION['logged'] = false;
 } elseif ($_SESSION['logged']) {
@@ -13,10 +20,11 @@ if (!isset($_SESSION['logged'])) {
         $childSurname = htmlentities($_POST['frmChildNazwisko'], ENT_QUOTES, 'UTF-8');
         $childPesel = htmlentities($_POST['frmChildPesel'], ENT_QUOTES, 'UTF-8');
         $childAdres = htmlentities($_POST['frmChildAdres'], ENT_QUOTES, 'UTF-8');
-        $parentName = $_SESSION['imie'];
-        $parentSurname = $_SESSION['nazwisko'];
-        $parentNumer = $_SESSION['telefon'];
-        $parentEmail = $_SESSION['email'];
+        $parentName = $user->imie;
+        $parentSurname = $user->nazwisko;
+        $parentNumer = $user->telefon;
+        $parentEmail = $user->email;
+        $_SESSION['info'] = 'japidi';
         if ($connection->query(sprintf("SELECT * FROM oczekujace WHERE imieRodzica = '%s' AND nazwiskoRodzica = '%s' AND numerTelefonu = '%s' AND email='%s' AND imieDziecka = '%s' AND nazwiskoDziecka = '%s' AND pesel = '%s' AND adres = '%s'",
                         mysqli_real_escape_string($connection, $parentName),
                         mysqli_real_escape_string($connection, $parentSurname),
@@ -27,6 +35,7 @@ if (!isset($_SESSION['logged'])) {
                         mysqli_real_escape_string($connection, $childPesel),
                         mysqli_real_escape_string($connection, $childAdres)))->num_rows > 0) {
             $_SESSION['error'] = 5;
+            $_SESSION['info'] = 'jest w bazie';
         } else {
             $sql = sprintf("INSERT INTO oczekujace(imieRodzica, nazwiskoRodzica, numerTelefonu, email, imieDziecka, nazwiskoDziecka, pesel, adres) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
                     mysqli_real_escape_string($connection, $parentName),
@@ -38,23 +47,22 @@ if (!isset($_SESSION['logged'])) {
                     mysqli_real_escape_string($connection, $childPesel),
                     mysqli_real_escape_string($connection, $childAdres)
             );
-        }
-        if (!$connection->query($sql)) {
-            $_SESSION['error'] = 4;
+            if ($connection->query($sql)) {
+                $_SESSION['error'] = 4;
+                $_SESSION['info'] = 'jest g';
+            }
         }
     }
 }
 if (!isset($_SESSION['registered'])) {
-    $_SESSION['registered'] = false;
-    header('Location: ./index.php');
-    die();
+//    $_SESSION['registered'] = false;
+    echo 'nie g';
+//    header('Location: ./index.php');
+//    die();
 }
 
 if (!isset($_SESSION['error'])) {
     $_SESSION['error'] = -1;
-}
-if ($_SESSION['registered'] && $_SESSION['error'] == -1) {
-
 }
 ?>
 
@@ -199,13 +207,13 @@ if ($_SESSION['registered'] && $_SESSION['error'] == -1) {
 <div class="wrapper" id="userWrapper">
     <div id="userPanel" class="panel">
         <button onclick="userPanelOff()" class="offButton">X</button>
-        <p>Imię: <?php echo $_SESSION['imie'] ?></p>
-        <p>Nazwisko: <?php echo $_SESSION['nazwisko'] ?></p>
+        <p>Imię: <?php echo $user->imie ?></p>
+        <p>Nazwisko: <?php echo $user->nazwisko ?></p>
         <p>Typ konta:
             <?php
-            if ($_SESSION['typ'] == 0) {
+            if ($user->typ == 0) {
                 echo "Rodzic";
-            } else if ($_SESSION['typ'] == 1) {
+            } else if ($user->typ == 1) {
                 echo "Nauczyciel(ka)";
             } else {
                 echo "Dyrekcja";
@@ -214,7 +222,7 @@ if ($_SESSION['registered'] && $_SESSION['error'] == -1) {
         </p>
         <a href="
         <?php
-        if ($_SESSION['typ'] == 0) {
+        if ($user->typ == 0) {
             echo "./panels/parents.php";
         } else {
             echo "./panels/admin.html";
@@ -223,7 +231,7 @@ if ($_SESSION['registered'] && $_SESSION['error'] == -1) {
         ">
             <button>
                 <?php
-                if ($_SESSION['typ'] == 0) {
+                if ($user->typ == 0) {
                     echo "Panel Rodzica";
                 } else {
                     echo "Panel Pracownika";

@@ -2,9 +2,10 @@
 <?php
 echo "<script src='./scripts/js/showLogin.js'></script>";
 header("Cache-Control: no-cache");
-require_once __DIR__ . '/models/User.php';
 
+require_once __DIR__ . '/models/User.php';
 use models\User;
+
 session_start();
 
 

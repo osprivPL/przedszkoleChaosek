@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <?php
+require_once __DIR__ . '/models/User.php';
+
+use models\User;
+
 session_start();
 //session_destroy();
 require_once "./scripts/php/printArr.php";
@@ -8,6 +12,10 @@ if (!isset($_SESSION['logged'])) {
 }
 if (!isset($_SESSION['error'])) {
     $_SESSION['error'] = -1;
+}
+$user = new User();
+if (isset($_SESSION['user'])) {
+    $user = $_SESSION['user'];
 }
 ?>
 
@@ -47,13 +55,13 @@ if (!isset($_SESSION['error'])) {
     </a>
     <!--zrobilem troche lepiej -->
     <div id="login"
-        <?php
-        if ($_SESSION['logged']) {
-            echo 'onclick="userPanelOn()"';
-        } else {
-            echo 'onclick="loginOn()"';
-        }
-        ?>></div>
+            <?php
+            if ($_SESSION['logged']) {
+                echo 'onclick="userPanelOn()"';
+            } else {
+                echo 'onclick="loginOn()"';
+            }
+            ?>></div>
 </header>
 <!-- ============================= -->
 <!-- NAVIGATION -->
@@ -80,21 +88,21 @@ if (!isset($_SESSION['error'])) {
 <!-- ============================= -->
 <main>
     <?php
-        printArr($_SESSION);
+    printArr($_SESSION);
     ?>
     <div id="container">
         <h1>Podaj kod wysłany na Twój email</h1>
         <form action="./scripts/php/verifyCode.php" method="post" id="codeForm">
-            <label for="tbxCode" >Kod:</label>
+            <label for="tbxCode">Kod:</label>
             <input type="text" name="tbxCode" id="tbxCode" maxlength="6" required>
             <span class="error" id="codeError"></span><br>
             <button type="submit" id="btnVerifyCode">Zweryfikuj kod</button>
         </form>
         <?php
-            if ($_SESSION['error'] == 3) {
-                echo "<span class='error'>Nieprawidłowy kod</span>";
-                unset($_SESSION['error']);
-            }
+        if ($_SESSION['error'] == 3) {
+            echo "<span class='error'>Nieprawidłowy kod</span>";
+            unset($_SESSION['error']);
+        }
         ?>
     </div>
 </main>
@@ -145,13 +153,13 @@ if (!isset($_SESSION['error'])) {
 <div class="wrapper" id="userWrapper">
     <div id="userPanel" class="panel">
         <button onclick="userPanelOff()" class="offButton">X</button>
-        <p>Imię: <?php echo $_SESSION['imie'] ?></p>
-        <p>Nazwisko: <?php echo $_SESSION['nazwisko'] ?></p>
+        <p>Imię: <?php echo $user->imie ?></p>
+        <p>Nazwisko: <?php echo $user->nazwisko ?></p>
         <p>Typ konta:
             <?php
-            if ($_SESSION['typ'] == 0) {
+            if ($user->typ == 0) {
                 echo "Rodzic";
-            } else if ($_SESSION['typ'] == 1) {
+            } else if ($user->typ == 1) {
                 echo "Nauczyciel(ka)";
             } else {
                 echo "Dyrekcja";
@@ -160,7 +168,7 @@ if (!isset($_SESSION['error'])) {
         </p>
         <a href="
         <?php
-        if ($_SESSION['typ'] == 0) {
+        if ($user->typ == 0) {
             echo "./panels/parents.php";
         } else {
             echo "./panels/admin.html";
@@ -169,7 +177,7 @@ if (!isset($_SESSION['error'])) {
         ">
             <button>
                 <?php
-                if ($_SESSION['typ'] == 0) {
+                if ($user->typ == 0) {
                     echo "Panel Rodzica";
                 } else {
                     echo "Panel Pracownika";

@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <?php
+require_once __DIR__ . '/models/User.php';
+
+use models\User;
+
 session_start();
 //session_destroy();
+$user = new User();
+
 require_once "./scripts/php/printArr.php";
 if (!isset($_SESSION['logged'])) {
     $_SESSION['logged'] = false;
 }
 if (!isset($_SESSION['error'])) {
     $_SESSION['error'] = -1;
+}
+
+if (isset($_SESSION['user'])) {
+    $user = $_SESSION['user'];
 }
 ?>
 
@@ -80,17 +90,17 @@ if (!isset($_SESSION['error'])) {
 <!-- MAIN -->
 <!-- ============================= -->
 <main>
-    <!--    --><?php //printArr($_SESSION); ?>
+    <?php printArr($_SESSION); ?>
     <div id="container">
         <h1>ZAPISZ SWOJE DZIECKO JUŻ TERAZ</h1>
         <form id="frmRekrutacja" method="post" action=
-        <?php
-        if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
-            echo "rekrutacjaCompleted.php";
-        } else {
-            echo "./scripts/php/MAIL.php";
-        }
-        ?>>
+                <?php
+                if ($_SESSION['logged'] && $user->typ == 0) {
+                    echo "rekrutacjaCompleted.php";
+                } else {
+                    echo "./scripts/php/MAIL.php";
+                }
+                ?>>
             <div id="frmChild">
                 <input type="text" id="frmChildImie" name="frmChildImie" placeholder="Imię dziecka" required>
                 <input type="text" id="frmChildNazwisko" name="frmChildNazwisko" placeholder="Nazwisko dziecka"
@@ -102,37 +112,37 @@ if (!isset($_SESSION['error'])) {
                        style="width: 200px; height: 100px;">
             </div>
             <div id="frmParent" <?php
-            if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
+            if ($_SESSION['logged'] && $user->typ == 0) {
                 echo 'style="display:none;"';
             }
             ?>>
                 <input type="text" id="frmParentImie" name="frmParentImie" placeholder="Imię rodzica/opiekuna" required
-                <?php
-                    if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
-                        echo 'value="' . $_SESSION['imie'] . '" readonly';
-                    }
-                ?>>
+                        <?php
+                        if ($_SESSION['logged'] && $user->typ == 0) {
+                            echo 'value="' . $user->imie . '" readonly';
+                        }
+                        ?>>
                 <input type="text" id="frmParentNazwisko" name="frmParentNazwisko"
                        placeholder="Nazwisko rodzica/opiekuna" required
                         <?php
-                        if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
-                            echo 'value="' . $_SESSION['nazwisko'] . '" readonly';
+                        if ($_SESSION['logged'] && $user->typ == 0) {
+                            echo 'value="' . $user->nazwisko . '" readonly';
                         }
                         ?>>
                 <input type="text" id="frmParentTelefon" name="frmParentTelefon"
                        placeholder="Numer telefonu rodzica/opiekuna"
                        required
-                <?php
-                if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
-                    echo 'value="' . $_SESSION['telefon'] . '" readonly';
-                }
-                ?>>
+                        <?php
+                        if ($_SESSION['logged'] && $user->typ == 0) {
+                            echo 'value="' . $user->telefon . '" readonly';
+                        }
+                        ?>>
                 <input type="email" id="frmParentEmail" name="frmParentEmail" placeholder="Email rodzica/opiekuna"
                        required
-                       <?php
-                       if ($_SESSION['logged'] && $_SESSION['typ'] == 0) {
-                           echo 'value="' . $_SESSION['email'] . '" readonly';
-                       }?>
+                        <?php
+                        if ($_SESSION['logged'] && $user->typ == 0) {
+                            echo 'value="' . $user->email . '" readonly';
+                        } ?>
                 >
             </div>
             <button id="btnRekrutacja">Zapisz dziecko!</button>
@@ -192,13 +202,13 @@ if (!isset($_SESSION['error'])) {
 <div class="wrapper" id="userWrapper">
     <div id="userPanel" class="panel">
         <button onclick="userPanelOff()" class="offButton">X</button>
-        <p>Imię: <?php echo $_SESSION['imie'] ?></p>
-        <p>Nazwisko: <?php echo $_SESSION['nazwisko'] ?></p>
+        <p>Imię: <?php echo $user->imie ?></p>
+        <p>Nazwisko: <?php echo $user->nazwisko ?></p>
         <p>Typ konta:
             <?php
-            if ($_SESSION['typ'] == 0) {
+            if ($user->typ == 0) {
                 echo "Rodzic";
-            } else if ($_SESSION['typ'] == 1) {
+            } else if ($user->typ == 1) {
                 echo "Nauczyciel(ka)";
             } else {
                 echo "Dyrekcja";
@@ -207,7 +217,7 @@ if (!isset($_SESSION['error'])) {
         </p>
         <a href="
         <?php
-        if ($_SESSION['typ'] == 0) {
+        if ($user->typ == 0) {
             echo "./panels/parents.php";
         } else {
             echo "./panels/admin.html";
@@ -216,7 +226,7 @@ if (!isset($_SESSION['error'])) {
         ">
             <button>
                 <?php
-                if ($_SESSION['typ'] == 0) {
+                if ($user->typ == 0) {
                     echo "Panel Rodzica";
                 } else {
                     echo "Panel Pracownika";

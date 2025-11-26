@@ -1,12 +1,15 @@
 <?php
-session_start();
-
 use PHPMailer\PHPMailer\PHPMailer;
-
+require_once __DIR__ . '/../../models/User.php';
+use models\User;
 require("./../../vendor/phpmailer/phpmailer/src/PHPMailer.php");
 require("./../../vendor/phpmailer/phpmailer/src/SMTP.php");
 require("./../../vendor/phpmailer/phpmailer/src/Exception.php");
 require_once './../../vendor/autoload.php';
+
+session_start();
+
+
 
 $mail = new PHPMailer(true);
 
@@ -30,7 +33,9 @@ try {
     $mail->Subject = 'Potwierdzenie zapisu dziecka';
     $mail->Body = '<h1>Potwierdzenie zapisu dziecka do Przedszkola Chaosek</h1>
     <p>Szanowni Państwo,<br>
-    aby dokończyć zapisywanie dziecka, Wprowadźcie poniższy kod, na stronie przedszkola<br> </p> <img src="cid:logoPrzedszkola" alt="Logo Przedszkola" style="width:120px;">';
+    aby dokończyć zapisywanie dziecka, Wprowadźcie poniższy kod, na stronie przedszkola:<br>
+    <strong>' . $kod . '</strong>
+    <br><br></p> <img src="cid:logoPrzedszkola" alt="Logo Przedszkola" style="width:120px;">';
     $mail->send();
     header('Location: ./../../mailCode.php');
 } catch (Exception $e) {
