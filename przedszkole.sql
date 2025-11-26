@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2025 at 10:21 AM
+-- Generation Time: Nov 26, 2025 at 10:38 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -136,7 +136,8 @@ CREATE TABLE `wiadomosci` (
   `dataWyslania` date NOT NULL,
   `nadawcaID` int(11) NOT NULL,
   `odbiorcaID` int(11) NOT NULL,
-  `odczytane` int(11) NOT NULL COMMENT '0 - nie, 1 - tak'
+  `odczytane` int(11) NOT NULL COMMENT '0 - nie, 1 - tak',
+  `Usunięte` int(11) NOT NULL COMMENT '0 - nie, 1 - tak'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 --

@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <?php
+require_once "./../scripts/php/printArr.php";
+require_once __DIR__ . '/../models/User.php';
+
+use models\User;
 session_start();
-//session_destroy();
+
+$user = new User();
+if (isset($_SESSION['user'])){
+    $user = $_SESSION['user'];
+}
+
+
 require_once "./../scripts/php/printArr.php";
 if (!isset($_SESSION['logged'])) {
     $_SESSION['logged'] = false;
@@ -36,7 +46,7 @@ if (!$_SESSION['logged']) {
     <link rel="icon" type="image/x-icon" href="./../assets/logo_tornado.svg">
 
     <title>Przedszkole Chaosek - <?php
-        if (isset($_SESSION['typ']) && $_SESSION['typ'] == 0) {
+        if ($user->typ == 0) {
             echo "Panel Rodzica";
         } else {
             echo "Panel administratora";
@@ -92,42 +102,7 @@ if (!$_SESSION['logged']) {
     <!-- ============================= -->
     <main id="main">
 
-        <!-- Mój zamysł na działanie tego są takie że bedzie to działało jak panel rodzica jak się zalogujesz -->
-        <!-- Gdy kliknie się na któreś z .nav-child to korespondujacy .main-panel się pokaże -->
 
-        <div class="main-panel main-main">
-            <div class="main-panel-cell test-plan">Plan lekcji</div>
-            <div class="main-panel-cell test-grades">W przedszkolu nie ma ocen</div>
-            <div class="main-panel-cell test-changes">Zmiany w planie</div>
-            <div class="main-panel-cell test-plan">Prace domowe</div>
-            <div class="main-panel-cell test-grades">Ogłoszenia</div>
-            <div class="main-panel-cell test-changes">Wychowawca</div>
-            <div class="main-panel-cell test-plan">7</div>
-            <div class="main-panel-cell test-grades">8</div>
-            <div class="main-panel-cell test-changes">9</div>
-        </div>
-
-
-        <!--<aside>
-        <ul id="listaDzieci">
-            <?php
-        $connection = mysqli_connect("localhost", "root", "", "przedszkole");
-        $json = array();
-        if (!$connection) {
-            echo "Brak połączenia z bazą danych";
-        } else {
-            if ($result = $connection->query(sprintf("SELECT imie, nazwisko, pesel, adres, grupa FROM dzieci WHERE IDrodzica='%s'", mysqli_real_escape_string($connection, $_SESSION['id'])))) {
-                $result = $result->fetch_all();
-                foreach ($result as $row) {
-                    $json[] = $row;
-                }
-            }
-        }
-        $connection->close();
-        ?>
-
-        </ul>
-    </aside>
     <?php printArr($_SESSION); ?>
 
     <script src="./../scripts/js/showLogin.js"></script>-->
