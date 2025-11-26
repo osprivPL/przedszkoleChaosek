@@ -7,6 +7,8 @@
     "content-hash": "b40185c75ed70bde2b25baf8f814abbd",
     "packages": [
         {
+
+
             "name": "phpmailer/phpmailer",
             "version": "v7.0.1",
             "source": {

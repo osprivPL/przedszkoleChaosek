@@ -12,7 +12,6 @@ if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
 }
 
-
 require_once "./../scripts/php/printArr.php";
 if (!isset($_SESSION['logged'])) {
     $_SESSION['logged'] = false;
@@ -82,19 +81,19 @@ if (!$_SESSION['logged']) {
     <nav>
         <!-- ZROBIC IKONKI DO TEGO, CZYT. ZMIENIC -->
         <div class="nav_child">
-            <img src="./../assets/main_page.png" alt="">
+            <img src="./../assets/mailbox.png" alt="">
             <span>Odebrane</span>
         </div>
-        <div class="nav_child nav_child_dzieci">
-            <img src="./../assets/playing.png" alt="">
+        <div class="nav_child ">
+            <img src="./../assets/send.png" alt="">
             <span>Wysłane</span>
         </div>
-        <div class="nav_child nav_child_szkola">
-            <img src="./../assets/school.png" alt="">
+        <div class="nav_child ">
+            <img src="./../assets/recycle-bin.png" alt="">
             <span>Usunięte</span>
         </div>
         <div class="nav_child ">
-            <img src="./../assets/restaurant.png" alt="">
+            <img src="./../assets/drafts.png" alt="">
             <span>Kopie robocze</span>
         </div>
     </nav>
