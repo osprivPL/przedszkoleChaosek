@@ -125,11 +125,10 @@ header #login:hover {
     background: url("./../assets/arrow_down1.png");
 }
 
-.nav_child_dzieci_child{
-    opacity: 0;
     /*gdy kliknięto na nav_child dzieci to w tedy to się pokazuje*/
-}
-.nav_child_dzieci_child:before{
+
+.nav_child_child:before{
+    opacity: 0;
     width: 125%;
     height: 110%;
     position: absolute;
@@ -140,7 +139,7 @@ header #login:hover {
     border-radius: 0px;
 }
 
-.nav_child_dzieci_child:hover:before{
+.nav_child_child:hover:before{
     transform: translateX(60%);
     border-radius: 50px;
 }

@@ -78,27 +78,27 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
 <!--Tymczasowy obrazek nav_down1 w szkoel zrobie svg bo tu mi nie działa inkspace z jakiegos powodu-->
             <img src="./../assets/arrow_down1.png" alt="" class="nav_arrow"></img>
         </div>
-        <div class="nav_child_dzieci_child">
+        <div class="nav_child_dzieci_child nav_child_child">
+            <span>Imie 1</span>
+        </div>
+        <div class="nav_child_dzieci_child nav_child_child">
 
         </div>
-        <div class="nav_child_dzieci_child">
+        <div class="nav_child_dzieci_child nav_child_child">
 
         </div>
-        <div class="nav_child_dzieci_child">
-
-        </div>
-        <div class="nav_child nav_child_szkola">
+        <div class="nav_child nav_child_szkola nav_child_child">
             <img src="./../assets/school.png" alt="">
             <span>o Szkole</span>
             <img src="./../assets/arrow_down1.png" alt="" class="nav_arrow"></img>
         </div>
-        <div class="nav_child_szkola_child">
+        <div class="nav_child_szkola_child nav_child_child">
 
         </div>
-        <div class="nav_child_szkola_child">
-
+        <div class="nav_child_szkola_child nav_child_child">
+            <span>Imie 2</span>
         </div>
-        <div class="nav_child_szkola_child">
+        <div class="nav_child_szkola_child nav_child_child">
 
         </div>
         <div class="nav_child ">
@@ -129,7 +129,7 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
             <div class="main-panel-cell test-changes">Wychowawca</div>
             <div class="main-panel-cell test-plan">7</div>
             <div class="main-panel-cell test-grades">8</div>
-            <div class="main-panel-cell test-changes">9</div>
+                <div class="main-panel-cell test-changes"></div>
             </div>
         </div>
 
@@ -182,6 +182,7 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
     let php = <?php echo json_encode($json); ?>;
     showOnAside(php);
     // console.log(php);
+
 </script>
 </body>
 </html>
