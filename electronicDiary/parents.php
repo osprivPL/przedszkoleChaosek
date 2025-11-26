@@ -76,6 +76,15 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
             <img src="./../assets/playing.png" alt="">
             <span>Dziecko</span>
         </div>
+        <div class="nav_child_dzieci_child">
+
+        </div>
+        <div class="nav_child_dzieci_child">
+
+        </div>
+        <div class="nav_child_dzieci_child">
+
+        </div>
         <div class="nav_child nav_child_szkola">
             <img src="./../assets/school.png" alt="">
             <span>o Szkole</span>
