@@ -1,6 +1,9 @@
 @import "root.css";
 @import "animations.css";
-
+body{
+    background-color: black;
+    color: white;
+}
 .logo-font {
     color: white;
     font-family: 'Pacifico';

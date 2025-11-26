@@ -30,8 +30,8 @@ if (isset($_SESSION['user'])) {
     <meta name="author" content="Michał Ożdżyński Stanisław Odrowski Piotr Peryt">
 
     <!-- style -->
-    <link rel="stylesheet" href="old/style.css">
     <link rel="stylesheet" href="./styles/rekrutacja.css">
+    <link rel="stylesheet" href="./styles/style.css">
 
     <!-- czcionka -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,53 +46,25 @@ if (isset($_SESSION['user'])) {
     <script src="scripts/js/registerValidator.js"></script>
 </head>
 <body id='body'>
-<!--przyciemnione tło jak odpalasz logowanie-->
-<div id="dark_bg"></div>
 <!-- ============================= -->
 <!-- HEADER -->
 <!-- ============================= -->
 <header>
-    <a href="index.php" id="logo">
+    <div class="square_container">
+        <div class="square"></div>
+    </div>
+    <a href="index.php" class="logo logo-font">
         <img src="assets/logo_tornado.svg" alt="logo">
         <span>Przedszkole Chaosek</span>
     </a>
-    <!--zrobilem troche lepiej -->
-    <div id="login"
-            <?php
-            if ($_SESSION['logged']) {
-                echo 'onclick="userPanelOn()"';
-            } else {
-                echo 'onclick="loginOn()"';
-            }
-            ?>></div>
 </header>
-<!-- ============================= -->
-<!-- NAVIGATION -->
-<!-- ============================= -->
-<nav>
-    <a href="index.php">
-        <span>O nas</span>
-    </a>
-    <a href="index.php">
-        <span>Aktualności</span>
-    </a>
-    <a href="index.php">
-        <span>Jak dojechać?</span>
-    </a>
-    <a href="./rekrutacja.php">
-        <span>REKRUTACJA</span>
-    </a>
-    <a href="index.php">
-        <span>Kontakt</span>
-    </a>
-</nav>
 <!-- ============================= -->
 <!-- MAIN -->
 <!-- ============================= -->
 <main>
-    <?php printArr($_SESSION); ?>
+    <!---<?php printArr($_SESSION); ?>-->
     <div id="container">
-        <h1>ZAPISZ SWOJE DZIECKO JUŻ TERAZ</h1>
+        <h1 class='logo-font'>Rekrutacja</h1>
         <form id="frmRekrutacja" method="post" action=
                 <?php
                 if ($_SESSION['logged'] && $user->typ == 0) {
@@ -101,49 +73,56 @@ if (isset($_SESSION['user'])) {
                     echo "./scripts/php/MAIL.php";
                 }
                 ?>>
-            <div id="frmChild">
-                <input type="text" id="frmChildImie" name="frmChildImie" placeholder="Imię dziecka" required>
-                <input type="text" id="frmChildNazwisko" name="frmChildNazwisko" placeholder="Nazwisko dziecka"
-                       required>
-                <input type="text" id="frmChildPesel" name="frmChildPesel" placeholder="Pesel dziecka" required>
-                <input type="text" id="frmChildAdres" name="frmChildAdres" placeholder="Adres zamieszkania dziecka"
-                       required>
-                <input type="text" id="frmInne" name="frmInne" placeholder="Inne ważne informacje"
-                       style="width: 200px; height: 100px;">
-            </div>
-            <div id="frmParent" <?php
-            if ($_SESSION['logged'] && $user->typ == 0) {
-                echo 'style="display:none;"';
-            }
-            ?>>
-                <input type="text" id="frmParentImie" name="frmParentImie" placeholder="Imię rodzica/opiekuna" required
-                        <?php
-                        if ($_SESSION['logged'] && $user->typ == 0) {
-                            echo 'value="' . $user->imie . '" readonly';
-                        }
-                        ?>>
-                <input type="text" id="frmParentNazwisko" name="frmParentNazwisko"
-                       placeholder="Nazwisko rodzica/opiekuna" required
-                        <?php
-                        if ($_SESSION['logged'] && $user->typ == 0) {
-                            echo 'value="' . $user->nazwisko . '" readonly';
-                        }
-                        ?>>
-                <input type="text" id="frmParentTelefon" name="frmParentTelefon"
-                       placeholder="Numer telefonu rodzica/opiekuna"
-                       required
-                        <?php
-                        if ($_SESSION['logged'] && $user->typ == 0) {
-                            echo 'value="' . $user->telefon . '" readonly';
-                        }
-                        ?>>
-                <input type="email" id="frmParentEmail" name="frmParentEmail" placeholder="Email rodzica/opiekuna"
-                       required
-                        <?php
-                        if ($_SESSION['logged'] && $user->typ == 0) {
-                            echo 'value="' . $user->email . '" readonly';
-                        } ?>
-                >
+            <div class="container">
+                <div class="formsContainer">
+                    <div id="frmChild">
+                        <div class="inputGroup"><input type="text" id="frmChildImie" name="frmChildImie" placeholder="Imię dziecka" required></div>
+                        <div class="inputGroup"><input type="text" id="frmChildNazwisko" name="frmChildNazwisko" placeholder="Nazwisko dziecka"
+                            required></div>
+                        <div class="inputGroup"><input type="text" id="frmChildPesel" name="frmChildPesel" placeholder="Pesel dziecka" required></div>
+                        <div class="inputGroup"><input type="text" id="frmChildAdres" name="frmChildAdres" placeholder="Adres zamieszkania dziecka"
+                            required></div>
+                    </div>
+                    <div id="frmParent" <?php
+                    if ($_SESSION['logged'] && $user->typ == 0) {
+                        echo 'style="display:none;"';
+                    }
+                    ?>>
+                    <div class="inputGroup">
+                        <input type="text" id="frmParentImie" name="frmParentImie" placeholder="Imię rodzica/opiekuna" required
+                                <?php
+                                if ($_SESSION['logged'] && $user->typ == 0) {
+                                    echo 'value="' . $user->imie . '" readonly';
+                                }
+                                ?>></div>
+                    <div class="inputGroup">
+                        <input type="text" id="frmParentNazwisko" name="frmParentNazwisko"
+                            placeholder="Nazwisko rodzica/opiekuna" required
+                                <?php
+                                if ($_SESSION['logged'] && $user->typ == 0) {
+                                    echo 'value="' . $user->nazwisko . '" readonly';
+                                }
+                                ?>></div>
+                    <div class="inputGroup">
+                        <input type="text" id="frmParentTelefon" name="frmParentTelefon"
+                            placeholder="Numer telefonu rodzica/opiekuna"
+                            required
+                                <?php
+                                if ($_SESSION['logged'] && $user->typ == 0) {
+                                    echo 'value="' . $user->telefon . '" readonly';
+                                }
+                                ?>></div>
+                    <div class="inputGroup">
+                        <input type="email" id="frmParentEmail" name="frmParentEmail" placeholder="Email rodzica/opiekuna"
+                            required
+                                <?php
+                                if ($_SESSION['logged'] && $user->typ == 0) {
+                                    echo 'value="' . $user->email . '" readonly';
+                                } ?>
+                        ></div>
+                    </div>
+                </div>
+                <div class="inputGroup last"><input type="text" id="frmInne" name="frmInne" placeholder="Inne ważne informacje"></div>
             </div>
             <button id="btnRekrutacja">Zapisz dziecko!</button>
             <?php
@@ -155,91 +134,6 @@ if (isset($_SESSION['user'])) {
         </form>
     </div>
 </main>
-
-<!-- ============================= -->
-<!-- LOGIN PANEL -->
-<!-- ============================= -->
-<div class="wrapper" id="loginWrapper">
-    <form class="panel" action="./scripts/php/login.php" method="post" id="loginPanel">
-        <h1 class='logo_dziennik'>
-            <div>
-                <img src="assets/logo_tornado.svg" alt="logo">
-            </div>
-            <button onclick="loginOff()" class="offButton">X</button>
-        </h1>
-        <h3>Log in</h3>
-        <div class="Login">
-            <div>
-                <label for="tbxEmail">Email</label>
-                <input type="email" name="tbxEmail" id="tbxEmail"><br>
-                <span class="error" id="emailError"></span>
-            </div>
-            <div>
-                <label for="tbxHaslo">Hasło</label>
-                <input type="text" name="tbxHaslo" id="tbxHaslo"><br>
-                <span class="error" id="passwordError"></span>
-            </div>
-        </div>
-        <button id="btnLogin">Zaloguj</button>
-        <span id="loginError" name="loginError" class="error">
-        <?php
-        if ($_SESSION['error'] == 1) {
-            echo "Nie znaleziono użytkownika o podanym emailu";
-            unset($_SESSION['error']);
-        } else if ($_SESSION['error'] == 0) {
-            echo "Błąd serwera, spróbuj ponownie później";
-            unset($_SESSION['error']);
-        } else if ($_SESSION['error'] == 2) {
-            echo "Nieprawidłowe hasło";
-            unset($_SESSION['error']);
-        }
-        ?>
-    </span>
-    </form>
-
-</div>
-
-<div class="wrapper" id="userWrapper">
-    <div id="userPanel" class="panel">
-        <button onclick="userPanelOff()" class="offButton">X</button>
-        <p>Imię: <?php echo $user->imie ?></p>
-        <p>Nazwisko: <?php echo $user->nazwisko ?></p>
-        <p>Typ konta:
-            <?php
-            if ($user->typ == 0) {
-                echo "Rodzic";
-            } else if ($user->typ == 1) {
-                echo "Nauczyciel(ka)";
-            } else {
-                echo "Dyrekcja";
-            }
-            ?>
-        </p>
-        <a href="
-        <?php
-        if ($user->typ == 0) {
-            echo "./panels/parents.php";
-        } else {
-            echo "./panels/admin.html";
-        }
-        ?>
-        ">
-            <button>
-                <?php
-                if ($user->typ == 0) {
-                    echo "Panel Rodzica";
-                } else {
-                    echo "Panel Pracownika";
-                }
-                ?>
-            </button>
-        </a>
-        <form action="./scripts/php/logout.php" method="post">
-            <button type="submit">Wyloguj</button>
-        </form>
-    </div>
-</div>
-
 
 <script src="./scripts/js/showLogin.js"></script>
 <script src="./scripts/js/indexFormValidator.js"></script>
