@@ -172,7 +172,7 @@
     position: absolute;
     top: 2%;
     right: 2%;
-    z-index: 999
+    z-index: 999;
 }
 
 .offButton:hover {
@@ -220,6 +220,8 @@
 .inputGroup input{
     border: var(--green-darker) solid 2px;
     border-radius: 6px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
 }
 #btnLogin {
     border: var(--green-darker) solid 3px;

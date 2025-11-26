@@ -323,7 +323,7 @@ if (!isset($_SESSION['error'])) {
 <!--Slide Kontakt-->
 <!--============================-->
 <div class="slide kontakt" id="kontakt">
-
+            
 </div>
 <div id="phpOutputs">
     <?php
