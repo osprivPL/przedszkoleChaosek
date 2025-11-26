@@ -11,6 +11,10 @@ $user = new User();
 if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
 }
+echo $user->id;
+echo $user->imie;
+echo $user->nazwisko;
+echo $user->typ;
 
 require_once "./../scripts/php/printArr.php";
 if (!isset($_SESSION['logged'])) {
@@ -105,7 +109,26 @@ if (!$_SESSION['logged']) {
         <!--Ma otwierać "nakładke" do pisania wiadomości-->
         <button id="btnWrite">Napisz wiadomość</button>
         <div id="messagesContainer" class="messagesContainer">
+            <?php
+            $connection = new mysqli("localhost", "root", "", "przedszkole");
+            echo $user->id;
+            echo $user->imie;
+            echo $user->nazwisko;
+            echo $user->typ;
+            $result = $connection->query("SELECT tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE odbiorcaID = ".$user->id.";")->fetch_all();
+            print_r($result);
+            foreach ($result as $message) {
+                $senderResult = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = ".$message[3].";")->fetch_all();
+                echo '<div class="messageCard">
+                        <h3 class="messageTitle">'.$message[0].'</h3>
+                        <p class="messageContent">'.$message[1].'</p>
+                        <span class="messageSender">Od: '.$senderResult[0][0].' '.$senderResult[0][1].'</span>
+                        <span class="messageDate">'.$message[2].'</span>
+                      </div>';
+            }
 
+
+            ?>
         </div>
         <script src="./../scripts/js/showLogin.js"></script>
 

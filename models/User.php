@@ -13,6 +13,7 @@ class User
 
     function __construct($id = -1, $imie="", $nazwisko="", $typ=-1, $telefon="", $email="")
     {
+        $this->id = $id;
         $this->imie = $imie;
         $this->nazwisko = $nazwisko;
         $this->typ = $typ;

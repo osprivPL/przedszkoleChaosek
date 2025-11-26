@@ -347,7 +347,10 @@ if (!isset($_SESSION['error'])) {
     <?php
     //     echo $_SESSION['logged'];
     printArr($_SESSION);
-    //    printArr($result);
+//    echo $user->id;
+//    echo $user->imie;
+//    echo $user->nazwisko;
+//    echo $user->typ;
     ?>
 
 </div>

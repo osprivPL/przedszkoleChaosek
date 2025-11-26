@@ -4,7 +4,6 @@ require_once "./../scripts/php/printArr.php";
 require_once __DIR__ . '/../models/User.php';
 
 use models\User;
-
 session_start();
 $user = new User();
 if (isset($_SESSION['user'])) {
@@ -13,6 +12,7 @@ if (isset($_SESSION['user'])) {
     header('Location: ./../index.php');
     die();
 }
+
 //session_destroy();
 
 if (!isset($_SESSION['logged'])) {
