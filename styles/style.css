@@ -1,6 +1,3 @@
-@import "root.css";
-
-
 * {
     margin: 0;
     padding: 0;
@@ -9,81 +6,23 @@
     font-style: normal;
 }
 
-body {
-    width: 100vw;
-    height: 200vh;
-    background: var(--main-color);
-    background: linear-gradient(to right top, var(--main-color)), color-mix(in srgb, var(--main-color) 50%, black 10%);
-    overflow-x: hidden;
+html{
+    scroll-behavior: smooth;
 }
-
-header {
-    width: 99%;
-    height: 10vh;
-    padding-bottom: 1.2vh;
-    font-size: 36px;
-}
-
-header #logo {
-    text-decoration: none;
-    height: 10vh;
-    display: flex;
-    align-items: center;
-    margin: auto;
-    color: var(--darker-main);
-    float: left;
-}
-
-a {
-    text-decoration: none;
-    text-decoration-color: var(--darker-main);
-}
-
-img {
-    max-width: 10vh;
-}
-
-header #login {
-    float: right;
-    height: 100%;
-}
-
-nav {
-    position: sticky;
-    top: 0;
-    max-width: 100vw;
-    width: 100vw;
-    display: flex;
-    /*border-bottom: 5px solid var(--dark-line);*/
-    text-align: center;
-}
-
-nav a {
-    box-sizing: border-box;
-    width: 20%;
-    background-color: var(--darker-main);
-    /* stasiu do zmiany */
+body{
+    height: 400vh;
+    overflow-y:scroll;
+    overflow-x:hidden;
     margin: 0;
-    border: 4px outset var(--darker-darker-main);
-}
-
-nav a:hover {
-    background-color: var(--darker-darker-main);
-    border: 4px inset var(--darker-main);
-    transition: 0.2s;
-}
-
-nav a:active {
-    background-color: #9D0E07;
+    background-color: black;
     color: white;
-    border: 4px inset var(--darker-darker-main);
+
 }
 
-main {
-    width: 100vw;
-    height: 100vh;
-    padding: 18px;
-}
-.error{
-    color: red;
+.no_drag {
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }

@@ -1,0 +1,55 @@
+@import 'root.css';
+
+html, body {
+    height: 100vh;
+    overflow-y: hidden;
+    -ms-overflow-y: hidden;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 83vh;
+}
+
+main form {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: flex-start;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 16px;
+}
+
+#frmChild,  #frmParent {
+    margin-top: -15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    height: 500px;
+}
+#container{
+    margin-top: -5vh;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    border: 2px solid black;
+    background: linear-gradient(to right bottom, #AEE3FFAA, #FF9E6B90);
+    border-radius: 10px;
+    width: 35vw;
+    align-items: center;
+    justify-content: center;
+    height: 63vh;
+    padding: 32px;
+}
+#container h1{
+    margin-top: 3em;
+    margin-bottom: 1em;
+    display: flex;
+}
+#frmRekrutacja input{
+    padding: 10px;
+}

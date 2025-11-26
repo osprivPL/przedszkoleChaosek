@@ -1,12 +1,16 @@
 function loginOn(){
-    document.getElementById("panelWrapper").style.visibility = "visible";
+    document.getElementById("loginWrapper").classList.add('visible');
+    document.getElementById('dark_bg').classList.add('visible');
+    document.getElementById('body').style.overflowY = "hidden";
 }
 function loginOff(){
-    document.getElementById("panelWrapper").style.visibility = "hidden";
+    document.getElementById("loginWrapper").classList.remove('visible');
+    document.getElementById('dark_bg').classList.remove('visible');
+    document.getElementById('body').style.overflowY = "scroll";
 }
 function userPanelOn(){
-    document.getElementById("userPanel").style.visibility = "visible";
+    document.getElementById("userWrapper").classList.add('visible');
 }
 function userPanelOff(){
-    document.getElementById("userPanel").style.visibility = "hidden";
+    document.getElementById("userWrapper").classList.remove('visible');
 }
