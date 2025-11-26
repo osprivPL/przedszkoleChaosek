@@ -697,6 +697,7 @@ h1 {
 .kontakt{
     display: flex;
     justify-content: space-around;
+    align-items: center;
     height: 40vh;
     min-height: 40vh;  
     background-image: url('../assets/tlo_kontakt.png');
@@ -710,7 +711,7 @@ h1 {
     justify-content: space-between;
     flex-direction: column;
     width: 20%;
-    height: 40vh;
+    height: 30vh;
     padding-bottom: 3vh;
     box-sizing: border-box;
     position: relative;
