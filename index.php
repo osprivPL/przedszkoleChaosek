@@ -19,7 +19,7 @@ if (!isset($_SESSION['logged'])) {
 }
 if (!isset($_SESSION['error'])) {
     $_SESSION['error'] = -1;
-} else if ($_SESSION['error'] != -1) {
+} else if ($_SESSION['error'] == 0 || $_SESSION['error'] == 1 || $_SESSION['error'] == 2) {
     echo '<script>
     setTimeout(function() {
         loginOn();
