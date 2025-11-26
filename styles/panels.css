@@ -86,6 +86,7 @@ header #login:hover {
     padding: 10px;
     cursor: pointer;
     overflow: hidden;
+    position: relative;
 }
 
 .nav_child:before{
@@ -113,6 +114,37 @@ header #login:hover {
 .nav_child>span{
     z-index: 9;
 }
+.nav_arrow{
+    position: absolute;
+    right: 5%;
+    overflow: hidden;
+    transition: all 0.5s;
+}
+.nav_arrow:hover{
+    /*Do zmiany na wypełnioną arrow_down2*/
+    background: url("./../assets/arrow_down1.png");
+}
+
+.nav_child_dzieci_child{
+    opacity: 0;
+    /*gdy kliknięto na nav_child dzieci to w tedy to się pokazuje*/
+}
+.nav_child_dzieci_child:before{
+    width: 125%;
+    height: 110%;
+    position: absolute;
+    left: -122.5%;
+    content: "";
+    background: var(--green-dark);
+    transition: all ease 0.5s;
+    border-radius: 0px;
+}
+
+.nav_child_dzieci_child:hover:before{
+    transform: translateX(60%);
+    border-radius: 50px;
+}
+
 
 main{
     grid-area: main;

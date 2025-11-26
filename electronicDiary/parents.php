@@ -75,6 +75,8 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
         <div class="nav_child nav_child_dzieci">
             <img src="./../assets/playing.png" alt="">
             <span>Dziecko</span>
+<!--Tymczasowy obrazek nav_down1 w szkoel zrobie svg bo tu mi nie działa inkspace z jakiegos powodu-->
+            <img src="./../assets/arrow_down1.png" alt="" class="nav_arrow"></img>
         </div>
         <div class="nav_child_dzieci_child">
 
@@ -88,6 +90,16 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
         <div class="nav_child nav_child_szkola">
             <img src="./../assets/school.png" alt="">
             <span>o Szkole</span>
+            <img src="./../assets/arrow_down1.png" alt="" class="nav_arrow"></img>
+        </div>
+        <div class="nav_child_szkola_child">
+
+        </div>
+        <div class="nav_child_szkola_child">
+
+        </div>
+        <div class="nav_child_szkola_child">
+
         </div>
         <div class="nav_child ">
             <img src="./../assets/restaurant.png" alt="">
