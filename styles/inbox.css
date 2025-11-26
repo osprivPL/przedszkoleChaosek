@@ -21,5 +21,7 @@ main{
     flex-direction: row;
     justify-content: space-between;
     align-content: center;
-    text-align: center;
+    gap: 12px;                      /* consistent gaps */
+    padding: 8px 12px;
+    box-sizing: border-box;
 }
