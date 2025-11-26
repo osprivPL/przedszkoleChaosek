@@ -39,7 +39,7 @@ if (!$_SESSION['logged']) {
     <!-- style -->
     <link rel="stylesheet" href="./../styles/style.css">
     <link rel="stylesheet" href="./../styles/panels.css">
-    <!--    <link rel="stylesheet" href="./../styles/parents.css">-->
+<!--    <link rel="stylesheet" href="./../styles/parents.css">-->
     <link rel="stylesheet" href="./../styles/inbox.css">
 
     <!-- czcionka -->
@@ -117,17 +117,19 @@ if (!$_SESSION['logged']) {
             </div>
             <?php
             $connection = new mysqli("localhost", "root", "", "przedszkole");
-            $result = $connection->query("SELECT tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE odbiorcaID = " . $user->id . ";")->fetch_all();
+            $result = $connection->query("SELECT tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE odbiorcaID = ".$user->id.";")->fetch_all();
             foreach ($result as $message) {
-                $senderResult = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[3] . ";")->fetch_all();
+                $senderResult = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = ".$message[3].";")->fetch_all();
                 echo '<div class="messageCard">
                         
                       </div>';
             }
-            ?>
 
-            <script src="./../scripts/js/showLogin.js"></script>
+
+            ?>
         </div>
+        <script src="./../scripts/js/showLogin.js"></script>
+
     </main>
 </div>
 <div class="wrapper" id="userWrapper">
