@@ -106,7 +106,7 @@ if (!$_SESSION['logged']) {
         <!--Ma otwierać "nakładke" do pisania wiadomości-->
         <button id="btnWrite">Napisz wiadomość</button>
         <div id="messagesContainer" class="messagesContainer">
-            <!-- Tutaj będą wiadomości -->
+
         </div>
         <script src="./../scripts/js/showLogin.js"></script>
 
