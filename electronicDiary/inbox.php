@@ -103,9 +103,10 @@ if (!$_SESSION['logged']) {
     <!-- MAIN -->
     <!-- ============================= -->
     <main id="main">
+        <!--Ma otwierać "nakładke" do pisania wiadomości-->
         <button id="btnWrite">Napisz wiadomość</button>
         <div id="messagesContainer" class="messagesContainer">
-            <!-- Tutaj będą wiadomości -->
+
         </div>
         <script src="./../scripts/js/showLogin.js"></script>
 
@@ -152,10 +153,5 @@ if (!$_SESSION['logged']) {
     </div>
 </div>
 <script src="./../scripts/js/childrens.js"></script>
-<script>
-    let php = <?php echo json_encode($json); ?>;
-    showOnAside(php);
-    // console.log(php);
-</script>
 </body>
 </html>

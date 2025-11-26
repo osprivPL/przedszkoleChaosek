@@ -19,8 +19,8 @@ try {
     $mail->isSMTP();
     $mail->Host = 'smtp.office365.com';
     $mail->SMTPAuth = true;
-    $mail->Username = 'm.ozdzynski@zsp10.elodz.edu.pl';
-    $mail->Password = 'Mic1mic!';
+    $mail->Username = 'przedszkole.chaosek@outlook.com';
+    $mail->Password = 'Chaosek123';
     $mail->SMTPSecure = 'tls';
     $mail->Port = 587;
     $mail->addEmbeddedImage('./../../assets/logo_tornado.svg', 'logoCID', 'logo_tornado.svg', 'base64', 'image/svg+xml');
