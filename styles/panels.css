@@ -125,24 +125,6 @@ header #login:hover {
     background: url("./../assets/arrow_down1.png");
 }
 
-    /*gdy kliknięto na nav_child dzieci to w tedy to się pokazuje*/
-
-.nav_child_child:before{
-    opacity: 0;
-    width: 125%;
-    height: 110%;
-    position: absolute;
-    left: -122.5%;
-    content: "";
-    background: var(--green-dark);
-    transition: all ease 0.5s;
-    border-radius: 0px;
-}
-
-.nav_child_child:hover:before{
-    transform: translateX(60%);
-    border-radius: 50px;
-}
 
 
 main{

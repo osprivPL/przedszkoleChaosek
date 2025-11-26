@@ -78,27 +78,14 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
 <!--Tymczasowy obrazek nav_down1 w szkoel zrobie svg bo tu mi nie działa inkspace z jakiegos powodu-->
             <img src="./../assets/arrow_down1.png" alt="" class="nav_arrow"></img>
         </div>
-        <div class="nav_child_dzieci_child nav_child_child">
-            <span>Imie 1</span>
-        </div>
-        <div class="nav_child_dzieci_child nav_child_child">
 
-        </div>
-        <div class="nav_child_dzieci_child nav_child_child">
-
-        </div>
-        <div class="nav_child nav_child_szkola nav_child_child">
+        <div class="nav_child nav_child_szkola">
             <img src="./../assets/school.png" alt="">
             <span>o Szkole</span>
             <img src="./../assets/arrow_down1.png" alt="" class="nav_arrow"></img>
         </div>
-        <div class="nav_child_szkola_child nav_child_child">
 
-        </div>
-        <div class="nav_child_szkola_child nav_child_child">
-            <span>Imie 2</span>
-        </div>
-        <div class="nav_child_szkola_child nav_child_child">
+        <div class="nav_child_szkola_child">
 
         </div>
         <div class="nav_child ">
