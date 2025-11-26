@@ -4,7 +4,6 @@ require_once "./../../models/User.php";
 session_start();
 session_destroy();
 session_start();
-$_SESSION['id'] = 1;
 $_SESSION['logged'] = true;
 $_SESSION['user'] = new User(1, "Jan", "Kruk", 0, "123456789", "jKruk@gmail.com");
 //$_SESSION['imie'] = "Jan";
