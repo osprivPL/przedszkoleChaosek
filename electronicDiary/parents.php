@@ -100,15 +100,15 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
 
         <div class="main-panel main-main">
             <div class="main-style-panel">
-            <div class="main-panel-cell test-plan">Plan lekcji</div>
-            <div class="main-panel-cell test-grades">W przedszkolu nie ma ocen</div>
-            <div class="main-panel-cell test-changes">Zmiany w planie</div>
-            <div class="main-panel-cell test-plan">Prace domowe</div>
-            <div class="main-panel-cell test-grades">Ogłoszenia</div>
-            <div class="main-panel-cell test-changes">Wychowawca</div>
-            <div class="main-panel-cell test-plan">7</div>
-            <div class="main-panel-cell test-grades">8</div>
-            <div class="main-panel-cell test-changes">9</div>
+<!--            <div class="main-panel-cell test-plan">Plan lekcji</div>-->
+<!--            <div class="main-panel-cell test-grades">W przedszkolu nie ma ocen</div>-->
+<!--            <div class="main-panel-cell test-changes">Zmiany w planie</div>-->
+<!--            <div class="main-panel-cell test-plan">Prace domowe</div>-->
+<!--            <div class="main-panel-cell test-grades">Ogłoszenia</div>-->
+<!--            <div class="main-panel-cell test-changes">Wychowawca</div>-->
+<!--            <div class="main-panel-cell test-plan">7</div>-->
+<!--            <div class="main-panel-cell test-grades">8</div>-->
+<!--            <div class="main-panel-cell test-changes">9</div>-->
             </div>
         </div>
 
