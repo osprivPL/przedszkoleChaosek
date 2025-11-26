@@ -25,3 +25,6 @@ main{
     padding: 8px 12px;
     box-sizing: border-box;
 }
+#sentContainer, #deletedContainer, #draftsContainer, #writeContainer{
+    display: none;
+}

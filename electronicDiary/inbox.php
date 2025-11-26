@@ -39,7 +39,7 @@ if (!$_SESSION['logged']) {
     <!-- style -->
     <link rel="stylesheet" href="./../styles/style.css">
     <link rel="stylesheet" href="./../styles/panels.css">
-<!--    <link rel="stylesheet" href="./../styles/parents.css">-->
+    <!--    <link rel="stylesheet" href="./../styles/parents.css">-->
     <link rel="stylesheet" href="./../styles/inbox.css">
 
     <!-- czcionka -->
@@ -57,6 +57,8 @@ if (!$_SESSION['logged']) {
             echo "Panel administratora";
         }
         ?></title>
+    <script src="./../scripts/js/showLogin.js"></script>
+    <script src="./../scripts/js/inbox.js"></script>
 </head>
 <body>
 <header>
@@ -84,19 +86,19 @@ if (!$_SESSION['logged']) {
     <!-- ============================= -->
     <nav>
         <!-- ZROBIC IKONKI DO TEGO, CZYT. ZMIENIC -->
-        <div class="nav_child">
+        <div class="nav_child" onclick="showContainer(0)">
             <img src="./../assets/mailbox.png" alt="">
             <span>Odebrane</span>
         </div>
-        <div class="nav_child ">
+        <div class="nav_child "onclick=" showContainer(1)">
             <img src="./../assets/send.png" alt="">
             <span>Wysłane</span>
         </div>
-        <div class="nav_child ">
+        <div class="nav_child " onclick="showContainer(2)">
             <img src="./../assets/recycle-bin.png" alt="">
             <span>Usunięte</span>
         </div>
-        <div class="nav_child ">
+        <div class="nav_child "onclick="showContainer(3)">
             <img src="./../assets/drafts.png" alt="">
             <span>Kopie robocze</span>
         </div>
@@ -107,71 +109,63 @@ if (!$_SESSION['logged']) {
     <!-- ============================= -->
     <main id="main">
         <!--Ma otwierać "nakładke" do pisania wiadomości-->
-        <button id="btnWrite">Napisz wiadomość</button>
-        <div id="messagesContainer" class="messagesContainer">
+        <button id="btnWrite" onclick="showContainer(4)">Napisz wiadomość</button>
+        <div id="receivedContainer" class="messagesContainer">
             <div class="messageCard headerCard">
-                <input type="checkbox" id="selectAllCheckbox" onclick="selectAllCheckboxes()">
+                <input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)">
                 <span class="messageTitle">Tytuł</span>
                 <span class="messageSender">Nadawca</span>
                 <span class="messageDate">Data wysłania</span>
             </div>
             <?php
             $connection = new mysqli("localhost", "root", "", "przedszkole");
-            $result = $connection->query("SELECT tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE odbiorcaID = ".$user->id.";")->fetch_all();
-            foreach ($result as $message) {
-                $senderResult = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = ".$message[3].";")->fetch_all();
-                echo '<div class="messageCard">
-                        
-                      </div>';
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE odbiorcaID = " . $user->id . ";")->fetch_all();
+            for ($i = 0; $i < count($result); $i++) {
+                $message = $result[$i];
+                $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
+                echo '<div class="messageCard">';
+                echo '<input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '">';
+                echo '<span class="messageTitle">' . $message[1] . '</span>';
+                echo '<span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span>';
+                echo '<span class="messageDate">' . $message[3] . '</span>';
+                echo '</div>';
             }
-
-
             ?>
+            <script>setIleWiadomosci(<?php echo count($result);?>);</script>
         </div>
-        <script src="./../scripts/js/showLogin.js"></script>
+        <div id="sentContainer" class="messagesContainer">
+            <div class="messageCard headerCard">
+                <input type="checkbox" id="selectAllCheckbox2" onclick="selectAllCheckboxes(2)">
+                <span class="messageTitle">Tytuł</span>
+                <span class="messageSender">Nadawca</span>
+                <span class="messageDate">Data wysłania</span>
+            </div>
+            <?php
+            $connection = new mysqli("localhost", "root", "", "przedszkole");
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE odbiorcaID = " . $user->id . ";")->fetch_all();
+            for ($i = 0; $i < count($result); $i++) {
+                $message = $result[$i];
+                $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
+                echo '<div class="messageCard">';
+                echo '<input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '">';
+                echo '<span class="messageTitle">' . $message[1] . '</span>';
+                echo '<span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span>';
+                echo '<span class="messageDate">' . $message[3] . '</span>';
+                echo '</div>';
+            }
+            ?>
+            <script>setIleWiadomosci(<?php echo count($result);?>);</script>
+        </div>
+        <div id="deletedContainer" class="messagesContainer">
+        </div>
+        <div id="draftsContainer" class="messagesContainer">
 
+        </div>
+        <div id="writeContainer" class="messagesContainer">
+
+        </div>
     </main>
 </div>
-<div class="wrapper" id="userWrapper">
-    <div id="userPanel" class="panel">
-        <button onclick="userPanelOff()" class="offButton">X</button>
-        <p>Imię: <?php echo $_SESSION['imie'] ?></p>
-        <p>Nazwisko: <?php echo $_SESSION['nazwisko'] ?></p>
-        <p>Typ konta:
-            <?php
-            if ($_SESSION['typ'] == 0) {
-                echo "Rodzic";
-            } else if ($_SESSION['typ'] == 1) {
-                echo "Nauczyciel(ka)";
-            } else {
-                echo "Dyrekcja";
-            }
-            ?>
-        </p>
-        <a href="
-        <?php
-        if ($_SESSION['typ'] == 0) {
-            echo "./parents.php";
-        } else {
-            echo "./admin.html";
-        }
-        ?>
-        ">
-            <button>
-                <?php
-                if ($_SESSION['typ'] == 0) {
-                    echo "Panel Rodzica";
-                } else {
-                    echo "Panel Pracownika";
-                }
-                ?>
-            </button>
-        </a>
-        <form action="./../scripts/php/logout.php" method="post">
-            <button type="submit">Wyloguj</button>
-        </form>
-    </div>
-</div>
-<script src="./../scripts/js/inbox.js"></script>
+
 </body>
 </html>
