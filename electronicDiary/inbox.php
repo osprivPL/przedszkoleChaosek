@@ -4,10 +4,11 @@ require_once "./../scripts/php/printArr.php";
 require_once __DIR__ . '/../models/User.php';
 
 use models\User;
+
 session_start();
 
 $user = new User();
-if (isset($_SESSION['user'])){
+if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
 }
 
@@ -35,7 +36,8 @@ if (!$_SESSION['logged']) {
     <!-- style -->
     <link rel="stylesheet" href="./../styles/style.css">
     <link rel="stylesheet" href="./../styles/panels.css">
-    <link rel="stylesheet" href="./../styles/parents.css">
+<!--    <link rel="stylesheet" href="./../styles/parents.css">-->
+    <link rel="stylesheet" href="./../styles/inbox.css">
 
     <!-- czcionka -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,13 +65,13 @@ if (!$_SESSION['logged']) {
     <div class="header-ui">
         <a href="./inbox.php"><img id="mail" src="./../assets/mail.png" alt="mail"></a>
         <img id="login" src="./../assets/user.svg" alt="login"
-            <?php
-            if ($_SESSION['logged']) {
-                echo 'onclick="userPanelOn()"';
-            } else {
-                echo 'onclick="loginOn()"';
-            }
-            ?>>
+                <?php
+                if ($_SESSION['logged']) {
+                    echo 'onclick="userPanelOn()"';
+                } else {
+                    echo 'onclick="loginOn()"';
+                }
+                ?>>
     </div>
 </header>
 
@@ -101,11 +103,11 @@ if (!$_SESSION['logged']) {
     <!-- MAIN -->
     <!-- ============================= -->
     <main id="main">
-
-
-    <?php printArr($_SESSION); ?>
-
-    <script src="./../scripts/js/showLogin.js"></script>-->
+        <button id="btnWrite">Napisz wiadomość</button>
+        <div id="messagesContainer" class="messagesContainer">
+            <!-- Tutaj będą wiadomości -->
+        </div>
+        <script src="./../scripts/js/showLogin.js"></script>
 
     </main>
 </div>
