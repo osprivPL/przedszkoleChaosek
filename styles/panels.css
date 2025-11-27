@@ -1,13 +1,13 @@
 @import "root.css";
 
-body{
+body {
     overflow: hidden;
     background: linear-gradient(to right top, color-mix(in srgb, var(--main-color) 90%, white 10%), color-mix(in srgb, var(--secondary-color) 85%, white 15%));
     max-width: 100vw;
     max-height: 100vh;
 }
 
-header{
+header {
     width: 100vw;
     height: 10vh;
     font-size: 36px;
@@ -20,11 +20,13 @@ header{
     background: linear-gradient(to right, var(--secondary-color), color-mix(in srgb, var(--secondary-color) 70%, white 20%));
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.header-ui{
+
+.header-ui {
     height: 10vh;
     padding-top: 1vh;
     padding-bottom: 1vh;
 }
+
 header #logo {
     text-decoration: none;
     height: 12vh;
@@ -36,12 +38,13 @@ header #logo {
 header #logo img {
     height: 100%;
 }
-#login{
+
+#login {
     filter: grayscale(100%)
     /*MAKE IT BLACK ;-; czemu saturation koloruje biały w SVG którego nie powinno dotykać bo tam nie ma białego tylko przezroczyte(chyba)*/
 }
-header #mail, #login{
-    background-image: url('../assets/mail.png');
+
+header #mail, #login {
     height: 10vh;
     width: 10vh;
     background-size: cover;
@@ -49,7 +52,8 @@ header #mail, #login{
     cursor: pointer;
     margin-right: 1vh;
 }
-header #login{
+
+header #login {
     background-image: url('../assets/user.svg');
 }
 
@@ -62,23 +66,37 @@ header #login:hover {
     background-image: url('../assets/user_hover.svg');
     transform: scale(1.05);
 }
-.layout{
+
+.layout {
     display: grid;
     grid-template-columns: [nav]0.2fr [main]1fr;
-}nav{
-     grid-area: nav;
-     display: flex;
-     flex-direction: column;
-     justify-content: flex-start;
-     align-content:  flex-start;
+}
 
-     font-size: 30px;
-     color: #ececec;
-     background: var(--green-darker);
-     min-height: 96vh;
- }
+nav {
+    grid-area: nav;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: flex-start;
 
-.nav_child{
+    font-size: 30px;
+    color: #ececec;
+    background: var(--green-darker);
+    min-height: 96vh;
+}
+
+nav img {
+    height: 50px;
+    width: 50px;
+    padding: 2px;
+    filter: invert(100%);
+}
+
+nav span {
+    z-index: 9;
+}
+
+.nav_child {
     position: relative;
     z-index: 999;
     display: flex;
@@ -89,7 +107,8 @@ header #login:hover {
     position: relative;
 }
 
-.nav_child:before{
+
+.nav_child:before {
     width: 125%;
     height: 110%;
     position: absolute;
@@ -100,41 +119,43 @@ header #login:hover {
     border-radius: 0px;
 }
 
-.nav_child:hover:before{
+.nav_child:hover:before {
     transform: translateX(60%);
     border-radius: 50px;
 }
 
-.nav_child>img{
-    height:50px;
-    width: 50px;
-    padding: 2px;
-    filter: invert(100%);
+.nav_child_parent {
+    display: grid;
 }
-.nav_child>span{
-    z-index: 9;
+
+.nav_child_child{
+    /*od komentuj gdy js się zrobi*/
+    /*opacity: 0;*/
+    justify-content: center;
+    align-content: baseline;
+    background: var(--green-darkerer);
+
+    position: relative;
 }
-.nav_arrow{
+
+.nav_child_child:before{
+    width: 2.5%;
+    height: 110%;
     position: absolute;
-    right: 5%;
-    overflow: hidden;
-    transition: all 0.5s;
-}
-.nav_arrow:hover{
-    /*Do zmiany na wypełnioną arrow_down2*/
-    background: url("./../assets/arrow_down1.png");
+    left: 0;
+    content: "";
+    background: var(--green-dark);
 }
 
-
-
-main{
+main {
     grid-area: main;
     position: relative;
     padding: 1.5vw;
     height: 100%;
 
 }
-.main-panel{
+
+.main-panel {
     overflow-x: hidden;
     width: 100%;
     height: 100%;
@@ -145,13 +166,14 @@ main{
     columns: 3;
     column-gap: 20px;
 }
-main{
+
+main {
     grid-area: main;
     position: relative;
     height: 100%;
 }
 
-.main-panel{
+.main-panel {
     overflow-x: hidden;
     width: 100%;
     height: 100%;
@@ -165,12 +187,14 @@ main{
     /*columns: 3;*/
     column-gap: 20px;
 }
-.main-main{
+
+.main-main {
     opacity: 1;
     height: 120vh;
     overflow-y: scroll;
 }
-.main-style-panel{
+
+.main-style-panel {
     background: #f5f5f5;
     height: 95%;
     width: 95%;
@@ -184,23 +208,27 @@ main{
     justify-content: flex-start;
     align-self: baseline;
 }
-.main-panel-cell{
+
+.main-panel-cell {
     margin: 1vh;
     /* MICHAŁ TO JEST WIDTH COLUMNY JAK POTRZEBUJESZ*/
     width: 33%;
     background: var(--green-vibrant);
 }
-.main-main>.test-plan{
-    height: auto;
-}
-.main-main>.test-grades{
-    height: auto;
-}
-.main-main>.test-changes{
+
+.main-main > .test-plan {
     height: auto;
 }
 
-aside, main{
+.main-main > .test-grades {
+    height: auto;
+}
+
+.main-main > .test-changes {
+    height: auto;
+}
+
+aside, main {
     height: 80vh;
 }
 
