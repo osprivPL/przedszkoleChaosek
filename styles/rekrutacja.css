@@ -62,26 +62,28 @@ main {
     height: 75vh;
 }
 
-main form {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    align-items: flex-start;
-    justify-content: center;
-    box-sizing: border-box;
-}
 #container{
     display: flex;
     flex-direction: column;
-    gap: 5rem;
     border-radius: 10px;
-    width: 35vw;
+    width: 50vw;
     align-items: center;
     justify-content: center;
-    height: 60vh;
+    max-height: 80vh;
+    padding: 0 2em;
+    background-color: var(--green-vibrant);
 }
 #container h1{
     font-size: 72px;
+}
+#frmRekrutacja{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width:100%;
 }
 #frmRekrutacja input{
     padding: 10px;
@@ -91,32 +93,52 @@ main form {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 .formsContainer {
     display: flex;
+    gap: 3rem;
+    width: 100%;
 }
-#frmChild,  #frmParent {
+.frmChild,  .frmParent {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 10px;
+    width: 50%;
+}
+.frmChildLogged{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width:100%;
+}
+.smallerFrmChild{
+    display: flex;
+    flex-direction: column;
 }
 .inputGroup {
     margin: 0.5em 0;
+    text-align: left;
     border-left: 5px solid var(--green-dark);
     padding: 0.2em;
-    text-align: left;
 }
 .inputGroup input{
     border: var(--green-darker) solid 2px;
     border-radius: 6px;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-}
-.last{
     width: 100%;
+    font-size: 20px;
+    margin: auto;
+    box-sizing: border-box;
 }
-.last input{
-    width: 100%;
+.textBlock{
+    width:100%;
+}
+.textBlock input{
     height: 100px;
+}
+.submitButton{
+    transform: scale(2);
 }

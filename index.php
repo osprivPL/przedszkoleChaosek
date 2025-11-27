@@ -74,7 +74,7 @@ if (!isset($_SESSION['error'])) {
                 <span class="error" id="passwordError"></span>
             </div>
         </div>
-        <button id="btnLogin">Zaloguj</button>
+        <button id="btnLogin" class="submitButton">Zaloguj</button>
         <span id="loginError" name="loginError" class="error">
             <?php
             if ($_SESSION['error'] == 1) {
