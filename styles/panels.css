@@ -86,6 +86,7 @@ header #login:hover {
     padding: 10px;
     cursor: pointer;
     overflow: hidden;
+    position: relative;
 }
 
 .nav_child:before{
@@ -113,6 +114,18 @@ header #login:hover {
 .nav_child>span{
     z-index: 9;
 }
+.nav_arrow{
+    position: absolute;
+    right: 5%;
+    overflow: hidden;
+    transition: all 0.5s;
+}
+.nav_arrow:hover{
+    /*Do zmiany na wypełnioną arrow_down2*/
+    background: url("./../assets/arrow_down1.png");
+}
+
+
 
 main{
     grid-area: main;

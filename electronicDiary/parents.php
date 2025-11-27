@@ -75,19 +75,18 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
         <div class="nav_child nav_child_dzieci">
             <img src="./../assets/playing.png" alt="">
             <span>Dziecko</span>
+<!--Tymczasowy obrazek nav_down1 w szkoel zrobie svg bo tu mi nie działa inkspace z jakiegos powodu-->
+            <img src="./../assets/arrow_down1.png" alt="" class="nav_arrow"></img>
         </div>
-        <div class="nav_child_dzieci_child">
 
-        </div>
-        <div class="nav_child_dzieci_child">
-
-        </div>
-        <div class="nav_child_dzieci_child">
-
-        </div>
         <div class="nav_child nav_child_szkola">
             <img src="./../assets/school.png" alt="">
             <span>o Szkole</span>
+            <img src="./../assets/arrow_down1.png" alt="" class="nav_arrow"></img>
+        </div>
+
+        <div class="nav_child_szkola_child">
+
         </div>
         <div class="nav_child ">
             <img src="./../assets/restaurant.png" alt="">
@@ -117,7 +116,7 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
             <div class="main-panel-cell test-changes">Wychowawca</div>
             <div class="main-panel-cell test-plan">7</div>
             <div class="main-panel-cell test-grades">8</div>
-            <div class="main-panel-cell test-changes">9</div>
+                <div class="main-panel-cell test-changes"></div>
             </div>
         </div>
 
@@ -170,6 +169,7 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
     let php = <?php echo json_encode($json); ?>;
     showOnAside(php);
     // console.log(php);
+
 </script>
 </body>
 </html>
