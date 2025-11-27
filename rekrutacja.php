@@ -147,6 +147,6 @@ if (isset($_SESSION['user'])) {
 
 <script src="./scripts/js/showLogin.js"></script>
 <script src="./scripts/js/indexFormValidator.js"></script>
-
+<?php printArr($_SESSION); ?>
 </body>
 </html>
