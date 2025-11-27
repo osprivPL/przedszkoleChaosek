@@ -3,8 +3,10 @@
 html, body {
     height: 100vh;
     overflow-y: hidden;
-    -ms-overflow-y: hidden;
     margin: 0;
+    background-image: url('../assets/tlo_rejestracja.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
 }
 header{
     background: rgba(0, 23, 10, 0.9);
@@ -72,6 +74,8 @@ main {
     max-height: 80vh;
     padding: 0 2em;
     background-color: var(--green-vibrant);
+    border: solid 5px var(--green-dark);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
 }
 #container h1{
     font-size: 72px;
@@ -116,6 +120,7 @@ main {
 .smallerFrmChild{
     display: flex;
     flex-direction: column;
+    width: 50%;
 }
 .inputGroup {
     margin: 0.5em 0;

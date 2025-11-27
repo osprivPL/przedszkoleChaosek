@@ -8,8 +8,6 @@ html{
     scroll-behavior: smooth;
 }
 body{
-    height: 400vh;
-    overflow-y:scroll;
     overflow-x:hidden;
     margin: 0;
 
