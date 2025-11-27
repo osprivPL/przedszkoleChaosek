@@ -46,3 +46,18 @@ body{
     0 2px 0 var(--green-darker),
     0 -2px 0 var(--green-darker);
 }
+.submitButton{
+    border: var(--green-darker) solid 3px;
+    background-color: var(--green-vibrant);
+    color: white;
+    padding: 0.2em 1em;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.2s;
+    font-family: 'Sour Gummy', sans-serif;
+    font-weight: 900;
+    font-size: 16px;
+}
+.submitButton:hover {
+    background-color: var(--green-dark);
+}

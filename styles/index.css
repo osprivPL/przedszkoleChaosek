@@ -152,7 +152,6 @@ body{
     overflow: hidden;
     height: 14vw;
     text-align: center;
-    border: var(--border);
     background-image: url('../assets/login.png');
     background-size: 100% 100%;
     border-radius: 12px;
@@ -170,7 +169,6 @@ body{
     align-items: center;
     color: white;
     background: linear-gradient(to right top, #FF6B6B, #E63946);
-    border: var(--border);
     border-radius: 6px;
     font-size: 48px;
     height: 48px;
@@ -231,22 +229,6 @@ body{
     border-radius: 6px;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-}
-#btnLogin {
-    border: var(--green-darker) solid 3px;
-    background-color: var(--green-vibrant);
-    color: white;
-    padding: 0.2em 1em;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: 0.2s;
-    font-family: 'Sour Gummy', sans-serif;
-    font-weight: 900;
-    font-size: 16px;
-}
-
-#btnLogin:hover {
-    background-color: var(--green-dark);
 }
 
 #userPanel {

@@ -37,7 +37,8 @@ if (isset($_SESSION['user'])) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
 
     <!-- ikonka -->
     <link rel="icon" type="image/x-icon" href="./assets/logo_tornado.svg">
@@ -75,15 +76,24 @@ if (isset($_SESSION['user'])) {
                 ?>>
             <div class="container">
                 <div class="formsContainer">
-                    <div id="frmChild">
+                    <div class="
+                        <?php 
+                            if($_SESSION['logged'])
+                                {echo "frmChildLogged";}
+                            else{echo "frmChild";}
+                            ?>
+                        ">
+                        <?php if($_SESSION['logged']){echo "<div class='smallerFrmChild'>";}?>
                         <div class="inputGroup"><input type="text" id="frmChildImie" name="frmChildImie" placeholder="Imię dziecka" required></div>
                         <div class="inputGroup"><input type="text" id="frmChildNazwisko" name="frmChildNazwisko" placeholder="Nazwisko dziecka"
                             required></div>
+                            <?php if($_SESSION['logged']){echo "</div><div class='smallerFrmChild'>";}?>
                         <div class="inputGroup"><input type="text" id="frmChildPesel" name="frmChildPesel" placeholder="Pesel dziecka" required></div>
                         <div class="inputGroup"><input type="text" id="frmChildAdres" name="frmChildAdres" placeholder="Adres zamieszkania dziecka"
                             required></div>
+                            <?php if($_SESSION['logged']){echo "</div>";}?>
                     </div>
-                    <div id="frmParent" <?php
+                    <div class="frmParent" <?php
                     if ($_SESSION['logged'] && $user->typ == 0) {
                         echo 'style="display:none;"';
                     }
@@ -122,9 +132,9 @@ if (isset($_SESSION['user'])) {
                         ></div>
                     </div>
                 </div>
-                <div class="inputGroup last"><input type="text" id="frmInne" name="frmInne" placeholder="Inne ważne informacje"></div>
+                <div class="inputGroup textBlock"><input type="text" id="frmInne" name="frmInne" placeholder="Inne ważne informacje"></div>
             </div>
-            <button id="btnRekrutacja">Zapisz dziecko!</button>
+            <button id="btnRekrutacja" class="submitButton">Zapisz dziecko!</button>
             <?php
             if ($_SESSION['error'] == 2) {
                 echo '<span class="error">Wystąpił błąd podczas wysyłania formularza. Spróbuj ponownie później.</span>';
