@@ -11,10 +11,6 @@ $user = new User();
 if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
 }
-echo $user->id;
-echo $user->imie;
-echo $user->nazwisko;
-echo $user->typ;
 
 require_once "./../scripts/php/printArr.php";
 if (!isset($_SESSION['logged'])) {
@@ -110,52 +106,56 @@ if (!$_SESSION['logged']) {
     <main id="main">
         <!--Ma otwierać "nakładke" do pisania wiadomości-->
         <button id="btnWrite" onclick="showContainer(4)">Napisz wiadomość</button>
-        <div id="receivedContainer" class="messagesContainer">
-            <div class="messageCard headerCard">
-                <input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)">
-                <span class="messageTitle">Tytuł</span>
-                <span class="messageSender">Nadawca</span>
-                <span class="messageDate">Data wysłania</span>
-            </div>
+        <table id="receivedContainer" class="messagesContainer">
+            <tr class="messageCard headerCard">
+                <td><input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)"></td>
+                <td><span class="messageTitle">Tytuł</span></td>
+                <td><span class="messageSender">Nadawca</span></td>
+                <td><span class="messageDate">Data wysłania</span></td>
+                <td></td>
+            </tr>
             <?php
             $connection = new mysqli("localhost", "root", "", "przedszkole");
             $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE odbiorcaID = " . $user->id . ";")->fetch_all();
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
-                echo '<div class="messageCard">';
-                echo '<input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '">';
-                echo '<span class="messageTitle">' . $message[1] . '</span>';
-                echo '<span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span>';
-                echo '<span class="messageDate">' . $message[3] . '</span>';
-                echo '</div>';
+                echo '<tr class="messageCard">';
+                echo '<td><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></td>';
+                echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
+                echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
+                echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
+                echo '<td><span><img src="./../assets/trash.png"</span></td>';
+                echo '</tr>';
             }
             ?>
             <script>setIleWiadomosci(<?php echo count($result);?>);</script>
-        </div>
-        <div id="sentContainer" class="messagesContainer">
-            <div class="messageCard headerCard">
-                <input type="checkbox" id="selectAllCheckbox2" onclick="selectAllCheckboxes(2)">
-                <span class="messageTitle">Tytuł</span>
-                <span class="messageSender">Nadawca</span>
-                <span class="messageDate">Data wysłania</span>
-            </div>
+        </>
+        <table id="sentContainer" class="messagesContainer">
+            <tr class="messageCard headerCard">
+                <td><input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)"></td>
+                <td><span class="messageTitle">Tytuł</span></td>
+                <td><span class="messageSender">Nadawca</span></td>
+                <td><span class="messageDate">Data wysłania</span></td>
+                <td></td>
+            </tr>
             <?php
             $connection = new mysqli("localhost", "root", "", "przedszkole");
-            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE odbiorcaID = " . $user->id . ";")->fetch_all();
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE nadawcaID = " . $user->id . ";")->fetch_all();
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
-                echo '<div class="messageCard">';
-                echo '<input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '">';
-                echo '<span class="messageTitle">' . $message[1] . '</span>';
-                echo '<span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span>';
-                echo '<span class="messageDate">' . $message[3] . '</span>';
-                echo '</div>';
+                echo '<tr class="messageCard">';
+                echo '<td><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></td>';
+                echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
+                echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
+                echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
+                echo '<td><span><img src="./../assets/trash.png"</span></td>';
+                echo '</tr>';
             }
             ?>
             <script>setIleWiadomosci(<?php echo count($result);?>);</script>
-        </div>
+        </>
         <div id="deletedContainer" class="messagesContainer">
         </div>
         <div id="draftsContainer" class="messagesContainer">
