@@ -77,7 +77,20 @@ main {
     border: solid 5px var(--green-dark);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
 }
-#container h1{
+#containerLoggedIn{
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    width: 40vw;
+    align-items: center;
+    justify-content: center;
+    max-height: 80vh;
+    padding: 0 2em;
+    background-color: var(--green-vibrant);
+    border: solid 5px var(--green-dark);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+h1{
     font-size: 72px;
 }
 #frmRekrutacja{
@@ -114,8 +127,11 @@ main {
 .frmChildLogged{
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 3rem;
     width:100%;
+}
+.logo-font{
+    margin-bottom: 1rem;
 }
 .smallerFrmChild{
     display: flex;
@@ -139,7 +155,8 @@ main {
     box-sizing: border-box;
 }
 .textBlock{
-    width:100%;
+    width:99%;
+    margin-top: 3vh;
 }
 .textBlock input{
     height: 100px;

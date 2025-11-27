@@ -64,7 +64,7 @@ if (isset($_SESSION['user'])) {
 <!-- ============================= -->
 <main>
     <!---<?php printArr($_SESSION); ?>-->
-    <div id="container">
+    <div <?php if($_SESSION['logged']){echo "id='containerLoggedIn'";}else{echo "id='container'";}?>>
         <h1 class='logo-font'>Rekrutacja</h1>
         <form id="frmRekrutacja" method="post" action=
                 <?php
