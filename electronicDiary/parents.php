@@ -48,6 +48,7 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
     <link rel="icon" type="image/x-icon" href="./../assets/logo_tornado.svg">
 
     <title>Przedszkole Chaosek - Panel rodzica</title>
+    <script src="./../scripts/js/panels.js"></script>
 </head>
 <body>
 <header>
@@ -77,7 +78,7 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
     <!-- NAVIGATION -->
     <!-- ============================= -->
     <nav>
-        <div class="nav_child">
+        <div class="nav_child" onclick="showContainer(0)">
             <img src="./../assets/main_page.png" alt="">
             <span>Panel główny</span>
         </div>
@@ -99,7 +100,7 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
             <span>o Szkole</span>
             <img src="./../assets/arrow2.svg" alt="" class="nav_arrow">
         </div>
-        <div class="nav_child ">
+        <div class="nav_child " onclick="showContainer(1)">
             <img src="./../assets/restaurant.png" alt="">
             <span>Stołówka</span>
         </div>
@@ -157,6 +158,9 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
     <script src="./../scripts/js/showLogin.js"></script>-->
 
     </main>
+    <div id="jadlospisContainer">
+
+    </div>
 </div>
 <div class="wrapper" id="userWrapper">
     <div id="userPanel" class="panel">
