@@ -64,7 +64,7 @@ main {
     height: 75vh;
 }
 
-#container{
+.containerLoggedOut{
     display: flex;
     flex-direction: column;
     border-radius: 10px;
@@ -72,12 +72,13 @@ main {
     align-items: center;
     justify-content: center;
     max-height: 80vh;
-    padding: 0 2em;
+    padding: 0 1.5vw;
     background-color: var(--green-vibrant);
     border: solid 5px var(--green-dark);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+    position: relative;
 }
-#containerLoggedIn{
+.containerLoggedIn{
     display: flex;
     flex-direction: column;
     border-radius: 10px;
@@ -85,15 +86,43 @@ main {
     align-items: center;
     justify-content: center;
     max-height: 80vh;
-    padding: 0 2em;
+    padding: 0 1.5vw;
     background-color: var(--green-vibrant);
     border: solid 5px var(--green-dark);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+    position: relative;
 }
 h1{
     font-size: 72px;
+    z-index: 1;
+    background-color: var(--green-vibrant);
+    padding: 0 2rem;
 }
-#frmRekrutacja{
+hr{
+    position: absolute;
+    width: 40vw;
+    border: 3px solid var(--green-dark);
+    top:5vh;
+    left: 1.5vw;
+    z-index: 0;
+}
+.containerLoggedIn hr{
+    width: 40vw;
+    animation: rekrutacja_hr_logged_in 1s ease-in-out;
+}
+.containerLoggedOut hr{
+    width: 50vw;
+    animation: rekrutacja_hr_logged_out 1s ease-in-out;
+}
+@keyframes rekrutacja_hr_logged_in{
+    from {width: 0;}
+    to {width: 40vw;}
+}
+@keyframes rekrutacja_hr_logged_out{
+    from {width: 0;}
+    to {width: 50vw;}
+}
+.form{
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -102,10 +131,10 @@ h1{
     box-sizing: border-box;
     width:100%;
 }
-#frmRekrutacja input{
+.form input{
     padding: 10px;
 }
-.container {
+.subContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;

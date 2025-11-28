@@ -64,9 +64,10 @@ if (isset($_SESSION['user'])) {
 <!-- ============================= -->
 <main>
     <!---<?php printArr($_SESSION); ?>-->
-    <div <?php if($_SESSION['logged']){echo "id='containerLoggedIn'";}else{echo "id='container'";}?>>
+    <div id='container' <?php if($_SESSION['logged']){echo "class='containerLoggedIn'";}else{echo "class='containerLoggedOut'";}?>>
+        <hr>
         <h1 class='logo-font'>Rekrutacja</h1>
-        <form id="frmRekrutacja" method="post" action=
+        <form id="frmRekrutacja" class='form' method="post" action=
                 <?php
                 if ($_SESSION['logged'] && $user->typ == 0) {
                     echo "rekrutacjaCompleted.php";
@@ -74,7 +75,7 @@ if (isset($_SESSION['user'])) {
                     echo "./scripts/php/MAIL.php";
                 }
                 ?>>
-            <div class="container">
+            <div class="subContainer">
                 <div class="formsContainer">
                     <div class="
                         <?php 
