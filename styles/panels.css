@@ -7,7 +7,7 @@ body {
     max-height: 100vh;
 }
 
-header {
+/*header {
     width: 100vw;
     height: 10vh;
     font-size: 36px;
@@ -19,7 +19,7 @@ header {
     padding-bottom: 1vh;
     background: linear-gradient(to right, var(--secondary-color), color-mix(in srgb, var(--secondary-color) 70%, white 20%));
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+}*/
 
 .header-ui {
     height: 10vh;

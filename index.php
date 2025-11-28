@@ -57,11 +57,11 @@ if (!isset($_SESSION['error'])) {
             <div>
                 <div class="square"></div>
                 <img src="./assets/logo_tornado.svg" alt="logo">
-                <span class='font-logo-small'>Dzienniczek Chaosu</span>
+                <span class='logo-font-small'>Dzienniczek Chaosu</span>
             </div>
 
         </div>
-        <h3 class='font-logo-small'>Logowanie</h3>
+        <h3 class='logo-font-small'>Logowanie</h3>
         <div class="Login">
             <div class='inputGroup'>
                 <label for="tbxEmail">Email</label><br>
@@ -101,7 +101,7 @@ if (!isset($_SESSION['error'])) {
     </div>
     <a class="logo" href="#header">
         <img src="./assets/logo_tornado.svg" alt="logo">
-        <div class="text logo-font">Przedszkole Chaosek</div>
+        <div class="text logo-font-small">Przedszkole Chaosek</div>
     </a>
     <div class="nav">
         <!--            --><?php //printArr($_SESSION); ?>
@@ -216,25 +216,25 @@ if (!isset($_SESSION['error'])) {
             if ($connection->connect_errno != 0) {
                 echo '<div class="slider_element">
                     <div class="slide_content">
-                        <div class="title">Wyjście do Parku <span>21.03.2025</span></div>
+                        <div class="title logo-font-small">Wyjście do Parku <span>21.03.2025</span></div>
                         <div class="context">Dzieci bawiące się na dworze pokazują, że przedszkole stawia na aktywność i codzienny kontakt z naturą.</div>
                     </div>
                 </div>
                 <div class="slider_element">
                     <div class="slide_content">
-                        <div class="title">Wielkanoc<span>20.04.2025</span></div>
+                        <div class="title logo-font-small">Wielkanoc<span>20.04.2025</span></div>
                         <div class="context">Sesja zdjęciowa na wielkanoc tworzy ciepłą atmosferę i buduje wyjątkowe tradycje w naszej placówce.</div>
                     </div>
                 </div>
                 <div class="slider_element">
                     <div class="slide_content">
-                        <div class="title">Dzień nauczyciela<span>14.10.2025</span></div>
+                        <div class="title logo-font-small">Dzień nauczyciela<span>14.10.2025</span></div>
                         <div class="context">Dzieci w świetnie wyposażonej sali uczą się i rozwijają w bezpiecznym, inspirującym otoczeniu.</div>
                     </div>
                 </div>
                 <div class="slider_element">
                     <div class="slide_content">
-                        <div class="title">Halloween<span>31.10.2025</span></div>
+                        <div class="title logo-font-small">Halloween<span>31.10.2025</span></div>
                         <div class="context">Przebieranki na Halloween rozwijają kreatywność i sprawiają, że wspólna zabawa staje się prawdziwą przygodą.</div>
                     </div>
                 </div>';
@@ -247,7 +247,7 @@ if (!isset($_SESSION['error'])) {
                     $style = 'style="' . $bg . '"';
                     echo '<div class="slider_element"' . $style . '>';
                     echo '<div class="slide_content">';
-                    echo '<div class="title">' . $result[$i][0] . "<span>" . $result[$i][2] . "</span></div>";
+                    echo '<div class="title logo-font-small">' . $result[$i][0] . "<span>" . $result[$i][2] . "</span></div>";
                     echo '<div class="context">' . $result[$i][1] . "</div>";
                     echo '</div>';
                     echo '</div>';
@@ -302,19 +302,19 @@ if (!isset($_SESSION['error'])) {
 <!--============================-->
 <div class="slide kontakt" id="kontakt">
         <div class="sub_container">
-            <div class="title font-logo-small">Firma</div>
+            <div class="title logo-font-small">Firma</div>
             <a href="#header">Przedszkole Chaosek</a>
             <a>Data założenia 25.11.2025</a>
             <a href="https://pl.wikipedia.org/wiki/Sp%C3%B3%C5%82ka_z_ograniczon%C4%85_odpowiedzialno%C5%9Bci%C4%85" target="_blank">Spółka z ogarniczoną odpowiedzialnością</a>
         </div>
         <div class="sub_container">
-            <div class="title font-logo-small">Kontakt</div>
+            <div class="title logo-font-small">Kontakt</div>
             <a href="mailto:przedszkole.chaosek@outlook.com">Email<br>przedszkole.chaosek@gmail.com</a>
             <a href="Tel:+48535091970">Nr Tel<br>+48 535 091 970</a>
             <a href="#dojazd">Adres<br>Stare Skoszewy 44aa</a>
         </div>
         <div class="sub_container">
-            <div class="title font-logo-small">Założyciele</div>
+            <div class="title logo-font-small">Założyciele</div>
             <a href="https://www.instagram.com/michas.cpp/" target="_blank">Michał Ożdżyński</a>
             <a href="https://www.instagram.com/piotrek.peryt/" target="_blank">Piotr Peryt</a>
             <a href="https://www.instagram.com/odroww/" target="_blank">Stanisław Odrowski</a>

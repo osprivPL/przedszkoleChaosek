@@ -51,9 +51,12 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
 </head>
 <body>
 <header>
-    <a href="../index.php" id="logo">
+    <div class="square_container">
+        <div class="square"></div>
+    </div>
+    <a href="../index.php" id="logo" class='logo'>
         <img src="./../assets/logo_tornado.svg" alt="logo">
-        <span>Przedszkole Chaosek</span>
+        <span class='logo-font-small'>Przedszkole Chaosek</span>
     </a>
     <!--Tymon zrobił by to lepiej-->
     <div class="header-ui">

@@ -4,30 +4,6 @@ body{
     background-color: black;
     color: white;
 }
-.logo-font {
-    color: white;
-    font-family: 'Pacifico';
-    text-shadow: 5px 5px 0 var(--green-darker),
-    -5px 5px 0 var(--green-darker),
-    5px -5px 0 var(--green-darker),
-    -5px -5px 0 var(--green-darker),
-    5px 0 0 var(--green-darker),
-    -5px 0 0 var(--green-darker),
-    0 5px 0 var(--green-darker),
-    0 -5px 0 var(--green-darker);
-}
-.font-logo-small{
-    font-family: 'Pacifico';
-    color: white;
-    text-shadow: 2px 2px 0 var(--green-darker),
-    -2px 2px 0 var(--green-darker),
-    2px -2px 0 var(--green-darker),
-    -2px -2px 0 var(--green-darker),
-    2px 0 0 var(--green-darker),
-    -2px 0 0 var(--green-darker),
-    0 2px 0 var(--green-darker),
-    0 -2px 0 var(--green-darker);
-}
 /*Sticky nav przed scrollem*/
 .sticky-banner {
     position: sticky;
@@ -585,15 +561,6 @@ h1 {
     font-size: 36px;
     background-color: rgba(0, 71, 31, 0.7);
     text-wrap: nowrap;
-    font-family: 'Pacifico';
-    text-shadow: 2px 2px 0 var(--green-darker),
-    -2px 2px 0 var(--green-darker),
-    2px -2px 0 var(--green-darker),
-    -2px -2px 0 var(--green-darker),
-    2px 0 0 var(--green-darker),
-    -2px 0 0 var(--green-darker),
-    0 2px 0 var(--green-darker),
-    0 -2px 0 var(--green-darker);
     position: absolute;
     top: 0;
     left: 0;
