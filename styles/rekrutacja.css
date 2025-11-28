@@ -20,12 +20,10 @@ main {
     align-items: center;
     height: 85vh;
 }
-
-.containerLoggedOut{
+.containerLoggedIn, .containerLoggedOut{
     display: flex;
     flex-direction: column;
     border-radius: 10px;
-    width: 50vw;
     align-items: center;
     justify-content: center;
     max-height: 80vh;
@@ -35,19 +33,11 @@ main {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
     position: relative;
 }
+.containerLoggedOut{
+    width: 50vw;
+}
 .containerLoggedIn{
-    display: flex;
-    flex-direction: column;
-    border-radius: 10px;
     width: 40vw;
-    align-items: center;
-    justify-content: center;
-    max-height: 80vh;
-    padding: 0 1.5vw;
-    background-color: var(--green-vibrant);
-    border: solid 5px var(--green-dark);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
-    position: relative;
 }
 h1{
     font-size: 72px;
@@ -59,25 +49,25 @@ hr{
     position: absolute;
     width: 40vw;
     border: 3px solid var(--green-dark);
-    top:5vh;
+    top:4rem;
     left: 1.5vw;
     z-index: 0;
 }
 .containerLoggedIn hr{
-    width: 40vw;
-    animation: rekrutacja_hr_logged_in 1s ease-in-out;
+    width: 39.5vw;
+    animation: rekrutacja_hr_logged_in 1.2s ease-in-out;
 }
 .containerLoggedOut hr{
-    width: 50vw;
-    animation: rekrutacja_hr_logged_out 1s ease-in-out;
+    width: 49.5vw;
+    animation: rekrutacja_hr_logged_out 1.2s ease-in-out;
 }
 @keyframes rekrutacja_hr_logged_in{
     from {width: 0;}
-    to {width: 40vw;}
+    to {width: 39.5vw;}
 }
 @keyframes rekrutacja_hr_logged_out{
     from {width: 0;}
-    to {width: 50vw;}
+    to {width: 49.5vw;}
 }
 .form{
     display: flex;
