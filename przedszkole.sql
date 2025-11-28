@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2025 at 06:11 PM
+-- Generation Time: Nov 28, 2025 at 06:32 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -103,9 +103,45 @@ INSERT INTO `grupy` (`id`, `nazwa`) VALUES
 CREATE TABLE `jadlospis` (
   `id` int(11) NOT NULL,
   `kiedy` date NOT NULL,
-  `typ` tinyint(4) NOT NULL,
+  `typ` tinyint(4) NOT NULL COMMENT '0 - II sniadanie, 1 - obiad, 2 - podwieczorek',
   `opis` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Dumping data for table `jadlospis`
+--
+
+INSERT INTO `jadlospis` (`id`, `kiedy`, `typ`, `opis`) VALUES
+(1, '2025-11-24', 0, 'Kanapki z szynką, sałatą i pomidorem, herbata z cytryną'),
+(2, '2025-11-24', 1, 'Zupa pomidorowa z ryżem. Filet z kurczaka w sosie śmietanowym, ziemniaki, surówka z marchewki'),
+(3, '2025-11-24', 2, 'Banan i wafelek ryżowy'),
+(4, '2025-11-25', 0, 'Płatki kukurydziane na mleku, bułka wrocławska z masłem'),
+(5, '2025-11-25', 1, 'Zupa ogórkowa z ziemniakami. Kotlet mielony, kasza gryczana, buraczki na ciepło'),
+(6, '2025-11-25', 2, 'Kisiel truskawkowy i biszkopty'),
+(7, '2025-11-26', 0, 'Bułka kajzerka z pastą jajeczną i szczypiorkiem, kakao'),
+(8, '2025-11-26', 1, 'Rosół z makaronem. Potrawka z indyka z warzywami, ryż, kompot wieloowocowy'),
+(9, '2025-11-26', 2, 'Jabłko pieczone z cynamonem'),
+(10, '2025-11-27', 0, 'Parówki z szynki na ciepło, chleb razowy, ketchup, herbata miętowa'),
+(11, '2025-11-27', 1, 'Krupnik z kaszą jęczmienną. Naleśniki z serem białym i musem truskawkowym'),
+(12, '2025-11-27', 2, 'Jogurt naturalny z granolą'),
+(13, '2025-11-28', 0, 'Chleb żytni z serem żółtym i ogórkiem kiszonym, kawa inka'),
+(14, '2025-11-28', 1, 'Zupa jarzynowa z brukselką. Ryba miruna w panierce, ziemniaki puree, surówka z kiszonej kapusty'),
+(15, '2025-11-28', 2, 'Ciasto drożdżowe z kruszonką i mleko'),
+(16, '2025-12-01', 0, 'Tosty z serem i szynką, herbata owocowa'),
+(17, '2025-12-01', 1, 'Zupa brokułowa z grzankami. Gulasz wieprzowy, kopytka, ogórek kiszony'),
+(18, '2025-12-01', 2, 'Mandarynka i herbatniki'),
+(19, '2025-12-02', 0, 'Owsianka na mleku z rodzynkami, weka z masłem'),
+(20, '2025-12-02', 1, 'Zupa pieczarkowa z makaronem. Pulpety w sosie koperkowym, ziemniaki, marchewka z groszkiem'),
+(21, '2025-12-02', 2, 'Galaretka owocowa z bitą śmietaną'),
+(22, '2025-12-03', 0, 'Kanapki z twarożkiem i rzodkiewką, kakao'),
+(23, '2025-12-03', 1, 'Kapuśniak ze słodkiej kapusty. Spaghetti bolognese z serem, kompot wiśniowy'),
+(24, '2025-12-03', 2, 'Gruszka i paluszki'),
+(25, '2025-12-04', 0, 'Jajecznica na maśle ze szczypiorkiem, chleb graham, herbata z cytryną'),
+(26, '2025-12-04', 1, 'Zupa fasolowa. Pierogi leniwe z masłem i bułką tartą, surówka z jabłka i marchewki'),
+(27, '2025-12-04', 2, 'Mus owocowy w tubce'),
+(28, '2025-12-05', 0, 'Bułka z dżemem truskawkowym i masłem, mleko'),
+(29, '2025-12-05', 1, 'Barszcz czerwony z ziemniakami. Paluszki rybne, ryż z warzywami, surówka z selera'),
+(30, '2025-12-05', 2, 'Muffinka czekoladowa własnego wypieku');
 
 -- --------------------------------------------------------
 
@@ -298,7 +334,7 @@ ALTER TABLE `grupy`
 -- AUTO_INCREMENT for table `jadlospis`
 --
 ALTER TABLE `jadlospis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `oczekujace`
