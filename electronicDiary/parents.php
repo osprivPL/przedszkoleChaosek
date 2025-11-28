@@ -66,7 +66,7 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
                     <div><?php echo $user->imie.' '.$user->nazwisko;?><br>Rodzic</div>
                     <img src="../assets/user.svg" alt="user icon">
                     <div class="user_pop_up" id="user_pop_up1">
-                        <a href="parents.php">Panel Rodzica</a>
+                        <a href="../index.php">Strona Główna</a>
                         <a href="../scripts/php/logout.php">Wyloguj Się</a>
                     </div>
                 </div>

@@ -34,11 +34,6 @@ header #logo img {
     height: 100%;
 }
 
-#login {
-    filter: grayscale(100%)
-    /*MAKE IT BLACK ;-; czemu saturation koloruje biały w SVG którego nie powinno dotykać bo tam nie ma białego tylko przezroczyte(chyba)*/
-}
-
 header #mail{
     height: 10vh;
     width: 10vh;
@@ -46,15 +41,18 @@ header #mail{
     transition: background-image 0.2s, transform 0.2s;
     cursor: pointer;
     margin-right: 1vh;
+    background-color: var(--green-dark);
+    border-radius: 12px;
+    padding: 0 1vh;
 }
 
 header #mail:hover {
-    background-image: url('../assets/mail.png');
-    transform: scale(1.05);
+    transform: scale(1.1);
+    background-color: var(--green-darker);
 }
 .user{
     cursor: pointer;
-    background-color: var(--green-darker);
+    background-color: var(--green-dark);
     border-radius: 12px;
     display: flex;
     width: fit-content;
@@ -67,10 +65,10 @@ header #mail:hover {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 .user:hover{
-    background-color: var(--green-dark);
+    background-color: var(--green-darker);
 }
 .user:active{
-    background-color: var(--green-vibrant);
+    background-color: var(--green-darker);
 }
 .user img{
     height: 100px;
