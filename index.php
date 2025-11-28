@@ -333,5 +333,6 @@ if (!isset($_SESSION['error'])) {
 
 </div>
 <script src='./scripts/js/indexUtilities.js'></script>
+<script src='./scripts/js/showUserPanel.js'></script>
 </body>
 </html>
