@@ -68,14 +68,14 @@ if (!$_SESSION['logged']) {
     <!--Tymon zrobił by to lepiej-->
     <div class="header-ui">
         <a href="./inbox.php"><img id="mail" src="./../assets/mail.png" alt="mail"></a>
-        <img id="login" src="./../assets/user.svg" alt="login"
-                <?php
-                if ($_SESSION['logged']) {
-                    echo 'onclick="userPanelOn()"';
-                } else {
-                    echo 'onclick="loginOn()"';
-                }
-                ?>>
+        <div onclick="userPanel(1)" class="user">
+                    <div><?php echo $user->imie.' '.$user->nazwisko;?><br>Rodzic</div>
+                    <img src="../assets/user.svg" alt="user icon">
+                    <div class="user_pop_up" id="user_pop_up1">
+                        <a href="parents.php">Panel Rodzica</a>
+                        <a href="../scripts/php/logout.php">Wyloguj Się</a>
+                    </div>
+                </div>
     </div>
 </header>
 
@@ -170,6 +170,6 @@ if (!$_SESSION['logged']) {
     </main>
 
 </div>
-
+<script src="./../scripts/js/showUserPanel.js"></script>
 </body>
 </html>

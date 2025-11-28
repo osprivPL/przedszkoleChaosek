@@ -10,7 +10,6 @@ html{
 body{
     overflow-x:hidden;
     margin: 0;
-
 }
 
 header{
@@ -60,7 +59,6 @@ header .square {
     height: 150%;
     width: 100%;
 }
-
 .no_drag {
     user-select: none;
     -webkit-user-drag: none;
