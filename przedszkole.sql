@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2025 at 10:38 AM
+-- Generation Time: Nov 28, 2025 at 06:11 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -70,8 +70,53 @@ CREATE TABLE `dzieci` (
 --
 
 INSERT INTO `dzieci` (`ID`, `imie`, `nazwisko`, `pesel`, `adres`, `grupa`, `img`, `IDRodzica`) VALUES
-(1, 'Jonaszek', 'Kruk', '21241201290', 'Łódź, ul. Sienkiewicza 6, m. 7', 'I - jeżyki', 'Jonaszek_Kruk.png', 1),
-(2, 'Aldona', 'Kruk', '20271912145', 'Łódź, ul. Sienkiewicza 6, m. 7', 'II - słoniki', 'Aldona_Kruk.png', 1);
+(1, 'Jonaszek', 'Kruk', '21241201290', 'Łódź, ul. Sienkiewicza 6, m. 7', '1', 'Jonaszek_Kruk.png', 1),
+(2, 'Aldona', 'Kruk', '20271912145', 'Łódź, ul. Sienkiewicza 6, m. 7', '2', 'Aldona_Kruk.png', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `grupy`
+--
+
+CREATE TABLE `grupy` (
+  `id` int(11) NOT NULL,
+  `nazwa` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Dumping data for table `grupy`
+--
+
+INSERT INTO `grupy` (`id`, `nazwa`) VALUES
+(1, 'Smerfy'),
+(2, 'Reksie'),
+(3, 'Muminki'),
+(4, 'Flinstonowie');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jadlospis`
+--
+
+CREATE TABLE `jadlospis` (
+  `id` int(11) NOT NULL,
+  `kiedy` date NOT NULL,
+  `typ` tinyint(4) NOT NULL,
+  `opis` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lekcje`
+--
+
+CREATE TABLE `lekcje` (
+  `id` int(11) NOT NULL,
+  `nazwa` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 -- --------------------------------------------------------
 
@@ -97,6 +142,22 @@ CREATE TABLE `oczekujace` (
 
 INSERT INTO `oczekujace` (`ID`, `imieRodzica`, `nazwiskoRodzica`, `numerTelefonu`, `email`, `imieDziecka`, `nazwiskoDziecka`, `pesel`, `adres`) VALUES
 (14, 'Jan', 'Kruk', '123456789', 'jKruk@gmail.com', 'dziecko', 's', '22210309979', 'Spermastyczna 67');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `plan_lekcji`
+--
+
+CREATE TABLE `plan_lekcji` (
+  `id` int(11) NOT NULL,
+  `grupaID` int(11) NOT NULL,
+  `lekcjaID` int(11) DEFAULT NULL,
+  `subject_id` int(11) DEFAULT NULL,
+  `day_of_week` int(11) DEFAULT NULL CHECK (`day_of_week` between 1 and 5),
+  `start_time` varchar(10) NOT NULL,
+  `end_time` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 -- --------------------------------------------------------
 
@@ -141,6 +202,14 @@ CREATE TABLE `wiadomosci` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 --
+-- Dumping data for table `wiadomosci`
+--
+
+INSERT INTO `wiadomosci` (`id`, `tytul`, `tresc`, `dataWyslania`, `nadawcaID`, `odbiorcaID`, `odczytane`, `Usunięte`) VALUES
+(1, 'Pana syn to chuj', 'Pana syn to chuj', '0000-00-00', 2, 1, 0, 0),
+(3, 'pana tez', 'pana tez', '2025-11-27', 1, 2, 0, 0);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -158,10 +227,36 @@ ALTER TABLE `dzieci`
   ADD KEY `ID Rodzica` (`IDRodzica`);
 
 --
+-- Indexes for table `grupy`
+--
+ALTER TABLE `grupy`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `jadlospis`
+--
+ALTER TABLE `jadlospis`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `lekcje`
+--
+ALTER TABLE `lekcje`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `oczekujace`
 --
 ALTER TABLE `oczekujace`
   ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `plan_lekcji`
+--
+ALTER TABLE `plan_lekcji`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `grupaID` (`grupaID`),
+  ADD KEY `lekcjaID` (`lekcjaID`);
 
 --
 -- Indexes for table `uzytkownicy`
@@ -194,6 +289,18 @@ ALTER TABLE `dzieci`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `grupy`
+--
+ALTER TABLE `grupy`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `jadlospis`
+--
+ALTER TABLE `jadlospis`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `oczekujace`
 --
 ALTER TABLE `oczekujace`
@@ -209,7 +316,7 @@ ALTER TABLE `uzytkownicy`
 -- AUTO_INCREMENT for table `wiadomosci`
 --
 ALTER TABLE `wiadomosci`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -220,6 +327,13 @@ ALTER TABLE `wiadomosci`
 --
 ALTER TABLE `dzieci`
   ADD CONSTRAINT `dzieci_ibfk_1` FOREIGN KEY (`IDRodzica`) REFERENCES `uzytkownicy` (`ID`);
+
+--
+-- Constraints for table `plan_lekcji`
+--
+ALTER TABLE `plan_lekcji`
+  ADD CONSTRAINT `plan_lekcji_ibfk_1` FOREIGN KEY (`grupaID`) REFERENCES `grupy` (`id`),
+  ADD CONSTRAINT `plan_lekcji_ibfk_2` FOREIGN KEY (`lekcjaID`) REFERENCES `lekcje` (`id`);
 
 --
 -- Constraints for table `wiadomosci`
