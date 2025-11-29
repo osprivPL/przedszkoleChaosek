@@ -44,7 +44,6 @@
     justify-content: center;
 }
 .cafeteria-table{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+    grid-template-columns: ;
+    grid-template-rows: ;
 }
