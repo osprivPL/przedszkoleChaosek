@@ -161,14 +161,14 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <div class="main-panel" id="main-cafeteria">
             <div class="main-style-panel">
                 <div class="cafeteria-table">
+                        <span class="nzw">Nazwa</span>
 
                         <?php
                         $sql = "SELECT DISTINCT kiedy FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1)ORDER BY kiedy ASC;";
                         $result = $connection->query($sql)->fetch_all();
-                        let 
-                        for ($i = 0; $i < count($result); $i++) {
 
-                            echo "<span>".weekDayFromDate($result[$i][0])."</span>";
+                        for ($i = 0; $i < count($result); $i++) {
+                            echo "<span class='table_cell'>".weekDayFromDate($result[$i][0])."</span>";
                         }
                         ?>
 
