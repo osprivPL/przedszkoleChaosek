@@ -237,32 +237,6 @@ main {
     
 }
 
-.main-main:only-child{
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: flex-start;
-    align-self: baseline;
-}
-
-.main-main-cell {
-    margin: 1vh;
-    /* MICHAŁ TO JEST WIDTH COLUMNY JAK POTRZEBUJESZ*/
-    width: 33%;
-    background: var(--green-vibrant);
-}
-
-.main-main:only-child> .test-plan {
-    height: auto;
-}
-
-.main-main:only-child>.test-grades {
-    height: auto;
-}
-
-.main-main:only-child>.test-changes {
-    height: auto;
-}
-
 aside, main {
     height: 80vh;
 }
