@@ -85,23 +85,29 @@ $conteiner = 0;
             <img src="./../assets/main_page.png" alt="">
             <span>Panel główny</span>
         </div>
-        <div class="nav_child_parent" id="nav_child_dzieci" onclick="showMore()">
-            <div class="nav_child">
-                <img src="./../assets/playing.png" alt="">
-                <span>Dziecko</span>
-                <img src="./../assets/arrow2.svg" alt="" class="nav_arrow">
-            </div>
-            <div class="nav_child_child" onclick="showContainer(<?php echo $conteiner; $conteiner++;?>)">
-                <img src="./../assets/little-kid.png" alt="">
-                <span>Imie (temp)</span>
-            </div>
+
+        <div class="nav_child" id="nav_child_dzieci" onclick="showChildren(0)">
+            <img src="./../assets/playing.png" alt="">
+            <span>Dziecko</span>
+            <span class="nav_arrow">▽</span>
         </div>
 
-        <div class="nav_child nav_child_szkola">
+        <div class="nav_child nav_child_child nav_child_dziecko" onclick="showContainer(<?php echo $conteiner; $conteiner++;?>)">
+            <img src="./../assets/little-kid.png" alt="">
+            <span>Imie dziecka</span>
+        </div>
+
+        <div class="nav_child" id="nav_child_szkola" onclick="showChildren(1)">
             <img src="./../assets/school.png" alt="">
             <span>o Szkole</span>
-            <img src="./../assets/arrow2.svg" alt="" class="nav_arrow">
+            <img src="./../assets/arrow2.svg" alt="" >
         </div>
+
+        <div class="nav_child nav_child_child nav_child_oSzkole" onclick="showContainer(<?php echo $conteiner; $conteiner++;?>)">
+            <img src="./../assets/teacher.png" alt="">
+            <span>Nauczyciele</span>
+        </div>
+
         <div class="nav_child " onclick="showContainer(<?php echo $conteiner; $conteiner++;?>)">
             <img src="./../assets/restaurant.png" alt="">
             <span>Stołówka</span>
