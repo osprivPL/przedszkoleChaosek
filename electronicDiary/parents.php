@@ -145,6 +145,11 @@ $conteiner = 0;
                 <h2>dziecko</h2>
             </div>
         </div>
+        <div class="main-panel" id="main-teachers">
+            <div class="main-style-panel">
+                <h2>nauczyciele</h2>
+            </div>
+        </div>
         <div class="main-panel" id="main-cafeteria">
             <div class="main-style-panel">
                 <h2>cafe</h2>
@@ -182,23 +187,23 @@ $conteiner = 0;
 
     </main>
 
-<div class="wrapper" id="userWrapper">
-    <div id="userPanel" class="panel">
-        <button onclick="userPanelOff()" class="offButton">X</button>
-        <p>Imię: <?php echo $user->imie ?></p>
-        <p>Nazwisko: <?php echo $user->nazwisko ?></p>
-        <p>Typ konta: Rodzic
-        </p>
-        <a href="./parents.php">
-            <button>
-                Panel rodzica
-            </button>
-        </a>
-        <form action="./../scripts/php/logout.php" method="post">
-            <button type="submit">Wyloguj</button>
-        </form>
-    </div>
-</div>
+<!--<div class="wrapper" id="userWrapper">-->
+<!--    <div id="userPanel" class="panel">-->
+<!--        <button onclick="userPanelOff()" class="offButton">X</button>-->
+<!--        <p>Imię: --><?php //echo $user->imie ?><!--</p>-->
+<!--        <p>Nazwisko: --><?php //echo $user->nazwisko ?><!--</p>-->
+<!--        <p>Typ konta: Rodzic-->
+<!--        </p>-->
+<!--        <a href="./parents.php">-->
+<!--            <button>-->
+<!--                Panel rodzica-->
+<!--            </button>-->
+<!--        </a>-->
+<!--        <form action="./../scripts/php/logout.php" method="post">-->
+<!--            <button type="submit">Wyloguj</button>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
 <script src="./../scripts/js/childrens.js"></script>
 <script src="./../scripts/js/showUserPanel.js"></script>
 <script>
