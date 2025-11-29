@@ -17,7 +17,7 @@ try {
     $kod = rand(100000, 999999);
     $_SESSION['kod'] = $kod;
     $mail->isSMTP();
-    $mail->Host = 'smtp.office365.com';
+    $mail->Host = 'smtp-mail.outlook.com';
     $mail->SMTPAuth = true;
     $mail->SMTPDebug = 2; // 0 = off (dla produkcji), 2 = client/server messages
     $mail->Username = 'przedszkole.chaosek@outlook.com';

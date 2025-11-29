@@ -2,6 +2,7 @@
 <?php
 require_once "./../scripts/php/printArr.php";
 require_once __DIR__ . '/../models/User.php';
+require_once "./../scripts/php/weekDayFromDate.php";
 
 use models\User;
 session_start();
@@ -27,6 +28,8 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
 }
 
 $conteiner = 0;
+
+$connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
 ?>
 <html lang="pl">
@@ -66,13 +69,13 @@ $conteiner = 0;
     <div class="header-ui">
         <a href="./inbox.php"><img id="mail" src="./../assets/mail.png" alt="mail"></a>
         <div onclick="userPanel(1)" class="user">
-                    <div><?php echo $user->imie.' '.$user->nazwisko;?><br>Rodzic</div>
-                    <img src="../assets/user.svg" alt="user icon">
-                    <div class="user_pop_up" id="user_pop_up1">
-                        <a href="../index.php">Strona Główna</a>
-                        <a href="../scripts/php/logout.php">Wyloguj Się</a>
-                    </div>
-                </div>
+            <div><?php echo $user->imie . ' ' . $user->nazwisko; ?><br>Rodzic</div>
+            <img src="../assets/user.svg" alt="user icon">
+            <div class="user_pop_up" id="user_pop_up1">
+                <a href="../index.php">Strona Główna</a>
+                <a href="../scripts/php/logout.php">Wyloguj Się</a>
+            </div>
+        </div>
     </div>
 </header>
 
@@ -81,7 +84,8 @@ $conteiner = 0;
     <!-- NAVIGATION -->
     <!-- ============================= -->
     <nav>
-        <div class="nav_child" onclick="showContainer(<?php echo $conteiner; $conteiner++;?>)">
+        <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
             <img src="./../assets/main_page.png" alt="">
             <span>Panel główny</span>
         </div>
@@ -92,7 +96,8 @@ $conteiner = 0;
             <span class="nav_arrow">▽</span>
         </div>
 
-        <div class="nav_child nav_child_child nav_child_dziecko" onclick="showContainer(<?php echo $conteiner; $conteiner++;?>)">
+        <div class="nav_child nav_child_child nav_child_dziecko" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
             <img src="./../assets/little-kid.png" alt="">
             <span>Imie dziecka</span>
         </div>
@@ -103,16 +108,19 @@ $conteiner = 0;
             <span class="nav_arrow">▽</span>
         </div>
 
-        <div class="nav_child nav_child_child nav_child_oSzkole" onclick="showContainer(<?php echo $conteiner; $conteiner++;?>)">
+        <div class="nav_child nav_child_child nav_child_oSzkole" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
             <img src="./../assets/teacher.png" alt="">
             <span>Nauczyciele</span>
         </div>
 
-        <div class="nav_child " onclick="showContainer(<?php echo $conteiner; $conteiner++;?>)">
+        <div class="nav_child " onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
             <img src="./../assets/restaurant.png" alt="">
             <span>Stołówka</span>
         </div>
-        <div class="nav_child" onclick="showContainer(<?php echo $conteiner; $conteiner++;?>)">
+        <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
             <img src="./../assets/speaker.png" alt="">
             <span>Ogłoszenia</span>
         </div>
@@ -128,14 +136,14 @@ $conteiner = 0;
 
         <div class="main-panel main-main" id="main-main">
             <div class="main-style-panel">
-            <div class="main-main-cell test-plan">Plan lekcji</div>
-            <div class="main-main-cell test-grades">W przedszkolu nie ma ocen</div>
-            <div class="main-main-cell test-changes">Zmiany w planie</div>
-            <div class="main-main-cell test-plan">Prace domowe</div>
-            <div class="main-main-cell test-grades">Ogłoszenia</div>
-            <div class="main-main-cell test-changes">Wychowawca</div>
-            <div class="main-main-cell test-plan">7</div>
-            <div class="main-main-cell test-grades">8</div>
+                <div class="main-main-cell test-plan">Plan lekcji</div>
+                <div class="main-main-cell test-grades">W przedszkolu nie ma ocen</div>
+                <div class="main-main-cell test-changes">Zmiany w planie</div>
+                <div class="main-main-cell test-plan">Prace domowe</div>
+                <div class="main-main-cell test-grades">Ogłoszenia</div>
+                <div class="main-main-cell test-changes">Wychowawca</div>
+                <div class="main-main-cell test-plan">7</div>
+                <div class="main-main-cell test-grades">8</div>
                 <div class="main-main-cell test-changes"></div>
             </div>
         </div>
@@ -152,7 +160,18 @@ $conteiner = 0;
         </div>
         <div class="main-panel" id="main-cafeteria">
             <div class="main-style-panel">
-                <h2>cafe</h2>
+                <table>
+                    <tr>
+                        <?php
+                        $sql = "SELECT DISTINCT kiedy FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1)ORDER BY kiedy ASC;";
+                        $result = $connection->query($sql)->fetch_all();
+                        for ($i = 0; $i < count($result); $i++) {
+                            echo "<td>".weekDayFromDate($result[$i][0])."</td>";
+                        }
+
+                        ?>
+                    </tr>
+                </table>
             </div>
         </div>
         <div class="main-panel" id="main-news">
@@ -187,30 +206,13 @@ $conteiner = 0;
 
     </main>
 
-<!--<div class="wrapper" id="userWrapper">-->
-<!--    <div id="userPanel" class="panel">-->
-<!--        <button onclick="userPanelOff()" class="offButton">X</button>-->
-<!--        <p>Imię: --><?php //echo $user->imie ?><!--</p>-->
-<!--        <p>Nazwisko: --><?php //echo $user->nazwisko ?><!--</p>-->
-<!--        <p>Typ konta: Rodzic-->
-<!--        </p>-->
-<!--        <a href="./parents.php">-->
-<!--            <button>-->
-<!--                Panel rodzica-->
-<!--            </button>-->
-<!--        </a>-->
-<!--        <form action="./../scripts/php/logout.php" method="post">-->
-<!--            <button type="submit">Wyloguj</button>-->
-<!--        </form>-->
-<!--    </div>-->
-<!--</div>-->
-<script src="./../scripts/js/childrens.js"></script>
-<script src="./../scripts/js/showUserPanel.js"></script>
-<script>
-    let php = <?php echo json_encode($json); ?>;
-    showOnAside(php);
-    // console.log(php);
+    <script src="./../scripts/js/childrens.js"></script>
+    <script src="./../scripts/js/showUserPanel.js"></script>
+    <script>
+        let php = <?php echo json_encode($json); ?>;
+        showOnAside(php);
+        // console.log(php);
 
-</script>
+    </script>
 </body>
 </html>
