@@ -67,7 +67,7 @@ if (!$_SESSION['logged']) {
     </a>
     <!--Tymon zrobił by to lepiej-->
     <div class="header-ui">
-        <a href="./inbox.php"><img id="mail" src="./../assets/mail.png" alt="mail"></a>
+        <a href="./parents.php"><img id="mail" src="./../assets/main_page2.png" alt="główna"></a>
         <div onclick="userPanel(1)" class="user">
                     <div><?php echo $user->imie.' '.$user->nazwisko;?><br>Rodzic</div>
                     <img src="../assets/user.svg" alt="user icon">

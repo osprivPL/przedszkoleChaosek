@@ -148,6 +148,9 @@ nav span {
     position: relative;
 }
 
+.nav_arrow{
+    justify-self: flex-end;
+}
 
 .nav_child:before {
     width: 125%;

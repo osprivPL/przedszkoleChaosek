@@ -100,7 +100,7 @@ $conteiner = 0;
         <div class="nav_child" id="nav_child_szkola" onclick="showChildren(1)">
             <img src="./../assets/school.png" alt="">
             <span>o Szkole</span>
-            <img src="./../assets/arrow2.svg" alt="" >
+            <span class="nav_arrow">▽</span>
         </div>
 
         <div class="nav_child nav_child_child nav_child_oSzkole" onclick="showContainer(<?php echo $conteiner; $conteiner++;?>)">
