@@ -1,5 +1,5 @@
 function showContainer(n){
-    let containers = ['main-main', 'main-child1','' ,'main-teachers', 'main-cafeteria', 'main-news'];
+    let containers = ['main-main', 'main-child1' ,'main-teachers', 'main-cafeteria', 'main-news'];
     for (let i = 0; i < containers.length; i++){
         document.getElementById(containers[i]).style.display = (i === n) ? 'flex' : 'none';
     }
