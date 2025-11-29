@@ -147,6 +147,9 @@ nav span {
     overflow: hidden;
     position: relative;
 }
+.nav_child.visible{
+    display: flex;
+}
 
 .nav_arrow{
     justify-self: flex-end;
@@ -216,9 +219,18 @@ main {
     align-items: center;
 }
 
+main {
+    grid-area: main;
+    height: 100%;
+}
+
 .main-main {
     display: flex;
     overflow-y: scroll;
+}
+
+main {
+    grid-area: main;
 }
 
 .main-style-panel {
@@ -229,6 +241,10 @@ main {
     border-radius: 30px;
     margin-top: 1vh;
     padding: 1vh;
+}
+
+main {
+    
 }
 
 .main-main:only-child{
