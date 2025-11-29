@@ -165,7 +165,9 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                         <?php
                         $sql = "SELECT DISTINCT kiedy FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1)ORDER BY kiedy ASC;";
                         $result = $connection->query($sql)->fetch_all();
+                        let 
                         for ($i = 0; $i < count($result); $i++) {
+
                             echo "<span>".weekDayFromDate($result[$i][0])."</span>";
                         }
                         ?>
