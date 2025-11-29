@@ -44,6 +44,6 @@
     justify-content: center;
 }
 .cafeteria-table{
-    grid-template-columns: ;
-    grid-template-rows: ;
+    grid-template-columns: [free]1fr  [pon]1fr [wtr]1fr [srd]1fr [czw]1fr [pia]1fr;
+    grid-template-rows: [days]1fr [siad]1fr [obiad]1fr [podiwecz]1fr;
 }
