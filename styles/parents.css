@@ -1,20 +1,8 @@
-#main-cafeteria .main table{
-    width: 100%;
-    border-bottom: 1px solid black;
-}
-#main-cafeteria .main table > tbody > tr {
-    border-bottom: 1px solid black;
-    width: 100%;
-}
-
-
-#main-cafeteria .main table > tbody > tr > td  ,#main-cafeteria .main table > tbody >tr > td > span{
+#main-cafeteria>div{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 16.66%;
-    text-align: center;
 }
-#main-cafeteria .main table > tbody > tr >td > span{
-    width: 100%;
+.cafeteria-table{
+    grid-template: ;
 }
