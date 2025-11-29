@@ -38,12 +38,20 @@
 }
 
 
-#main-cafeteria>div{
+#main-cafeteria .main-style-panel{
     display: flex;
-    align-items: center;
     justify-content: center;
 }
 .cafeteria-table{
-    grid-template-columns: [nzw]1fr  [pon]1fr [wt]1fr [sr]1fr [czw]1fr [pn]1fr;
-    grid-template-rows: [days]1fr [sniad]1fr [obiad]1fr [podwiecz]1fr;
+    /*grid-template-columns: [nzw]1fr  [day1]1fr [day2]1fr [day3]1fr [day4]1fr [day5]1fr;*/
+    /*grid-template-rows: [days]1fr [sniad]1fr [obiad]1fr [podwiecz]1fr;*/
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    width: 80%;
+}
+
+.table_cell{
+    width: 16%;
+    text-align: center;
 }
