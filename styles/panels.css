@@ -225,8 +225,6 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    /*columns: 3;*/
-    column-gap: 20px;
 }
 
 .main-main {
@@ -243,34 +241,37 @@ main {
     border-radius: 30px;
     margin-top: 1vh;
     padding: 1vh;
+}
 
+.main-main:only-child{
     display: flex;
     flex-flow: column wrap;
     justify-content: flex-start;
     align-self: baseline;
 }
 
-.main-panel-cell {
+.main-main-cell {
     margin: 1vh;
     /* MICHAŁ TO JEST WIDTH COLUMNY JAK POTRZEBUJESZ*/
     width: 33%;
     background: var(--green-vibrant);
 }
 
-.main-main > .test-plan {
+.main-main:only-child> .test-plan {
     height: auto;
 }
 
-.main-main > .test-grades {
+.main-main:only-child>.test-grades {
     height: auto;
 }
 
-.main-main > .test-changes {
+.main-main:only-child>.test-changes {
     height: auto;
 }
 
 aside, main {
     height: 80vh;
 }
+
 
 

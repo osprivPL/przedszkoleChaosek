@@ -25,6 +25,9 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
     header('Location: ./../index.php');
     die();
 }
+
+$conteiner = 0;
+
 ?>
 <html lang="pl">
 <head>
@@ -78,18 +81,17 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
     <!-- NAVIGATION -->
     <!-- ============================= -->
     <nav>
-        <div class="nav_child" onclick="showContainer(0)">
+        <div class="nav_child" onclick="showContainer(<?php echo $conteiner; $conteiner++;?>)">
             <img src="./../assets/main_page.png" alt="">
             <span>Panel główny</span>
         </div>
-        <div class="nav_child_parent" id="nav_child_dzieci">
+        <div class="nav_child_parent" id="nav_child_dzieci" onclick="showMore()">
             <div class="nav_child">
                 <img src="./../assets/playing.png" alt="">
                 <span>Dziecko</span>
-<!--Tymczasowy obrazek nav_down1 w szkoel zrobie svg bo tu mi nie działa inkspace z jakiegos powodu-->
                 <img src="./../assets/arrow2.svg" alt="" class="nav_arrow">
             </div>
-            <div class="nav_child_child">
+            <div class="nav_child_child" onclick="showContainer(<?php echo $conteiner; $conteiner++;?>)">
                 <img src="./../assets/little-kid.png" alt="">
                 <span>Imie (temp)</span>
             </div>
@@ -100,11 +102,11 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
             <span>o Szkole</span>
             <img src="./../assets/arrow2.svg" alt="" class="nav_arrow">
         </div>
-        <div class="nav_child " onclick="showContainer(1)">
+        <div class="nav_child " onclick="showContainer(<?php echo $conteiner; $conteiner++;?>)">
             <img src="./../assets/restaurant.png" alt="">
             <span>Stołówka</span>
         </div>
-        <div class="nav_child">
+        <div class="nav_child" onclick="showContainer(<?php echo $conteiner; $conteiner++;?>)">
             <img src="./../assets/speaker.png" alt="">
             <span>Ogłoszenia</span>
         </div>
@@ -118,20 +120,35 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
         <!-- Mój zamysł na działanie tego są takie że bedzie to działało jak panel rodzica jak się zalogujesz -->
         <!-- Gdy kliknie się na któreś z .nav-child to korespondujacy .main-panel się pokaże -->
 
-        <div class="main-panel main-main">
+        <div class="main-panel main-main" id="main-main">
             <div class="main-style-panel">
-            <div class="main-panel-cell test-plan">Plan lekcji</div>
-            <div class="main-panel-cell test-grades">W przedszkolu nie ma ocen</div>
-            <div class="main-panel-cell test-changes">Zmiany w planie</div>
-            <div class="main-panel-cell test-plan">Prace domowe</div>
-            <div class="main-panel-cell test-grades">Ogłoszenia</div>
-            <div class="main-panel-cell test-changes">Wychowawca</div>
-            <div class="main-panel-cell test-plan">7</div>
-            <div class="main-panel-cell test-grades">8</div>
-                <div class="main-panel-cell test-changes"></div>
+            <div class="main-main-cell test-plan">Plan lekcji</div>
+            <div class="main-main-cell test-grades">W przedszkolu nie ma ocen</div>
+            <div class="main-main-cell test-changes">Zmiany w planie</div>
+            <div class="main-main-cell test-plan">Prace domowe</div>
+            <div class="main-main-cell test-grades">Ogłoszenia</div>
+            <div class="main-main-cell test-changes">Wychowawca</div>
+            <div class="main-main-cell test-plan">7</div>
+            <div class="main-main-cell test-grades">8</div>
+                <div class="main-main-cell test-changes"></div>
             </div>
         </div>
 
+        <div class="main-panel" id="main-child1">
+            <div class="main-style-panel">
+                <h2>dziecko</h2>
+            </div>
+        </div>
+        <div class="main-panel" id="main-cafeteria">
+            <div class="main-style-panel">
+                <h2>cafe</h2>
+            </div>
+        </div>
+        <div class="main-panel" id="main-news">
+            <div class="main-style-panel">
+                <h2>news</h2>
+            </div>
+        </div>
 
         <!--<aside>
         <ul id="listaDzieci">
@@ -158,10 +175,7 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
     <script src="./../scripts/js/showLogin.js"></script>-->
 
     </main>
-    <div id="jadlospisContainer">
 
-    </div>
-</div>
 <div class="wrapper" id="userWrapper">
     <div id="userPanel" class="panel">
         <button onclick="userPanelOff()" class="offButton">X</button>
