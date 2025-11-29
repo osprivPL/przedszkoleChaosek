@@ -169,7 +169,7 @@ if (!$_SESSION['logged']) {
 
         </div>
     </main>
-
+<span>nyga nyga nyga</span>
 </div>
 <script src="./../scripts/js/showUserPanel.js"></script>
 </body>
