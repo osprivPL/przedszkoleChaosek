@@ -27,8 +27,6 @@ if ($user->typ != 0 || !$_SESSION['logged']) {
     die();
 }
 
-$conteiner = 0;
-
 $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
 ?>
@@ -84,43 +82,38 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
     <!-- NAVIGATION -->
     <!-- ============================= -->
     <nav>
-        <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
-        $conteiner++; ?>)">
+        <div class="nav_child" onclick="showContainer(0)">
             <img src="./../assets/main_page.png" alt="">
             <span>Panel główny</span>
         </div>
 
-        <div class="nav_child" id="nav_child_dzieci" onclick="showChildren(0)">
+        <div class="nav_child" id="nav_child_dzieci" onclick="showChildren(1)">
             <img src="./../assets/playing.png" alt="">
             <span>Dziecko</span>
             <span class="nav_arrow">▽</span>
         </div>
 
-        <div class="nav_child nav_child_child nav_child_dziecko" onclick="showContainer(<?php echo $conteiner;
-        $conteiner++; ?>)">
+        <div class="nav_child nav_child_child nav_child_dziecko" onclick="showContainer(2)">
             <img src="./../assets/little-kid.png" alt="">
             <span>Imie dziecka</span>
         </div>
 
-        <div class="nav_child" id="nav_child_szkola" onclick="showChildren(1)">
+        <div class="nav_child" id="nav_child_szkola">
             <img src="./../assets/school.png" alt="">
             <span>o Szkole</span>
             <span class="nav_arrow">▽</span>
         </div>
 
-        <div class="nav_child nav_child_child nav_child_oSzkole" onclick="showContainer(<?php echo $conteiner;
-        $conteiner++; ?>)">
+        <div class="nav_child nav_child_child nav_child_oSzkole"">
             <img src="./../assets/teacher.png" alt="">
             <span>Nauczyciele</span>
         </div>
 
-        <div class="nav_child " onclick="showContainer(<?php echo $conteiner;
-        $conteiner++; ?>)">
+        <div class="nav_child " onclick="showContainer(3)">
             <img src="./../assets/restaurant.png" alt="">
             <span>Stołówka</span>
         </div>
-        <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
-        $conteiner++; ?>)">
+        <div class="nav_child" onclick="showContainer(4)">
             <img src="./../assets/speaker.png" alt="">
             <span>Ogłoszenia</span>
         </div>
