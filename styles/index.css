@@ -74,11 +74,12 @@ body{
 
 /*sekcja z linkami w navie*/
 .sticky-banner .nav {
-    z-index: 1;
+    z-index: 1000000;
     width: 75%;
     display: flex;
     justify-content: space-around;
     align-items: center;
+
 }
 #dark_bg{
     position: fixed;
