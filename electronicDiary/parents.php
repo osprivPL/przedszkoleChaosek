@@ -200,7 +200,28 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
         <div class="main-panel" id="main-teachers">
             <div class="main-style-panel">
-                <h2>nauczyciele</h2>
+                <?php
+                    $sql = "SELECT imie, nazwisko,login,typ FROM uzytkownicy WHERE typ = 1 OR typ = 2";
+                    $result = $connection->query($sql)->fetch_all();
+//                    print_r($result);
+                    for ($i = 0; $i < count($result); $i++) {
+                        echo '<div>';
+                            echo '<h3>'.$result[$i][0]." ".$result[$i][1].'</h3>';
+                            echo '<p>Email: '.$result[$i][2]."</p>";
+                            $typ = "";
+
+                            if ($result[$i][3] == 1) {
+                                $typ = "Nauczyciel";
+                            }
+                            else if ($result[$i][3] ==2){
+                                $typ = "Dyrektor";
+                            }
+                            echo '<p>'.$typ.'</p>';
+
+                        echo '</div>';
+                    }
+
+                ?>
 
             </div>
         </div>
