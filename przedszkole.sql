@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2025 at 06:32 PM
+-- Generation Time: Dec 01, 2025 at 12:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -146,6 +146,38 @@ INSERT INTO `jadlospis` (`id`, `kiedy`, `typ`, `opis`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `komunikaty`
+--
+
+CREATE TABLE `komunikaty` (
+  `ID` int(11) NOT NULL,
+  `tresc` varchar(1000) NOT NULL,
+  `przynaleznosc` int(11) NOT NULL COMMENT '0 - ogolne, 1 - gr1, 2 - gr2, 3-gr3, 4-gr4'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Dumping data for table `komunikaty`
+--
+
+INSERT INTO `komunikaty` (`ID`, `tresc`, `przynaleznosc`) VALUES
+(1, 'Drodzy Rodzice, przypominamy o konieczności uiszczenia opłaty za żywienie do 10-go dnia miesiąca.', 0),
+(2, 'Uwaga! W przedszkolu panuje ospa wietrzna. Prosimy o obserwację dzieci.', 0),
+(3, 'Zapraszamy serdecznie na Piknik Rodzinny, który odbędzie się w ogrodzie przedszkolnym w sobotę o 11:00.', 0),
+(4, 'W związku z deszczową pogodą prosimy, aby każde dziecko miało w szafce kalosze i pelerynę.', 0),
+(5, 'Przypominamy: prosimy nie przyprowadzać do przedszkola dzieci przeziębionych i z gorączką.', 0),
+(6, 'W najbliższy piątek placówka będzie nieczynna z powodu prac technicznych w sieci wodociągowej.', 0),
+(7, 'Grupa 1: Prosimy o podpisanie wszystkich smoczków i przytulanek przyniesionych do leżakowania.', 1),
+(8, 'Do rodziców Grupy 1: Kończą się zapasy chusteczek nawilżanych, prosimy o dostarczenie nowych paczek.', 1),
+(9, 'Grupa 2: Jutro idziemy na dłuższy spacer do parku, prosimy o wygodne obuwie.', 2),
+(10, 'Rodzice Grupy 2: Zbieramy rolki po ręcznikach papierowych i kartony na zajęcia plastyczne.', 2),
+(11, 'Grupa 3: Przypominamy o nauce wierszyka na Dzień Mamy (tekst w szafkach).', 3),
+(12, 'Dla Grupy 3: W czwartek odbędą się zajęcia z rytmiki, prosimy o strój gimnastyczny w worku.', 3),
+(13, 'Grupa 4: Prosimy o uzupełnienie piórników (ołówki, kredki ołówkowe, gumka).', 4),
+(14, 'Zebranie dla rodziców Grupy 4 w sprawie podręczników i diagnozy gotowości szkolnej odbędzie się we wtorek.', 4);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `lekcje`
 --
 
@@ -177,7 +209,8 @@ CREATE TABLE `oczekujace` (
 --
 
 INSERT INTO `oczekujace` (`ID`, `imieRodzica`, `nazwiskoRodzica`, `numerTelefonu`, `email`, `imieDziecka`, `nazwiskoDziecka`, `pesel`, `adres`) VALUES
-(14, 'Jan', 'Kruk', '123456789', 'jKruk@gmail.com', 'dziecko', 's', '22210309979', 'Spermastyczna 67');
+(14, 'Jan', 'Kruk', '123456789', 'jKruk@gmail.com', 'dziecko', 's', '22210309979', 'Spermastyczna 67'),
+(15, 'Jan', 'Kruk', '123456789', 'jKruk@gmail.com', 'spermiarz II', 'to samo', '22210309979', 'Spermastyczna 67');
 
 -- --------------------------------------------------------
 
@@ -207,7 +240,7 @@ CREATE TABLE `uzytkownicy` (
   `nazwisko` varchar(50) NOT NULL,
   `typ` int(11) NOT NULL COMMENT '0 - rodzic, 1- nauczyciel, 2-dyrekcja',
   `numerTelefonu` varchar(15) NOT NULL,
-  `login` varchar(16) NOT NULL,
+  `login` varchar(100) NOT NULL,
   `haslo` varchar(257) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
@@ -217,8 +250,8 @@ CREATE TABLE `uzytkownicy` (
 
 INSERT INTO `uzytkownicy` (`ID`, `imie`, `nazwisko`, `typ`, `numerTelefonu`, `login`, `haslo`) VALUES
 (1, 'Jan', 'Kruk', 0, '123456789', 'jKruk@gmail.com', '$2y$10$V5DNoqC33NA5fe9CJ/QTMu7SSHWuKcPZfgl6GIaPtlA4hwGrwQWfq'),
-(2, 'Stanisław', 'Odrowski', 1, '', '', ''),
-(3, 'Jeremiasz', 'Michorczyk', 2, '', '', '');
+(2, 'Stanisław', 'Odrowski', 1, '999999999', 'stasiu@outlook.com', '$2y$10$GklSuzP8xNagCDpk4IPUaOI2Aahwb9rFtCZoPiOOwv9u7wk0me8B6'),
+(3, 'Jeremiasz', 'Michorczyk', 2, '666777888', 'jeremi@yahoo.com', '$2y$10$ZFmNZui9uCZRAkrpCsYTdOzpAM2BiRn1gHEnaC5M45ItwDdC.yclu');
 
 -- --------------------------------------------------------
 
@@ -273,6 +306,12 @@ ALTER TABLE `grupy`
 --
 ALTER TABLE `jadlospis`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `komunikaty`
+--
+ALTER TABLE `komunikaty`
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Indexes for table `lekcje`
@@ -337,10 +376,16 @@ ALTER TABLE `jadlospis`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
+-- AUTO_INCREMENT for table `komunikaty`
+--
+ALTER TABLE `komunikaty`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
 -- AUTO_INCREMENT for table `oczekujace`
 --
 ALTER TABLE `oczekujace`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `uzytkownicy`
