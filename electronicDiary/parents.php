@@ -153,42 +153,67 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
         <div class="main-panel main-main" id="main-main">
             <div class="main-style-panel">
-                <div class="main-main-cell test-plan">Plan lekcji</div>
-                <div class="main-main-cell test-grades">W przedszkolu nie ma ocen<br><?php
-                    printArr($json);
-                    ?></div>
-                <div class="main-main-cell test-changes">Zmiany w planie</div>
-                <div class="main-main-cell test-plan">Prace domowe</div>
-                <div class="main-main-cell test-grades">
-                    <h1>Ostatni komunikat</h1>
-                    <?php
-                    $sql = "SELECT tytul, tresc, data FROM komunikaty WHERE przynaleznosc = 0 ORDER BY data DESC LIMIT 1;";
-                    $result = $connection->query($sql)->fetch_all();
-                    echo "<h3>" . $result[0][0] . "</h3>
-                                  <span class='news-date'>" . $result[0][2] . "</span>
-                                  <p>" . $result[0][1] . "</p>";
-                    ?>
-
-                </div>
-                <div class="main-main-cell test-changes">Wychowawca</div>
-                <div class="main-main-cell test-plan">
-                    <h1>Jadłospis na dziś</h1>
-                    <div>
-                        <?php
-                        $sql = "SELECT opis FROM jadlospis WHERE kiedy = CURDATE() ORDER BY typ ASC;";
-                        $result = $connection->query($sql)->fetch_all();
-                        if (count($result) == 0) {
-                            echo "Dzień wolny od przedszkola";
-                        } else {
-                            echo "II śniadanie: " . $result[0][0] . "<br>";
-                            echo "Obiad: " . $result[1][0] . "<br>";
-                            echo "Podwieczorek: " . $result[2][0] . "<br>";
-                        }
-                        //                            printArr($result);
-                        ?>
+                <div class="main-cells-container">
+                    <div class="main-main-cell test-plan">
+                    <h1 class='logo-font-small'>
+                        <span>Plan lekcji</span>
+                    </h1>
                     </div>
                 </div>
-                <div class="main-main-cell test-grades">8</div>
+                <div class="main-cells-container">
+                    <div class="main-main-cell test-plan">
+                        <h1 class='logo-font-small'>
+                        <span>Prace domowe</span>
+                    </h1></div>
+                    <div class="main-main-cell test-grades">
+                        <h1 class='logo-font-small'>
+                        <span>Ostatni Komunikat</span>
+                    </h1>
+                        <?php
+                        $sql = "SELECT tytul, tresc, data FROM komunikaty WHERE przynaleznosc = 0 ORDER BY data DESC LIMIT 1;";
+                        $result = $connection->query($sql)->fetch_all();
+                        echo "<h3>" . $result[0][0] . "</h3>
+                                    <span class='news-date'>" . $result[0][2] . "</span>
+                                    <p>" . $result[0][1] . "</p>";
+                        ?>
+
+                    </div>
+                    <div class="main-main-cell test-changes"><h1 class='logo-font-small'>
+                        <span>Wychowawca</span>
+                    </h1></div>
+                </div>
+                <div class="main-cells-container">
+                    <div class="main-main-cell test-grades">
+                        <h1 class='logo-font-small'>
+                        <span>Dzieci</span>
+                    </h1><br>
+                        <?php
+                        printArr($json);
+                        ?></div>
+                    <div class="main-main-cell test-changes">
+                        <h1 class='logo-font-small'>
+                        <span>Zmiany w planie</span>
+                    </h1></div>
+                    <div class="main-main-cell test-plan">
+                        <h1 class='logo-font-small'>
+                        <span>Jadłospis na dziś</span>
+                    </h1>
+                        <div>
+                            <?php
+                            $sql = "SELECT opis FROM jadlospis WHERE kiedy = CURDATE() ORDER BY typ ASC;";
+                            $result = $connection->query($sql)->fetch_all();
+                            if (count($result) == 0) {
+                                echo "Dzień wolny od przedszkola";
+                            } else {
+                                echo "II śniadanie: " . $result[0][0] . "<br>";
+                                echo "Obiad: " . $result[1][0] . "<br>";
+                                echo "Podwieczorek: " . $result[2][0] . "<br>";
+                            }
+                            //                            printArr($result);
+                            ?>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
