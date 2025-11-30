@@ -162,9 +162,31 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                 </div>
                 <div class="main-cells-container">
                     <div class="main-main-cell test-plan">
-                        <h1 class='logo-font-small'>
-                            <span>Prace domowe</span>
-                        </h1></div>
+                        <h1 class='logo-font-small'><span>Prace domowe</span></h1>
+                        <?php
+                        $sqlGroups = "SELECT DISTINCT grupa FROM dzieci WHERE IDRodzica = " . $user->id . ";";
+                        $result = $connection->query($sqlGroups)->fetch_all();
+                        $output = [];
+                        $condition = "WHERE (";
+                        for ($i = 0; $i < count($result); $i++) {
+                            $output[$i] = "Gr. " . $result[$i][0] . ": ";
+                            if ($i == count($result) - 1) {
+                                $condition = strval($condition . 'grupa = ' . $result[$i][0] . ') AND zrobione = 0');
+                                break;
+                            }
+                            $condition = strval($condition . 'grupa = ' . $result[$i][0] . ' OR ');
+                        }
+                        $sql = "SELECT tresc, grupa, data FROM pracedomowe " . $condition . " ORDER BY data;";
+                        $result = $connection->query($sql)->fetch_all();
+//                        printArr($result);
+                        for ($i = 0; $i < count($result); $i++) {
+                            echo '<div>';
+                                echo '<h3>'.$result[$i][0]."</h3><span>".$result[$i][2]."</span>";
+                                echo '<p>Grupa '.$result[$i][1]."</p>";
+                            echo '</div>';
+                        }
+                        ?>
+                    </div>
                     <div class="main-main-cell test-grades">
                         <h1 class='logo-font-small'>
                             <span>Ostatni Komunikat</span>
@@ -180,12 +202,12 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                     </div>
                     <div class="main-main-cell test-changes">
                         <?php
-                        $sqlChilds = "SELECT grupa FROM dzieci WHERE IDRodzica = " . $user->id . ";";
-                        $result = $connection->query($sqlChilds)->fetch_all();
+                        $sqlGroups = "SELECT DISTINCT grupa FROM dzieci WHERE IDRodzica = " . $user->id . ";";
+                        $result = $connection->query($sqlGroups)->fetch_all();
                         $output = [];
                         $condition = "WHERE ";
                         for ($i = 0; $i < count($result); $i++) {
-                            $output[$i] = "Gr. " . $result[$i][0].": ";
+                            $output[$i] = "Gr. " . $result[$i][0] . ": ";
                             if ($i == count($result) - 1) {
                                 $condition = strval($condition . 'id = ' . $result[$i][0] . ';');
                                 break;
@@ -212,14 +234,14 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                             $condition = strval($condition . 'id = ' . $result[$i][0] . ' OR ');
                         }
 
-//                        echo $condition;
-                        $sqlSupervisor = "SELECT imie, nazwisko FROM uzytkownicy ".$condition;
+                        //                        echo $condition;
+                        $sqlSupervisor = "SELECT imie, nazwisko FROM uzytkownicy " . $condition;
                         $result = $connection->query($sqlSupervisor)->fetch_all();
                         for ($i = 0; $i < count($result); $i++) {
-                            $output[$i].=$result[$i][0]." ". $result[$i][1];
+                            $output[$i] .= $result[$i][0] . " " . $result[$i][1];
                         }
                         for ($i = 0; $i < count($result); $i++) {
-                            echo "<p>".$output[$i]."</p>";
+                            echo "<p>" . $output[$i] . "</p>";
                         }
                         ?>
                     </div>

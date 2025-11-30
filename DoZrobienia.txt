@@ -1,6 +1,5 @@
 Wyświetlanie danych w:
 panel główny;
-dzieci;
 nauczyciele;
 
 css do zrobienia:
