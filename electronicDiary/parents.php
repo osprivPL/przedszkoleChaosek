@@ -122,7 +122,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
             <img src="./../assets/speaker.png" alt="">
-            <span>Ogłoszenia</span>
+            <span>Komunikaty</span>
         </div>
     </nav>
 
@@ -140,11 +140,27 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                 <div class="main-main-cell test-grades">W przedszkolu nie ma ocen</div>
                 <div class="main-main-cell test-changes">Zmiany w planie</div>
                 <div class="main-main-cell test-plan">Prace domowe</div>
-                <div class="main-main-cell test-grades">Ogłoszenia</div>
+                <div class="main-main-cell test-grades">Ostatni komunikat</div>
                 <div class="main-main-cell test-changes">Wychowawca</div>
-                <div class="main-main-cell test-plan">7</div>
+                <div class="main-main-cell test-plan">
+                    <h1>Jadłospis na dziś</h1>
+                    <div>
+                        <?php
+                            $sql = "SELECT opis FROM jadlospis WHERE kiedy = CURDATE() ORDER BY typ ASC;";
+                            $result = $connection->query($sql)->fetch_all();
+                            if (count($result) == 0) {
+                                echo "Dzień wolny od przedszkola";
+                            }
+                            else{
+                                echo "II śniadanie: " .$result[0][0]."<br>";
+                                echo "Obiad: " .$result[1][0]."<br>";
+                                echo "Podwieczorek: " .$result[2][0]."<br>";
+                            }
+//                            printArr($result);
+                        ?>
+                    </div>
+                </div>
                 <div class="main-main-cell test-grades">8</div>
-                <div class="main-main-cell test-changes"></div>
             </div>
         </div>
 
@@ -162,7 +178,6 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             <div class="main-style-panel">
                 <div class="cafeteria-table">
                         <span class="nzw">Nazwa</span>
-
                         <?php
                         $sql = "SELECT DISTINCT kiedy FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1)ORDER BY kiedy ASC;";
                         $result = $connection->query($sql)->fetch_all();
@@ -170,7 +185,36 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                             echo "<span class='table_cell'>".weekDayFromDate($result[$i][0])."</span>";
                         }
                         ?>
-
+                </div>
+                <div class="cafeteria-table">
+                    <span class="nzw">II Śniadanie</span>
+                    <?php
+                    $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 0 ORDER BY kiedy ASC;";
+                    $result = $connection->query($sql)->fetch_all();
+                    for ($i = 0; $i < count($result); $i++) {
+                        echo "<span class='table_cell'>".$result[$i][0]."</span>";
+                    }
+                    ?>
+                </div>
+                <div class="cafeteria-table">
+                    <span class="nzw">Obiad</span>
+                    <?php
+                    $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 1 ORDER BY kiedy ASC;";
+                    $result = $connection->query($sql)->fetch_all();
+                    for ($i = 0; $i < count($result); $i++) {
+                        echo "<span class='table_cell'>".$result[$i][0]."</span>";
+                    }
+                    ?>
+                </div>
+                <div class="cafeteria-table">
+                    <span class="nzw">Podwieczorek</span>
+                    <?php
+                    $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 2 ORDER BY kiedy ASC;";
+                    $result = $connection->query($sql)->fetch_all();
+                    for ($i = 0; $i < count($result); $i++) {
+                        echo "<span class='table_cell'>".$result[$i][0]."</span>";
+                    }
+                    ?>
                 </div>
             </div>
         </div>

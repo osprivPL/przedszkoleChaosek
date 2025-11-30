@@ -40,7 +40,8 @@
 
 #main-cafeteria .main-style-panel{
     display: flex;
-    justify-content: center;
+    align-content: center;
+    flex-direction: column;
 }
 .cafeteria-table{
     /*grid-template-columns: [nzw]1fr  [day1]1fr [day2]1fr [day3]1fr [day4]1fr [day5]1fr;*/
