@@ -25,8 +25,6 @@ function showChildren(n){
 }
 
 function showGroups(n){
-    alert('a');
-    // n - what children to show
     let children = ['.nav_child_grupa'];
 
     let isVisible = document.querySelectorAll(children[n])[0].classList.contains('visible');

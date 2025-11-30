@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2025 at 02:00 AM
+-- Generation Time: Nov 30, 2025 at 06:48 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -81,18 +81,19 @@ INSERT INTO `dzieci` (`ID`, `imie`, `nazwisko`, `pesel`, `adres`, `grupa`, `img`
 
 CREATE TABLE `grupy` (
   `id` int(11) NOT NULL,
-  `nazwa` varchar(50) NOT NULL
+  `nazwa` varchar(50) NOT NULL,
+  `Wychowawca` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 --
 -- Dumping data for table `grupy`
 --
 
-INSERT INTO `grupy` (`id`, `nazwa`) VALUES
-(1, 'Smerfy'),
-(2, 'Reksie'),
-(3, 'Muminki'),
-(4, 'Flinstonowie');
+INSERT INTO `grupy` (`id`, `nazwa`, `Wychowawca`) VALUES
+(1, 'Smerfy', 2),
+(2, 'Reksie', 3),
+(3, 'Muminki', 3),
+(4, 'Flinstonowie', 3);
 
 -- --------------------------------------------------------
 
@@ -301,7 +302,8 @@ ALTER TABLE `dzieci`
 -- Indexes for table `grupy`
 --
 ALTER TABLE `grupy`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `Wychowawca` (`Wychowawca`);
 
 --
 -- Indexes for table `jadlospis`
@@ -410,6 +412,12 @@ ALTER TABLE `wiadomosci`
 --
 ALTER TABLE `dzieci`
   ADD CONSTRAINT `dzieci_ibfk_1` FOREIGN KEY (`IDRodzica`) REFERENCES `uzytkownicy` (`ID`);
+
+--
+-- Constraints for table `grupy`
+--
+ALTER TABLE `grupy`
+  ADD CONSTRAINT `grupy_ibfk_1` FOREIGN KEY (`Wychowawca`) REFERENCES `uzytkownicy` (`ID`);
 
 --
 -- Constraints for table `plan_lekcji`
