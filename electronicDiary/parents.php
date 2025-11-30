@@ -96,6 +96,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             <span class="nav_arrow">▽</span>
         </div>
 
+
         <div class="nav_child nav_child_child nav_child_dziecko" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
             <img src="./../assets/little-kid.png" alt="">

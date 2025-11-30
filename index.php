@@ -205,7 +205,7 @@ if (!isset($_SESSION['error'])) {
     </div>
     <div class="logo">
         <div class="logo_img_container">
-            <img src="./assets/logo_tornado.svg" class='no_drag' draggable="false">
+            <img src="./assets/logo_tornado.svg">
         </div>
         <div class="text logo-font">Przedszkole<br>Chaosek</div>
     </div>
