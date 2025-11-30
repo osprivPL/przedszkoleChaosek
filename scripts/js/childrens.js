@@ -1,3 +1,24 @@
+function dateFromPesel(pesel) {
+    let rok = pesel.substring(0, 2);
+    let miesiac = parseInt(pesel.substring(2, 4), 10);
+    let dzien = pesel.substring(4, 6);
+
+    let stulecie = '';
+
+    if (miesiac >= 1 && miesiac <= 12) {
+        stulecie = '19';
+    } else if (miesiac >= 21 && miesiac <= 32) {
+        stulecie = '20';
+        miesiac -= 20;
+    }
+
+    let pelnyRok = stulecie + rok;
+
+    miesiac = miesiac.toString().padStart(2, '0');
+
+    return `${pelnyRok}-${miesiac}-${dzien}`;
+}
+
 function createDiv(arr) {
     let container = document.createElement('div');
     container.classList.add('main-panel');
@@ -13,8 +34,11 @@ function createDiv(arr) {
     div.appendChild(name);
 
     let details = document.createElement('p');
-    details.innerText = "Data urodzenia: " + arr[2] + "\nGrupa: " + arr[4] + "\nRodzice: " + arr[5] + " " + arr[6] + "\nKontakt: " + arr[7];
+    details.innerHTML = "Data urodzenia: " + dateFromPesel(arr[2]) + "<br>" + "Grupa: " + arr[4] + "<br>";
     div.appendChild(details);
+    let img = document.createElement('img');
+    img.src = "./../assets/childrenImages/" + arr[5];
+    div.appendChild(img);
     div.style.display = "none";
     container.appendChild(div);
 
@@ -23,20 +47,24 @@ function createDiv(arr) {
 
 function showDzieci(json){
     for (let i = 0; i < json.length; i++){
-        // console.log(json[i]);
+        console.log(json[i]);
         let nav = document.getElementById('nav');
         let div = document.createElement('div');
+        let img = document.createElement('img');
+        let span = document.createElement('span');
         let id=json[i][2];
+
         div.classList.add('nav_child');
         div.classList.add('nav_child_child');
         div.classList.add('nav_child_dziecko');
-        let img = document.createElement('img');
+
         img.src="./../assets/little-kid.png";
         img.alt="Dziecko";
-        div.appendChild(img);
-        let span = document.createElement('span');
+
         span.innerText = json[i][0] + " " + json[i][1];
+        div.appendChild(img);
         div.appendChild(span);
+
         nav.appendChild(div);
 
         div.onclick = function(){
@@ -48,18 +76,12 @@ function showDzieci(json){
                 nDiv = createDiv(json[i]);
                 document.getElementById('main').appendChild(nDiv);
             }
-
-            // Hide all panels
             let allDivs = document.getElementsByClassName('main-panel');
             for (let j = 0; j < allDivs.length; j++){
                 allDivs[j].style.display="none";
             }
-
-            // Show the clicked child panel
             nDiv.style.display='flex';
             nDiv.querySelector('.main-style-panel').style.display='block'; // Show inner div
         }
-
-
     }
 }

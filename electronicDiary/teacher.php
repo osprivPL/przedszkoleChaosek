@@ -55,6 +55,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
     <title>Przedszkole Chaosek - Panel nauczyciela</title>
     <script src="./../scripts/js/panels.js"></script>
+    <script src="./../scripts/js/teacher.js"></script>
 </head>
 <body>
 <header>
@@ -83,15 +84,42 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
     <!-- ============================= -->
     <!-- NAVIGATION -->
     <!-- ============================= -->
-    <nav>
-
+    <nav id="nav">
+        <div class="nav_child" id="nav_child_dzieci" onclick="showGroups(0)">
+            <img src="./../assets/playing.png" alt="">
+            <span>Grupy</span>
+            <span class="nav_arrow">▽</span>
+        </div>
+        <script>
+            <?php
+            $json1 = array();
+            $json2 = array();
+            $sql = "SELECT id, nazwa FROM grupy WHERE Wychowawca = ".$user->id.";";
+            $result = $connection->query($sql)->fetch_all();
+            foreach ($result as $row) {
+                $json1[] = $row;
+            }
+//            $sql = "SELECT imie, nazwisko, pesel, adres, IDRodzica FROM dzieci WHERE grupa = "
+            ?>
+            let php = <?php echo json_encode($json1); ?>;
+            console.log(php);
+            createGroups(<?php echo json_encode($json1).', '.json_encode($json2); ?>);
+            <?php
+            $conteiner = $conteiner + count($json1)-1;
+            ?>
+        </script>
     </nav>
 
     <!-- ============================= -->
     <!-- MAIN -->
     <!-- ============================= -->
     <main id="main">
+        <?php
 
+            for ($i = 0; $i < count($json1); $i++) {
+                echo print_r($json1[$i]).'<br>';
+            }
+        ?>
     </main>
 </div>
 </body>

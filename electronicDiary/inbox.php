@@ -46,13 +46,7 @@ if (!$_SESSION['logged']) {
     <!-- ikonka -->
     <link rel="icon" type="image/x-icon" href="./../assets/logo_tornado.svg">
 
-    <title>Przedszkole Chaosek - <?php
-        if ($user->typ == 0) {
-            echo "Panel Rodzica";
-        } else {
-            echo "Panel administratora";
-        }
-        ?></title>
+    <title>Przedszkole Chaosek - Wiadomości</title>
     <script src="./../scripts/js/showLogin.js"></script>
     <script src="./../scripts/js/inbox.js"></script>
 </head>
@@ -69,10 +63,46 @@ if (!$_SESSION['logged']) {
     <div class="header-ui">
         <a href="./parents.php"><img id="mail" src="./../assets/main_page2.png" alt="główna"></a>
         <div onclick="userPanel(1)" class="user">
-                    <div><?php echo $user->imie.' '.$user->nazwisko;?><br>Rodzic</div>
+                    <div><?php echo $user->imie.' '.$user->nazwisko;?><br>
+                        <?php
+                            if ($user->typ == 0){
+                                echo 'Rodzic';
+                            }
+                            else if ($user->typ == 1){
+                                echo 'Nauczyciel(ka)';
+                            }
+                            else if ($user->typ == 2){
+                                echo "Dyrektor(ka)";
+                            }
+                        ?>
+                    </div>
                     <img src="../assets/user.svg" alt="user icon">
                     <div class="user_pop_up" id="user_pop_up1">
-                        <a href="parents.php">Panel Rodzica</a>
+                        <a href=<?php
+                        if ($user->typ == 0){
+                            echo 'parents';
+                        }
+                        else if ($user->typ == 1){
+                            echo 'teacher';
+                        }
+                        else if ($user->typ ==2){
+                            echo 'principle';
+                        }
+                        echo '.php';
+                        ?>
+                        >
+                            <?php
+                                if ($user->typ == 0){
+                                    echo 'Panel rodzica';
+                                }
+                                else if ($user->typ == 1){
+                                    echo 'Panel nauczyciela';
+                                }
+                                else if ($user->typ ==2){
+                                    echo 'Panel dyrektora';
+                                }
+                            ?>
+                        </a>
                         <a href="../index.php">Strona Główna</a>
                         <a href="../scripts/php/logout.php">Wyloguj Się</a>
                     </div>
@@ -169,7 +199,6 @@ if (!$_SESSION['logged']) {
 
         </div>
     </main>
-<span>nyga nyga nyga</span>
 </div>
 <script src="./../scripts/js/showUserPanel.js"></script>
 </body>

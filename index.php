@@ -46,7 +46,7 @@ if (!isset($_SESSION['error'])) {
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
-
+    <script src='./scripts/js/showUserPanel.js'></script>
 </head>
 <body id="body"> <!--- <333333 -->
 <div id="dark_bg"></div>
@@ -359,6 +359,6 @@ if (!isset($_SESSION['error'])) {
 
 </div>
 <script src='./scripts/js/indexUtilities.js'></script>
-<script src='./scripts/js/showUserPanel.js'></script>
+
 </body>
 </html>

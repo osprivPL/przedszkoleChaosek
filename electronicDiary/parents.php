@@ -95,7 +95,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             <span>Panel główny</span>
         </div>
 
-        <div class="nav_child" id="nav_child_dzieci" onclick="showChildren(0)">
+        <div class="nav_child" id="nav_child_dzieci" onclick="showChildren(1)">
             <img src="./../assets/playing.png" alt="">
             <span>Dziecko</span>
             <span class="nav_arrow">▽</span>
