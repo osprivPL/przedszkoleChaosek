@@ -104,7 +104,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <script>
             <?php
             $json = array();
-            $sql = "SELECT imie, nazwisko, pesel, adres, grupa, img FROM dzieci WHERE IDRodzica = ". $user->id . ";";
+            $sql = "SELECT imie, nazwisko, pesel, adres, grupa, img FROM dzieci WHERE IDRodzica = " . $user->id . ";";
             $result = $connection->query($sql)->fetch_all();
             foreach ($result as $row) {
                 $json[] = $row;
@@ -114,7 +114,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             console.log(php);
             showDzieci(php);
             <?php
-                $conteiner = $conteiner + count($json)-1;
+            $conteiner = $conteiner + count($json) - 1;
             ?>
         </script>
 
@@ -155,20 +155,20 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             <div class="main-style-panel">
                 <div class="main-cells-container">
                     <div class="main-main-cell test-plan">
-                    <h1 class='logo-font-small'>
-                        <span>Plan lekcji</span>
-                    </h1>
+                        <h1 class='logo-font-small'>
+                            <span>Plan lekcji</span>
+                        </h1>
                     </div>
                 </div>
                 <div class="main-cells-container">
                     <div class="main-main-cell test-plan">
                         <h1 class='logo-font-small'>
-                        <span>Prace domowe</span>
-                    </h1></div>
+                            <span>Prace domowe</span>
+                        </h1></div>
                     <div class="main-main-cell test-grades">
                         <h1 class='logo-font-small'>
-                        <span>Ostatni Komunikat</span>
-                    </h1>
+                            <span>Ostatni Komunikat</span>
+                        </h1>
                         <?php
                         $sql = "SELECT tytul, tresc, data FROM komunikaty WHERE przynaleznosc = 0 ORDER BY data DESC LIMIT 1;";
                         $result = $connection->query($sql)->fetch_all();
@@ -178,26 +178,68 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                         ?>
 
                     </div>
-                    <div class="main-main-cell test-changes"><h1 class='logo-font-small'>
-                        <span>Wychowawca</span>
-                    </h1></div>
+                    <div class="main-main-cell test-changes">
+                        <?php
+                        $sqlChilds = "SELECT grupa FROM dzieci WHERE IDRodzica = " . $user->id . ";";
+                        $result = $connection->query($sqlChilds)->fetch_all();
+                        $output = [];
+                        $condition = "WHERE ";
+                        for ($i = 0; $i < count($result); $i++) {
+                            $output[$i] = "Gr. " . $result[$i][0].": ";
+                            if ($i == count($result) - 1) {
+                                $condition = strval($condition . 'id = ' . $result[$i][0] . ';');
+                                break;
+                            }
+                            $condition = strval($condition . 'id = ' . $result[$i][0] . ' OR ');
+                        }
+                        echo "<h1 class='logo-font-small'><span>";
+                        if (count($result) > 1) {
+                            echo 'Wychowawcy';
+                        } else {
+                            echo 'Wychowawca';
+                        }
+                        echo "</span></h1>";
+
+                        $sqlWychowawcy = "SELECT Wychowawca FROM grupy " . $condition;
+                        $result = $connection->query($sqlWychowawcy)->fetch_all();
+
+                        $condition = "WHERE ";
+                        for ($i = 0; $i < count($result); $i++) {
+                            if ($i == count($result) - 1) {
+                                $condition = strval($condition . 'id = ' . $result[$i][0] . ';');
+                                break;
+                            }
+                            $condition = strval($condition . 'id = ' . $result[$i][0] . ' OR ');
+                        }
+
+//                        echo $condition;
+                        $sqlSupervisor = "SELECT imie, nazwisko FROM uzytkownicy ".$condition;
+                        $result = $connection->query($sqlSupervisor)->fetch_all();
+                        for ($i = 0; $i < count($result); $i++) {
+                            $output[$i].=$result[$i][0]." ". $result[$i][1];
+                        }
+                        for ($i = 0; $i < count($result); $i++) {
+                            echo "<p>".$output[$i]."</p>";
+                        }
+                        ?>
+                    </div>
                 </div>
                 <div class="main-cells-container">
                     <div class="main-main-cell test-grades">
                         <h1 class='logo-font-small'>
-                        <span>Dzieci</span>
-                    </h1><br>
+                            <span>Dzieci</span>
+                        </h1><br>
                         <?php
                         printArr($json);
                         ?></div>
                     <div class="main-main-cell test-changes">
                         <h1 class='logo-font-small'>
-                        <span>Zmiany w planie</span>
-                    </h1></div>
+                            <span>Zmiany w planie</span>
+                        </h1></div>
                     <div class="main-main-cell test-plan">
                         <h1 class='logo-font-small'>
-                        <span>Jadłospis na dziś</span>
-                    </h1>
+                            <span>Jadłospis na dziś</span>
+                        </h1>
                         <div>
                             <?php
                             $sql = "SELECT opis FROM jadlospis WHERE kiedy = CURDATE() ORDER BY typ ASC;";
@@ -226,25 +268,24 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <div class="main-panel" id="main-teachers">
             <div class="main-style-panel">
                 <?php
-                    $sql = "SELECT imie, nazwisko,login,typ FROM uzytkownicy WHERE typ = 1 OR typ = 2";
-                    $result = $connection->query($sql)->fetch_all();
-//                    print_r($result);
-                    for ($i = 0; $i < count($result); $i++) {
-                        echo '<div>';
-                            echo '<h3>'.$result[$i][0]." ".$result[$i][1].'</h3>';
-                            echo '<p>Email: '.$result[$i][2]."</p>";
-                            $typ = "";
+                $sql = "SELECT imie, nazwisko,login,typ FROM uzytkownicy WHERE typ = 1 OR typ = 2";
+                $result = $connection->query($sql)->fetch_all();
+                //                    print_r($result);
+                for ($i = 0; $i < count($result); $i++) {
+                    echo '<div>';
+                    echo '<h3>' . $result[$i][0] . " " . $result[$i][1] . '</h3>';
+                    echo '<p>Email: ' . $result[$i][2] . "</p>";
+                    $typ = "";
 
-                            if ($result[$i][3] == 1) {
-                                $typ = "Nauczyciel";
-                            }
-                            else if ($result[$i][3] ==2){
-                                $typ = "Dyrektor";
-                            }
-                            echo '<p>'.$typ.'</p>';
-
-                        echo '</div>';
+                    if ($result[$i][3] == 1) {
+                        $typ = "Nauczyciel";
+                    } else if ($result[$i][3] == 2) {
+                        $typ = "Dyrektor";
                     }
+                    echo '<p>' . $typ . '</p>';
+
+                    echo '</div>';
+                }
 
                 ?>
 

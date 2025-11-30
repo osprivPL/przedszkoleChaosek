@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2025 at 06:48 PM
+-- Generation Time: Nov 30, 2025 at 09:54 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -60,7 +60,7 @@ CREATE TABLE `dzieci` (
   `nazwisko` varchar(50) NOT NULL,
   `pesel` varchar(11) NOT NULL,
   `adres` varchar(100) NOT NULL,
-  `grupa` varchar(20) DEFAULT NULL,
+  `grupa` int(20) DEFAULT NULL,
   `img` varchar(50) NOT NULL,
   `IDRodzica` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
@@ -70,8 +70,8 @@ CREATE TABLE `dzieci` (
 --
 
 INSERT INTO `dzieci` (`ID`, `imie`, `nazwisko`, `pesel`, `adres`, `grupa`, `img`, `IDRodzica`) VALUES
-(1, 'Jonaszek', 'Kruk', '21241201290', 'Łódź, ul. Sienkiewicza 6, m. 7', '1', 'Jonaszek_Kruk.png', 1),
-(2, 'Aldona', 'Kruk', '20271912145', 'Łódź, ul. Sienkiewicza 6, m. 7', '2', 'Aldona_Kruk.png', 1);
+(1, 'Jonaszek', 'Kruk', '21241201290', 'Łódź, ul. Sienkiewicza 6, m. 7', 1, 'Jonaszek_Kruk.png', 1),
+(2, 'Aldona', 'Kruk', '20271912145', 'Łódź, ul. Sienkiewicza 6, m. 7', 2, 'Aldona_Kruk.png', 1);
 
 -- --------------------------------------------------------
 
@@ -234,6 +234,36 @@ CREATE TABLE `plan_lekcji` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pracedomowe`
+--
+
+CREATE TABLE `pracedomowe` (
+  `id` int(11) NOT NULL,
+  `tresc` varchar(1000) NOT NULL,
+  `grupa` int(11) NOT NULL,
+  `data` date NOT NULL,
+  `zrobione` tinyint(4) NOT NULL COMMENT '0 - nie, 1 - tak'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Dumping data for table `pracedomowe`
+--
+
+INSERT INTO `pracedomowe` (`id`, `tresc`, `grupa`, `data`, `zrobione`) VALUES
+(1, 'Prosimy o przyniesienie jednej białej skarpetki (będziemy robić bałwanka)', 1, '2025-12-02', 0),
+(2, 'Przeczytanie dziecku bajki o zimie w ramach akcji \"Czytamy razem\"', 1, '2025-12-05', 0),
+(3, 'Narysowanie w domu portretu Świętego Mikołaja (na konkurs plastyczny)', 2, '2025-12-03', 1),
+(4, 'Spacer z rodzicami: obserwacja czy widać już pierwsze oznaki zimy', 2, '2025-12-07', 0),
+(5, 'Przyniesienie rolki po ręczniku papierowym na zajęcia techniczne', 2, '2025-12-09', 0),
+(6, 'Nauka wierszyka dla Mikołaja (tekst wklejony do zeszytu kontaktowego)', 3, '2025-12-04', 1),
+(7, 'Wspólne wykonanie z rodzicami jednej ozdoby choinkowej z papieru', 3, '2025-12-08', 0),
+(8, 'Uzupełnienie karty pracy: Szlaczki i litera \"M\" (str. 15)', 4, '2025-12-02', 1),
+(9, 'Zadanie matematyczne: policzenie ile bombek/ozdób wisi na domowej choince (lub stoi na stroiku)', 4, '2025-12-06', 0),
+(10, 'Przyniesienie stroju gimnastycznego na próby do Jasełek', 4, '2025-12-10', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `uzytkownicy`
 --
 
@@ -296,7 +326,8 @@ ALTER TABLE `artykuly`
 --
 ALTER TABLE `dzieci`
   ADD PRIMARY KEY (`ID`),
-  ADD KEY `ID Rodzica` (`IDRodzica`);
+  ADD KEY `ID Rodzica` (`IDRodzica`),
+  ADD KEY `grupa` (`grupa`);
 
 --
 -- Indexes for table `grupy`
@@ -336,6 +367,13 @@ ALTER TABLE `plan_lekcji`
   ADD PRIMARY KEY (`id`),
   ADD KEY `grupaID` (`grupaID`),
   ADD KEY `lekcjaID` (`lekcjaID`);
+
+--
+-- Indexes for table `pracedomowe`
+--
+ALTER TABLE `pracedomowe`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `grupa` (`grupa`);
 
 --
 -- Indexes for table `uzytkownicy`
@@ -392,6 +430,12 @@ ALTER TABLE `oczekujace`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
+-- AUTO_INCREMENT for table `pracedomowe`
+--
+ALTER TABLE `pracedomowe`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
@@ -411,7 +455,8 @@ ALTER TABLE `wiadomosci`
 -- Constraints for table `dzieci`
 --
 ALTER TABLE `dzieci`
-  ADD CONSTRAINT `dzieci_ibfk_1` FOREIGN KEY (`IDRodzica`) REFERENCES `uzytkownicy` (`ID`);
+  ADD CONSTRAINT `dzieci_ibfk_1` FOREIGN KEY (`IDRodzica`) REFERENCES `uzytkownicy` (`ID`),
+  ADD CONSTRAINT `dzieci_ibfk_2` FOREIGN KEY (`grupa`) REFERENCES `grupy` (`id`);
 
 --
 -- Constraints for table `grupy`
@@ -425,6 +470,12 @@ ALTER TABLE `grupy`
 ALTER TABLE `plan_lekcji`
   ADD CONSTRAINT `plan_lekcji_ibfk_1` FOREIGN KEY (`grupaID`) REFERENCES `grupy` (`id`),
   ADD CONSTRAINT `plan_lekcji_ibfk_2` FOREIGN KEY (`lekcjaID`) REFERENCES `lekcje` (`id`);
+
+--
+-- Constraints for table `pracedomowe`
+--
+ALTER TABLE `pracedomowe`
+  ADD CONSTRAINT `pracedomowe_ibfk_1` FOREIGN KEY (`grupa`) REFERENCES `grupy` (`id`);
 
 --
 -- Constraints for table `wiadomosci`
