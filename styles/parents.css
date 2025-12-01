@@ -19,6 +19,7 @@
     padding: 1vw;
 
     border: hidden;
+    background: none;
 }
 
 .main-cell {
@@ -49,6 +50,10 @@
 
 .main-cell-plan{
     height: 75vh;
+}
+
+.main-child{
+    display: ;
 }
 
 

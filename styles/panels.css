@@ -215,7 +215,8 @@ main {
 
     border: solid 3px black;
     border-radius: 30px;
-
+    background: var(--green-vibrant);
+    background: linear-gradient(to left bottom, rgba(50, 143, 59, 0.5), rgba(50, 143, 59, 0.7));
 }
 
 aside, main {
