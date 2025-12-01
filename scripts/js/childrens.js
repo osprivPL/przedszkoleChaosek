@@ -85,3 +85,8 @@ function showDzieci(json){
         }
     }
 }
+
+
+function showPlan(n){
+
+}

@@ -157,6 +157,26 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                     <div class="main-main-cell test-plan">
                         <h1 class='logo-font-small'>
                             <span>Plan lekcji</span>
+                            <?php
+//                            // Pobieramy numer dnia tygodnia (1 = Poniedziałek, ..., 5 = Piątek, 6,7 = Weekend)
+//                            $dzienTygodnia = date('N');
+//
+//                            // Zapytanie SQL
+//                            $sqlPlan = "SELECT * FROM plan_lekcji  WHERE day_of_week = $dzienTygodnia AND grupaID = 1 ORDER BY start_time";
+//                            $result = $connection->query($sql)->fetch_all();
+//                            print_r($result);
+                            // buttony do zmiany aktuwnego planu
+                            $sql =  "SELECT DISTINCT grupa FROM dzieci WHERE IDRodzica = " . $user->id . ";";
+                            $result = $connection->query($sql)->fetch_all();
+                            $groups = array();
+                            for ($i = 0; $i < count($result); $i++) {
+                                echo '<button onclick="showPlan(' . $result[$i][0] . ')">Gr. ' . $result[$i][0] . '</button> ';
+                                $groups[] = $result[$i][0];
+                            }
+
+
+                            // generowanie planow
+                            ?>
                         </h1>
                     </div>
                 </div>
@@ -178,12 +198,12 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                         }
                         $sql = "SELECT tresc, grupa, data, id FROM pracedomowe " . $condition . " ORDER BY data;";
                         $result = $connection->query($sql)->fetch_all();
-//                        printArr($result);
+                        //                        printArr($result);
                         for ($i = 0; $i < count($result); $i++) {
-                            echo '<div id="homework'.$result[$i][3].'">';
-                                echo '<h3>'.$result[$i][0]."</h3><span>".$result[$i][2]."</span>";
-                                echo '<p>Grupa '.$result[$i][1]."</p>";
-                                echo '<button onclick="ukryjZadanie('.$result[$i][3].')">Oznacz jako ukończone</button>';
+                            echo '<div id="homework' . $result[$i][3] . '">';
+                            echo '<h3>' . $result[$i][0] . "</h3><span>" . $result[$i][2] . "</span>";
+                            echo '<p>Grupa ' . $result[$i][1] . "</p>";
+                            echo '<button onclick="ukryjZadanie(' . $result[$i][3] . ')">Oznacz jako ukończone</button>';
                             echo '</div>';
                         }
                         ?>
@@ -191,8 +211,8 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                             function ukryjZadanie(idRekordu) {
                                 fetch('./../scripts/php/markHomeworkAsDone.php', {
                                     method: 'POST',
-                                    headers: { 'Content-Type': 'application/json' },
-                                    body: JSON.stringify({ id: idRekordu })
+                                    headers: {'Content-Type': 'application/json'},
+                                    body: JSON.stringify({id: idRekordu})
                                 })
                                     .then(response => response.text())
                                     .then(data => {
