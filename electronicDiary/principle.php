@@ -55,6 +55,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
     <title>Przedszkole Chaosek - Panel dyrektora</title>
     <script src="./../scripts/js/panels.js"></script>
+    <script src="./../scripts/js/showUserPanel.js"></script>
 </head>
 <body>
 <header>
@@ -83,15 +84,23 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
     <!-- ============================= -->
     <!-- NAVIGATION -->
     <!-- ============================= -->
-    <nav>
-
+    <nav id="nav">
+        <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
+            <img src="./../assets/main_page.png" alt="">
+            <span>Panel główny</span>
+        </div>
     </nav>
 
     <!-- ============================= -->
     <!-- MAIN -->
     <!-- ============================= -->
     <main id="main">
-
+        <div class="main-cell main-cell-news">
+            <h1 class='logo-font-small witaj'>
+                <span>Witaj w panelu dyrekcji</span>
+            </h1>
+        </div>
     </main>
 </div>
 </body>
