@@ -31,7 +31,7 @@ if (!$connection) {
             echo password_hash("haslo", PASSWORD_DEFAULT);
             if (password_verify($password, $result['haslo'])) {
                 $user = new User(
-                    $result['id'],
+                    $result['ID'],
                     $result['imie'],
                     $result['nazwisko'],
                     $result['typ'],
