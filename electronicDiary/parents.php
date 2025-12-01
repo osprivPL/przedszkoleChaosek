@@ -111,7 +111,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             }
             ?>
             let php = <?php echo json_encode($json); ?>;
-            console.log(php);
+
             showDzieci(php);
             <?php
             $conteiner = $conteiner + count($json) - 1;
@@ -176,16 +176,45 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                             }
                             $condition = strval($condition . 'grupa = ' . $result[$i][0] . ' OR ');
                         }
-                        $sql = "SELECT tresc, grupa, data FROM pracedomowe " . $condition . " ORDER BY data;";
+                        $sql = "SELECT tresc, grupa, data, id FROM pracedomowe " . $condition . " ORDER BY data;";
                         $result = $connection->query($sql)->fetch_all();
 //                        printArr($result);
                         for ($i = 0; $i < count($result); $i++) {
-                            echo '<div>';
+                            echo '<div id="homework'.$result[$i][3].'">';
                                 echo '<h3>'.$result[$i][0]."</h3><span>".$result[$i][2]."</span>";
                                 echo '<p>Grupa '.$result[$i][1]."</p>";
+                                echo '<button onclick="ukryjZadanie('.$result[$i][3].')">Oznacz jako ukończone</button>';
                             echo '</div>';
                         }
                         ?>
+                        <script>
+                            function ukryjZadanie(idRekordu) {
+                                fetch('./../scripts/php/markHomeworkAsDone.php', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ id: idRekordu })
+                                })
+                                    .then(response => response.text())
+                                    .then(data => {
+                                        // Sprawdzamy, czy PHP zwróciło dokładnie "OK"
+                                        if (data.trim() === 'OK') {
+                                            const element = document.getElementById('homework' + idRekordu);
+                                            if (element) {
+                                                element.style.transition = "opacity 0.5s";
+                                                element.style.opacity = "0";
+
+                                                setTimeout(() => element.remove(), 500);
+                                            }
+                                        } else {
+                                            console.error('Błąd serwera:', data);
+                                            alert('Wystąpił błąd podczas zapisu.');
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Błąd sieci:', error);
+                                    });
+                            }
+                        </script>
                     </div>
                     <div class="main-main-cell test-grades">
                         <h1 class='logo-font-small'>
@@ -264,7 +293,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                         </h1>
                         <div>
                             <?php
-                            $sql = "SELECT opis FROM jadlospis WHERE kiedy = CURDATE() ORDER BY typ ASC;";
+                            $sql = "SELECT opis FROM jadlospis WHERE kiedy = CURDATE() ORDER BY typ;";
                             $result = $connection->query($sql)->fetch_all();
                             if (count($result) == 0) {
                                 echo "Dzień wolny od przedszkola";
@@ -318,7 +347,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                 <div class="cafeteria-table">
                     <span class="nzw">Nazwa</span>
                     <?php
-                    $sql = "SELECT DISTINCT kiedy FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1)ORDER BY kiedy ASC;";
+                    $sql = "SELECT DISTINCT kiedy FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1)ORDER BY kiedy;";
                     $result = $connection->query($sql)->fetch_all();
                     for ($i = 0; $i < count($result); $i++) {
                         echo "<span class='table_cell'>" . weekDayFromDate($result[$i][0]) . "</span>";
@@ -328,7 +357,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                 <div class="cafeteria-table">
                     <span class="nzw">II Śniadanie</span>
                     <?php
-                    $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 0 ORDER BY kiedy ASC;";
+                    $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 0 ORDER BY kiedy;";
                     $result = $connection->query($sql)->fetch_all();
                     for ($i = 0; $i < count($result); $i++) {
                         echo "<span class='table_cell'>" . $result[$i][0] . "</span>";
@@ -338,7 +367,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                 <div class="cafeteria-table">
                     <span class="nzw">Obiad</span>
                     <?php
-                    $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 1 ORDER BY kiedy ASC;";
+                    $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 1 ORDER BY kiedy;";
                     $result = $connection->query($sql)->fetch_all();
                     for ($i = 0; $i < count($result); $i++) {
                         echo "<span class='table_cell'>" . $result[$i][0] . "</span>";
@@ -348,7 +377,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                 <div class="cafeteria-table">
                     <span class="nzw">Podwieczorek</span>
                     <?php
-                    $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 2 ORDER BY kiedy ASC;";
+                    $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 2 ORDER BY kiedy;";
                     $result = $connection->query($sql)->fetch_all();
                     for ($i = 0; $i < count($result); $i++) {
                         echo "<span class='table_cell'>" . $result[$i][0] . "</span>";
