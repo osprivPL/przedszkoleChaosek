@@ -264,22 +264,21 @@ if (!isset($_SESSION['error'])) {
                     </div>
                 </div>';
             } else {
-                $sql = "SELECT naglowek, tresc, data, img FROM artykuly ORDER BY data DESC LIMIT 6";
+                $sql = "SELECT naglowek, tresc, data, img FROM artykuly ORDER BY data DESC LIMIT 5";
                 $result = $connection->query($sql)->fetch_all();
 
-                for ($i = 0; $i < 6; $i++) {
+                for ($i = 0; $i < count($result); $i++) {
                     $bg = "background-image: url('" . $result[$i][3] . "')";
                     $style = 'style="' . $bg . '"';
                     echo '<div class="slider_element"' . $style . '>';
-                    echo '<div class="slide_content">';
-                    echo '<div class="title logo-font-small">' . $result[$i][0] . "<span>" . $result[$i][2] . "</span></div>";
-                    echo '<div class="context">' . $result[$i][1] . "</div>";
-                    echo '</div>';
+                        echo '<div class="slide_content">';
+                             echo '<div class="title logo-font-small">' . $result[$i][0] . "<span>" . $result[$i][2] . "</span></div>";
+                              echo '<div class="context">' . $result[$i][1] . "</div>";
+                          echo '</div>';
                     echo '</div>';
 //                    if ($i == 2){
 //                        die();
 //                    }
-
                 }
             }
 
@@ -293,7 +292,7 @@ if (!isset($_SESSION['error'])) {
             <span>Aktualności</span></h1>
         <div class="text">W Przedszkolu Chaosek każdy dzień to pełna radości i kreatywnej zabawy przygoda. Nasze sale
             tętnią energią, a dzieci biorą udział w różnorodnych zajęciach rozwijających wyobraźnię i ciekawość
-            świata.Szukasz miejsca bez nudy, pełnego ciepła i inspiracji? Chaosek to świetny wybór - zapraszamy do
+            świata. Szukasz miejsca bez nudy, pełnego ciepła i inspiracji? Chaosek to świetny wybór - zapraszamy do
             zapisów!
         </div>
     </div>

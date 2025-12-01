@@ -28,7 +28,7 @@ if ($user->typ != 2 || !$_SESSION['logged']) {
     die();
 }
 
-$conteiner = 0;
+$conteiner = 1;
 
 $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
@@ -89,12 +89,42 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
             <img src="./../assets/main_page.png" alt="">
-            <span>Panel główny</span>
+            <span>REKRUTACJA</span>
+        </div>
+        <div class="nav_child" onclick="showChildren(2)">
+            <img src="./../assets/main_page.png" alt="">
+            <span>Artykuły</span>
+            <span class="nav_arrow">▽</span>
+        </div>
+        <div class="nav_child nav_child_child nav_child_article" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
+            <img src="./../assets/main_page.png" alt="">
+            <span>Dodaj artykuł</span>
+        </div>
+        <div class="nav_child nav_child_child nav_child_article" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
+            <img src="./../assets/main_page.png" alt="">
+            <span>Zarządzaj artykułami</span>
         </div>
         <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
             <img src="./../assets/main_page.png" alt="">
-            <span>Panel główny</span>
+            <span>Zarządzanie grupami</span>
+        </div>
+        <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
+            <img src="./../assets/main_page.png" alt="">
+            <span>Jadłospis</span>
+        </div>
+        <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
+            <img src="./../assets/main_page.png" alt="">
+            <span>Komunikaty</span>
+        </div>
+        <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
+            <img src="./../assets/main_page.png" alt="">
+            <span>Plan lekcji</span>
         </div>
     </nav>
 
@@ -107,10 +137,93 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                 <span>Witaj w panelu dyrekcji</span>
             </h1>
         </div>
-        <div class="main-panel bigContainers" id="main-news">
+        <div class="main-panel bigContainers">
             <div class="styling-panel">
+                <h1><span>rekrutacja</span></h1>
+            </div>
+        </div>
+        <div class="main-panel bigContainers">
+            <div class="styling-panel">
+                <h1 class="logo-font-small"><span>Dodaj artykul</span></h1>
+                <form method="post" action="./../scripts/php/img.php" enctype="multipart/form-data">
+                    <label for="articleTitle">Tytuł artykułu:</label><br>
+                    <input type="text" id="articleTitle" name="articleTitle" required><br><br>
+                    <label for="articleContent">Treść artykułu:</label><br>
+                    <textarea id="articleContent" name="articleContent" rows="10" cols="50" required></textarea><br><br>
+                    <label for="articleData">Data</label><input type="date" id="articleData" name="articleData"><br><br>
+                    <label for="articleImg">Zdjęcie</label>
+                    <input type="file" id="articleImg" name="articleImg" accept="image/*"><br><br>
 
+                    <input type="submit" value="Dodaj artykuł">
+                </form>
+            </div>
+        </div>
+        <div class="main-panel bigContainers">
+            <div class="styling-panel articlesManagement">
+                <h1><span>Zarzadządzanie artykułami</span></h1>
+                <?php
+                    $sql = "SELECT naglowek, tresc, data, img, id FROM artykuly ORDER BY data DESC";
+                    $result = $connection->query($sql)->fetch_all();
+                    for ($i = 0; $i < count($result); $i++) {
+                        echo "<div class='articleDetails' id='article".$result[$i][4]."'>";
+                        echo "<h2>" . $result[$i][0] . "</h2>";
+                        echo "<p>" . $result[$i][1] . "</p>";
+                        echo "<p>Data: " . $result[$i][2] . "</p>";
+                        if (!empty($result[$i][3])) {
+                            echo "<img src='" . './.'. $result[$i][3] . "' alt='Article Image' style='max-width:200px;'><br>";
+                        }
+                        echo "<button class='delete_article' onclick='ukryjArtykul(".$result[$i][4].")'>Usuń artykuł</button>";
+                        echo "<hr></div>";
+                    }
+                ?>
+                <script>
+                    function ukryjArtykul(idRekordu) {
+                        fetch('./../scripts/php/deleteArticle.php', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({id: idRekordu})
+                        })
+                            .then(response => response.text())
+                            .then(data => {
+                                // Sprawdzamy, czy PHP zwróciło dokładnie "OK"
+                                if (data.trim() === 'OK') {
+                                    const element = document.getElementById('article' + idRekordu);
+                                    if (element) {
+                                        element.style.transition = "opacity 0.5s";
+                                        element.style.opacity = "0";
 
+                                        setTimeout(() => element.remove(), 500);
+                                    }
+                                } else {
+                                    console.error('Błąd serwera:', data);
+                                    alert('Wystąpił błąd podczas zapisu.');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Błąd sieci:', error);
+                            });
+                    }
+                </script>
+            </div>
+        </div>
+        <div class="main-panel bigContainers">
+            <div class="styling-panel">
+                <h1><span>grupy</span></h1>
+            </div>
+        </div>
+        <div class="main-panel bigContainers">
+            <div class="styling-panel">
+                <h1><span>jadlospis</span></h1>
+            </div>
+        </div>
+        <div class="main-panel bigContainers">
+            <div class="styling-panel">
+                <h1><span>komunikaty</span></h1>
+            </div>
+        </div>
+        <div class="main-panel bigContainers">
+            <div class="styling-panel">
+                <h1><span>plan lekcji</span></h1>
             </div>
         </div>
     </main>

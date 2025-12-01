@@ -25,7 +25,7 @@ function createDiv(arr) {
     container.classList.add('main-panel-child');
     container.classList.add('bigContainers');
     let div = document.createElement('div');
-    console.log(arr);
+    // console.log(arr);
     div.id = arr[2];
     div.classList.add('childCard')
     div.classList.add('styling-panel');

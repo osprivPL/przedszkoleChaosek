@@ -56,3 +56,9 @@
     width: 16%;
     text-align: center;
 }
+
+.articlesManagement{
+    overflow-y: scroll;
+    display :flex;
+    flex-direction: column;
+}
