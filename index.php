@@ -271,15 +271,14 @@ if (!isset($_SESSION['error'])) {
                     $bg = "background-image: url('" . $result[$i][3] . "')";
                     $style = 'style="' . $bg . '"';
                     echo '<div class="slider_element"' . $style . '>';
-                    echo '<div class="slide_content">';
-                    echo '<div class="title logo-font-small">' . $result[$i][0] . "<span>" . $result[$i][2] . "</span></div>";
-                    echo '<div class="context">' . $result[$i][1] . "</div>";
-                    echo '</div>';
+                        echo '<div class="slide_content">';
+                             echo '<div class="title logo-font-small">' . $result[$i][0] . "<span>" . $result[$i][2] . "</span></div>";
+                              echo '<div class="context">' . $result[$i][1] . "</div>";
+                          echo '</div>';
                     echo '</div>';
 //                    if ($i == 2){
 //                        die();
 //                    }
-
                 }
             }
 

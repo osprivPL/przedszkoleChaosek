@@ -56,6 +56,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
     <title>Przedszkole Chaosek - Panel nauczyciela</title>
     <script src="./../scripts/js/panels.js"></script>
     <script src="./../scripts/js/teacher.js"></script>
+    <script src="./../scripts/js/showUserPanel.js"></script>
 </head>
 <body>
 <header>

@@ -28,7 +28,7 @@ if ($user->typ != 2 || !$_SESSION['logged']) {
     die();
 }
 
-$conteiner = 0;
+$conteiner = 1;
 
 $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
@@ -89,12 +89,42 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
             <img src="./../assets/main_page.png" alt="">
-            <span>Panel główny</span>
+            <span>REKRUTACJA</span>
+        </div>
+        <div class="nav_child" onclick="showChildren(2)">
+            <img src="./../assets/main_page.png" alt="">
+            <span>Artykuły</span>
+            <span class="nav_arrow">▽</span>
+        </div>
+        <div class="nav_child nav_child_child nav_child_article" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
+            <img src="./../assets/main_page.png" alt="">
+            <span>Dodaj artykuł</span>
+        </div>
+        <div class="nav_child nav_child_child nav_child_article" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
+            <img src="./../assets/main_page.png" alt="">
+            <span>Zarządzaj artykułami</span>
         </div>
         <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
             <img src="./../assets/main_page.png" alt="">
-            <span>Panel główny</span>
+            <span>Zarządzanie grupami</span>
+        </div>
+        <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
+            <img src="./../assets/main_page.png" alt="">
+            <span>Jadłospis</span>
+        </div>
+        <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
+            <img src="./../assets/main_page.png" alt="">
+            <span>Komunikaty</span>
+        </div>
+        <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
+            <img src="./../assets/main_page.png" alt="">
+            <span>Plan lekcji</span>
         </div>
     </nav>
 
@@ -107,10 +137,50 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                 <span>Witaj w panelu dyrekcji</span>
             </h1>
         </div>
-        <div class="main-panel bigContainers" id="main-news">
+        <div class="main-panel bigContainers">
             <div class="styling-panel">
+                <h1><span>rekrutacja</span></h1>
+            </div>
+        </div>
+        <div class="main-panel bigContainers">
+            <div class="styling-panel">
+                <h1 class="logo-font-small"><span>Dodaj artykul</span></h1>
+                <form method="post" action="./../scripts/php/img.php" enctype="multipart/form-data">
+                    <label for="articleTitle">Tytuł artykułu:</label><br>
+                    <input type="text" id="articleTitle" name="articleTitle" required><br><br>
+                    <label for="articleContent">Treść artykułu:</label><br>
+                    <textarea id="articleContent" name="articleContent" rows="10" cols="50" required></textarea><br><br>
+                    <label for="articleData">Data</label><input type="date" id="articleData" name="articleData"><br><br>
+                    <label for="articleImg">Zdjęcie</label>
+                    <input type="file" id="articleImg" name="articleImg" accept="image/*"><br><br>
 
-
+                    <input type="submit" value="Dodaj artykuł">
+                </form>
+            </div>
+        </div>
+        <div class="main-panel bigContainers">
+            <div class="styling-panel">
+                <h1><span>Zarzadzaj artykulami</span></h1>
+            </div>
+        </div>
+        <div class="main-panel bigContainers">
+            <div class="styling-panel">
+                <h1><span>grupy</span></h1>
+            </div>
+        </div>
+        <div class="main-panel bigContainers">
+            <div class="styling-panel">
+                <h1><span>jadlospis</span></h1>
+            </div>
+        </div>
+        <div class="main-panel bigContainers">
+            <div class="styling-panel">
+                <h1><span>komunikaty</span></h1>
+            </div>
+        </div>
+        <div class="main-panel bigContainers">
+            <div class="styling-panel">
+                <h1><span>plan lekcji</span></h1>
             </div>
         </div>
     </main>

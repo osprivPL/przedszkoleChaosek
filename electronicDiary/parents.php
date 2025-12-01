@@ -129,7 +129,6 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         $conteiner++; ?>)">
             <img src="./../assets/teacher.png" alt="">
             <span>Nauczyciele</span>
-
         </div>
 
         <div class="nav_child " onclick="showContainer(<?php echo $conteiner;
