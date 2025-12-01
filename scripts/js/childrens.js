@@ -56,7 +56,7 @@ function showDzieci(json){
             }
 
             // Show the clicked child panel
-            nDiv.style.display='block';
+            nDiv.style.display='flex';
             nDiv.querySelector('.main-style-panel').style.display='block'; // Show inner div
         }
 

@@ -2,8 +2,6 @@ Wyświetlanie danych w:
 panel główny;
 dzieci;
 nauczyciele;
-stołówka;
-ogłoszenia;
 
 css do zrobienia:
 przechodzenie w nowe panele (dodaj animacje jakis fade out fade in np)
@@ -11,3 +9,7 @@ wysuwające się imiona (dodaj animacje)
 kafeteria
 
 wszystko w admin
+
+stolowka: inne tygodnie
+dzieci: poprawa wyswietlania
+komunikaty: narazie sa dla calego przedszkola, zrobic dla grup
