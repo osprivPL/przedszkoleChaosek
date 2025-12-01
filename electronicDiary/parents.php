@@ -152,6 +152,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <!-- ============================= -->
         <div class="main-panel bigContainers" id="main-main">
             <div class="styling-panel styling-panel-js">
+                <div class="column-container">
                 <!-- CELL PLAN LEKCJI -->
                 <div class="main-cell main-cell-plan">
                     <h1 class='logo-font-small'>
@@ -341,9 +342,10 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                         ?>
                     </div>
                 </div>
-
+                </div>
             </div>
         </div>
+
         <!-- ============================= -->
         <!-- NAUCZYCIELE -->
         <!-- ============================= -->

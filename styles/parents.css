@@ -11,6 +11,13 @@
 }
 
 #main-main>.styling-panel{
+    display: flex;
+    justify-self: center;
+    align-items: center;
+}
+
+.column-container{
+    width: 100%;
     display: block;
     column-count: 3;
     column-gap: 20px;
@@ -20,8 +27,7 @@
 
 .main-cell {
     break-inside: avoid-column;
-    margin: 1vh;
-    width: 99%;
+    width: 100%;
     background: var(--green-vibrant);
 }
 .main-cell h1{
