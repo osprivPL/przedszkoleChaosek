@@ -45,8 +45,6 @@
     flex-direction: column;
 }
 .cafeteria-table{
-    /*grid-template-columns: [nzw]1fr  [day1]1fr [day2]1fr [day3]1fr [day4]1fr [day5]1fr;*/
-    /*grid-template-rows: [days]1fr [sniad]1fr [obiad]1fr [podwiecz]1fr;*/
     display: flex;
     justify-content: space-around;
     align-items: flex-start;

@@ -150,7 +150,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <!-- ============================= -->
         <!-- GŁÓWNA -->
         <!-- ============================= -->
-        <div class="main-panel" id="main-main">
+        <div class="main-panel bigContainers" id="main-main">
             <div class="styling-panel styling-panel-js">
                 <!-- CELL PLAN LEKCJI -->
                 <div class="main-cell main-cell-plan">
@@ -347,7 +347,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <!-- ============================= -->
         <!-- NAUCZYCIELE -->
         <!-- ============================= -->
-        <div class="main-panel" id="main-teachers">
+        <div class="main-panel bigContainers" id="main-teachers">
             <div class="styling-panel">
                 <?php
                 $sql = "SELECT imie, nazwisko,login,typ FROM uzytkownicy WHERE typ = 1 OR typ = 2";
@@ -376,7 +376,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <!-- ============================= -->
         <!-- CAFETERIA -->
         <!-- ============================= -->
-        <div class="main-panel" id="main-cafeteria">
+        <div class="main-panel bigContainers" id="main-cafeteria">
             <div class="styling-panel">
                 <div class="cafeteria-table">
                     <span class="nzw">Nazwa</span>
@@ -424,7 +424,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <!-- ============================= -->
         <!-- KOMUNIKATY -->
         <!-- ============================= -->
-        <div class="main-panel" id="main-news">
+        <div class="main-panel bigContainers" id="main-news">
             <div class="styling-panel">
                 <!-- TO SA NARAZIE DLA CALRGO PRZEDSZKOLA, TRZEBA ZROBIC TO ROZWIJANE DLA OGOLNYCH KOMUUNIKATOW I KONKRETNYCH GRUP-->
                 <?php
