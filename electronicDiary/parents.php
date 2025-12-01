@@ -5,6 +5,7 @@ require_once __DIR__ . '/../models/User.php';
 require_once "./../scripts/php/weekDayFromDate.php";
 
 use models\User;
+
 session_start();
 $user = new User();
 if (isset($_SESSION['user'])) {
@@ -141,23 +142,32 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                 <div class="main-main-cell test-grades">W przedszkolu nie ma ocen</div>
                 <div class="main-main-cell test-changes">Zmiany w planie</div>
                 <div class="main-main-cell test-plan">Prace domowe</div>
-                <div class="main-main-cell test-grades">Ostatni komunikat</div>
+                <div class="main-main-cell test-grades">
+                    <h1>Ostatni komunikat</h1>
+                    <?php
+                    $sql = "SELECT tytul, tresc, data FROM komunikaty WHERE przynaleznosc = 0 ORDER BY data DESC LIMIT 1;";
+                    $result = $connection->query($sql)->fetch_all();
+                    echo "<h3>" . $result[0][0] . "</h3>
+                                  <span class='news-date'>" . $result[0][2] . "</span>
+                                  <p>" . $result[0][1] . "</p>";
+                    ?>
+
+                </div>
                 <div class="main-main-cell test-changes">Wychowawca</div>
                 <div class="main-main-cell test-plan">
                     <h1>Jadłospis na dziś</h1>
                     <div>
                         <?php
-                            $sql = "SELECT opis FROM jadlospis WHERE kiedy = CURDATE() ORDER BY typ ASC;";
-                            $result = $connection->query($sql)->fetch_all();
-                            if (count($result) == 0) {
-                                echo "Dzień wolny od przedszkola";
-                            }
-                            else{
-                                echo "II śniadanie: " .$result[0][0]."<br>";
-                                echo "Obiad: " .$result[1][0]."<br>";
-                                echo "Podwieczorek: " .$result[2][0]."<br>";
-                            }
-//                            printArr($result);
+                        $sql = "SELECT opis FROM jadlospis WHERE kiedy = CURDATE() ORDER BY typ ASC;";
+                        $result = $connection->query($sql)->fetch_all();
+                        if (count($result) == 0) {
+                            echo "Dzień wolny od przedszkola";
+                        } else {
+                            echo "II śniadanie: " . $result[0][0] . "<br>";
+                            echo "Obiad: " . $result[1][0] . "<br>";
+                            echo "Podwieczorek: " . $result[2][0] . "<br>";
+                        }
+                        //                            printArr($result);
                         ?>
                     </div>
                 </div>
@@ -178,14 +188,14 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <div class="main-panel" id="main-cafeteria">
             <div class="main-style-panel">
                 <div class="cafeteria-table">
-                        <span class="nzw">Nazwa</span>
-                        <?php
-                        $sql = "SELECT DISTINCT kiedy FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1)ORDER BY kiedy ASC;";
-                        $result = $connection->query($sql)->fetch_all();
-                        for ($i = 0; $i < count($result); $i++) {
-                            echo "<span class='table_cell'>".weekDayFromDate($result[$i][0])."</span>";
-                        }
-                        ?>
+                    <span class="nzw">Nazwa</span>
+                    <?php
+                    $sql = "SELECT DISTINCT kiedy FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1)ORDER BY kiedy ASC;";
+                    $result = $connection->query($sql)->fetch_all();
+                    for ($i = 0; $i < count($result); $i++) {
+                        echo "<span class='table_cell'>" . weekDayFromDate($result[$i][0]) . "</span>";
+                    }
+                    ?>
                 </div>
                 <div class="cafeteria-table">
                     <span class="nzw">II Śniadanie</span>
@@ -193,7 +203,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                     $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 0 ORDER BY kiedy ASC;";
                     $result = $connection->query($sql)->fetch_all();
                     for ($i = 0; $i < count($result); $i++) {
-                        echo "<span class='table_cell'>".$result[$i][0]."</span>";
+                        echo "<span class='table_cell'>" . $result[$i][0] . "</span>";
                     }
                     ?>
                 </div>
@@ -203,7 +213,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                     $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 1 ORDER BY kiedy ASC;";
                     $result = $connection->query($sql)->fetch_all();
                     for ($i = 0; $i < count($result); $i++) {
-                        echo "<span class='table_cell'>".$result[$i][0]."</span>";
+                        echo "<span class='table_cell'>" . $result[$i][0] . "</span>";
                     }
                     ?>
                 </div>
@@ -213,15 +223,27 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                     $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 2 ORDER BY kiedy ASC;";
                     $result = $connection->query($sql)->fetch_all();
                     for ($i = 0; $i < count($result); $i++) {
-                        echo "<span class='table_cell'>".$result[$i][0]."</span>";
+                        echo "<span class='table_cell'>" . $result[$i][0] . "</span>";
                     }
                     ?>
                 </div>
             </div>
         </div>
+
         <div class="main-panel" id="main-news">
             <div class="main-style-panel">
-                <h2>news</h2>
+                <!-- TO SA NARAZIE DLA CALRGO PRZEDSZKOLA, TRZEBA ZROBIC TO ROZWIJANE DLA OGOLNYCH KOMUUNIKATOW I KONKRETNYCH GRUP-->
+                <?php
+                $sql = "SELECT tytul, tresc, data FROM komunikaty WHERE przynaleznosc = 0 ORDER BY data DESC;";
+                $result = $connection->query($sql)->fetch_all();
+                for ($i = 0; $i < count($result); $i++) {
+                    echo "<div class='news-item'>
+                                <h3>" . $result[$i][0] . "</h3>
+                                <span class='news-date'>" . $result[$i][2] . "</span>
+                                <p>" . $result[$i][1] . "</p>
+                              </div>";
+                }
+                ?>
             </div>
         </div>
 
