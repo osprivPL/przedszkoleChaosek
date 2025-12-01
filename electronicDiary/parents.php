@@ -33,6 +33,7 @@ $conteiner = 0;
 $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
 ?>
+
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -56,6 +57,9 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
     <title>Przedszkole Chaosek - Panel rodzica</title>
     <script src="./../scripts/js/panels.js"></script>
+    <script src="./../scripts/js/childrens.js"></script>
+    <script src="./../scripts/js/showUserPanel.js"></script>
+
 </head>
 <body>
 <header>
@@ -84,7 +88,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
     <!-- ============================= -->
     <!-- NAVIGATION -->
     <!-- ============================= -->
-    <nav>
+    <nav id="nav">
         <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
             <img src="./../assets/main_page.png" alt="">
@@ -97,12 +101,19 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             <span class="nav_arrow">▽</span>
         </div>
 
-
-        <div class="nav_child nav_child_child nav_child_dziecko" onclick="showContainer(<?php echo $conteiner;
-        $conteiner++; ?>)">
-            <img src="./../assets/little-kid.png" alt="">
-            <span>Imie dziecka</span>
-        </div>
+        <script>
+            <?php
+            $json = array();
+            $sql = "SELECT imie, nazwisko, pesel, adres, grupa, img FROM dzieci WHERE IDRodzica = ". $user->id . ";";
+            $result = $connection->query($sql)->fetch_all();
+            foreach ($result as $row) {
+                $json[] = $row;
+            }
+            ?>
+            let php = <?php echo json_encode($json); ?>;
+            console.log(php);
+            showOnAside(php);
+        </script>
 
         <div class="nav_child" id="nav_child_szkola" onclick="showChildren(1)">
             <img src="./../assets/school.png" alt="">
@@ -114,6 +125,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         $conteiner++; ?>)">
             <img src="./../assets/teacher.png" alt="">
             <span>Nauczyciele</span>
+
         </div>
 
         <div class="nav_child " onclick="showContainer(<?php echo $conteiner;
@@ -139,7 +151,9 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <div class="main-panel main-main" id="main-main">
             <div class="main-style-panel">
                 <div class="main-main-cell test-plan">Plan lekcji</div>
-                <div class="main-main-cell test-grades">W przedszkolu nie ma ocen</div>
+                <div class="main-main-cell test-grades">W przedszkolu nie ma ocen<br><?php
+                    printArr($json);
+                    ?></div>
                 <div class="main-main-cell test-changes">Zmiany w planie</div>
                 <div class="main-main-cell test-plan">Prace domowe</div>
                 <div class="main-main-cell test-grades">
@@ -175,7 +189,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             </div>
         </div>
 
-        <div class="main-panel" id="main-child1">
+        <div class="main-panel main-panel-child" id="main-child1">
             <div class="main-style-panel">
                 <h2>dziecko</h2>
             </div>
@@ -183,6 +197,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <div class="main-panel" id="main-teachers">
             <div class="main-style-panel">
                 <h2>nauczyciele</h2>
+
             </div>
         </div>
         <div class="main-panel" id="main-cafeteria">
@@ -230,6 +245,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             </div>
         </div>
 
+
         <div class="main-panel" id="main-news">
             <div class="main-style-panel">
                 <!-- TO SA NARAZIE DLA CALRGO PRZEDSZKOLA, TRZEBA ZROBIC TO ROZWIJANE DLA OGOLNYCH KOMUUNIKATOW I KONKRETNYCH GRUP-->
@@ -273,13 +289,6 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
     </main>
 
-    <script src="./../scripts/js/childrens.js"></script>
-    <script src="./../scripts/js/showUserPanel.js"></script>
-    <script>
-        let php = <?php echo json_encode($json); ?>;
-        showOnAside(php);
-        // console.log(php);
 
-    </script>
 </body>
 </html>

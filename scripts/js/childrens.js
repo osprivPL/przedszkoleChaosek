@@ -19,31 +19,46 @@ function createDiv(arr) {
 function showOnAside(json){
     for (let i = 0; i < json.length; i++){
         // console.log(json[i]);
-        let ul = document.getElementById('listaDzieci');
-        if (!ul){
-            return;
-        }
-        let li = document.createElement('li');
-        li.innerHTML = json[i][0] + " " + json[i][1] + ", gr. " + json[i][4];
-        let main = document.getElementById('main');
-        if (!main) {
-            console.error('Element with ID "main" not found');
-            return;
-        }
-        main.appendChild(createDiv(json[i]));
-        li.onclick = function(){
-            let div = document.getElementById(json[i][2]);
-            if (div.style.display === 'none'){
-                let allDivs = document.getElementsByClassName('childCard');
+        let nav = document.getElementById('nav');
+        let div = document.createElement('div');
+        let id=json[i][2];
+        div.classList.add('nav_child');
+        div.classList.add('nav_child_child');
+        div.classList.add('nav_child_dziecko');
+        let img = document.createElement('img');
+        img.src="./../assets/little-kid.png";
+        img.alt="Dziecko";
+        div.appendChild(img);
+        let span = document.createElement('span');
+        span.innerText = json[i][0] + " " + json[i][1] + ", gr. " + json[i][4];
+        div.appendChild(span);
+        nav.appendChild(div);
+
+        div.onclick = function(){
+            let nDiv = null;
+            if (document.getElementById(id)){
+                nDiv = document.getElementById(id);
+            }
+            else{
+                nDiv = createDiv(json[i]);
+            }
+
+            document.getElementById('main').appendChild(nDiv);
+            if (nDiv.style.display === 'none'){
+                let allDivs = document.getElementsByClassName('main-panel');
                 for (let j = 0; j < allDivs.length; j++){
                     allDivs[j].style.display="none";
                 }
-                div.style.display='block';
+                allDivs = document.getElementsByClassName('childCard');
+                for (let j = 0; j < allDivs.length; j++){
+                    allDivs[j].style.display="none";
+                }
+
+                nDiv.style.display='block';
             } else {
-                div.style.display="none";
+                nDiv.style.display="none";
             }
         }
-        ul.appendChild(li);
 
     }
 }
