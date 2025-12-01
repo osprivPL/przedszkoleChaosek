@@ -159,8 +159,51 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             </div>
         </div>
         <div class="main-panel bigContainers">
-            <div class="styling-panel">
-                <h1><span>Zarzadzaj artykulami</span></h1>
+            <div class="styling-panel articlesManagement">
+                <h1><span>Zarzadządzanie artykułami</span></h1>
+                <?php
+                    $sql = "SELECT naglowek, tresc, data, img, id FROM artykuly ORDER BY data DESC";
+                    $result = $connection->query($sql)->fetch_all();
+                    for ($i = 0; $i < count($result); $i++) {
+                        echo "<div class='articleDetails' id='article".$result[$i][4]."'>";
+                        echo "<h2>" . $result[$i][0] . "</h2>";
+                        echo "<p>" . $result[$i][1] . "</p>";
+                        echo "<p>Data: " . $result[$i][2] . "</p>";
+                        if (!empty($result[$i][3])) {
+                            echo "<img src='" . './.'. $result[$i][3] . "' alt='Article Image' style='max-width:200px;'><br>";
+                        }
+                        echo "<button class='delete_article' onclick='ukryjArtykul(".$result[$i][4].")'>Usuń artykuł</button>";
+                        echo "<hr></div>";
+                    }
+                ?>
+                <script>
+                    function ukryjArtykul(idRekordu) {
+                        fetch('./../scripts/php/deleteArticle.php', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({id: idRekordu})
+                        })
+                            .then(response => response.text())
+                            .then(data => {
+                                // Sprawdzamy, czy PHP zwróciło dokładnie "OK"
+                                if (data.trim() === 'OK') {
+                                    const element = document.getElementById('article' + idRekordu);
+                                    if (element) {
+                                        element.style.transition = "opacity 0.5s";
+                                        element.style.opacity = "0";
+
+                                        setTimeout(() => element.remove(), 500);
+                                    }
+                                } else {
+                                    console.error('Błąd serwera:', data);
+                                    alert('Wystąpił błąd podczas zapisu.');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Błąd sieci:', error);
+                            });
+                    }
+                </script>
             </div>
         </div>
         <div class="main-panel bigContainers">
