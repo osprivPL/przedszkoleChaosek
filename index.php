@@ -264,10 +264,10 @@ if (!isset($_SESSION['error'])) {
                     </div>
                 </div>';
             } else {
-                $sql = "SELECT naglowek, tresc, data, img FROM artykuly ORDER BY data DESC LIMIT 6";
+                $sql = "SELECT naglowek, tresc, data, img FROM artykuly ORDER BY data DESC LIMIT 5";
                 $result = $connection->query($sql)->fetch_all();
 
-                for ($i = 0; $i < 6; $i++) {
+                for ($i = 0; $i < count($result); $i++) {
                     $bg = "background-image: url('" . $result[$i][3] . "')";
                     $style = 'style="' . $bg . '"';
                     echo '<div class="slider_element"' . $style . '>';
