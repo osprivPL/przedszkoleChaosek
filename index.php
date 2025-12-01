@@ -292,7 +292,7 @@ if (!isset($_SESSION['error'])) {
             <span>Aktualności</span></h1>
         <div class="text">W Przedszkolu Chaosek każdy dzień to pełna radości i kreatywnej zabawy przygoda. Nasze sale
             tętnią energią, a dzieci biorą udział w różnorodnych zajęciach rozwijających wyobraźnię i ciekawość
-            świata.Szukasz miejsca bez nudy, pełnego ciepła i inspiracji? Chaosek to świetny wybór - zapraszamy do
+            świata. Szukasz miejsca bez nudy, pełnego ciepła i inspiracji? Chaosek to świetny wybór - zapraszamy do
             zapisów!
         </div>
     </div>
