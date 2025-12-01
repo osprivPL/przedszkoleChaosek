@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    <defs>
+        <!-- parameters: d = 20 (spacing), h = d * sqrt(3)/2 ≈ 17.3205, r = 3 -->
+        <pattern id="tri-dots" patternUnits="userSpaceOnUse" width="20" height="17.32050807568877">
+            <!-- row A: dots at x = 0, 20, ... (circle at left edge) -->
+            <circle cx="0" cy="0" r="3" fill="#000" />
+            <!-- row B: offset dots at x = 10, 30, ... (circle placed at bottom edge of tile) -->
+            <circle cx="10" cy="17.32050807568877" r="3" fill="#000" />
+        </pattern>
+    </defs>
+
+    <!-- Use the pattern to fill a rectangle (or any shape). -->
+    <rect x="0" y="0" width="100%" height="100%" fill="url(#tri-dots)"/>
+</svg>

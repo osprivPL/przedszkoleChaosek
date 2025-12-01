@@ -23,7 +23,9 @@
     break-inside: avoid-column;
     margin-bottom: 20px;
     width: 100%;
-    background: var(--green-vibrant);
+    background: rgba(50, 143, 59, 0.3);
+
+    border-radius: 30px;
 }
 .main-cell h1{
     width: 100%;
