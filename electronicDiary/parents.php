@@ -194,6 +194,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                 <h2>dziecko</h2>
             </div>
         </div>
+
         <div class="main-panel" id="main-teachers">
             <div class="main-style-panel">
                 <h2>nauczyciele</h2>
