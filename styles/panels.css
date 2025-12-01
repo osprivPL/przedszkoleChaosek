@@ -145,10 +145,16 @@ nav span {
     padding: 10px;
     cursor: pointer;
     overflow: hidden;
-    position: relative;
 }
-.nav_child.visible{
+.nav_child_child{
+    display: none;
+    opacity: 0;
+    background: var(--green-darkerer);
+    transition: all 0.5s ease;
+}
+.nav_child_child.visible{
     display: flex;
+    opacity: 1;
 }
 
 .nav_arrow{
@@ -169,11 +175,6 @@ nav span {
 .nav_child:hover:before {
     transform: translateX(60%);
     border-radius: 50px;
-}
-
-.nav_child_child{
-    display: none;
-    background: var(--green-darkerer);
 }
 
 .nav_child_child:before{
