@@ -17,16 +17,26 @@
     page-break-inside: avoid;
     break-inside: avoid-column;
     padding: 1vw;
+
+    border: hidden;
 }
 
 .main-cell {
     break-inside: avoid-column;
     margin-bottom: 20px;
     width: 100%;
-    background: rgba(50, 143, 59, 0.3);
-
+    color: white;
+    background: var(--green-vibrant);
+    background: linear-gradient(to left bottom, rgba(50, 143, 59, 0.5), rgba(50, 143, 59, 0.7));
+    border: outset 3px black;
     border-radius: 30px;
+    position: relative;
 }
+
+.main-cell *{
+    padding: 3px;
+}
+
 .main-cell h1{
     width: 100%;
 }

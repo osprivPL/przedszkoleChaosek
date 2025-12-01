@@ -191,8 +191,9 @@ main {
 }
 
 .main-panel {
-    background-image: url("./../assets/dots.png");
-    background-repeat: repeat;
+    background-image: url("./../assets/main_panel_bg.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
     overflow-x: hidden;
     width: 100%;
     height: 100%;
@@ -205,15 +206,14 @@ main {
 }
 
 .styling-panel {
-    backdrop-filter: blur(10px);
-    width: 92%;
-    height: 92%;
+    width: 95%;
+    height: 90%;
     padding: 5px;
     display: flex;
     justify-self: center;
     overflow-y: auto;
 
-    border: solid 3px var(--green-darkerer);
+    border: solid 3px black;
     border-radius: 30px;
 
 }

@@ -444,7 +444,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
 
         <!-- ============================= -->
-        <!-- DZIECI? -->
+        <!-- DZIECI -->
         <!-- ============================= -->
         <!--<aside>
         <ul id="listaDzieci">
