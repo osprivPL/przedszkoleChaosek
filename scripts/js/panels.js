@@ -1,7 +1,6 @@
 function showContainer(n){
-    let containers = ['main-main', 'main-teachers', 'main-cafeteria', 'main-news']
-    for (let i = 0; i < containers.length; i++){
-        document.getElementById(containers[i]).style.display = (i === n) ? 'flex' : 'none';
+    for (let i = 0; i <  document.getElementsByClassName('bigContainers').length; i++){
+        document.getElementsByClassName('bigContainers')[i].style.display = (i === n) ? 'flex' : 'none';
     }
     let children = document.getElementsByClassName('main-panel-child');
     for (let i = 0; i < children.length; i++){

@@ -5,6 +5,7 @@ require_once __DIR__ . '/../models/User.php';
 require_once "./../scripts/php/weekDayFromDate.php";
 
 use models\User;
+
 session_start();
 $user = new User();
 if (isset($_SESSION['user'])) {
@@ -90,16 +91,27 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             <img src="./../assets/main_page.png" alt="">
             <span>Panel główny</span>
         </div>
+        <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
+            <img src="./../assets/main_page.png" alt="">
+            <span>Panel główny</span>
+        </div>
     </nav>
 
     <!-- ============================= -->
     <!-- MAIN -->
     <!-- ============================= -->
     <main id="main">
-        <div class="main-cell main-cell-news">
+        <div class="main-cell main-cell-news bigContainers">
             <h1 class='logo-font-small witaj'>
                 <span>Witaj w panelu dyrekcji</span>
             </h1>
+        </div>
+        <div class="main-panel bigContainers" id="main-news">
+            <div class="styling-panel">
+
+
+            </div>
         </div>
     </main>
 </div>

@@ -23,6 +23,7 @@ function createDiv(arr) {
     let container = document.createElement('div');
     container.classList.add('main-panel');
     container.classList.add('main-panel-child');
+    container.classList.add('bigContainers');
     let div = document.createElement('div');
     console.log(arr);
     div.id = arr[2];
