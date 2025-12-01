@@ -1,7 +1,11 @@
 function showContainer(n){
-    let containers = ['main-main', 'main-child1', 'main-teachers', 'main-cafeteria', 'main-news'];
+    let containers = ['main-main', 'main-child1', 'main-teachers', 'main-cafeteria', 'main-news']
     for (let i = 0; i < containers.length; i++){
         document.getElementById(containers[i]).style.display = (i === n) ? 'flex' : 'none';
+    }
+    let children = document.getElementsByClassName('childCard');
+    for (let i = 0; i < children.length; i++){
+        children[i].style.display = 'none';
     }
 }
 

@@ -112,7 +112,10 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             ?>
             let php = <?php echo json_encode($json); ?>;
             console.log(php);
-            showOnAside(php);
+            showDzieci(php);
+            <?php
+                $conteiner = $conteiner + count($json)-1;
+            ?>
         </script>
 
         <div class="nav_child" id="nav_child_szkola" onclick="showChildren(1)">

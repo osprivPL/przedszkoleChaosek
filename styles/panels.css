@@ -120,7 +120,7 @@ nav {
     justify-content: flex-start;
     align-content: flex-start;
 
-    font-size: 30px;
+    font-size: 28px;
     color: #ececec;
     background: var(--green-darker);
     min-height: 96vh;
