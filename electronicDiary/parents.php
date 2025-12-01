@@ -113,10 +113,10 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             let php = <?php echo json_encode($json); ?>;
 
             showDzieci(php);
-        <?php
-//            przez to po usunięciu main-child1 nie działało NIC
-//            $conteiner = $conteiner + count($json) - 1;
-        ?>
+            <?php
+            //            przez to po usunięciu main-child1 nie działało NIC
+            //            $conteiner = $conteiner + count($json) - 1;
+            ?>
         </script>
 
         <div class="nav_child" id="nav_child_szkola" onclick="showChildren(1)">
@@ -137,7 +137,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             <img src="./../assets/restaurant.png" alt="">
             <span>Stołówka</span>
         </div>
-        <div class="nav_child" onclick="showContainer(<?php echo $conteiner;?>)">
+        <div class="nav_child" onclick="showContainer(<?php echo $conteiner; ?>)">
             <img src="./../assets/speaker.png" alt="">
             <span>Komunikaty</span>
         </div>
@@ -153,182 +153,199 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <div class="main-panel" id="main-main">
             <div class="styling-panel styling-panel-js">
                 <!-- CELL PLAN LEKCJI -->
-                    <div class="main-cell main-cell-plan">
-                        <h1 class='logo-font-small'>
-                            <span>Plan lekcji</span>
-                            <?php
-//                            // Pobieramy numer dnia tygodnia (1 = Poniedziałek, ..., 5 = Piątek, 6,7 = Weekend)
-//                            $dzienTygodnia = date('N');
-//
-//                            // Zapytanie SQL
-//                            $sqlPlan = "SELECT * FROM plan_lekcji  WHERE day_of_week = $dzienTygodnia AND grupaID = 1 ORDER BY start_time";
-//                            $result = $connection->query($sql)->fetch_all();
-//                            print_r($result);
-                            // buttony do zmiany aktuwnego planu
-                            $sql =  "SELECT DISTINCT grupa FROM dzieci WHERE IDRodzica = " . $user->id . ";";
-                            $result = $connection->query($sql)->fetch_all();
-                            $groups = array();
-                            for ($i = 0; $i < count($result); $i++) {
-                                echo '<button onclick="showPlan(' . $result[$i][0] . ')">Gr. ' . $result[$i][0] . '</button> ';
-                                $groups[] = $result[$i][0];
-                            }
+                <div class="main-cell main-cell-plan">
+                    <h1 class='logo-font-small'>
+                        <span>Plan lekcji</span>
+                    </h1>
+                    <?php
+                    //                            // Pobieramy numer dnia tygodnia (1 = Poniedziałek, ..., 5 = Piątek, 6,7 = Weekend)
+                    $dzienTygodnia = date('N');
+                    //
+                    //                            // Zapytanie SQL
+                    //                            $sqlPlan = "SELECT * FROM plan_lekcji  WHERE day_of_week = $dzienTygodnia AND grupaID = 1 ORDER BY start_time";
+                    //                            $result = $connection->query($sql)->fetch_all();
+                    //                            print_r($result);
+                    // buttony do zmiany aktuwnego planu
+                    $sql = "SELECT DISTINCT grupa FROM dzieci WHERE IDRodzica = " . $user->id . ";";
+                    $result = $connection->query($sql)->fetch_all();
+                    $groups = array();
+                    for ($i = 0; $i < count($result); $i++) {
+                        echo '<button onclick="showPlan(' . $result[$i][0] . ')">Gr. ' . $result[$i][0] . '</button> ';
+                        $groups[] = $result[$i][0];
+                    }
 
 
-                            // generowanie planow
-                            ?>
-                        </h1>
-                    </div>
+                    // generowanie planow
+                    for ($i = 0; $i < count($groups); $i++) {
+                        echo '<div id="plan"' . $groups[$i] . ' class="plan-container"';
+                        if ($i != 0) {
+                            echo ' style="display:none;"';
+                        }
+                        echo '>';
+                        $sql = "SELECT lekcje.nazwa, plan_lekcji.start_time, plan_lekcji.end_time FROM plan_lekcji JOIN lekcje ON plan_lekcji.lekcjaID = lekcje.id WHERE grupaID = " . $groups[$i] . " AND day_of_week = " . $dzienTygodnia . " ORDER BY start_time;";
+                        $result = $connection->query($sql)->fetch_all();
+                        for ($j = 0; $j < count($result); $j++) {
+                            echo '<div class="lesson-item">
+                                    <span class="lesson-time">' . substr($result[$j][1], 0, 5) . ' - ' . substr($result[$j][2], 0, 5) . '</span>
+                                    <span class="lesson-name">' . $result[$j][0] . '</span>
+                                    </div>';
+                        }
+                        echo '</div>';
+                    }
+                    ?>
+
+                </div>
 
                 <!-- CELL PRACA DOMOWA -->
-                    <div class="main-cell main-cell-homework">
-                        <h1 class='logo-font-small'><span>Prace domowe</span></h1>
-                        <?php
-                        $sqlGroups = "SELECT DISTINCT grupa FROM dzieci WHERE IDRodzica = " . $user->id . ";";
-                        $result = $connection->query($sqlGroups)->fetch_all();
-                        $output = [];
-                        $condition = "WHERE (";
-                        for ($i = 0; $i < count($result); $i++) {
-                            $output[$i] = "Gr. " . $result[$i][0] . ": ";
-                            if ($i == count($result) - 1) {
-                                $condition = strval($condition . 'grupa = ' . $result[$i][0] . ') AND zrobione = 0');
-                                break;
-                            }
-                            $condition = strval($condition . 'grupa = ' . $result[$i][0] . ' OR ');
+                <div class="main-cell main-cell-homework">
+                    <h1 class='logo-font-small'><span>Prace domowe</span></h1>
+                    <?php
+                    $sqlGroups = "SELECT DISTINCT grupa FROM dzieci WHERE IDRodzica = " . $user->id . ";";
+                    $result = $connection->query($sqlGroups)->fetch_all();
+                    $output = [];
+                    $condition = "WHERE (";
+                    for ($i = 0; $i < count($result); $i++) {
+                        $output[$i] = "Gr. " . $result[$i][0] . ": ";
+                        if ($i == count($result) - 1) {
+                            $condition = strval($condition . 'grupa = ' . $result[$i][0] . ') AND zrobione = 0');
+                            break;
                         }
-                        $sql = "SELECT tresc, grupa, data, id FROM pracedomowe " . $condition . " ORDER BY data;";
-                        $result = $connection->query($sql)->fetch_all();
-                        //                        printArr($result);
-                        for ($i = 0; $i < count($result); $i++) {
-                            echo '<div id="homework' . $result[$i][3] . '">';
-                            echo '<h3>' . $result[$i][0] . "</h3><span>" . $result[$i][2] . "</span>";
-                            echo '<p>Grupa ' . $result[$i][1] . "</p>";
-                            echo '<button onclick="ukryjZadanie(' . $result[$i][3] . ')">Oznacz jako ukończone</button>';
-                            echo '</div>';
-                        }
-                        ?>
-                        <script>
-                            function ukryjZadanie(idRekordu) {
-                                fetch('./../scripts/php/markHomeworkAsDone.php', {
-                                    method: 'POST',
-                                    headers: {'Content-Type': 'application/json'},
-                                    body: JSON.stringify({id: idRekordu})
-                                })
-                                    .then(response => response.text())
-                                    .then(data => {
-                                        // Sprawdzamy, czy PHP zwróciło dokładnie "OK"
-                                        if (data.trim() === 'OK') {
-                                            const element = document.getElementById('homework' + idRekordu);
-                                            if (element) {
-                                                element.style.transition = "opacity 0.5s";
-                                                element.style.opacity = "0";
+                        $condition = strval($condition . 'grupa = ' . $result[$i][0] . ' OR ');
+                    }
+                    $sql = "SELECT tresc, grupa, data, id FROM pracedomowe " . $condition . " ORDER BY data;";
+                    $result = $connection->query($sql)->fetch_all();
+                    //                        printArr($result);
+                    for ($i = 0; $i < count($result); $i++) {
+                        echo '<div id="homework' . $result[$i][3] . '">';
+                        echo '<h3>' . $result[$i][0] . "</h3><span>" . $result[$i][2] . "</span>";
+                        echo '<p>Grupa ' . $result[$i][1] . "</p>";
+                        echo '<button onclick="ukryjZadanie(' . $result[$i][3] . ')">Oznacz jako ukończone</button>';
+                        echo '</div>';
+                    }
+                    ?>
+                    <script>
+                        function ukryjZadanie(idRekordu) {
+                            fetch('./../scripts/php/markHomeworkAsDone.php', {
+                                method: 'POST',
+                                headers: {'Content-Type': 'application/json'},
+                                body: JSON.stringify({id: idRekordu})
+                            })
+                                .then(response => response.text())
+                                .then(data => {
+                                    // Sprawdzamy, czy PHP zwróciło dokładnie "OK"
+                                    if (data.trim() === 'OK') {
+                                        const element = document.getElementById('homework' + idRekordu);
+                                        if (element) {
+                                            element.style.transition = "opacity 0.5s";
+                                            element.style.opacity = "0";
 
-                                                setTimeout(() => element.remove(), 500);
-                                            }
-                                        } else {
-                                            console.error('Błąd serwera:', data);
-                                            alert('Wystąpił błąd podczas zapisu.');
+                                            setTimeout(() => element.remove(), 500);
                                         }
-                                    })
-                                    .catch(error => {
-                                        console.error('Błąd sieci:', error);
-                                    });
-                            }
-                        </script>
-                    </div>
+                                    } else {
+                                        console.error('Błąd serwera:', data);
+                                        alert('Wystąpił błąd podczas zapisu.');
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Błąd sieci:', error);
+                                });
+                        }
+                    </script>
+                </div>
                 <!-- CELL OSTATNI KOMUNIKAT -->
-                    <div class="main-cell main-cell-news">
-                        <h1 class='logo-font-small'>
-                            <span>Ostatni Komunikat</span>
-                        </h1>
-                        <?php
-                        $sql = "SELECT tytul, tresc, data FROM komunikaty WHERE przynaleznosc = 0 ORDER BY data DESC LIMIT 1;";
-                        $result = $connection->query($sql)->fetch_all();
-                        echo "<h3>" . $result[0][0] . "</h3>
+                <div class="main-cell main-cell-news">
+                    <h1 class='logo-font-small'>
+                        <span>Ostatni Komunikat</span>
+                    </h1>
+                    <?php
+                    $sql = "SELECT tytul, tresc, data FROM komunikaty WHERE przynaleznosc = 0 ORDER BY data DESC LIMIT 1;";
+                    $result = $connection->query($sql)->fetch_all();
+                    echo "<h3>" . $result[0][0] . "</h3>
                                     <span class='news-date'>" . $result[0][2] . "</span>
                                     <p>" . $result[0][1] . "</p>";
-                        ?>
+                    ?>
 
-                    </div>
-                    <!-- CELL WYCHOWAWCY -->
-                    <div class="main-cell main-cell-wychowawcy">
-                        <?php
-                        $sqlGroups = "SELECT DISTINCT grupa FROM dzieci WHERE IDRodzica = " . $user->id . ";";
-                        $result = $connection->query($sqlGroups)->fetch_all();
-                        $output = [];
-                        $condition = "WHERE ";
-                        for ($i = 0; $i < count($result); $i++) {
-                            $output[$i] = "Gr. " . $result[$i][0] . ": ";
-                            if ($i == count($result) - 1) {
-                                $condition = strval($condition . 'id = ' . $result[$i][0] . ';');
-                                break;
-                            }
-                            $condition = strval($condition . 'id = ' . $result[$i][0] . ' OR ');
+                </div>
+                <!-- CELL WYCHOWAWCY -->
+                <div class="main-cell main-cell-wychowawcy">
+                    <?php
+                    $sqlGroups = "SELECT DISTINCT grupa FROM dzieci WHERE IDRodzica = " . $user->id . ";";
+                    $result = $connection->query($sqlGroups)->fetch_all();
+                    $output = [];
+                    $condition = "WHERE ";
+                    for ($i = 0; $i < count($result); $i++) {
+                        $output[$i] = "Gr. " . $result[$i][0] . ": ";
+                        if ($i == count($result) - 1) {
+                            $condition = strval($condition . 'id = ' . $result[$i][0] . ';');
+                            break;
                         }
-                        echo "<h1 class='logo-font-small'><span>";
-                        if (count($result) > 1) {
-                            echo 'Wychowawcy';
-                        } else {
-                            echo 'Wychowawca';
-                        }
-                        echo "</span></h1>";
+                        $condition = strval($condition . 'id = ' . $result[$i][0] . ' OR ');
+                    }
+                    echo "<h1 class='logo-font-small'><span>";
+                    if (count($result) > 1) {
+                        echo 'Wychowawcy';
+                    } else {
+                        echo 'Wychowawca';
+                    }
+                    echo "</span></h1>";
 
-                        $sqlWychowawcy = "SELECT Wychowawca FROM grupy " . $condition;
-                        $result = $connection->query($sqlWychowawcy)->fetch_all();
+                    $sqlWychowawcy = "SELECT Wychowawca FROM grupy " . $condition;
+                    $result = $connection->query($sqlWychowawcy)->fetch_all();
 
-                        $condition = "WHERE ";
-                        for ($i = 0; $i < count($result); $i++) {
-                            if ($i == count($result) - 1) {
-                                $condition = strval($condition . 'id = ' . $result[$i][0] . ';');
-                                break;
-                            }
-                            $condition = strval($condition . 'id = ' . $result[$i][0] . ' OR ');
+                    $condition = "WHERE ";
+                    for ($i = 0; $i < count($result); $i++) {
+                        if ($i == count($result) - 1) {
+                            $condition = strval($condition . 'id = ' . $result[$i][0] . ';');
+                            break;
                         }
+                        $condition = strval($condition . 'id = ' . $result[$i][0] . ' OR ');
+                    }
 
-                        //                        echo $condition;
-                        $sqlSupervisor = "SELECT imie, nazwisko FROM uzytkownicy " . $condition;
-                        $result = $connection->query($sqlSupervisor)->fetch_all();
-                        for ($i = 0; $i < count($result); $i++) {
-                            $output[$i] .= $result[$i][0] . " " . $result[$i][1];
-                        }
-                        for ($i = 0; $i < count($result); $i++) {
-                            echo "<p>" . $output[$i] . "</p>";
-                        }
-                        ?>
-                    </div>
+                    //                        echo $condition;
+                    $sqlSupervisor = "SELECT imie, nazwisko FROM uzytkownicy " . $condition;
+                    $result = $connection->query($sqlSupervisor)->fetch_all();
+                    for ($i = 0; $i < count($result); $i++) {
+                        $output[$i] .= $result[$i][0] . " " . $result[$i][1];
+                    }
+                    for ($i = 0; $i < count($result); $i++) {
+                        echo "<p>" . $output[$i] . "</p>";
+                    }
+                    ?>
+                </div>
 
                 <!-- CELL DZIECI -->
-                    <div class="main-cell main-cell-dzieci">
-                        <h1 class='logo-font-small'>
-                            <span>Dzieci</span>
-                        </h1><br>
-                        <?php
-                        printArr($json);
-                        ?></div>
+                <div class="main-cell main-cell-dzieci">
+                    <h1 class='logo-font-small'>
+                        <span>Dzieci</span>
+                    </h1><br>
+                    <?php
+                    printArr($json);
+                    ?></div>
                 <!-- CELL ZMIANY W PLANIE -->
-                    <div class="main-cell main-cell-plan-changes">
-                        <h1 class='logo-font-small'>
-                            <span>Zmiany w planie</span>
-                        </h1></div>
+                <div class="main-cell main-cell-plan-changes">
+                    <h1 class='logo-font-small'>
+                        <span>Zmiany w planie</span>
+                    </h1></div>
                 <!-- CELL JADŁOSPIS -->
-                    <div class="main-cell main-cell-jadlospis">
-                        <h1 class='logo-font-small'>
-                            <span>Jadłospis na dziś</span>
-                        </h1>
-                        <div>
-                            <?php
-                            $sql = "SELECT opis FROM jadlospis WHERE kiedy = CURDATE() ORDER BY typ;";
-                            $result = $connection->query($sql)->fetch_all();
-                            if (count($result) == 0) {
-                                echo "Dzień wolny od przedszkola";
-                            } else {
-                                echo "II śniadanie: " . $result[0][0] . "<br>";
-                                echo "Obiad: " . $result[1][0] . "<br>";
-                                echo "Podwieczorek: " . $result[2][0] . "<br>";
-                            }
-                            //                            printArr($result);
-                            ?>
-                        </div>
+                <div class="main-cell main-cell-jadlospis">
+                    <h1 class='logo-font-small'>
+                        <span>Jadłospis na dziś</span>
+                    </h1>
+                    <div>
+                        <?php
+                        $sql = "SELECT opis FROM jadlospis WHERE kiedy = CURDATE() ORDER BY typ;";
+                        $result = $connection->query($sql)->fetch_all();
+                        if (count($result) == 0) {
+                            echo "Dzień wolny od przedszkola";
+                        } else {
+                            echo "II śniadanie: " . $result[0][0] . "<br>";
+                            echo "Obiad: " . $result[1][0] . "<br>";
+                            echo "Podwieczorek: " . $result[2][0] . "<br>";
+                        }
+                        //                            printArr($result);
+                        ?>
                     </div>
+                </div>
 
             </div>
         </div>
@@ -456,7 +473,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
     <?php printArr($_SESSION); ?>
 
     <script src="./../scripts/js/showLogin.js"></script>-->
-    <!--<script src="./../scripts/js/mainMainLayout.js"></script>-->
+        <!--<script src="./../scripts/js/mainMainLayout.js"></script>-->
     </main>
 
 

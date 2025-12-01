@@ -47,7 +47,7 @@ function createDiv(arr) {
 
 function showDzieci(json){
     for (let i = 0; i < json.length; i++){
-        console.log(json[i]);
+        // console.log(json[i]);
         let nav = document.getElementById('nav');
         let div = document.createElement('div');
         let img = document.createElement('img');
@@ -88,5 +88,14 @@ function showDzieci(json){
 
 
 function showPlan(n){
+    let plany = document.getElementsByClassName("plan-container")
+    console.log(plany);
+    for (let i = 0; i < plany.length; i++){
+        if (i===n-1){
+            plany[i].style.display="block";
+            continue;
+        }
 
+        plany[i].style.display="none";
+    }
 }
