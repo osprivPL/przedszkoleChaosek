@@ -321,11 +321,6 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                     <?php
                     printArr($json);
                     ?></div>
-                <!-- CELL ZMIANY W PLANIE -->
-                <div class="main-cell main-cell-plan-changes">
-                    <h1 class='logo-font-small'>
-                        <span>Zmiany w planie</span>
-                    </h1></div>
                 <!-- CELL JADŁOSPIS -->
                 <div class="main-cell main-cell-jadlospis">
                     <h1 class='logo-font-small'>
