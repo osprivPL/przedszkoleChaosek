@@ -113,7 +113,10 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             let php = <?php echo json_encode($json); ?>;
 
             showDzieci(php);
-            
+        <?php
+//            przez to po usunięciu main-child1 nie działało NIC
+//            $conteiner = $conteiner + count($json) - 1;
+        ?>
         </script>
 
         <div class="nav_child" id="nav_child_szkola" onclick="showChildren(1)">
@@ -147,10 +150,10 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <!-- ============================= -->
         <!-- GŁÓWNA -->
         <!-- ============================= -->
-        <div class="main-panel main-main" id="main-main">
-            <div class="main-style-panel">
-                <div class="main-cells-container">
-                    <div class="main-main-cell test-plan">
+        <div class="main-panel" id="main-main">
+            <div class="styling-panel styling-panel-js">
+                <!-- CELL PLAN LEKCJI -->
+                    <div class="main-cell main-cell-plan">
                         <h1 class='logo-font-small'>
                             <span>Plan lekcji</span>
                             <?php
@@ -175,9 +178,9 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                             ?>
                         </h1>
                     </div>
-                </div>
-                <div class="main-cells-container">
-                    <div class="main-main-cell test-plan">
+
+                <!-- CELL PRACA DOMOWA -->
+                    <div class="main-cell main-cell-homework">
                         <h1 class='logo-font-small'><span>Prace domowe</span></h1>
                         <?php
                         $sqlGroups = "SELECT DISTINCT grupa FROM dzieci WHERE IDRodzica = " . $user->id . ";";
@@ -232,7 +235,8 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                             }
                         </script>
                     </div>
-                    <div class="main-main-cell main-news">
+                <!-- CELL OSTATNI KOMUNIKAT -->
+                    <div class="main-cell main-cell-news">
                         <h1 class='logo-font-small'>
                             <span>Ostatni Komunikat</span>
                         </h1>
@@ -245,7 +249,8 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                         ?>
 
                     </div>
-                    <div class="main-main-cell test-changes">
+                    <!-- CELL WYCHOWAWCY -->
+                    <div class="main-cell main-cell-wychowawcy">
                         <?php
                         $sqlGroups = "SELECT DISTINCT grupa FROM dzieci WHERE IDRodzica = " . $user->id . ";";
                         $result = $connection->query($sqlGroups)->fetch_all();
@@ -290,20 +295,22 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                         }
                         ?>
                     </div>
-                </div>
-                <div class="main-cells-container">
-                    <div class="main-main-cell test-grades">
+
+                <!-- CELL DZIECI -->
+                    <div class="main-cell main-cell-dzieci">
                         <h1 class='logo-font-small'>
                             <span>Dzieci</span>
                         </h1><br>
                         <?php
                         printArr($json);
                         ?></div>
-                    <div class="main-main-cell test-changes">
+                <!-- CELL ZMIANY W PLANIE -->
+                    <div class="main-cell main-cell-plan-changes">
                         <h1 class='logo-font-small'>
                             <span>Zmiany w planie</span>
                         </h1></div>
-                    <div class="main-main-cell test-plan">
+                <!-- CELL JADŁOSPIS -->
+                    <div class="main-cell main-cell-jadlospis">
                         <h1 class='logo-font-small'>
                             <span>Jadłospis na dziś</span>
                         </h1>
@@ -322,14 +329,14 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                             ?>
                         </div>
                     </div>
-                </div>
+
             </div>
         </div>
         <!-- ============================= -->
         <!-- NAUCZYCIELE -->
         <!-- ============================= -->
         <div class="main-panel" id="main-teachers">
-            <div class="main-style-panel">
+            <div class="styling-panel">
                 <?php
                 $sql = "SELECT imie, nazwisko,login,typ FROM uzytkownicy WHERE typ = 1 OR typ = 2";
                 $result = $connection->query($sql)->fetch_all();
@@ -358,7 +365,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <!-- CAFETERIA -->
         <!-- ============================= -->
         <div class="main-panel" id="main-cafeteria">
-            <div class="main-style-panel">
+            <div class="styling-panel">
                 <div class="cafeteria-table">
                     <span class="nzw">Nazwa</span>
                     <?php
@@ -406,7 +413,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <!-- KOMUNIKATY -->
         <!-- ============================= -->
         <div class="main-panel" id="main-news">
-            <div class="main-style-panel">
+            <div class="styling-panel">
                 <!-- TO SA NARAZIE DLA CALRGO PRZEDSZKOLA, TRZEBA ZROBIC TO ROZWIJANE DLA OGOLNYCH KOMUUNIKATOW I KONKRETNYCH GRUP-->
                 <?php
                 $sql = "SELECT tytul, tresc, data FROM komunikaty WHERE przynaleznosc = 0 ORDER BY data DESC;";
@@ -422,6 +429,10 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             </div>
         </div>
 
+
+        <!-- ============================= -->
+        <!-- DZIECI? -->
+        <!-- ============================= -->
         <!--<aside>
         <ul id="listaDzieci">
             <?php
@@ -445,7 +456,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
     <?php printArr($_SESSION); ?>
 
     <script src="./../scripts/js/showLogin.js"></script>-->
-
+    <!--<script src="./../scripts/js/mainMainLayout.js"></script>-->
     </main>
 
 

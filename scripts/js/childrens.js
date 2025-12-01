@@ -27,7 +27,7 @@ function createDiv(arr) {
     console.log(arr);
     div.id = arr[2];
     div.classList.add('childCard')
-    div.classList.add('main-style-panel');
+    div.classList.add('styling-panel');
 
     let name = document.createElement('h3');
     name.innerText = arr[0] + " " + arr[1];
@@ -81,7 +81,7 @@ function showDzieci(json){
                 allDivs[j].style.display="none";
             }
             nDiv.style.display='flex';
-            nDiv.querySelector('.main-style-panel').style.display='block'; // Show inner div
+            nDiv.querySelector('.styling-panel').style.display='block'; // Show inner div
         }
     }
 }
