@@ -11,22 +11,17 @@
 }
 
 #main-main>.styling-panel{
-    display: flex;
-    justify-self: center;
-    align-items: center;
-}
-
-.column-container{
-    width: 100%;
     display: block;
     column-count: 3;
     column-gap: 20px;
     page-break-inside: avoid;
     break-inside: avoid-column;
+    padding: 1vw;
 }
 
 .main-cell {
     break-inside: avoid-column;
+    margin-bottom: 20px;
     width: 100%;
     background: var(--green-vibrant);
 }
