@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2025 at 12:54 AM
+-- Generation Time: Dec 01, 2025 at 01:22 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -151,7 +151,9 @@ INSERT INTO `jadlospis` (`id`, `kiedy`, `typ`, `opis`) VALUES
 
 CREATE TABLE `komunikaty` (
   `ID` int(11) NOT NULL,
+  `tytul` varchar(1000) NOT NULL,
   `tresc` varchar(1000) NOT NULL,
+  `data` date NOT NULL,
   `przynaleznosc` int(11) NOT NULL COMMENT '0 - ogolne, 1 - gr1, 2 - gr2, 3-gr3, 4-gr4'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
@@ -159,21 +161,21 @@ CREATE TABLE `komunikaty` (
 -- Dumping data for table `komunikaty`
 --
 
-INSERT INTO `komunikaty` (`ID`, `tresc`, `przynaleznosc`) VALUES
-(1, 'Drodzy Rodzice, przypominamy o konieczności uiszczenia opłaty za żywienie do 10-go dnia miesiąca.', 0),
-(2, 'Uwaga! W przedszkolu panuje ospa wietrzna. Prosimy o obserwację dzieci.', 0),
-(3, 'Zapraszamy serdecznie na Piknik Rodzinny, który odbędzie się w ogrodzie przedszkolnym w sobotę o 11:00.', 0),
-(4, 'W związku z deszczową pogodą prosimy, aby każde dziecko miało w szafce kalosze i pelerynę.', 0),
-(5, 'Przypominamy: prosimy nie przyprowadzać do przedszkola dzieci przeziębionych i z gorączką.', 0),
-(6, 'W najbliższy piątek placówka będzie nieczynna z powodu prac technicznych w sieci wodociągowej.', 0),
-(7, 'Grupa 1: Prosimy o podpisanie wszystkich smoczków i przytulanek przyniesionych do leżakowania.', 1),
-(8, 'Do rodziców Grupy 1: Kończą się zapasy chusteczek nawilżanych, prosimy o dostarczenie nowych paczek.', 1),
-(9, 'Grupa 2: Jutro idziemy na dłuższy spacer do parku, prosimy o wygodne obuwie.', 2),
-(10, 'Rodzice Grupy 2: Zbieramy rolki po ręcznikach papierowych i kartony na zajęcia plastyczne.', 2),
-(11, 'Grupa 3: Przypominamy o nauce wierszyka na Dzień Mamy (tekst w szafkach).', 3),
-(12, 'Dla Grupy 3: W czwartek odbędą się zajęcia z rytmiki, prosimy o strój gimnastyczny w worku.', 3),
-(13, 'Grupa 4: Prosimy o uzupełnienie piórników (ołówki, kredki ołówkowe, gumka).', 4),
-(14, 'Zebranie dla rodziców Grupy 4 w sprawie podręczników i diagnozy gotowości szkolnej odbędzie się we wtorek.', 4);
+INSERT INTO `komunikaty` (`ID`, `tytul`, `tresc`, `data`, `przynaleznosc`) VALUES
+(29, 'Opłaty za żywienie', 'Drodzy Rodzice, przypominamy o konieczności uiszczenia opłaty za żywienie do 10-go dnia miesiąca.', '2025-11-02', 0),
+(30, 'Ważne: Ospa wietrzna', 'Uwaga! W przedszkolu panuje ospa wietrzna. Prosimy o obserwację dzieci.', '2025-11-28', 0),
+(31, 'Piknik Rodzinny', 'Zapraszamy serdecznie na Zimowy Kiermasz, który odbędzie się w ogrodzie przedszkolnym w sobotę o 11:00.', '2025-12-05', 0),
+(32, 'Jesienna pogoda', 'W związku z deszczową pogodą prosimy, aby każde dziecko miało w szafce kalosze i pelerynę.', '2025-10-15', 0),
+(33, 'Zdrowie dzieci', 'Przypominamy: prosimy nie przyprowadzać do przedszkola dzieci przeziębionych i z gorączką.', '2025-11-30', 0),
+(34, 'Przerwa techniczna', 'W najbliższy piątek placówka będzie nieczynna z powodu prac technicznych w sieci wodociągowej.', '2025-12-01', 0),
+(35, 'Podpisanie rzeczy', 'Grupa 1: Prosimy o podpisanie wszystkich smoczków i przytulanek przyniesionych do leżakowania.', '2025-09-05', 1),
+(36, 'Artykuły higieniczne', 'Do rodziców Grupy 1: Kończą się zapasy chusteczek nawilżanych, prosimy o dostarczenie nowych paczek.', '2025-11-25', 1),
+(37, 'Wyjście do parku', 'Grupa 2: Jutro idziemy na dłuższy spacer do parku, prosimy o wygodne obuwie.', '2025-10-10', 2),
+(38, 'Materiały plastyczne', 'Rodzice Grupy 2: Zbieramy rolki po ręcznikach papierowych i kartony na zajęcia plastyczne.', '2025-11-18', 2),
+(39, 'Mikołajki', 'Grupa 3: Prosimy, aby w dniu 6 grudnia dzieci przyszły ubrane na czerwono lub w czapkach Mikołaja.', '2025-11-29', 3),
+(40, 'Zajęcia z rytmiki', 'Dla Grupy 3: W czwartek odbędą się zajęcia z rytmiki, prosimy o strój gimnastyczny w worku.', '2025-11-27', 3),
+(41, 'Braki w wyprawce', 'Grupa 4: Prosimy o uzupełnienie piórników (ołówki, kredki ołówkowe, gumka).', '2025-09-15', 4),
+(42, 'Zebranie - Zerówka', 'Zebranie dla rodziców Grupy 4 w sprawie podręczników i diagnozy gotowości szkolnej odbędzie się we wtorek.', '2025-09-20', 4);
 
 -- --------------------------------------------------------
 
@@ -379,7 +381,7 @@ ALTER TABLE `jadlospis`
 -- AUTO_INCREMENT for table `komunikaty`
 --
 ALTER TABLE `komunikaty`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `oczekujace`
