@@ -113,9 +113,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             let php = <?php echo json_encode($json); ?>;
 
             showDzieci(php);
-            <?php
-            $conteiner = $conteiner + count($json) - 1;
-            ?>
+            
         </script>
 
         <div class="nav_child" id="nav_child_szkola" onclick="showChildren(1)">
@@ -136,8 +134,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             <img src="./../assets/restaurant.png" alt="">
             <span>Stołówka</span>
         </div>
-        <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
-        $conteiner++; ?>)">
+        <div class="nav_child" onclick="showContainer(<?php echo $conteiner;?>)">
             <img src="./../assets/speaker.png" alt="">
             <span>Komunikaty</span>
         </div>
@@ -147,10 +144,9 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
     <!-- MAIN -->
     <!-- ============================= -->
     <main id="main">
-
-        <!-- Mój zamysł na działanie tego są takie że bedzie to działało jak panel rodzica jak się zalogujesz -->
-        <!-- Gdy kliknie się na któreś z .nav-child to korespondujacy .main-panel się pokaże -->
-
+        <!-- ============================= -->
+        <!-- GŁÓWNA -->
+        <!-- ============================= -->
         <div class="main-panel main-main" id="main-main">
             <div class="main-style-panel">
                 <div class="main-cells-container">
@@ -236,7 +232,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                             }
                         </script>
                     </div>
-                    <div class="main-main-cell test-grades">
+                    <div class="main-main-cell main-news">
                         <h1 class='logo-font-small'>
                             <span>Ostatni Komunikat</span>
                         </h1>
@@ -329,13 +325,9 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                 </div>
             </div>
         </div>
-
-        <div class="main-panel main-panel-child" id="main-child1">
-            <div class="main-style-panel">
-                <h2>dziecko</h2>
-            </div>
-        </div>
-
+        <!-- ============================= -->
+        <!-- NAUCZYCIELE -->
+        <!-- ============================= -->
         <div class="main-panel" id="main-teachers">
             <div class="main-style-panel">
                 <?php
@@ -362,6 +354,9 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
             </div>
         </div>
+        <!-- ============================= -->
+        <!-- CAFETERIA -->
+        <!-- ============================= -->
         <div class="main-panel" id="main-cafeteria">
             <div class="main-style-panel">
                 <div class="cafeteria-table">
@@ -407,7 +402,9 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             </div>
         </div>
 
-
+        <!-- ============================= -->
+        <!-- KOMUNIKATY -->
+        <!-- ============================= -->
         <div class="main-panel" id="main-news">
             <div class="main-style-panel">
                 <!-- TO SA NARAZIE DLA CALRGO PRZEDSZKOLA, TRZEBA ZROBIC TO ROZWIJANE DLA OGOLNYCH KOMUUNIKATOW I KONKRETNYCH GRUP-->
