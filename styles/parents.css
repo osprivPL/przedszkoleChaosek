@@ -11,13 +11,15 @@
 }
 
 #main-main>.styling-panel{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    flex-direction: column;
-    padding: 10px;
+    display: block;
+    column-count: 3;
+    column-gap: 20px;
+    page-break-inside: avoid;
+    break-inside: avoid-column;
 }
 
 .main-cell {
+    break-inside: avoid-column;
     margin: 1vh;
     width: 99%;
     background: var(--green-vibrant);
@@ -32,6 +34,9 @@
     width: 100%;
 }
 
+.main-cell-plan{
+    height: 75vh;
+}
 
 
 #main-cafeteria .styling-panel{
