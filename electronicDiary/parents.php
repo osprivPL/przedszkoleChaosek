@@ -463,7 +463,6 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
     <?php printArr($_SESSION); ?>
 
     <script src="./../scripts/js/showLogin.js"></script>-->
-        <!--<script src="./../scripts/js/mainMainLayout.js"></script>-->
     </main>
 
 

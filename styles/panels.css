@@ -215,7 +215,6 @@ main {
     display: flex;
     justify-self: center;
     overflow-y: auto;
-
     color: white;
     /*border: solid 3px black;*/
     /*border-radius: 30px;*/
