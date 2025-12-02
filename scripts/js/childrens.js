@@ -33,12 +33,6 @@ function createDiv(arr) {
     let divInfo = document.createElement('div');
     divInfo.classList.add('child-info');
 
-
-    let img = document.createElement('img');
-    img.src = "./../assets/childrenImages/" + arr[5];
-    div.appendChild(img);
-
-
     let name = document.createElement('h3');
     name.innerText = arr[0] + " " + arr[1];
     divInfo.appendChild(name);
@@ -51,7 +45,19 @@ function createDiv(arr) {
     GroupNum.innerHTML = "Grupa: " + arr[4];
     divInfo.appendChild(GroupNum);
 
+    let Opinion = document.createElement('span');
+    Opinion.innerHTML = "<h4>Opinia:</h4> " + "<br>" + " ";
+    Opinion.classList.add('info-opinia');
+    divInfo.appendChild(Opinion);
+
     div.appendChild(divInfo);
+
+
+    let img = document.createElement('img');
+    img.src = "./../assets/childrenImages/" + arr[5];
+    div.appendChild(img);
+
+
     div.style.display = "none";
     container.appendChild(div);
 

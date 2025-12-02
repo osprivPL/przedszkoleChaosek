@@ -54,7 +54,7 @@
 
 .main-child>.styling-panel{
     display: flex;
-    padding: 10px;
+    justify-content: space-evenly;
 }
 .main-child img{
     width: auto;
@@ -62,16 +62,28 @@
     border-radius: 30px;
 }
 .child-info{
-    width: 30%;
-    display: grid;
-    grid-gap: 10px;
-    grid-template-rows: 1fr 1fr 1fr 3fr;
-    grid-template-columns: 1fr 1fr;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 32px;
+}
+.child-info>*{
+    padding: 10px;
+    border: var(--border1);
+    border-radius: 30px;
+    margin-bottom: 5px;
 }
 .child-info>h3{
-    grid-row: 1 span;
-    grid-column-start: 2 span;
     align-self: center;
+    font-size: 48px;
+}
+
+.info-opinia{
+    flex: 1;
+    align-self: stretch;
+    margin-bottom: 0;
 }
 
 #main-cafeteria .styling-panel{
