@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2025 at 02:06 AM
+-- Generation Time: Dec 02, 2025 at 10:07 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,10 +41,8 @@ CREATE TABLE `artykuly` (
 
 INSERT INTO `artykuly` (`ID`, `naglowek`, `tresc`, `data`, `img`) VALUES
 (1, 'Jesienna wycieczka do parku', 'W październiku nasze przedszkolaki wybrały się na kolorową wycieczkę do parku, gdzie obserwowały zmieniającą się przyrodę. Dzieci zbierały liście i bawiły się na świeżym powietrzu.', '2025-11-19', './assets/articles/park.png'),
-(2, 'Dzień Pluszowego Misia', 'W naszym przedszkolu obchodziliśmy Dzień Pluszowego Misia. Dzieci przyniosły swoje ulubione maskotki, uczestniczyły w zabawach i konkursach.', '2025-11-25', './assets/articles/mis.png'),
 (3, 'Warsztaty kulinarne – robimy sałatkę owocową', 'Przedszkolaki własnoręcznie przygotowały zdrową i pyszną sałatkę owocową, ucząc się rozpoznawać różne owoce oraz dbając o higienę.', '2025-10-10', './assets/articles/salatka.png'),
 (4, 'Teatrzyk kukiełkowy', 'Nauczyciele przygotowali przedstawienie kukiełkowe, które bardzo spodobało się dzieciom i zainspirowało je do własnej twórczości.', '2025-10-27', './assets/articles/teatrzyk.png'),
-(5, 'Bal karnawałowy', 'Przedszkolny bal karnawałowy dał dzieciom okazję do przebrania się w ulubione postacie, tańców oraz wspólnej zabawy.', '2025-01-13', './assets/articles/karnawal.png'),
 (8, 'Chaotyczna Wielkanoc', 'Sesja zdjęciowa na wielkanoc tworzy ciepłą atmosferę i buduje wyjątkowe tradycje w naszej placówce.', '2025-04-20', './assets/articles/wielkanoc.png'),
 (9, 'Halloween', 'Przebieranki na Halloween rozwijają kreatywność i sprawiają, że wspólna zabawa staje się prawdziwą przygodą.', '2025-10-31', './assets/articles/halloween.png');
 
@@ -71,7 +69,14 @@ CREATE TABLE `dzieci` (
 
 INSERT INTO `dzieci` (`ID`, `imie`, `nazwisko`, `pesel`, `adres`, `grupa`, `img`, `IDRodzica`) VALUES
 (1, 'Jonaszek', 'Kruk', '21241201290', 'Łódź, ul. Sienkiewicza 6, m. 7', 1, 'Jonaszek_Kruk.png', 1),
-(2, 'Aldona', 'Kruk', '20271912145', 'Łódź, ul. Sienkiewicza 6, m. 7', 2, 'Aldona_Kruk.png', 1);
+(2, 'Aldona', 'Kruk', '20271912145', 'Łódź, ul. Sienkiewicza 6, m. 7', 2, 'Aldona_Kruk.png', 1),
+(3, 'Zosia', 'Kowalska', '21231501234', 'Łódź, ul. Kwiatowa 5/10', 1, 'brak', 4),
+(4, 'Jan', 'Kowalski', '18251209876', 'Łódź, ul. Kwiatowa 5/10', 4, 'brak', 4),
+(5, 'Krzyś', 'Nowak', '20252005432', 'Łódź, ul. Słoneczna 12', 2, 'brak', 5),
+(6, 'Ala', 'Wiśniewska', '19301011223', 'Łódź, ul. Lipowa 3', 3, 'brak', 6),
+(7, 'Olek', 'Wiśniewski', '21310533441', 'Łódź, ul. Lipowa 3', 1, 'brak', 6),
+(8, 'Filip', 'Wiśniewski', '18222855667', 'Łódź, ul. Lipowa 3', 4, 'brak', 6),
+(9, 'Michał', 'Zieliński', '19260199887', 'Łódź, ul. Długa 50/4', 3, 'brak', 7);
 
 -- --------------------------------------------------------
 
@@ -113,36 +118,51 @@ CREATE TABLE `jadlospis` (
 --
 
 INSERT INTO `jadlospis` (`id`, `kiedy`, `typ`, `opis`) VALUES
-(1, '2025-11-24', 0, 'Kanapki z szynką, sałatą i pomidorem, herbata z cytryną'),
-(2, '2025-11-24', 1, 'Zupa pomidorowa z ryżem. Filet z kurczaka w sosie śmietanowym, ziemniaki, surówka z marchewki'),
-(3, '2025-11-24', 2, 'Banan i wafelek ryżowy'),
+(1, '2025-11-24', 0, 'Kanapki z szynką drobiową, pomidorem i sałatą, herbata z cytryną'),
+(2, '2025-11-24', 1, 'Zupa pomidorowa z ryżem. Filet z kurczaka w sosie potrawkowym, ziemniaki, mizeria'),
+(3, '2025-11-24', 2, 'Banan i wafelek kukurydziany'),
 (4, '2025-11-25', 0, 'Płatki kukurydziane na mleku, bułka wrocławska z masłem'),
-(5, '2025-11-25', 1, 'Zupa ogórkowa z ziemniakami. Kotlet mielony, kasza gryczana, buraczki na ciepło'),
-(6, '2025-11-25', 2, 'Kisiel truskawkowy i biszkopty'),
-(7, '2025-11-26', 0, 'Bułka kajzerka z pastą jajeczną i szczypiorkiem, kakao'),
-(8, '2025-11-26', 1, 'Rosół z makaronem. Potrawka z indyka z warzywami, ryż, kompot wieloowocowy'),
-(9, '2025-11-26', 2, 'Jabłko pieczone z cynamonem'),
-(10, '2025-11-27', 0, 'Parówki z szynki na ciepło, chleb razowy, ketchup, herbata miętowa'),
-(11, '2025-11-27', 1, 'Krupnik z kaszą jęczmienną. Naleśniki z serem białym i musem truskawkowym'),
-(12, '2025-11-27', 2, 'Jogurt naturalny z granolą'),
-(13, '2025-11-28', 0, 'Chleb żytni z serem żółtym i ogórkiem kiszonym, kawa inka'),
+(5, '2025-11-25', 1, 'Zupa ogórkowa z ziemniakami. Kotlet mielony wieprzowy, kasza jęczmienna, buraczki zasmażane'),
+(6, '2025-11-25', 2, 'Kisiel wiśniowy ze startym jabłkiem'),
+(7, '2025-11-26', 0, 'Bułka grahamek z pastą jajeczną ze szczypiorkiem, kakao'),
+(8, '2025-11-26', 1, 'Rosół z makaronem nitki. Potrawka z indyka z warzywami, ryż parboiled, kompot'),
+(9, '2025-11-26', 2, 'Jabłko i herbatniki maślane'),
+(10, '2025-11-27', 0, 'Parówki z szynki na ciepło, chleb razowy, ketchup, kawa inka'),
+(11, '2025-11-27', 1, 'Krupnik na wywarze jarzynowym. Naleśniki z serem białym i polewą truskawkową'),
+(12, '2025-11-27', 2, 'Jogurt naturalny z granolą i miodem'),
+(13, '2025-11-28', 0, 'Chleb żytni z serem żółtym i ogórkiem kiszonym, herbata owocowa'),
 (14, '2025-11-28', 1, 'Zupa jarzynowa z brukselką. Ryba miruna w panierce, ziemniaki puree, surówka z kiszonej kapusty'),
-(15, '2025-11-28', 2, 'Ciasto drożdżowe z kruszonką i mleko'),
-(16, '2025-12-01', 0, 'Tosty z serem i szynką, herbata owocowa'),
-(17, '2025-12-01', 1, 'Zupa brokułowa z grzankami. Gulasz wieprzowy, kopytka, ogórek kiszony'),
-(18, '2025-12-01', 2, 'Mandarynka i herbatniki'),
-(19, '2025-12-02', 0, 'Owsianka na mleku z rodzynkami, weka z masłem'),
-(20, '2025-12-02', 1, 'Zupa pieczarkowa z makaronem. Pulpety w sosie koperkowym, ziemniaki, marchewka z groszkiem'),
-(21, '2025-12-02', 2, 'Galaretka owocowa z bitą śmietaną'),
-(22, '2025-12-03', 0, 'Kanapki z twarożkiem i rzodkiewką, kakao'),
-(23, '2025-12-03', 1, 'Kapuśniak ze słodkiej kapusty. Spaghetti bolognese z serem, kompot wiśniowy'),
+(15, '2025-11-28', 2, 'Ciasto drożdżowe z kruszonką (wypiek własny) i mleko'),
+(16, '2025-12-01', 0, 'Tosty z serem i szynką, pomidor koktajlowy, herbata malinowa'),
+(17, '2025-12-01', 1, 'Zupa krem z brokułów z grzankami. Gulasz wieprzowy, kopytka, ogórek kiszony'),
+(18, '2025-12-01', 2, 'Mandarynka i chrupki kukurydziane'),
+(19, '2025-12-02', 0, 'Owsianka na mleku z rodzynkami i cynamonem, ciepła herbata'),
+(20, '2025-12-02', 1, 'Zupa pieczarkowa z makaronem łazanki. Pulpety w sosie koperkowym, ziemniaki, marchewka z groszkiem'),
+(21, '2025-12-02', 2, 'Galaretka truskawkowa z bitą śmietaną'),
+(22, '2025-12-03', 0, 'Kanapki z twarożkiem, rzodkiewką i szczypiorkiem, kakao'),
+(23, '2025-12-03', 1, 'Kapuśniak ze słodkiej kapusty. Spaghetti bolognese z mięsem wieprzowym i serem żółtym'),
 (24, '2025-12-03', 2, 'Gruszka i paluszki'),
-(25, '2025-12-04', 0, 'Jajecznica na maśle ze szczypiorkiem, chleb graham, herbata z cytryną'),
-(26, '2025-12-04', 1, 'Zupa fasolowa. Pierogi leniwe z masłem i bułką tartą, surówka z jabłka i marchewki'),
+(25, '2025-12-04', 0, 'Jajecznica na maśle, chleb graham, pomidor, herbata z cytryną'),
+(26, '2025-12-04', 1, 'Zupa fasolowa z majerankiem. Pierogi leniwe z masełkiem i bułką tartą, surówka z jabłka i marchwi'),
 (27, '2025-12-04', 2, 'Mus owocowy w tubce'),
-(28, '2025-12-05', 0, 'Bułka z dżemem truskawkowym i masłem, mleko'),
-(29, '2025-12-05', 1, 'Barszcz czerwony z ziemniakami. Paluszki rybne, ryż z warzywami, surówka z selera'),
-(30, '2025-12-05', 2, 'Muffinka czekoladowa własnego wypieku');
+(28, '2025-12-05', 0, 'Bułka maślana z dżemem truskawkowym, mleko'),
+(29, '2025-12-05', 1, 'Barszcz czerwony zabielany z ziemniakami. Paluszki rybne z pieca, ryż z warzywami, surówka z selera'),
+(30, '2025-12-05', 2, 'Muffinka czekoladowa i cząstka pomarańczy'),
+(31, '2025-12-08', 0, 'Bułka kajzerka z polędwicą sopocką i papryką czerwoną, herbata'),
+(32, '2025-12-08', 1, 'Zupa grochowa z grzankami. Bitki schabowe w sosie własnym, kasza gryczana, ogórek konserwowy'),
+(33, '2025-12-08', 2, 'Serek homogenizowany waniliowy'),
+(34, '2025-12-09', 0, 'Płatki jaglane na mleku, chałka z masłem'),
+(35, '2025-12-09', 1, 'Zupa kalafiorowa z koperkiem. Udko z kurczaka pieczone, ziemniaki, surówka z kapusty pekińskiej'),
+(36, '2025-12-09', 2, 'Budyń czekoladowy z sokiem malinowym'),
+(37, '2025-12-10', 0, 'Kanapki z pastą z cieciorki (hummus) i ogórkiem świeżym, inka'),
+(38, '2025-12-10', 1, 'Zupa pomidorowa z makaronem świderki. Risotto z warzywami i kurczakiem, sos jogurtowy'),
+(39, '2025-12-10', 2, 'Kiść winogron bezpestkowych'),
+(40, '2025-12-11', 0, 'Kabanosy drobiowe, chleb razowy, ketchup, herbata miętowa'),
+(41, '2025-12-11', 1, 'Zupa neapolitańska z serem. Placki ziemniaczane ze śmietaną i cukrem'),
+(42, '2025-12-11', 2, 'Smoothie bananowo-truskawkowe'),
+(43, '2025-12-12', 0, 'Rogalik z miodem i masłem, mleko ciepłe'),
+(44, '2025-12-12', 1, 'Zupa szczawiowa z jajkiem. Ryba dorsz pieczona w ziołach, ziemniaki, surówka z marchewki i jabłka'),
+(45, '2025-12-12', 2, 'Ciastka owsiane z żurawiną');
 
 -- --------------------------------------------------------
 
@@ -175,8 +195,7 @@ INSERT INTO `komunikaty` (`ID`, `tytul`, `tresc`, `data`, `przynaleznosc`) VALUE
 (38, 'Materiały plastyczne', 'Rodzice Grupy 2: Zbieramy rolki po ręcznikach papierowych i kartony na zajęcia plastyczne.', '2025-11-18', 2),
 (39, 'Mikołajki', 'Grupa 3: Prosimy, aby w dniu 6 grudnia dzieci przyszły ubrane na czerwono lub w czapkach Mikołaja.', '2025-11-29', 3),
 (40, 'Zajęcia z rytmiki', 'Dla Grupy 3: W czwartek odbędą się zajęcia z rytmiki, prosimy o strój gimnastyczny w worku.', '2025-11-27', 3),
-(41, 'Braki w wyprawce', 'Grupa 4: Prosimy o uzupełnienie piórników (ołówki, kredki ołówkowe, gumka).', '2025-09-15', 4),
-(42, 'Zebranie - Zerówka', 'Zebranie dla rodziców Grupy 4 w sprawie podręczników i diagnozy gotowości szkolnej odbędzie się we wtorek.', '2025-09-20', 4);
+(44, 'mamdosc', 'backendowiec tego dziennika ma dosc.', '2025-12-02', 0);
 
 -- --------------------------------------------------------
 
@@ -373,7 +392,7 @@ CREATE TABLE `pracedomowe` (
 
 INSERT INTO `pracedomowe` (`id`, `tresc`, `grupa`, `data`, `zrobione`) VALUES
 (1, 'Prosimy o przyniesienie jednej białej skarpetki (będziemy robić bałwanka)', 1, '2025-12-02', 1),
-(2, 'Przeczytanie dziecku bajki o zimie w ramach akcji \"Czytamy razem\"', 1, '2025-12-05', 0),
+(2, 'Przeczytanie dziecku bajki o zimie w ramach akcji \"Czytamy razem\"', 1, '2025-12-05', 1),
 (3, 'Narysowanie w domu portretu Świętego Mikołaja (na konkurs plastyczny)', 2, '2025-12-03', 1),
 (4, 'Spacer z rodzicami: obserwacja czy widać już pierwsze oznaki zimy', 2, '2025-12-07', 0),
 (5, 'Przyniesienie rolki po ręczniku papierowym na zajęcia techniczne', 2, '2025-12-09', 0),
@@ -406,7 +425,12 @@ CREATE TABLE `uzytkownicy` (
 INSERT INTO `uzytkownicy` (`ID`, `imie`, `nazwisko`, `typ`, `numerTelefonu`, `login`, `haslo`) VALUES
 (1, 'Jan', 'Kruk', 0, '123456789', 'jKruk@gmail.com', '$2y$10$V5DNoqC33NA5fe9CJ/QTMu7SSHWuKcPZfgl6GIaPtlA4hwGrwQWfq'),
 (2, 'Stanisław', 'Odrowski', 1, '999999999', 'stasiu@outlook.com', '$2y$10$GklSuzP8xNagCDpk4IPUaOI2Aahwb9rFtCZoPiOOwv9u7wk0me8B6'),
-(3, 'Jeremiasz', 'Michorczyk', 2, '666777888', 'jeremi@yahoo.com', '$2y$10$ZFmNZui9uCZRAkrpCsYTdOzpAM2BiRn1gHEnaC5M45ItwDdC.yclu');
+(3, 'Jeremiasz', 'Michorczyk', 2, '666777888', 'jeremi@yahoo.com', '$2y$10$ZFmNZui9uCZRAkrpCsYTdOzpAM2BiRn1gHEnaC5M45ItwDdC.yclu'),
+(4, 'Anna', 'Kowalska', 0, '501234567', 'anna.kowalska@poczta.pl', 'haslo123'),
+(5, 'Piotr', 'Nowak', 0, '602345678', 'piotr.nowak@gmail.com', 'tajnehaslo'),
+(6, 'Magdalena', 'Wiśniewska', 0, '793456789', 'magda.wisniewska@onet.pl', 'magda2024'),
+(7, 'Tomasz', 'Zieliński', 0, '511000111', 'tomek.zielinski@wp.pl', 'qwertyuiop'),
+(8, 'Katarzyna', 'Wójcik', 0, '698765432', 'kasia.wojcik@poczta.fm', 'rodzic1');
 
 -- --------------------------------------------------------
 
@@ -462,7 +486,8 @@ ALTER TABLE `grupy`
 -- Indexes for table `jadlospis`
 --
 ALTER TABLE `jadlospis`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unikalny_posilek` (`kiedy`,`typ`);
 
 --
 -- Indexes for table `komunikaty`
@@ -519,13 +544,13 @@ ALTER TABLE `wiadomosci`
 -- AUTO_INCREMENT for table `artykuly`
 --
 ALTER TABLE `artykuly`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `dzieci`
 --
 ALTER TABLE `dzieci`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `grupy`
@@ -537,13 +562,13 @@ ALTER TABLE `grupy`
 -- AUTO_INCREMENT for table `jadlospis`
 --
 ALTER TABLE `jadlospis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT for table `komunikaty`
 --
 ALTER TABLE `komunikaty`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `oczekujace`
@@ -567,7 +592,7 @@ ALTER TABLE `pracedomowe`
 -- AUTO_INCREMENT for table `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `wiadomosci`
