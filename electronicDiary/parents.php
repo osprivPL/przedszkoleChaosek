@@ -439,9 +439,9 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                 $sql = "SELECT tytul, tresc, data FROM komunikaty WHERE przynaleznosc = 0 ORDER BY data DESC;";
                 $result = $connection->query($sql)->fetch_all();
                 for ($i = 0; $i < count($result); $i++) {
-                    echo "<div class='news-item'>
+                    echo "<div class='newsCards'>
                                 <h3>" . $result[$i][0] . "</h3>
-                                <span class='news-date'>" . $result[$i][2] . "</span>
+                                <span class='newsCards-date'>" . $result[$i][2] . "</span>
                                 <p>" . $result[$i][1] . "</p>
                               </div>";
                 }

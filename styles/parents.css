@@ -281,3 +281,35 @@
     background: linear-gradient(to left bottom, rgba(31, 67, 38, 0.5), rgba(31, 67, 38, 0.7)) !important;
     font-size: 32px;
 }
+
+#main-news>.styling-panel{
+    justify-content: center;
+
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.newsCards{
+    width: 30%;
+    height: 40%;
+    padding: 10px;
+    font-size: 24px;
+
+    background: var(--green-vibrant);
+    background: linear-gradient(to left bottom, rgba(50, 143, 59, 0.5), rgba(50, 143, 59, 0.7));
+    border: var(--border1);
+    border-radius: 30px;
+}
+.newsCards h3{
+    text-align: center;
+    font-size: 48px;
+    border: var(--border1);
+    border-radius: 30px;
+}
+.newsCards p{
+    text-align: justify;
+}
+.newsCards-date{
+    color: grey;
+}
