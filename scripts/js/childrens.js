@@ -107,7 +107,7 @@ function showDzieci(json){
 
 
 function showPlan(n){
-    let plany = document.getElementsByClassName("plan-container")
+    let plany = document.getElementsByClassName("plan-container");
     let buttons = document.getElementsByClassName("plan-lekcji-buttons");
     console.log(plany);
     for (let i = 0; i < plany.length; i++){

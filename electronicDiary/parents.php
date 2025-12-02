@@ -216,10 +216,9 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                     $result = $connection->query($sql)->fetch_all();
                     //                        printArr($result);
                     for ($i = 0; $i < count($result); $i++) {
-                        echo '<div id="homework' . $result[$i][3] . '">';
-                        echo '<h3>' . $result[$i][0] . "</h3><span>" . $result[$i][2] . "</span>";
-                        echo '<p>Grupa ' . $result[$i][1] . "</p>";
-                        echo '<button onclick="ukryjZadanie(' . $result[$i][3] . ')">Oznacz jako ukończone</button>';
+                        echo '<div id="homework' . $result[$i][3] . '" class="homework-item" onclick="ukryjZadanie(' . $result[$i][3] . ')">';
+                        echo '<h3>' . $result[$i][0] . "</h3><div><span>" . $result[$i][2] . "</span><br>";
+                        echo '<span>Grupa ' . $result[$i][1] . "</span></div>";
                         echo '</div>';
                     }
                     ?>

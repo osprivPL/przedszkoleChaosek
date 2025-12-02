@@ -31,7 +31,6 @@
     background: linear-gradient(to left bottom, rgba(50, 143, 59, 0.5), rgba(50, 143, 59, 0.7));
     border: var(--border1);
     border-radius: 30px;
-    position: relative;
     box-sizing: border-box;
 }
 
@@ -85,7 +84,30 @@
 .lesson-item span:nth-child(even){
     font-size: 28px;
 }
-
+.main-cell-homework{
+    font-family: 'sour gummy', sans-serif;
+    padding: 20px;
+}
+.homework-item{
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    transition: .2s;
+}
+.homework-item:hover{
+    background: rgba(255, 255, 255, 0.25);
+    cursor: pointer;
+}
+.homework-item > *:nth-child(1){
+    width: 70%;
+}
+.homework-item > *:nth-child(2){
+    width: 30%;
+    text-align: right;
+}
 .main-child>.styling-panel{
     display: flex;
     justify-content: space-evenly;

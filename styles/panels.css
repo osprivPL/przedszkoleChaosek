@@ -126,6 +126,7 @@ nav {
     background-image: url("./../assets/tlo_panels_nav.png");
     min-height: 96vh;
     background-size: 100% 100%;
+    font-family: 'sour gummy', sans-serif;
 }
 
 nav img {
@@ -133,6 +134,7 @@ nav img {
     width: 50px;
     padding: 2px;
     filter: invert(100%);
+    margin-right: 10px;
 }
 
 nav span {
