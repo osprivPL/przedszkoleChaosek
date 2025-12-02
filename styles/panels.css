@@ -161,6 +161,7 @@ nav span {
     opacity: 1;
 }
 
+
 .nav_arrow{
     justify-self: flex-end;
 }
@@ -182,9 +183,9 @@ nav span {
 }
 
 .nav_child_child:before{
-
     background: var(--green-dark);
 }
+
 
 main {
     grid-area: main;
@@ -206,6 +207,7 @@ main {
     display: none;
     justify-content: center;
     align-items: center;
+    overflow-y: hidden;
 }
 
 .styling-panel {
@@ -219,11 +221,27 @@ main {
     /*border-radius: 30px;*/
     /*background: var(--green-vibrant);*/
     /*background: linear-gradient(to left bottom, rgba(50, 143, 59, 0.5), rgba(50, 143, 59, 0.7));*/
+    animation: zooom 0.7s ease-in-out;
 }
 
 aside, main {
     height: 80vh;
 }
+
+/*.nav_child_child_animation{*/
+/*    animation: appearSelf 0.5s ease-in-out;*/
+/*}*/
+/*@keyframes apperarSelf {*/
+/*    from {transform: translateY(100vh);}*/
+/*    to {transform: translateY(0vh);}*/
+/*}*/
+@keyframes zooom{
+    from {transform: translateY(100vh);}
+    50%{transform: translateY(-5vh);}
+    to{transform: translateY(0vh);}
+}
+
+
 
 
 

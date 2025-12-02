@@ -76,14 +76,12 @@ function showDzieci(json){
         div.classList.add('nav_child');
         div.classList.add('nav_child_child');
         div.classList.add('nav_child_dziecko');
-
         img.src="./../assets/little-kid.png";
         img.alt="Dziecko";
 
         span.innerText = json[i][0] + " " + json[i][1];
         div.appendChild(img);
         div.appendChild(span);
-
         nav.appendChild(div);
 
         div.onclick = function(){
