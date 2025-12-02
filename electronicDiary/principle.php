@@ -147,6 +147,12 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <div class="main-cell main-cell-news bigContainers">
             <h1 class='logo-font-small witaj'>
                 <span>Witaj w panelu dyrekcji</span>
+                <?php
+                if (isset($_SESSION['powodzenie'])) {
+                    echo "<div class='success-message'>" . $_SESSION['powodzenie'] . "</div>";
+                    unset($_SESSION['powodzenie']);
+                }
+                ?>
             </h1>
         </div>
         <div class="main-panel bigContainers">
@@ -157,7 +163,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <div class="main-panel bigContainers">
             <div class="styling-panel">
                 <h1 class="logo-font-small"><span>Dodaj artykul</span></h1>
-                <form method="post" action="./../scripts/php/img.php" enctype="multipart/form-data">
+                <form method="post" action="../scripts/php/addArticle.php" enctype="multipart/form-data">
                     <label for="articleTitle">Tytuł artykułu:</label><br>
                     <input type="text" id="articleTitle" name="articleTitle" required><br><br>
                     <label for="articleContent">Treść artykułu:</label><br>
@@ -230,7 +236,20 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <div class="main-panel bigContainers">
             <div class="styling-panel">
                 <h1 class="logo-font-small"><span>Dodaj komunikat</span></h1>
-
+                <form method="post" action="./../scripts/php/addAnoucement.php">
+                    <label for="komunikatHeader">Nagłówek</label> <input type="text" id="komunikatHeader" name="komunikatHeader"><br><br>
+                    <label for="komunikatContent">Treść</label><br>
+                    <textarea id="komunikatContent" name="komunikatContent" rows="10" cols="50"></textarea><br><br>
+                    <label for="komunikatGrupa">Wybierz widoczność</label>
+                    <select id="komunikatGrupa" name="komunikatGrupa">
+                        <option value="0">Wszyscy</option>
+                        <option value="1">Grupa 1</option>
+                        <option value="2">Grupa 2</option>
+                        <option value="3">Grupa 3</option>
+                        <option value="4">Grupa 4</option>
+                    </select><br><br>
+                    <input type="submit" value="Dodaj komunikat">
+                </form>
             </div>
         </div>
 

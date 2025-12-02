@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
 // 2. Odbierz dane (ID) wysłane przez JavaScript
