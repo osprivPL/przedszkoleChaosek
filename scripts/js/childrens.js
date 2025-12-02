@@ -108,13 +108,16 @@ function showDzieci(json){
 
 function showPlan(n){
     let plany = document.getElementsByClassName("plan-container")
+    let buttons = document.getElementsByClassName("plan-lekcji-buttons");
     console.log(plany);
     for (let i = 0; i < plany.length; i++){
         if (i===n-1){
             plany[i].style.display="block";
+            buttons[i].classList.add('activePlanButton');
             continue;
         }
 
+        buttons[i].classList.remove('activePlanButton');
         plany[i].style.display="none";
     }
 }

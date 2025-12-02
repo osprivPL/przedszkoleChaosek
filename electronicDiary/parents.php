@@ -152,7 +152,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                 <div class="main-cell main-cell-plan">
                     <h1 class='logo-font-small'>
                         <span>Plan lekcji</span>
-                    </h1>
+                    </h1><div class="buttonContainer">
                     <?php
                     //                            // Pobieramy numer dnia tygodnia (1 = Poniedziałek, ..., 5 = Piątek, 6,7 = Weekend)
                     $dzienTygodnia = date('N');
@@ -166,10 +166,12 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                     $result = $connection->query($sql)->fetch_all();
                     $groups = array();
                     for ($i = 0; $i < count($result); $i++) {
-                        echo '<button onclick="showPlan(' . $result[$i][0] . ')">Gr. ' . $result[$i][0] . '</button> ';
+                        echo '<button class="plan-lekcji-buttons" onclick="showPlan(' . $result[$i][0] . ')">Gr. ' . $result[$i][0] . '</button> ';
                         $groups[] = $result[$i][0];
                     }
-
+                    ?>
+                    </div>
+                    <?php
 
                     // generowanie planow
                     for ($i = 0; $i < count($groups); $i++) {
