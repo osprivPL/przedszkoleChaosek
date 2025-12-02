@@ -262,9 +262,10 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                     <?php
                     $sql = "SELECT tytul, tresc, data FROM komunikaty WHERE przynaleznosc = 0 ORDER BY data DESC LIMIT 1;";
                     $result = $connection->query($sql)->fetch_all();
-                    echo "<h3>" . $result[0][0] . "</h3>
-                                    <span class='news-date'>" . $result[0][2] . "</span>
-                                    <p>" . $result[0][1] . "</p>";
+                    echo "<div class='news-item'>
+                            <div class='news-item-header'><span>" . $result[0][0] . "</span><span class='news-date'>" . $result[0][2] . "</span></div>
+                            <div class='news-content'>" . $result[0][1] . "</div>
+                        </div>";
                     ?>
 
                 </div>

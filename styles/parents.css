@@ -32,6 +32,7 @@
     border: var(--border1);
     border-radius: 30px;
     box-sizing: border-box;
+    padding: 20px;
 }
 
 .main-cell *{
@@ -50,7 +51,6 @@
 
 .main-cell-plan{
     font-family: 'sour gummy', sans-serif;
-    padding: 20px;
 }
 .main-cell-plan .buttonContainer{
     display: flex;
@@ -86,7 +86,6 @@
 }
 .main-cell-homework{
     font-family: 'sour gummy', sans-serif;
-    padding: 20px;
 }
 .homework-item{
     background: rgba(255, 255, 255, 0.15);
@@ -126,6 +125,30 @@
     opacity: 1;
     cursor: pointer;
 }
+
+.main-cell-news{
+    font-family: 'sour gummy', sans-serif;
+}
+.main-cell-news .news-item{
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.news-item-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+.news-item-header span:first-child{
+    font-size: 30px;
+    font-weight: bold;
+}
+.news-content{
+    font-size: 24px;
+}
+
 .main-child>.styling-panel{
     display: flex;
     justify-content: space-evenly;
