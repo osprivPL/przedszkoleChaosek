@@ -105,6 +105,8 @@
 }
 .child-info>*{
     padding: 10px;
+    background: var(--green-vibrant);
+    background: linear-gradient(to left bottom, rgba(50, 143, 59, 0.5), rgba(50, 143, 59, 0.7));
     border: var(--border1);
     border-radius: 30px;
     margin-bottom: 5px;
