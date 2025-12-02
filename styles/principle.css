@@ -81,31 +81,41 @@
     font-size: 0.8em;
     font-style: italic;
 }
-
-#editModal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-    z-index: 2000;
-    width: 90%;
-    max-width: 450px;
-    border: 1px solid #ddd;
-}
-
-#modalOverlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
+.meal-textarea {
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1999;
+    min-height: 80px;
+    border: 1px solid transparent;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: 0.9rem;
+    resize: vertical;
+    padding: 5px;
+    box-sizing: border-box;
+    transition: 0.2s;
+}
+
+.meal-textarea:focus, .meal-textarea:hover {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    outline: none;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.btn-save-week {
+    display: block;
+    margin: 20px auto 0 auto;
+    padding: 10px 30px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-save-week:hover {
+    background-color: #45a049;
 }
 
