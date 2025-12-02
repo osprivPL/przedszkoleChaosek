@@ -81,7 +81,6 @@ for ($i = 0; $i < 5; $i++) {
     <script src="./../scripts/js/panels.js"></script>
     <script src="./../scripts/js/showUserPanel.js"></script>
     <script src="./../scripts/js/principle.js"></script>
-    <script src="./../scripts/js/principle.js"></script>
 </head>
 <body>
 <header>
@@ -383,8 +382,149 @@ for ($i = 0; $i < 5; $i++) {
             </div>
         </div>
         <div class="main-panel bigContainers">
-            <div class="styling-panel">
+            <div class="styling-panel planlekcjiManagement">
                 <h1 class="logo-font-small"><span>plan lekcji</span></h1>
+                <?php
+                $availableLessons = [];
+                $sqlLekcje = "SELECT id, nazwa FROM lekcje ORDER BY nazwa";
+                $resultLekcje = $connection->query($sqlLekcje);
+                while ($row = $resultLekcje->fetch_assoc()) {
+                    $availableLessons[$row['id']] = $row['nazwa'];
+                }
+
+                if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_plan_action'])) {
+                    if (isset($_POST['schedule'])) {
+                        $stmtUpdate = $connection->prepare("UPDATE plan_lekcji SET lekcjaID=?, start_time=?, end_time=? WHERE id=?");
+                        $stmtDelete = $connection->prepare("DELETE FROM plan_lekcji WHERE id=?");
+
+                        foreach ($_POST['schedule'] as $id => $data) {
+                            if (isset($data['delete']) && $data['delete'] == 1) {
+                                $stmtDelete->bind_param("i", $id);
+                                $stmtDelete->execute();
+                            } else {
+                                $stmtUpdate->bind_param("issi", $data['lekcjaID'], $data['start_time'], $data['end_time'], $id);
+                                $stmtUpdate->execute();
+                            }
+                        }
+                    }
+
+                    if (isset($_POST['new_schedule'])) {
+                        $stmtInsert = $connection->prepare("INSERT INTO plan_lekcji (grupaID, day_of_week, lekcjaID, start_time, end_time) VALUES (?, ?, ?, ?, ?)");
+
+                        foreach ($_POST['new_schedule'] as $gID => $days) {
+                            foreach ($days as $dID => $lessonData) {
+                                if (!empty($lessonData['lekcjaID']) && !empty($lessonData['start'])) {
+                                    $endVal = !empty($lessonData['end']) ? $lessonData['end'] : date('H:i', strtotime($lessonData['start']) + 2700); // domyślnie +45min
+                                    $stmtInsert->bind_param("iiiss", $gID, $dID, $lessonData['lekcjaID'], $lessonData['start'], $endVal);
+                                    $stmtInsert->execute();
+                                }
+                            }
+                        }
+                    }
+                    echo "<script>window.location.href = window.location.href;</script>";
+                    exit;
+                }
+
+                $sqlPlan = "SELECT * FROM plan_lekcji ORDER BY start_time ASC";
+                $resultPlan = $connection->query($sqlPlan)->fetch_all(MYSQLI_ASSOC);
+
+                $planData = [];
+                for ($g = 1; $g <= 4; $g++) {
+                    for ($d = 1; $d <= 5; $d++) {
+                        $planData[$g][$d] = [];
+                    }
+                }
+                foreach ($resultPlan as $row) {
+                    $planData[$row['grupaID']][$row['day_of_week']][] = $row;
+                }
+
+                $weekDays = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Czwartek', 5 => 'Piątek'];
+                ?>
+                <div class="tabs-header">
+                    <button class="tab-btn active" onclick="openGroupTab(event, 'tab_g1')">Grupa 1</button>
+                    <button class="tab-btn" onclick="openGroupTab(event, 'tab_g2')">Grupa 2</button>
+                    <button class="tab-btn" onclick="openGroupTab(event, 'tab_g3')">Grupa 3</button>
+                    <button class="tab-btn" onclick="openGroupTab(event, 'tab_g4')">Grupa 4</button>
+                </div>
+
+                <form method="POST">
+                    <input type="hidden" name="save_plan_action" value="1">
+
+                    <?php for ($g = 1; $g <= 4; $g++): ?>
+                        <div id="tab_g<?php echo $g; ?>" class="tab-content"
+                             style="display: <?php echo ($g == 1) ? 'block' : 'none'; ?>;">
+
+                            <div class="schedule-grid">
+                                <?php foreach ($weekDays as $dayNum => $dayName): ?>
+                                    <div class="day-column">
+                                        <div class="day-header"><?php echo $dayName; ?></div>
+                                        <div class="day-body">
+
+                                            <?php if (!empty($planData[$g][$dayNum])): ?>
+                                                <?php foreach ($planData[$g][$dayNum] as $lesson): ?>
+                                                    <div class="lesson-card">
+                                                        <div class="l-row">
+                                                            <input type="time"
+                                                                   name="schedule[<?php echo $lesson['id']; ?>][start_time]"
+                                                                   value="<?php echo substr($lesson['start_time'], 0, 5); ?>"
+                                                                   title="Start">
+                                                            <span>-</span>
+                                                            <input type="time"
+                                                                   name="schedule[<?php echo $lesson['id']; ?>][end_time]"
+                                                                   value="<?php echo substr($lesson['end_time'], 0, 5); ?>"
+                                                                   title="Koniec">
+                                                        </div>
+                                                        <div class="l-row">
+                                                            <select name="schedule[<?php echo $lesson['id']; ?>][lekcjaID]">
+                                                                <?php foreach ($availableLessons as $id => $name): ?>
+                                                                    <option value="<?php echo $id; ?>" <?php if ($id == $lesson['lekcjaID']) echo 'selected'; ?>>
+                                                                        <?php echo $name; ?>
+                                                                    </option>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="l-row delete-check">
+                                                            <label>
+                                                                <input type="checkbox"
+                                                                       name="schedule[<?php echo $lesson['id']; ?>][delete]"
+                                                                       value="1">
+                                                                Usuń
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
+
+                                            <div class="lesson-card new-lesson">
+                                                <div class="l-title">+ Dodaj lekcję:</div>
+                                                <div class="l-row">
+                                                    <input type="time"
+                                                           name="new_schedule[<?php echo $g; ?>][<?php echo $dayNum; ?>][start]">
+                                                    <span>-</span>
+                                                    <input type="time"
+                                                           name="new_schedule[<?php echo $g; ?>][<?php echo $dayNum; ?>][end]">
+                                                </div>
+                                                <div class="l-row">
+                                                    <select name="new_schedule[<?php echo $g; ?>][<?php echo $dayNum; ?>][lekcjaID]">
+                                                        <option value="" selected disabled>- Przedmiot -</option>
+                                                        <?php foreach ($availableLessons as $id => $name): ?>
+                                                            <option value="<?php echo $id; ?>"><?php echo $name; ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    <?php endfor; ?>
+
+                    <div class="save-bar">
+                        <button type="submit" class="btn-save-big">Zapisz zmiany w planie</button>
+                    </div>
+                </form>
             </div>
 
         </div>
