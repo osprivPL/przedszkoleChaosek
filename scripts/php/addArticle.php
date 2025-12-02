@@ -69,7 +69,6 @@ if (move_uploaded_file($_FILES["articleImg"]["tmp_name"], $targetFile)) {
     $connection = new mysqli("localhost", "root", "", "przedszkole");
 
     if ($connection->connect_errno == 0 ) {
-        // Zabezpieczenie danych przed SQL Injection
         $title = $connection->real_escape_string($_POST['articleTitle']);
         $content = $connection->real_escape_string($_POST['articleContent']);
         $date = $connection->real_escape_string($_POST['articleData']);
@@ -79,19 +78,17 @@ if (move_uploaded_file($_FILES["articleImg"]["tmp_name"], $targetFile)) {
         $sql = "INSERT INTO artykuly (naglowek, tresc, data, img) VALUES ('$title', '$content', '$date', '".'./assets/articles/'.$imgNameDB."')";
 
         if($connection->query($sql)){
-            $_SESSION['sukces'] = "<span style='color:green'>Dodano artykuł: $title</span>";
-            // header("Location: ./../../dashboard.php");
-            echo "Sukces! Dodano plik: " . $newFileName;
+            $_SESSION['powodzenie'] = "Dodano artykuł!";
         } else {
-            $_SESSION['blad'] = "<span style='color:red'>Błąd bazy: " . $connection->error . "</span>";
+            $_SESSION['powodzenie'] = "Wystąpił błąd, spróbuj ponownie później.";
         }
 
         $connection->close();
     } else {
-        $_SESSION['blad'] = "<span style='color:red'>Błąd połączenia z bazą.</span>";
+        $_SESSION['powodzenie'] = "Wystąpił błąd, spróbuj ponownie później.";
     }
 
 } else {
-    $_SESSION['blad'] = "<span style='color:red'>Nie udało się zapisać pliku na serwerze.</span>";
-    echo "Błąd zapisu w: " . $targetFile;
+    $_SESSION['powodzenie'] = "Wystąpił błąd, spróbuj ponownie później.";
 }
+header("Location: ./../../electronicDiary/principle.php");
