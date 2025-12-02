@@ -380,11 +380,9 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                     $sql = "SELECT DISTINCT kiedy FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1)ORDER BY kiedy;";
                     $result = $connection->query($sql)->fetch_all();
                     for ($i = 0; $i < count($result); $i++) {
-                        echo "<span class='table_cell'>" . weekDayFromDate($result[$i][0]) . "</span>";
+                        echo "<span class='table_cell nzw'>" . weekDayFromDate($result[$i][0]) . "</span>";
                     }
                     ?>
-                </div>
-                <div class="cafeteria-table">
                     <span class="nzw">II Śniadanie</span>
                     <?php
                     $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 0 ORDER BY kiedy;";
@@ -393,8 +391,6 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                         echo "<span class='table_cell'>" . $result[$i][0] . "</span>";
                     }
                     ?>
-                </div>
-                <div class="cafeteria-table">
                     <span class="nzw">Obiad</span>
                     <?php
                     $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 1 ORDER BY kiedy;";
@@ -403,8 +399,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                         echo "<span class='table_cell'>" . $result[$i][0] . "</span>";
                     }
                     ?>
-                </div>
-                <div class="cafeteria-table">
+
                     <span class="nzw">Podwieczorek</span>
                     <?php
                     $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 2 ORDER BY kiedy;";
