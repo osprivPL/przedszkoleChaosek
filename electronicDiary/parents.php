@@ -219,6 +219,9 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                         echo '<div id="homework' . $result[$i][3] . '" class="homework-item" onclick="ukryjZadanie(' . $result[$i][3] . ')">';
                         echo '<h3>' . $result[$i][0] . "</h3><div><span>" . $result[$i][2] . "</span><br>";
                         echo '<span>Grupa ' . $result[$i][1] . "</span></div>";
+                        echo '<div class="homework-pop-up">
+                                <span>Oznacz jako zrobione</span>
+                              </div>';
                         echo '</div>';
                     }
                     ?>
