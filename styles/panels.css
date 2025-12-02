@@ -123,8 +123,9 @@ nav {
 
     font-size: 28px;
     color: #ececec;
-    background: var(--green-darker);
+    background-image: url("./../assets/tlo_panels_nav.png");
     min-height: 96vh;
+    background-size: 100% 100%;
 }
 
 nav img {
@@ -191,7 +192,7 @@ main {
 }
 
 .main-panel {
-    background-image: url("./../assets/main_panel_bg.png");
+    background-image: url("./../assets/tlo_dziennik.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     overflow-x: hidden;
