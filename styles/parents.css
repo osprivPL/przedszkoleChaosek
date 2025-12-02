@@ -20,6 +20,10 @@
 
     border: hidden;
     background: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 100vh;
 }
 
 .main-cell {
@@ -97,6 +101,7 @@
     align-items: center;
     transition: .2s;
     position: relative;
+    font-size: 20px;
 }
 .homework-item > *:nth-child(1){
     width: 70%;
@@ -176,6 +181,18 @@
     border-radius: 10px;
     border: 3px solid white;
     box-sizing: border-box;
+}
+.meals-container > div{
+    display: flex;
+    flex-direction: column;
+    font-family: 'sour gummy', sans-serif;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+.meals-container > div > span:nth-child(2){
+    font-size: 24px;
 }
 .main-child>.styling-panel{
     display: flex;
