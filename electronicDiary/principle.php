@@ -126,10 +126,30 @@ for ($i = 0; $i < 5; $i++) {
             <img src="./../assets/main_page.png" alt="">
             <span>Zarządzaj artykułami</span>
         </div>
-        <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
-        $conteiner++; ?>)">
+        <div class="nav_child" onclick="showChildren(4)">
             <img src="./../assets/main_page.png" alt="">
             <span>Zarządzanie grupami</span>
+            <span class="nav_arrow">▽</span>
+        </div>
+        <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
+            <img src="./../assets/main_page.png" alt="">
+            <span>Grupa 1</span>
+        </div>
+        <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
+            <img src="./../assets/main_page.png" alt="">
+            <span>Grupa 2</span>
+        </div>
+        <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
+            <img src="./../assets/main_page.png" alt="">
+            <span>Grupa 3</span>
+        </div>
+        <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
+            <img src="./../assets/main_page.png" alt="">
+            <span>Grupa 4</span>
         </div>
         <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
@@ -238,9 +258,171 @@ for ($i = 0; $i < 5; $i++) {
                 </script>
             </div>
         </div>
+
         <div class="main-panel bigContainers">
             <div class="styling-panel">
-                <h1><span>grupy</span></h1>
+                <h1><span>Grupa 1</span></h1>
+                <div class="groupInfo">
+                    <h2>Informacje o grupie:</h2>
+                    <?php
+                    $sql = "SELECT grupy.nazwa, uzytkownicy.imie, uzytkownicy.nazwisko FROM grupy JOIN uzytkownicy ON grupy.Wychowawca = uzytkownicy.ID WHERE grupy.id = 1";
+                    $result = $connection->query($sql)->fetch_assoc();
+                    echo "<p>Nazwa grupy: " . $result['nazwa'] . "</p>";
+                    echo "<p>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</p>";
+                    ?>
+                </div>
+                <div class="groupMembers">
+                    <h2>Lista dzieci w grupie:</h2>
+                    <table>
+                        <tr>
+                            <th>Imię</th>
+                            <th>Nazwisko</th>
+                            <th>PESEL</th>
+                            <th>Adres</th>
+                            <th>Rodzic</th>
+                            <th></th>
+                        </tr>
+                        <?php
+                        $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 1 ORDER BY dzieci.nazwisko;";
+                        $result = $connection->query($sql)->fetch_all();
+                        for ($i = 0; $i < count($result); $i++) {
+                            echo "<tr>";
+                            echo "<td>" . $result[$i][0] . "</td>";
+                            echo "<td>" . $result[$i][1] . "</td>";
+                            echo "<td>" . $result[$i][2] . "</td>";
+                            echo "<td>" . $result[$i][3] . "</td>";
+                            echo "<td>" . $result[$i][4] . " " . $result[$i][5] . "</td>";
+                            echo "<td><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][2] . "\")'>Usuń dziecko</button></td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="main-panel bigContainers">
+            <div class="styling-panel">
+                <h1><span>Grupa 2</span></h1>
+                <div class="groupInfo">
+                    <h2>Informacje o grupie:</h2>
+                    <?php
+                    $sql = "SELECT grupy.nazwa, uzytkownicy.imie, uzytkownicy.nazwisko FROM grupy JOIN uzytkownicy ON grupy.Wychowawca = uzytkownicy.ID WHERE grupy.id = 2";
+                    $result = $connection->query($sql)->fetch_assoc();
+                    echo "<p>Nazwa grupy: " . $result['nazwa'] . "</p>";
+                    echo "<p>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</p>";
+                    ?>
+                </div>
+                <div class="groupMembers">
+                    <h2>Lista dzieci w grupie:</h2>
+                    <table>
+                        <tr>
+                            <th>Imię</th>
+                            <th>Nazwisko</th>
+                            <th>PESEL</th>
+                            <th>Adres</th>
+                            <th>Rodzic</th>
+                            <th></th>
+                        </tr>
+                        <?php
+                        $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 2 ORDER BY dzieci.nazwisko;";
+                        $result = $connection->query($sql)->fetch_all();
+                        for ($i = 0; $i < count($result); $i++) {
+                            echo "<tr>";
+                            echo "<td>" . $result[$i][0] . "</td>";
+                            echo "<td>" . $result[$i][1] . "</td>";
+                            echo "<td>" . $result[$i][2] . "</td>";
+                            echo "<td>" . $result[$i][3] . "</td>";
+                            echo "<td>" . $result[$i][4] . " " . $result[$i][5] . "</td>";
+                            echo "<td><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][2] . "\")'>Usuń dziecko</button></td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="main-panel bigContainers">
+            <div class="styling-panel">
+                <h1><span>Grupa 3</span></h1>
+
+                <div class="groupInfo">
+                    <h2>Informacje o grupie:</h2>
+                    <?php
+                    $sql = "SELECT grupy.nazwa, uzytkownicy.imie, uzytkownicy.nazwisko FROM grupy JOIN uzytkownicy ON grupy.Wychowawca = uzytkownicy.ID WHERE grupy.id = 3";
+                    $result = $connection->query($sql)->fetch_assoc();
+                    echo "<p>Nazwa grupy: " . $result['nazwa'] . "</p>";
+                    echo "<p>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</p>";
+                    ?>
+                </div>
+                <div class="groupMembers">
+                    <h2>Lista dzieci w grupie:</h2>
+                    <table>
+                        <tr>
+                            <th>Imię</th>
+                            <th>Nazwisko</th>
+                            <th>PESEL</th>
+                            <th>Adres</th>
+                            <th>Rodzic</th>
+                            <th></th>
+                        </tr>
+                        <?php
+                        $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 3 ORDER BY dzieci.nazwisko;";
+                        $result = $connection->query($sql)->fetch_all();
+                        for ($i = 0; $i < count($result); $i++) {
+                            echo "<tr>";
+                            echo "<td>" . $result[$i][0] . "</td>";
+                            echo "<td>" . $result[$i][1] . "</td>";
+                            echo "<td>" . $result[$i][2] . "</td>";
+                            echo "<td>" . $result[$i][3] . "</td>";
+                            echo "<td>" . $result[$i][4] . " " . $result[$i][5] . "</td>";
+                            echo "<td><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][2] . "\")'>Usuń dziecko</button></td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="main-panel bigContainers">
+            <div class="styling-panel">
+                <h1>Grupa 4</h1>
+                <div class="groupInfo">
+                    <h2>Informacje o grupie:</h2>
+                    <?php
+                    $sql = "SELECT grupy.nazwa, uzytkownicy.imie, uzytkownicy.nazwisko FROM grupy JOIN uzytkownicy ON grupy.Wychowawca = uzytkownicy.ID WHERE grupy.id = 4";
+                    $result = $connection->query($sql)->fetch_assoc();
+                    echo "<p>Nazwa grupy: " . $result['nazwa'] . "</p>";
+                    echo "<p>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</p>";
+                    ?>
+                </div>
+                <div class="groupMembers">
+                    <h2>Lista dzieci w grupie:</h2>
+                    <table>
+                        <tr>
+                            <th>Imię</th>
+                            <th>Nazwisko</th>
+                            <th>PESEL</th>
+                            <th>Adres</th>
+                            <th>Rodzic</th>
+                            <th></th>
+                        </tr>
+                        <?php
+                        $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 4 ORDER BY dzieci.nazwisko;";
+                        $result = $connection->query($sql)->fetch_all();
+                        for ($i = 0; $i < count($result); $i++) {
+                            echo "<tr>";
+                            echo "<td>" . $result[$i][0] . "</td>";
+                            echo "<td>" . $result[$i][1] . "</td>";
+                            echo "<td>" . $result[$i][2] . "</td>";
+                            echo "<td>" . $result[$i][3] . "</td>";
+                            echo "<td>" . $result[$i][4] . " " . $result[$i][5] . "</td>";
+                            echo "<td><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][2] . "\")'>Usuń dziecko</button></td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </table>
+                </div>
+
             </div>
         </div>
 
