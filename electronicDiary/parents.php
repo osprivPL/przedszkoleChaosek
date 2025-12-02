@@ -340,13 +340,15 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                         <?php
                         $sql = "SELECT opis FROM jadlospis WHERE kiedy = CURDATE() ORDER BY typ;";
                         $result = $connection->query($sql)->fetch_all();
+                        echo "<div class='meals-container'>";
                         if (count($result) == 0) {
                             echo "Dzień wolny od przedszkola";
                         } else {
-                            echo "II śniadanie: " . $result[0][0] . "<br>";
-                            echo "Obiad: " . $result[1][0] . "<br>";
-                            echo "Podwieczorek: " . $result[2][0] . "<br>";
+                            echo "<div><span>II śniadanie:</span><span> " . substr($result[0][0],0,50) . "</span></div>";
+                            echo "<div><span>Obiad:</span><span> " . substr($result[1][0],0,50) . "</span></div>";
+                            echo "<div><span>Podwieczorek:</span><span> " . substr($result[2][0],0,50) . "</span></div>";
                         }
+                        echo "</div>";
                         //                            printArr($result);
                         ?>
                     </div>
