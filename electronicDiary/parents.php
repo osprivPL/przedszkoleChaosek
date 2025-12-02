@@ -113,10 +113,6 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             let php = <?php echo json_encode($json); ?>;
 
             showDzieci(php);
-            <?php
-            //            przez to po usunięciu main-child1 nie działało NIC
-            //            $conteiner = $conteiner + count($json) - 1;
-            ?>
         </script>
 
         <div class="nav_child" id="nav_child_szkola" onclick="showChildren(1)">

@@ -30,16 +30,24 @@ function createDiv(arr) {
     div.classList.add('childCard')
     div.classList.add('styling-panel');
 
+
+
+    let img = document.createElement('img');
+    img.src = "./../assets/childrenImages/" + arr[5];
+    div.appendChild(img);
+
     let name = document.createElement('h3');
     name.innerText = arr[0] + " " + arr[1];
     div.appendChild(name);
 
-    let details = document.createElement('p');
-    details.innerHTML = "Data urodzenia: " + dateFromPesel(arr[2]) + "<br>" + "Grupa: " + arr[4] + "<br>";
-    div.appendChild(details);
-    let img = document.createElement('img');
-    img.src = "./../assets/childrenImages/" + arr[5];
-    div.appendChild(img);
+    let BdayDate = document.createElement('span');
+    BdayDate.innerHTML = "Data urodzenia: " + dateFromPesel(arr[2]);
+    div.appendChild(BdayDate);
+
+    let GroupNum = document.createElement('span');
+    GroupNum.innerHTML = "Grupa: " + arr[4];
+    div.appendChild(GroupNum);
+
     div.style.display = "none";
     container.appendChild(div);
 
@@ -82,7 +90,7 @@ function showDzieci(json){
                 allDivs[j].style.display="none";
             }
             nDiv.style.display='flex';
-            nDiv.querySelector('.styling-panel').style.display='block'; // Show inner div
+            nDiv.querySelector('.styling-panel').style.display='flex'; // Show inner div
         }
     }
 }
