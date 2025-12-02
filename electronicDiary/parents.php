@@ -168,7 +168,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                     $result = $connection->query($sql)->fetch_all();
                     $groups = array();
                     for ($i = 0; $i < count($result); $i++) {
-                        echo '<button class="plan-lekcji-buttons" onclick="showPlan(' . $result[$i][0] . ')">Grupa ' . $result[$i][0] . '</button> ';
+                        echo '<button class="plan-lekcji-buttons '; if($i==0){echo "activeButton";} echo '" onclick="showPlan(' . $result[$i][0] . ')">Grupa ' . $result[$i][0] . '</button> ';
                         $groups[] = $result[$i][0];
                     }
                     ?>
@@ -292,6 +292,14 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                     }
                     echo "</span></h1>";
 
+                    if(count($result) > 1){
+                        echo "<div class='buttonContainer'>";
+                        for ($i = 1; $i < count($result)+1; $i++) {
+                            echo "<button class='wychowawca-buttons ";if($i==1){echo "activeButton";} echo "' onclick='showWychowawca(".$i.")'>Grupa ".$i."</button>";
+                        }
+                        echo "</div>";
+                    }
+
                     $sqlWychowawcy = "SELECT Wychowawca FROM grupy " . $condition;
                     $result = $connection->query($sqlWychowawcy)->fetch_all();
 
@@ -304,14 +312,21 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                         $condition = strval($condition . 'id = ' . $result[$i][0] . ' OR ');
                     }
 
-                    //                        echo $condition;
+                    //                echo $condition;
                     $sqlSupervisor = "SELECT imie, nazwisko FROM uzytkownicy " . $condition;
                     $result = $connection->query($sqlSupervisor)->fetch_all();
                     for ($i = 0; $i < count($result); $i++) {
-                        $output[$i] .= $result[$i][0] . " " . $result[$i][1];
-                    }
-                    for ($i = 0; $i < count($result); $i++) {
-                        echo "<p>" . $output[$i] . "</p>";
+                        echo "<div class='wychowawca-container' style='display:"; if($i==0){echo "flex";}else{echo "none";} echo "'>";
+                            echo "<div>";
+                                echo "<div class='wychowawca-name'>"
+                                        . $result[$i][0] .' ' . $result[$i][1];
+                                echo "</div>";
+                                echo "<div class='wychowawca-about'>";
+                                    echo "Bardzo miły wychowawca!";
+                                echo "</div>";
+                            echo "</div>";
+                            echo "<div class='wychowawca-img-container'></div>";
+                        echo "</div>";
                     }
                     ?>
                 </div>

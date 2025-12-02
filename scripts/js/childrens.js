@@ -113,11 +113,25 @@ function showPlan(n){
     for (let i = 0; i < plany.length; i++){
         if (i===n-1){
             plany[i].style.display="block";
-            buttons[i].classList.add('activePlanButton');
+            buttons[i].classList.add('activeButton');
             continue;
         }
 
-        buttons[i].classList.remove('activePlanButton');
+        buttons[i].classList.remove('activeButton');
         plany[i].style.display="none";
+    }
+}
+
+function showWychowawca(n){
+    let wychowawcy = document.getElementsByClassName("wychowawca-container");
+    let buttons = document.getElementsByClassName("wychowawca-buttons");
+    for (let i = 0; i < wychowawcy.length; i++){
+        if (i===n-1){
+            wychowawcy[i].style.display="flex";
+            buttons[i].classList.add('activeButton');
+            continue;
+        }
+        wychowawcy[i].style.display="none";
+        buttons[i].classList.remove('activeButton');
     }
 }

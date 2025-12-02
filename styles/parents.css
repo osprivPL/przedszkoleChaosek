@@ -52,11 +52,11 @@
 .main-cell-plan{
     font-family: 'sour gummy', sans-serif;
 }
-.main-cell-plan .buttonContainer{
+.buttonContainer{
     display: flex;
     margin-bottom: -5px;
 }
-.main-cell-plan .buttonContainer button{
+.buttonContainer button{
     flex-grow: 1;
     padding: 10px;
     font-size: 20px;
@@ -67,10 +67,10 @@
     cursor: pointer;
     font-family: 'sour gummy', sans-serif;
 }
-.main-cell-plan .buttonContainer button:hover{
+.buttonContainer button:hover{
     background: var(--green-dark);
 }
-.main-cell-plan .buttonContainer button.activePlanButton{
+.buttonContainer button.activeButton{
     background: var(--green-vibrant);
     cursor: default;
 }
@@ -83,6 +83,7 @@
 }
 .lesson-item span:nth-child(even){
     font-size: 28px;
+    font-weight: bold;
 }
 .main-cell-homework{
     font-family: 'sour gummy', sans-serif;
@@ -90,8 +91,8 @@
 .homework-item{
     background: rgba(255, 255, 255, 0.15);
     border-radius: 10px;
-    margin-bottom: 10px;
     padding: 10px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
     transition: .2s;
@@ -148,7 +149,34 @@
 .news-content{
     font-size: 24px;
 }
-
+.wychowawca-container{
+    display: flex;
+    font-family: 'sour gummy', sans-serif;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    padding: 10px;
+}
+.wychowawca-container > div:first-child{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.wychowawca-name{
+    font-size: 28px;
+    font-weight: bold;
+}
+.wychowawca-img-container{
+    background-image: url('../assets/user.svg');
+    flex-grow: 1;
+    max-width: 7vw;
+    min-width: 7vw;
+    margin: 10px;
+    height: 18vh;
+    background-size: 100% 100%;
+    border-radius: 10px;
+    border: 3px solid white;
+    box-sizing: border-box;
+}
 .main-child>.styling-panel{
     display: flex;
     justify-content: space-evenly;
