@@ -313,14 +313,6 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                     ?>
                 </div>
 
-                <!-- CELL DZIECI -->
-                <div class="main-cell main-cell-dzieci">
-                    <h1 class='logo-font-small'>
-                        <span>Dzieci</span>
-                    </h1><br>
-                    <?php
-                    printArr($json);
-                    ?></div>
                 <!-- CELL JADŁOSPIS -->
                 <div class="main-cell main-cell-jadlospis">
                     <h1 class='logo-font-small'>
