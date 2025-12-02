@@ -27,27 +27,31 @@ function createDiv(arr) {
     let div = document.createElement('div');
     // console.log(arr);
     div.id = arr[2];
-    div.classList.add('childCard')
+    div.classList.add('childCard');
     div.classList.add('styling-panel');
 
+    let divInfo = document.createElement('div');
+    divInfo.classList.add('child-info');
 
 
     let img = document.createElement('img');
     img.src = "./../assets/childrenImages/" + arr[5];
     div.appendChild(img);
 
+
     let name = document.createElement('h3');
     name.innerText = arr[0] + " " + arr[1];
-    div.appendChild(name);
+    divInfo.appendChild(name);
 
     let BdayDate = document.createElement('span');
     BdayDate.innerHTML = "Data urodzenia: " + dateFromPesel(arr[2]);
-    div.appendChild(BdayDate);
+    divInfo.appendChild(BdayDate);
 
     let GroupNum = document.createElement('span');
     GroupNum.innerHTML = "Grupa: " + arr[4];
-    div.appendChild(GroupNum);
+    divInfo.appendChild(GroupNum);
 
+    div.appendChild(divInfo);
     div.style.display = "none";
     container.appendChild(div);
 
