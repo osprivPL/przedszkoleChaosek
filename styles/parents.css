@@ -32,6 +32,7 @@
     border: var(--border1);
     border-radius: 30px;
     position: relative;
+    box-sizing: border-box;
 }
 
 .main-cell *{
@@ -49,31 +50,42 @@
 }
 
 .main-cell-plan{
-    height: 75vh;
+    font-family: 'sour gummy', sans-serif;
+    padding: 20px;
 }
 .main-cell-plan .buttonContainer{
     display: flex;
+    margin-bottom: -5px;
 }
 .main-cell-plan .buttonContainer button{
     flex-grow: 1;
     padding: 10px;
-    font-size: 18px;
+    font-size: 20px;
     border: 3px solid rgba(0, 0, 0, 0.272);
     border-bottom: 3px solid rgba(255, 255, 255, 0.25);
     background: var(--green-darker);
     color: white;
     cursor: pointer;
+    font-family: 'sour gummy', sans-serif;
 }
 .main-cell-plan .buttonContainer button:hover{
     background: var(--green-dark);
-}
-.main-cell-plan .buttonContainer button:active{
-    background: var(--green-vibrant);
 }
 .main-cell-plan .buttonContainer button.activePlanButton{
     background: var(--green-vibrant);
     cursor: default;
 }
+.lesson-item{
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+.lesson-item span:nth-child(even){
+    font-size: 28px;
+}
+
 .main-child>.styling-panel{
     display: flex;
     justify-content: space-evenly;

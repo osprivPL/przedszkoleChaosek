@@ -51,6 +51,8 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
 
     <!-- ikonka -->
     <link rel="icon" type="image/x-icon" href="./../assets/logo_tornado.svg">
@@ -166,7 +168,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                     $result = $connection->query($sql)->fetch_all();
                     $groups = array();
                     for ($i = 0; $i < count($result); $i++) {
-                        echo '<button class="plan-lekcji-buttons" onclick="showPlan(' . $result[$i][0] . ')">Gr. ' . $result[$i][0] . '</button> ';
+                        echo '<button class="plan-lekcji-buttons" onclick="showPlan(' . $result[$i][0] . ')">Grupa ' . $result[$i][0] . '</button> ';
                         $groups[] = $result[$i][0];
                     }
                     ?>
