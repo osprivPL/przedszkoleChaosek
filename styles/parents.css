@@ -29,7 +29,7 @@
     color: white;
     background: var(--green-vibrant);
     background: linear-gradient(to left bottom, rgba(50, 143, 59, 0.5), rgba(50, 143, 59, 0.7));
-    border: outset 3px black;
+    border: var(--border1);
     border-radius: 30px;
     position: relative;
 }
@@ -52,9 +52,16 @@
     height: 75vh;
 }
 
-.main-child{
-
+.main-child>.styling-panel{
+    display: flex;
 }
+.main-child img{
+    height: 80%;
+    width: auto;
+    border: var(--border1);
+    border-radius: 30px;
+}
+
 
 
 #main-cafeteria .styling-panel{
