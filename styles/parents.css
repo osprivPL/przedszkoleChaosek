@@ -101,11 +101,32 @@
     align-self: center;
     font-size: 48px;
 }
-
 .info-opinia{
     flex: 1;
     align-self: stretch;
     margin-bottom: 0;
+}
+
+#main-teachers>.styling-panel{
+    border: hidden;
+    background: none;
+    gap: 10px;
+}
+.teacherCards{
+    height: fit-content;
+    padding: 10px;
+    font-size: 32px;
+
+    background: var(--green-vibrant);
+    background: linear-gradient(to left bottom, rgba(50, 143, 59, 0.5), rgba(50, 143, 59, 0.7));
+    border: var(--border1);
+    border-radius: 30px;
+}
+.teacherCards h3{
+    text-align: center;
+    font-size: 48px;
+    border: var(--border1);
+    border-radius: 30px;
 }
 
 #main-cafeteria .styling-panel{

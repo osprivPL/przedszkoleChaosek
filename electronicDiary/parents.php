@@ -352,17 +352,18 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                 $result = $connection->query($sql)->fetch_all();
                 //                    print_r($result);
                 for ($i = 0; $i < count($result); $i++) {
-                    echo '<div>';
-                    echo '<h3>' . $result[$i][0] . " " . $result[$i][1] . '</h3>';
-                    echo '<p>Email: ' . $result[$i][2] . "</p>";
-                    $typ = "";
-
+                    echo '<div class="teacherCards">';
                     if ($result[$i][3] == 1) {
                         $typ = "Nauczyciel";
                     } else if ($result[$i][3] == 2) {
                         $typ = "Dyrektor";
                     }
-                    echo '<p>' . $typ . '</p>';
+                    echo '<h3>' . $typ . '</h3>';
+                    echo '<p>' . $result[$i][0] . " " . $result[$i][1] . '</p>';
+                    echo '<p>Email: ' . $result[$i][2] . "</p>";
+                    $typ = "";
+
+
 
                     echo '</div>';
                 }
