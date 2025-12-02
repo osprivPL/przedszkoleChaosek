@@ -15,8 +15,6 @@ if (isset($_SESSION['user'])) {
     die();
 }
 
-//session_destroy();
-
 if (!isset($_SESSION['logged'])) {
     $_SESSION['logged'] = false;
 }
@@ -29,9 +27,37 @@ if ($user->typ != 2 || !$_SESSION['logged']) {
 }
 
 $conteiner = 1;
-
 $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['meals'])) {
+    $stmt = $connection->prepare("INSERT INTO jadlospis (kiedy, typ, opis) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE opis = VALUES(opis)");
+
+    foreach ($_POST['meals'] as $date => $types) {
+        foreach ($types as $type => $desc) {
+            $desc = trim($desc);
+            $stmt->bind_param("sis", $date, $type, $desc);
+            $stmt->execute();
+        }
+    }
+
+    header("Location: " . $_SERVER['REQUEST_URI']);
+    exit;
+}
+
+$sqlMenu = "SELECT * FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1)";
+$resultMenu = $connection->query($sqlMenu)->fetch_all(MYSQLI_ASSOC);
+
+$menu = [];
+foreach ($resultMenu as $row) {
+    $menu[$row['kiedy']][$row['typ']] = $row['opis'];
+}
+
+$startWeek = new DateTime('monday this week');
+$weekDates = [];
+for ($i = 0; $i < 5; $i++) {
+    $weekDates[] = $startWeek->format('Y-m-d');
+    $startWeek->modify('+1 day');
+}
 ?>
 <html lang="pl">
 <head>
@@ -41,22 +67,21 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="author" content="Michał Ożdżyński Stanisław Odrowski Piotr Peryt">
 
-    <!-- style -->
     <link rel="stylesheet" href="./../styles/style.css">
     <link rel="stylesheet" href="./../styles/panels.css">
     <link rel="stylesheet" href="./../styles/principle.css">
 
-    <!-- czcionka -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
-    <!-- ikonka -->
     <link rel="icon" type="image/x-icon" href="./../assets/logo_tornado.svg">
 
     <title>Przedszkole Chaosek - Panel dyrektora</title>
     <script src="./../scripts/js/panels.js"></script>
     <script src="./../scripts/js/showUserPanel.js"></script>
+    <script src="./../scripts/js/principle.js"></script>
+    <script src="./../scripts/js/principle.js"></script>
 </head>
 <body>
 <header>
@@ -67,7 +92,6 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <img src="./../assets/logo_tornado.svg" alt="logo">
         <span class='logo-font-small'>Przedszkole Chaosek</span>
     </a>
-    <!--Tymon zrobił by to lepiej-->
     <div class="header-ui">
         <a href="./inbox.php"><img id="mail" src="./../assets/mail.png" alt="mail"></a>
         <div onclick="userPanel(1)" class="user">
@@ -82,9 +106,6 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 </header>
 
 <div class="layout">
-    <!-- ============================= -->
-    <!-- NAVIGATION -->
-    <!-- ============================= -->
     <nav id="nav">
         <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
@@ -131,8 +152,6 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             <img src="./../assets/main_page.png" alt="">
             <span>Zarządzaj artykułami</span>
         </div>
-
-
         <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
             <img src="./../assets/main_page.png" alt="">
@@ -140,9 +159,6 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         </div>
     </nav>
 
-    <!-- ============================= -->
-    <!-- MAIN -->
-    <!-- ============================= -->
     <main id="main">
         <div class="main-cell main-cell-news bigContainers">
             <h1 class='logo-font-small witaj'>
@@ -180,19 +196,19 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             <div class="styling-panel articlesManagement">
                 <h1><span>Zarzadządzanie artykułami</span></h1>
                 <?php
-                    $sql = "SELECT naglowek, tresc, data, img, id FROM artykuly ORDER BY data DESC";
-                    $result = $connection->query($sql)->fetch_all();
-                    for ($i = 0; $i < count($result); $i++) {
-                        echo "<div class='articleDetails' id='article".$result[$i][4]."'>";
-                        echo "<h2>" . $result[$i][0] . "</h2>";
-                        echo "<p>" . $result[$i][1] . "</p>";
-                        echo "<p>Data: " . $result[$i][2] . "</p>";
-                        if (!empty($result[$i][3])) {
-                            echo "<img src='" . './.'. $result[$i][3] . "' alt='Article Image' style='max-width:200px;'><br>";
-                        }
-                        echo "<button class='delete_article' onclick='ukryjArtykul(".$result[$i][4].")'>Usuń artykuł</button>";
-                        echo "<hr></div>";
+                $sql = "SELECT naglowek, tresc, data, img, id FROM artykuly ORDER BY data DESC";
+                $result = $connection->query($sql)->fetch_all();
+                for ($i = 0; $i < count($result); $i++) {
+                    echo "<div class='articleDetails' id='article" . $result[$i][4] . "'>";
+                    echo "<h2>" . $result[$i][0] . "</h2>";
+                    echo "<p>" . $result[$i][1] . "</p>";
+                    echo "<p>Data: " . $result[$i][2] . "</p>";
+                    if (!empty($result[$i][3])) {
+                        echo "<img src='" . './.' . $result[$i][3] . "' alt='Article Image' style='max-width:200px;'><br>";
                     }
+                    echo "<button class='delete_article' onclick='ukryjArtykul(" . $result[$i][4] . ")'>Usuń artykuł</button>";
+                    echo "<hr></div>";
+                }
                 ?>
                 <script>
                     function ukryjArtykul(idRekordu) {
@@ -228,16 +244,71 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                 <h1><span>grupy</span></h1>
             </div>
         </div>
+
         <div class="main-panel bigContainers">
-            <div class="styling-panel">
-                <h1><span>jadlospis</span></h1>
+            <div class="styling-panel jadlospisManagement">
+                <h1 class="logo-font-small"><span>jadlospis</span></h1>
+
+                <form method="POST">
+
+                    <div class="cafeteria-table">
+                        <span class="nzw">Data</span>
+                        <?php
+                        foreach ($weekDates as $date) {
+                            echo '<span class="table_cell">';
+                            echo weekDayFromDate($date) . '<br>';
+//                            echo '<span>' . date('d.m', strtotime($date)) . '</span>';
+                            echo '</span>';
+                        }
+                        ?>
+                    </div>
+
+                    <div class="cafeteria-table">
+                        <span class="nzw">II Śniadanie</span>
+                        <?php
+                        foreach ($weekDates as $date) {
+                            $opis = $menu[$date][0] ?? '';
+                            echo '<span class="table_cell">';
+                            echo '<textarea class="meal-textarea" name="meals[' . $date . '][0]" placeholder="+ Dodaj">' . htmlspecialchars($opis) . '</textarea>';
+                            echo '</span>';
+                        }
+                        ?>
+                    </div>
+
+                    <div class="cafeteria-table">
+                        <span class="nzw">Obiad</span>
+                        <?php
+                        foreach ($weekDates as $date) {
+                            $opis = $menu[$date][1] ?? '';
+                            echo '<span class="table_cell">';
+                            echo '<textarea class="meal-textarea" name="meals[' . $date . '][1]" placeholder="+ Dodaj">' . htmlspecialchars($opis) . '</textarea>';
+                            echo '</span>';
+                        }
+                        ?>
+                    </div>
+
+                    <div class="cafeteria-table">
+                        <span class="nzw">Podwieczorek</span>
+                        <?php
+                        foreach ($weekDates as $date) {
+                            $opis = $menu[$date][2] ?? '';
+                            echo '<span class="table_cell">';
+                            echo '<textarea class="meal-textarea" name="meals[' . $date . '][2]" placeholder="+ Dodaj">' . htmlspecialchars($opis) . '</textarea>';
+                            echo '</span>';
+                        }
+                        ?>
+                    </div>
+
+                    <button type="submit" class="btn-save-week">Zapisz tydzień</button>
+                </form>
             </div>
         </div>
         <div class="main-panel bigContainers">
             <div class="styling-panel">
                 <h1 class="logo-font-small"><span>Dodaj komunikat</span></h1>
                 <form method="post" action="./../scripts/php/addAnoucement.php">
-                    <label for="komunikatHeader">Nagłówek</label> <input type="text" id="komunikatHeader" name="komunikatHeader"><br><br>
+                    <label for="komunikatHeader">Nagłówek</label> <input type="text" id="komunikatHeader"
+                                                                         name="komunikatHeader"><br><br>
                     <label for="komunikatContent">Treść</label><br>
                     <textarea id="komunikatContent" name="komunikatContent" rows="10" cols="50"></textarea><br><br>
                     <label for="komunikatGrupa">Wybierz widoczność</label>
@@ -254,38 +325,33 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         </div>
 
         <div class="main-panel bigContainers">
-            <div class="styling-panel annoucementManagement" >
+            <div class="styling-panel annoucementManagement">
                 <h1 class="logo-font-small"><span>Zarządzaj komunikatami</span></h1>
                 <?php
-                    $sql = "SELECT tytul, tresc, data, przynaleznosc, id FROM komunikaty ORDER BY data DESC";
-                    $result = $connection->query($sql)->fetch_all();
-                    for ($i = 0; $i < count($result); $i++) {
-                        echo "<div class='articleDetails' id='komunikat".$result[$i][4]."'>";
-                        echo "<h2>" . $result[$i][0] . "</h2>";
-                        echo "<p>" . $result[$i][1] . "</p>";
-                        echo "<p>Data: " . $result[$i][2] . "</p>";
-//                        echo "<p>Przynależność: " . $result[$i][3] . "</p>";
-                        echo "<p>";
-                            echo "Wiedoczność: ";
-                            if ($result[$i][3] == 0) {
-                                echo "Wszyscy";
-                            }
-                            else if ($result[$i][3] == 1){
-                                echo "Grupa 1";
-                            }
-                            else if ($result[$i][3] == 2){
-                                echo "Grupa 2";
-                            }
-                            else if ($result[$i][3] == 3){
-                                echo "Grupa 3";
-                            }
-                            else if ($result[$i][3] == 4){
-                                echo "Grupa 4";
-                            }
-                        echo "</p>";
-                        echo "<button class='delete_article' onclick='ukryjKomunikat(".$result[$i][4].")'>Usuń komunikat</button>";
-                        echo "<hr></div>";
+                $sql = "SELECT tytul, tresc, data, przynaleznosc, id FROM komunikaty ORDER BY data DESC";
+                $result = $connection->query($sql)->fetch_all();
+                for ($i = 0; $i < count($result); $i++) {
+                    echo "<div class='articleDetails' id='komunikat" . $result[$i][4] . "'>";
+                    echo "<h2>" . $result[$i][0] . "</h2>";
+                    echo "<p>" . $result[$i][1] . "</p>";
+                    echo "<p>Data: " . $result[$i][2] . "</p>";
+                    echo "<p>";
+                    echo "Wiedoczność: ";
+                    if ($result[$i][3] == 0) {
+                        echo "Wszyscy";
+                    } else if ($result[$i][3] == 1) {
+                        echo "Grupa 1";
+                    } else if ($result[$i][3] == 2) {
+                        echo "Grupa 2";
+                    } else if ($result[$i][3] == 3) {
+                        echo "Grupa 3";
+                    } else if ($result[$i][3] == 4) {
+                        echo "Grupa 4";
                     }
+                    echo "</p>";
+                    echo "<button class='delete_article' onclick='ukryjKomunikat(" . $result[$i][4] . ")'>Usuń komunikat</button>";
+                    echo "<hr></div>";
+                }
                 ?>
                 <script>
                     function ukryjKomunikat(idRekordu) {
