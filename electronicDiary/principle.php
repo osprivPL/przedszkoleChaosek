@@ -275,7 +275,7 @@ for ($i = 0; $i < 5; $i++) {
                 }
             </script>
         </div>
-        <div class="main-panel bigContainers main-panel-add-article">
+        <div class="main-panel bigContainers main-panel-add main-panel-add-article">
             <div class="styling-panel">
                 <div class="formContainer">
                     <hr>
@@ -300,7 +300,7 @@ for ($i = 0; $i < 5; $i++) {
                                     });
                                 </script>
                             </div>
-                            <input type="submit" value="Dodaj artykuł" class='submitButton'>
+                            <div><input type="submit" value="Dodaj artykuł" class='submitButton'></div>
                         </div>
                     </form>
                 </div>
@@ -607,28 +607,35 @@ for ($i = 0; $i < 5; $i++) {
                 </form>
             </div>
         </div>
-        <div class="main-panel bigContainers main-panel-komunikaty">
+        <div class="main-panel bigContainers main-panel-add main-panel-add-komunikaty">
             <div class="styling-panel">
-                <h1 class="logo-font-small"><span>Dodaj komunikat</span></h1>
-                <form method="post" action="./../scripts/php/addAnoucement.php">
-                    <label for="komunikatHeader">Nagłówek</label> <input type="text" id="komunikatHeader"
-                                                                         name="komunikatHeader"><br><br>
-                    <label for="komunikatContent">Treść</label><br>
-                    <textarea id="komunikatContent" name="komunikatContent" rows="10" cols="50"></textarea><br><br>
-                    <label for="komunikatGrupa">Wybierz widoczność</label>
-                    <select id="komunikatGrupa" name="komunikatGrupa">
-                        <option value="0">Wszyscy</option>
-                        <option value="1">Grupa 1</option>
-                        <option value="2">Grupa 2</option>
-                        <option value="3">Grupa 3</option>
-                        <option value="4">Grupa 4</option>
-                    </select><br><br>
-                    <input type="submit" value="Dodaj komunikat">
-                </form>
+                <div class="formContainer">
+                    <hr>
+                    <h1 class="logo-font-small"><span>Dodaj komunikat</span></h1>
+                    <form method="post" action="./../scripts/php/addAnoucement.php">
+                        <div class="article_header">
+                            <input type="text" id="komunikatHeader"name="komunikatHeader">
+                        </div>
+                        <textarea id="komunikatContent" name="komunikatContent" rows="10" cols="50"></textarea><br><br>
+                        <div class="details">
+                            <div class="choose-visibility">
+                                <label for="komunikatGrupa">Wybierz widoczność</label>
+                                <select id="komunikatGrupa" name="komunikatGrupa" class='submitButton'>
+                                    <option value="0">Wszyscy</option>
+                                    <option value="1">Grupa 1</option>
+                                    <option value="2">Grupa 2</option>
+                                    <option value="3">Grupa 3</option>
+                                    <option value="4">Grupa 4</option>
+                                </select>
+                            </div>
+                            <div><input type="submit" value="Dodaj komunikat" class='submitButton'></div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
 
-        <div class="main-panel bigContainers main-panel-manage-komunikaty">
+        <div class="main-panel bigContainers main-panel-komunikaty">
             <div class="styling-panel annoucementManagement">
                 <h1 class="logo-font-small"><span>Zarządzaj komunikatami</span></h1>
                 <?php
