@@ -182,7 +182,7 @@ for ($i = 0; $i < 5; $i++) {
     </nav>
 
     <main id="main">
-        <div class="main-cell bigContainers main-cell-witaj">
+        <div class="main-cell bigContainers main-panel-witaj">
             <h1 class='logo-font-small witaj'>
                 <span>Witaj w panelu dyrekcji</span>
                 <?php
@@ -193,7 +193,7 @@ for ($i = 0; $i < 5; $i++) {
                 ?>
             </h1>
         </div>
-        <div class="main-panel bigContainers main-cell-rekrutacja">
+        <div class="main-panel bigContainers main-panel-rekrutacja">
             <div class="styling-panel">
                 <h1 class="logo-font-small"><span>rekrutacja</span></h1>
                 <?php
@@ -248,20 +248,29 @@ for ($i = 0; $i < 5; $i++) {
                 }
             </script>
         </div>
-        <div class="main-panel bigContainers">
+        <div class="main-panel bigContainers main-panel-add-article">
             <div class="styling-panel">
+                <div class="formContainer">
                 <h1 class="logo-font-small"><span>Dodaj artykul</span></h1>
                 <form method="post" action="../scripts/php/addArticle.php" enctype="multipart/form-data">
                     <label for="articleTitle">Tytuł artykułu:</label><br>
                     <input type="text" id="articleTitle" name="articleTitle" required><br><br>
-                    <label for="articleContent">Treść artykułu:</label><br>
-                    <textarea id="articleContent" name="articleContent" rows="10" cols="50" required></textarea><br><br>
-                    <label for="articleData">Data</label><input type="date" id="articleData" name="articleData"><br><br>
-                    <label for="articleImg">Zdjęcie</label>
-                    <input type="file" id="articleImg" name="articleImg" accept="image/*"><br><br>
+                    <div class="inputGroup">
+                        <label for="articleContent">Treść artykułu:</label><br>
+                        <textarea id="articleContent" name="articleContent" rows="10" cols="50" required></textarea><br><br>
+                    </div>
+                    <div class="inputGroup">
+                        <label for="articleData">Data</label>
+                        <input type="date" id="articleData" name="articleData">
+                    </div>
+                    <div class="inputGroup">
+                        <label for="articleImg">Zdjęcie</label>
+                        <input type="file" id="articleImg" name="articleImg" accept="image/*">
+                    </div>
 
-                    <input type="submit" value="Dodaj artykuł">
+                    <input type="submit" value="Dodaj artykuł" class="submitButton">
                 </form>
+                </div>
             </div>
         </div>
         <div class="main-panel bigContainers main-panel-articles">
