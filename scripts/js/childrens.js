@@ -45,10 +45,19 @@ function createDiv(arr) {
     GroupNum.innerHTML = "Grupa: " + arr[4];
     divInfo.appendChild(GroupNum);
 
-    let Opinion = document.createElement('span');
-    Opinion.innerHTML = "<h4>Opinia:</h4> " + "<br>" + " ";
-    Opinion.classList.add('info-opinia');
-    divInfo.appendChild(Opinion);
+    let Plan = document.createElement('div');
+    let planContent = 
+    Plan.innerHTML = "<h4>Plan:</h4> " + "<br>" + planContent;
+    Plan.classList.add('info-opinia');
+    divInfo.appendChild(Plan);
+
+    $sqlPlan = "SELECT lekcje.nazwa, plan_lekcji.start_time, plan_lekcji.end_time FROM plan_lekcji JOIN lekcje ON plan_lekcji.lekcjaID = lekcje.id WHERE grupaID = " . $groups[$i] .  " ORDER BY start_time;";
+    $result = $connection->query($sqlPlan)->fetch_all();
+                    $groups = array();
+                    for ($i = 0; $i < count($result); $i++) {
+                        echo '<button class="plan-lekcji-buttons '; if($i==0){echo "activeButton";} echo '" onclick="showPlan(' . $result[$i][0] . ')">Grupa ' . $result[$i][0] . '</button> ';
+                        $groups[] = $result[$i][0];
+                    }
 
     div.appendChild(divInfo);
 
