@@ -177,11 +177,11 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
                     // generowanie planow
                     for ($i = 0; $i < count($groups); $i++) {
-                        echo '<div id="plan"' . $groups[$i] . ' class="plan-container"';
-                        if ($i != 0) {
-                            echo ' style="display:none;"';
+                        echo '<div id="plan"' . $groups[$i] . ' class="plan-container ';
+                        if ($i == 0) {
+                            echo "shownPlan";
                         }
-                        echo '>';
+                        echo '">';
                         $sql = "SELECT lekcje.nazwa, plan_lekcji.start_time, plan_lekcji.end_time FROM plan_lekcji JOIN lekcje ON plan_lekcji.lekcjaID = lekcje.id WHERE grupaID = " . $groups[$i] . " AND day_of_week = " . $dzienTygodnia . " ORDER BY start_time;";
                         $result = $connection->query($sql)->fetch_all();
                         for ($j = 0; $j < count($result); $j++) {

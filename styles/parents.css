@@ -78,6 +78,12 @@
     background: var(--green-vibrant);
     cursor: default;
 }
+.plan-container{
+    display: none;
+}
+.plan-container.shownPlan{
+    display: block;
+}
 .lesson-item{
     display: flex;
     flex-direction: column;

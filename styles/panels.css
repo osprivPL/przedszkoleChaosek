@@ -127,6 +127,8 @@ nav {
     min-height: 96vh;
     background-size: 100% 100%;
     font-family: 'sour gummy', sans-serif;
+    max-height: 96vh;
+    height:  96vh;
 }
 
 nav img {
@@ -139,6 +141,11 @@ nav img {
 
 nav span {
     z-index: 9;
+}
+.nav_child div{
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
 }
 
 .nav_child {

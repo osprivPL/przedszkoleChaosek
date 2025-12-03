@@ -74,7 +74,8 @@ for ($i = 0; $i < 5; $i++) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="./../assets/logo_tornado.svg">
 
     <title>Przedszkole Chaosek - Panel dyrektora</title>
@@ -113,8 +114,10 @@ for ($i = 0; $i < 5; $i++) {
         </div>
         <div class="nav_child" onclick="showChildren(2)">
             <img src="./../assets/main_page.png" alt="">
+            <div>
             <span>Artykuły</span>
             <span class="nav_arrow">▽</span>
+            </div>
         </div>
         <div class="nav_child nav_child_child nav_child_article" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">

@@ -5,7 +5,7 @@ session_start();
 session_destroy();
 session_start();
 $_SESSION['logged'] = true;
-$_SESSION['user'] = new User(1, "Jan", "Kruk", 0, "123456789", "jKruk@gmail.com");
+$_SESSION['user'] = new User(3, "Jeremiasz", "Michorczyk", 2, "666777888", "jeremi@yahoo.com");
 //$_SESSION['imie'] = "Jan";
 //$_SESSION['nazwisko'] = "Kruk";
 //$_SESSION['typ'] = 0;
