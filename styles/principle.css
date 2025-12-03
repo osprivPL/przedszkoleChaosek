@@ -152,27 +152,27 @@
 .main-panel-add-article textarea, .main-panel-add-article .article_header input:nth-child(1){
     width: 100%;
 }
-.main-panel-add-article .details{
+.main-panel-add-article  .details{
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
-.choose-image{
+.main-panel-add-article .choose-image{
     display: flex;
     font-family: 'sour gummy', sans-serif;
     align-items: center;
     gap: 1rem;
     font-size: 32px;
 }
-.file-button{
+.main-panel-add-article .file-button{
     display: block;
     font-size: 32px;
 }
 
-.file-button:hover {
+.main-panel-add-article .file-button:hover {
     background-color: var(--green-dark);
 }
 
-.file-button:active {
+.main-panel-add-article .file-button:active {
     transform: scale(.98);
 }
