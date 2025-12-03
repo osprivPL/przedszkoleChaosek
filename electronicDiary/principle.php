@@ -551,60 +551,56 @@ for ($i = 0; $i < 5; $i++) {
 
         <div class="main-panel bigContainers main-panel-food">
             <div class="styling-panel jadlospisManagement">
-                <h1 class="logo-font-small"><span>jadlospis</span></h1>
+                <div class="formContainer">
+                    <hr>
+                    <h1 class="logo-font-small"><span>Jadlospis</span></h1>
 
-                <form method="POST">
+                    <form method="POST" class='form'>
+                        <div class="border-box">
+                            <span class="table_cell label"><span>Data<br>----------<br>Posiłek</span></span>
+                            <?php
+                            foreach ($weekDates as $date) {
+                                echo '<span class="table_cell label">';
+                                echo weekDayFromDate($date) . '<br>';
+    //                            echo '<span>' . date('d.m', strtotime($date)) . '</span>';
+                                echo '</span>';
+                            }
+                            ?>
 
-                    <div class="cafeteria-table">
-                        <span class="nzw">Data</span>
-                        <?php
-                        foreach ($weekDates as $date) {
-                            echo '<span class="table_cell">';
-                            echo weekDayFromDate($date) . '<br>';
-//                            echo '<span>' . date('d.m', strtotime($date)) . '</span>';
-                            echo '</span>';
-                        }
-                        ?>
-                    </div>
+                            <span class="table_cell label">II Śniadanie</span>
+                            <?php
+                            foreach ($weekDates as $date) {
+                                $opis = $menu[$date][0] ?? '';
+                                echo '<span class="table_cell">';
+                                echo '<textarea class="meal-textarea" name="meals[' . $date . '][0]" placeholder="+ Dodaj">' . htmlspecialchars($opis) . '</textarea>';
+                                echo '</span>';
+                            }
+                            ?>
 
-                    <div class="cafeteria-table">
-                        <span class="nzw">II Śniadanie</span>
-                        <?php
-                        foreach ($weekDates as $date) {
-                            $opis = $menu[$date][0] ?? '';
-                            echo '<span class="table_cell">';
-                            echo '<textarea class="meal-textarea" name="meals[' . $date . '][0]" placeholder="+ Dodaj">' . htmlspecialchars($opis) . '</textarea>';
-                            echo '</span>';
-                        }
-                        ?>
-                    </div>
 
-                    <div class="cafeteria-table">
-                        <span class="nzw">Obiad</span>
-                        <?php
-                        foreach ($weekDates as $date) {
-                            $opis = $menu[$date][1] ?? '';
-                            echo '<span class="table_cell">';
-                            echo '<textarea class="meal-textarea" name="meals[' . $date . '][1]" placeholder="+ Dodaj">' . htmlspecialchars($opis) . '</textarea>';
-                            echo '</span>';
-                        }
-                        ?>
-                    </div>
+                            <span class="table_cell label">Obiad</span>
+                            <?php
+                            foreach ($weekDates as $date) {
+                                $opis = $menu[$date][1] ?? '';
+                                echo '<span class="table_cell">';
+                                echo '<textarea class="meal-textarea" name="meals[' . $date . '][1]" placeholder="+ Dodaj">' . htmlspecialchars($opis) . '</textarea>';
+                                echo '</span>';
+                            }
+                            ?>
 
-                    <div class="cafeteria-table">
-                        <span class="nzw">Podwieczorek</span>
-                        <?php
-                        foreach ($weekDates as $date) {
-                            $opis = $menu[$date][2] ?? '';
-                            echo '<span class="table_cell">';
-                            echo '<textarea class="meal-textarea" name="meals[' . $date . '][2]" placeholder="+ Dodaj">' . htmlspecialchars($opis) . '</textarea>';
-                            echo '</span>';
-                        }
-                        ?>
-                    </div>
-
-                    <button type="submit" class="btn-save-week">Zapisz tydzień</button>
-                </form>
+                            <span class="table_cell label">Podwieczorek</span>
+                            <?php
+                            foreach ($weekDates as $date) {
+                                $opis = $menu[$date][2] ?? '';
+                                echo '<span class="table_cell">';
+                                echo '<textarea class="meal-textarea" name="meals[' . $date . '][2]" placeholder="+ Dodaj">' . htmlspecialchars($opis) . '</textarea>';
+                                echo '</span>';
+                            }
+                            ?>
+                        </div>
+                        <div class='button-container'><button type="submit" class="submitButton">Zapisz tydzień</button></div>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="main-panel bigContainers main-panel-add main-panel-add-komunikaty">

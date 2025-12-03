@@ -29,11 +29,6 @@
     width: 99%;
     background: var(--green-vibrant);
 }
-
-.main-cell h1 {
-    width: 100%;
-}
-
 .main-cell h1.logo-font-small span {
     text-align: center;
     font-size: 48px;
@@ -42,31 +37,63 @@
 }
 
 
-#main-cafeteria .styling-panel {
+
+
+.main-panel-food .styling-panel{
     display: flex;
-    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+.main-panel-food .formContainer{
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 0 1.5vw;
+    background-color: var(--green-vibrant);
+    border: solid 5px var(--green-dark);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+    position: relative;
+    width: 90%;
+    height: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+    font-family: 'sour gummy', sans-serif;
+}
+.main-panel-food .form{
+    height: 100%;
+    display: flex;
     flex-direction: column;
 }
-
-.cafeteria-table {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-    width: 80%;
+.main-panel-food .border-box{
+    border: 3px solid var(--green-dark);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    height: 80%;
 }
-
-.table_cell {
-    width: 16%;
+.main-panel-food .table_cell:first-child span{
+    transform: rotate(30deg);
+}
+.main-panel-food .table_cell{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    font-size: 24px;
+    border: 3px solid var(--green-dark);
 }
-
-.articlesManagement, .annoucementManagement, .jadlospisManagement, .planlekcjiManagement {
-    overflow-y: scroll;
+.main-panel-food .table_cell.label{
+    background-color: var(--green-dark);
+    border: 3px solid var(--green-darker);
+}
+.articlesManagement,
+.annoucementManagement,
+.jadlospisManagement,
+.planlekcjiManagement {
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
 }
-
-
 .meal-textarea {
     width: 100%;
     height: 100%;
@@ -74,36 +101,31 @@
     border: 1px solid transparent;
     background-color: transparent;
     font-family: inherit;
-    font-size: 0.9rem;
     resize: vertical;
     padding: 5px;
     box-sizing: border-box;
     transition: 0.2s;
+    font-size: 20px;
 }
-
 .meal-textarea:focus, .meal-textarea:hover {
     border: 1px solid #ccc;
     background-color: #fff;
     outline: none;
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
 }
-
-.btn-save-week {
-    display: block;
-    margin: 20px auto 0 auto;
-    padding: 10px 30px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.1em;
-    cursor: pointer;
-    transition: background 0.3s;
+.main-panel-food .button-container{
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.main-panel-food .submitButton{
+    transform: scale(2);
 }
 
-.btn-save-week:hover {
-    background-color: #45a049;
-}
+
+
 .main-panel-add .styling-panel{
     display: flex;
     justify-content: center;
@@ -120,7 +142,7 @@
     width: 50vw;
     overflow-y: auto;
 }
-.main-panel-add h1{
+h1{
     font-size: 72px;
     z-index: 1;
     background-color: var(--green-vibrant);
@@ -128,7 +150,7 @@
     width: fit-content;
     margin: 0 auto;
 }
-.main-panel-add hr{
+hr{
     position: absolute;
     border: 3px solid var(--green-dark);
     top:4rem;
