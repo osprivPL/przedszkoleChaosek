@@ -182,7 +182,7 @@ for ($i = 0; $i < 5; $i++) {
     </nav>
 
     <main id="main">
-        <div class="main-cell main-cell-news bigContainers">
+        <div class="main-cell bigContainers main-cell-witaj">
             <h1 class='logo-font-small witaj'>
                 <span>Witaj w panelu dyrekcji</span>
                 <?php
@@ -193,7 +193,7 @@ for ($i = 0; $i < 5; $i++) {
                 ?>
             </h1>
         </div>
-        <div class="main-panel bigContainers">
+        <div class="main-panel bigContainers main-cell-rekrutacja">
             <div class="styling-panel">
                 <h1><span>rekrutacja</span></h1>
             </div>
@@ -214,7 +214,7 @@ for ($i = 0; $i < 5; $i++) {
                 </form>
             </div>
         </div>
-        <div class="main-panel bigContainers">
+        <div class="main-panel bigContainers main-panel-articles">
             <div class="styling-panel articlesManagement">
                 <h1><span>Zarzadządzanie artykułami</span></h1>
                 <?php
@@ -262,7 +262,7 @@ for ($i = 0; $i < 5; $i++) {
             </div>
         </div>
 
-        <div class="main-panel bigContainers">
+        <div class="main-panel bigContainers main-panel-groups">
             <div class="styling-panel">
                 <h1><span>Grupa 1</span></h1>
                 <div class="groupInfo">
@@ -303,7 +303,7 @@ for ($i = 0; $i < 5; $i++) {
                 </div>
             </div>
         </div>
-        <div class="main-panel bigContainers">
+        <div class="main-panel bigContainers main-panel-groups">
             <div class="styling-panel">
                 <h1><span>Grupa 2</span></h1>
                 <div class="groupInfo">
@@ -344,7 +344,7 @@ for ($i = 0; $i < 5; $i++) {
                 </div>
             </div>
         </div>
-        <div class="main-panel bigContainers">
+        <div class="main-panel bigContainers main-panel-groups">
             <div class="styling-panel">
                 <h1><span>Grupa 3</span></h1>
 
@@ -386,7 +386,7 @@ for ($i = 0; $i < 5; $i++) {
                 </div>
             </div>
         </div>
-        <div class="main-panel bigContainers">
+        <div class="main-panel bigContainers main-panel-groups">
             <div class="styling-panel">
                 <h1>Grupa 4</h1>
                 <div class="groupInfo">
@@ -457,7 +457,7 @@ for ($i = 0; $i < 5; $i++) {
             }
         </script>
 
-        <div class="main-panel bigContainers">
+        <div class="main-panel bigContainers main-panel-food">
             <div class="styling-panel jadlospisManagement">
                 <h1 class="logo-font-small"><span>jadlospis</span></h1>
 
@@ -515,7 +515,7 @@ for ($i = 0; $i < 5; $i++) {
                 </form>
             </div>
         </div>
-        <div class="main-panel bigContainers">
+        <div class="main-panel bigContainers main-panel-komunikaty">
             <div class="styling-panel">
                 <h1 class="logo-font-small"><span>Dodaj komunikat</span></h1>
                 <form method="post" action="./../scripts/php/addAnoucement.php">
@@ -536,7 +536,7 @@ for ($i = 0; $i < 5; $i++) {
             </div>
         </div>
 
-        <div class="main-panel bigContainers">
+        <div class="main-panel bigContainers main-panel-manage-komunikaty">
             <div class="styling-panel annoucementManagement">
                 <h1 class="logo-font-small"><span>Zarządzaj komunikatami</span></h1>
                 <?php
@@ -594,7 +594,7 @@ for ($i = 0; $i < 5; $i++) {
                 </script>
             </div>
         </div>
-        <div class="main-panel bigContainers">
+        <div class="main-panel bigContainers main-panel-plan">
             <div class="styling-panel planlekcjiManagement">
                 <h1 class="logo-font-small"><span>plan lekcji</span></h1>
                 <?php
