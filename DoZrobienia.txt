@@ -16,3 +16,5 @@ komunikaty: narazie sa dla calego przedszkola, zrobic dla grup
 Piotrek teraz robi(w takiej kolejności):
 2. animacje
 4. inne strony
+
+jak jest aktualnosc jakas to sprawdz czy data nie jest w przyszlosci

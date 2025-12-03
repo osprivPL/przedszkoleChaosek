@@ -104,13 +104,14 @@
 .btn-save-week:hover {
     background-color: #45a049;
 }
+.main-panel-add-article .styling-panel{
+    display: flex;
+    justify-content: center;
+}
 .formContainer{
     display: flex;
     flex-direction: column;
     border-radius: 10px;
-    align-items: center;
-    justify-content: center;
-    max-height: 80vh;
     padding: 0 1.5vw;
     background-color: var(--green-vibrant);
     border: solid 5px var(--green-dark);
@@ -123,79 +124,35 @@ h1{
     z-index: 1;
     background-color: var(--green-vibrant);
     padding: 0 2rem;
+    width: fit-content;
+    margin: 0 auto;
 }
 hr{
     position: absolute;
-    width: 40vw;
+    width: 100%;
     border: 3px solid var(--green-dark);
     top:4rem;
     left: 1.5vw;
     z-index: 0;
-}
-.form{
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    width:100%;
-}
-.form input{
-    padding: 10px;
-}
-.subContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-.formsContainer {
-    display: flex;
-    gap: 3rem;
-    width: 100%;
-}
-.frmChild,  .frmParent {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 10px;
-    width: 50%;
-}
-.frmChildLogged{
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-    width:100%;
-}
-.smallerFrmChild{
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-}
-.inputGroup {
-    margin: 0.5em 0;
-    text-align: left;
-    border-left: 5px solid var(--green-dark);
-    padding: 0.2em;
-}
-.inputGroup input, .inputGroup textarea{
-    border: var(--green-darker) solid 2px;
-    border-radius: 6px;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-    width: 100%;
-    font-size: 20px;
-    margin: auto;
     box-sizing: border-box;
 }
-.textBlock{
-    width:99%;
-    margin-top: 3vh;
+input, textarea, label{
+    font-size: 32px;
+    font-family: 'sour gummy', sans-serif;
 }
-.textBlock input{
-    height: 100px;
+.article{
+    border-radius: 3px;
+    overflow: hidden;
+}
+.article_header{
+    display: flex;
+    width: 100%;
+}
+.article_header input:nth-child(1){
+    width: 100%;
+}
+textarea{
+    width:100%;
 }
 .submitButton{
     transform: scale(2);
