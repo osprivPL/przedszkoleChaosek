@@ -208,14 +208,14 @@ for ($i = 0; $i < 5; $i++) {
                     echo "<span>Numer telefonu rodzica: " . $result[$i][3] . "</span>";
                     echo "<span>Email rodzica: " . $result[$i][4] . "</span><br>";
                     echo "<span>Adres zamieszkania: " . $result[$i][8] . "</span><br>";
-                    echo "<select>";
+                    echo "<select id='wniosek".$result[$i][0]."select'>";
                     echo "<option value=1>Grupa 1 </option>";
                     echo "<option value=2>Grupa 2 </option>";
                     echo "<option value=3>Grupa 3 </option>";
                     echo "<option value=4>Grupa 4 </option>";
                     echo "</select>";
                     echo "<button onclick='odrzucWniosek(".$result[$i][0].")'>Odrzuć wniosek</button>";
-                    echo "<button>Zaakceptuj wniosek</button>";
+                    echo "<button onclick='przyjmijWniosek(".$result[$i][0], ")'>Zaakceptuj wniosek</button>";
                     echo "</div>";
                 }
                 ?>
@@ -226,6 +226,33 @@ for ($i = 0; $i < 5; $i++) {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify({id: idRekordu})
+                    })
+                        .then(response => response.text())
+                        .then(data => {
+                            if (data.trim() === 'OK') {
+                                const element = document.getElementById('Wniosek#' + idRekordu);
+                                if (element) {
+                                    element.style.transition = "opacity 0.5s";
+                                    element.style.opacity = "0";
+
+                                    setTimeout(() => element.remove(), 500);
+                                }
+                            } else {
+                                console.error('Błąd serwera:', data);
+                                alert('Wystąpił błąd podczas zapisu.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Błąd sieci:', error);
+                        });
+                }
+            </script>
+            <script>
+                function przyjmijWniosek(idRekordu) {
+                    fetch('./../scripts/php/deleteApplication.php', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({id: idRekordu, group: document.getElementById("wniosek"+idRekordu+"select")})
                     })
                         .then(response => response.text())
                         .then(data => {
