@@ -139,6 +139,7 @@ nav img {
 
 nav span {
     z-index: 9;
+    position: relative;
 }
 
 .nav_child {

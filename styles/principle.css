@@ -108,7 +108,7 @@
     display: flex;
     justify-content: center;
 }
-.formContainer{
+.main-panel-add-article .formContainer{
     display: flex;
     flex-direction: column;
     border-radius: 10px;
@@ -118,8 +118,9 @@
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
     position: relative;
     width: 50vw;
+    overflow-y: auto;
 }
-h1{
+.main-panel-add-article h1{
     font-size: 72px;
     z-index: 1;
     background-color: var(--green-vibrant);
@@ -127,33 +128,51 @@ h1{
     width: fit-content;
     margin: 0 auto;
 }
-hr{
+.main-panel-add-article hr{
     position: absolute;
-    width: 100%;
     border: 3px solid var(--green-dark);
     top:4rem;
     left: 1.5vw;
     z-index: 0;
     box-sizing: border-box;
+    right: 1.5vw;
 }
-input, textarea, label{
+.main-panel-add-article input, textarea, label{
     font-size: 32px;
     font-family: 'sour gummy', sans-serif;
 }
-.article{
+.main-panel-add-article .article{
     border-radius: 3px;
     overflow: hidden;
 }
-.article_header{
+.main-panel-add-article .article_header{
     display: flex;
     width: 100%;
 }
-.article_header input:nth-child(1){
+.main-panel-add-article textarea, .main-panel-add-article .article_header input:nth-child(1){
     width: 100%;
 }
-textarea{
-    width:100%;
+.main-panel-add-article .details{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
-.submitButton{
-    transform: scale(2);
+.choose-image{
+    display: flex;
+    font-family: 'sour gummy', sans-serif;
+    align-items: center;
+    gap: 1rem;
+    font-size: 32px;
+}
+.file-button{
+    display: block;
+    font-size: 32px;
+}
+
+.file-button:hover {
+    background-color: var(--green-dark);
+}
+
+.file-button:active {
+    transform: scale(.98);
 }

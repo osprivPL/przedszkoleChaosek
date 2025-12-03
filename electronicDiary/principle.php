@@ -289,8 +289,17 @@ for ($i = 0; $i < 5; $i++) {
                             <textarea id="articleContent" name="articleContent" rows="10" cols="50" required></textarea><br><br>
                         </div>
                         <div class="details">
-                            <label for="articleImg">Zdjęcie</label><br>
-                            <input type="file" id="articleImg" name="articleImg" accept="image/*">
+                            <div class='choose-image'>
+                                <label for="articleImg" class='file-button submitButton'>Wybierz Zdjęcie</label>
+                                <input type="file" id="articleImg" name="articleImg" accept="image/*" style="display: none">
+                                <span id='fileName'>Nie wybrano</span>
+                                <script>
+                                    document.getElementById('articleImg').addEventListener('change', function(e){
+                                        const fileName = e.target.files[0]?.name || '';
+                                        document.getElementById('fileName').textContent = fileName ? fileName : 'Nie wybrano';
+                                    });
+                                </script>
+                            </div>
                             <input type="submit" value="Dodaj artykuł" class='submitButton'>
                         </div>
                     </form>
