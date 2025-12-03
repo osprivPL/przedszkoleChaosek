@@ -115,8 +115,8 @@ for ($i = 0; $i < 5; $i++) {
         <div class="nav_child" onclick="showChildren(2)">
             <img src="./../assets/main_page.png" alt="">
             <div>
-            <span>Artykuły</span>
-            <span class="nav_arrow">▽</span>
+                <span>Artykuły</span>
+                <span class="nav_arrow">▽</span>
             </div>
         </div>
         <div class="nav_child nav_child_child nav_child_article" onclick="showContainer(<?php echo $conteiner;
@@ -182,7 +182,7 @@ for ($i = 0; $i < 5; $i++) {
     </nav>
 
     <main id="main">
-        <div class="main-cell bigContainers main-cell-witaj">
+        <div class="main-cell bigContainers main-panel-witaj">
             <h1 class='logo-font-small witaj'>
                 <span>Witaj w panelu dyrekcji</span>
                 <?php
@@ -193,25 +193,84 @@ for ($i = 0; $i < 5; $i++) {
                 ?>
             </h1>
         </div>
-        <div class="main-panel bigContainers main-cell-rekrutacja">
+        <div class="main-panel bigContainers main-panel-rekrutacja">
             <div class="styling-panel">
-                <h1><span>rekrutacja</span></h1>
+                <h1 class="logo-font-small"><span>rekrutacja</span></h1>
+                <?php
+                $sql = "SELECT * FROM oczekujace ORDER BY ID";
+                $result = $connection->query($sql)->fetch_all();
+                for ($i = 0; $i < count($result); $i++) {
+                    echo "<div id='Wniosek#" . $result[$i][0] . "' class='wniosek_nav'>";
+                    echo "<h2>Wniosek #" . $result[$i][0] . "</h2><br>";
+                    echo "<span>Rodzic: " . $result[$i][1] . " " . $result[$i][2] . "</span><br>";
+                    echo "<span>Dziecko: " . $result[$i][5] . " " . $result[$i][6] . "</span><br>";
+                    echo "<span>PESEL: " . $result[$i][7] . "</span><br>";
+                    echo "<span>Numer telefonu rodzica: " . $result[$i][3] . "</span>";
+                    echo "<span>Email rodzica: " . $result[$i][4] . "</span><br>";
+                    echo "<span>Adres zamieszkania: " . $result[$i][8] . "</span><br>";
+                    echo "<select>";
+                    echo "<option value=1>Grupa 1 </option>";
+                    echo "<option value=2>Grupa 2 </option>";
+                    echo "<option value=3>Grupa 3 </option>";
+                    echo "<option value=4>Grupa 4 </option>";
+                    echo "</select>";
+                    echo "<button onclick='odrzucWniosek(".$result[$i][0].")'>Odrzuć wniosek</button>";
+                    echo "<button>Zaakceptuj wniosek</button>";
+                    echo "</div>";
+                }
+                ?>
             </div>
+            <script>
+                function odrzucWniosek(idRekordu) {
+                    fetch('./../scripts/php/deleteApplication.php', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({id: idRekordu})
+                    })
+                        .then(response => response.text())
+                        .then(data => {
+                            if (data.trim() === 'OK') {
+                                const element = document.getElementById('Wniosek#' + idRekordu);
+                                if (element) {
+                                    element.style.transition = "opacity 0.5s";
+                                    element.style.opacity = "0";
+
+                                    setTimeout(() => element.remove(), 500);
+                                }
+                            } else {
+                                console.error('Błąd serwera:', data);
+                                alert('Wystąpił błąd podczas zapisu.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Błąd sieci:', error);
+                        });
+                }
+            </script>
         </div>
-        <div class="main-panel bigContainers">
+        <div class="main-panel bigContainers main-panel-add-article">
             <div class="styling-panel">
+                <div class="formContainer">
                 <h1 class="logo-font-small"><span>Dodaj artykul</span></h1>
                 <form method="post" action="../scripts/php/addArticle.php" enctype="multipart/form-data">
                     <label for="articleTitle">Tytuł artykułu:</label><br>
                     <input type="text" id="articleTitle" name="articleTitle" required><br><br>
-                    <label for="articleContent">Treść artykułu:</label><br>
-                    <textarea id="articleContent" name="articleContent" rows="10" cols="50" required></textarea><br><br>
-                    <label for="articleData">Data</label><input type="date" id="articleData" name="articleData"><br><br>
-                    <label for="articleImg">Zdjęcie</label>
-                    <input type="file" id="articleImg" name="articleImg" accept="image/*"><br><br>
+                    <div class="inputGroup">
+                        <label for="articleContent">Treść artykułu:</label><br>
+                        <textarea id="articleContent" name="articleContent" rows="10" cols="50" required></textarea><br><br>
+                    </div>
+                    <div class="inputGroup">
+                        <label for="articleData">Data</label>
+                        <input type="date" id="articleData" name="articleData">
+                    </div>
+                    <div class="inputGroup">
+                        <label for="articleImg">Zdjęcie</label>
+                        <input type="file" id="articleImg" name="articleImg" accept="image/*">
+                    </div>
 
-                    <input type="submit" value="Dodaj artykuł">
+                    <input type="submit" value="Dodaj artykuł" class="submitButton">
                 </form>
+                </div>
             </div>
         </div>
         <div class="main-panel bigContainers main-panel-articles">
@@ -289,7 +348,7 @@ for ($i = 0; $i < 5; $i++) {
                         $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 1 ORDER BY dzieci.nazwisko;";
                         $result = $connection->query($sql)->fetch_all();
                         for ($i = 0; $i < count($result); $i++) {
-                            echo "<tr id='dziecko".$result[$i][6]."'>";
+                            echo "<tr id='dziecko" . $result[$i][6] . "'>";
                             echo "<td>" . $result[$i][0] . "</td>";
                             echo "<td>" . $result[$i][1] . "</td>";
                             echo "<td>" . $result[$i][2] . "</td>";
@@ -330,7 +389,7 @@ for ($i = 0; $i < 5; $i++) {
                         $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 2 ORDER BY dzieci.nazwisko;";
                         $result = $connection->query($sql)->fetch_all();
                         for ($i = 0; $i < count($result); $i++) {
-                            echo "<tr id='dziecko".$result[$i][6]."'>";
+                            echo "<tr id='dziecko" . $result[$i][6] . "'>";
                             echo "<td>" . $result[$i][0] . "</td>";
                             echo "<td>" . $result[$i][1] . "</td>";
                             echo "<td>" . $result[$i][2] . "</td>";
@@ -372,7 +431,7 @@ for ($i = 0; $i < 5; $i++) {
                         $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 3 ORDER BY dzieci.nazwisko;";
                         $result = $connection->query($sql)->fetch_all();
                         for ($i = 0; $i < count($result); $i++) {
-                            echo "<tr id='dziecko".$result[$i][6]."'>";
+                            echo "<tr id='dziecko" . $result[$i][6] . "'>";
                             echo "<td>" . $result[$i][0] . "</td>";
                             echo "<td>" . $result[$i][1] . "</td>";
                             echo "<td>" . $result[$i][2] . "</td>";
@@ -413,7 +472,7 @@ for ($i = 0; $i < 5; $i++) {
                         $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 4 ORDER BY dzieci.nazwisko;";
                         $result = $connection->query($sql)->fetch_all();
                         for ($i = 0; $i < count($result); $i++) {
-                            echo "<tr id='dziecko".$result[$i][6]."'>";
+                            echo "<tr id='dziecko" . $result[$i][6] . "'>";
                             echo "<td>" . $result[$i][0] . "</td>";
                             echo "<td>" . $result[$i][1] . "</td>";
                             echo "<td>" . $result[$i][2] . "</td>";
