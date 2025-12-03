@@ -182,7 +182,7 @@ for ($i = 0; $i < 5; $i++) {
     </nav>
 
     <main id="main">
-        <div class="main-cell bigContainers main-panel-witaj">
+        <div class="bigContainers main-panel-witaj">
             <h1 class='logo-font-small witaj'>
                 <span>Witaj w panelu dyrekcji</span>
                 <?php
