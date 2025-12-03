@@ -283,16 +283,16 @@ for ($i = 0; $i < 5; $i++) {
                             <th></th>
                         </tr>
                         <?php
-                        $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 1 ORDER BY dzieci.nazwisko;";
+                        $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 1 ORDER BY dzieci.nazwisko;";
                         $result = $connection->query($sql)->fetch_all();
                         for ($i = 0; $i < count($result); $i++) {
-                            echo "<tr>";
+                            echo "<tr id='dziecko".$result[$i][6]."'>";
                             echo "<td>" . $result[$i][0] . "</td>";
                             echo "<td>" . $result[$i][1] . "</td>";
                             echo "<td>" . $result[$i][2] . "</td>";
                             echo "<td>" . $result[$i][3] . "</td>";
                             echo "<td>" . $result[$i][4] . " " . $result[$i][5] . "</td>";
-                            echo "<td><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][2] . "\")'>Usuń dziecko</button></td>";
+                            echo "<td><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button></td>";
                             echo "</tr>";
                         }
                         ?>
@@ -324,16 +324,16 @@ for ($i = 0; $i < 5; $i++) {
                             <th></th>
                         </tr>
                         <?php
-                        $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 2 ORDER BY dzieci.nazwisko;";
+                        $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 2 ORDER BY dzieci.nazwisko;";
                         $result = $connection->query($sql)->fetch_all();
                         for ($i = 0; $i < count($result); $i++) {
-                            echo "<tr>";
+                            echo "<tr id='dziecko".$result[$i][6]."'>";
                             echo "<td>" . $result[$i][0] . "</td>";
                             echo "<td>" . $result[$i][1] . "</td>";
                             echo "<td>" . $result[$i][2] . "</td>";
                             echo "<td>" . $result[$i][3] . "</td>";
                             echo "<td>" . $result[$i][4] . " " . $result[$i][5] . "</td>";
-                            echo "<td><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][2] . "\")'>Usuń dziecko</button></td>";
+                            echo "<td><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button></td>";
                             echo "</tr>";
                         }
                         ?>
@@ -366,16 +366,16 @@ for ($i = 0; $i < 5; $i++) {
                             <th></th>
                         </tr>
                         <?php
-                        $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 3 ORDER BY dzieci.nazwisko;";
+                        $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 3 ORDER BY dzieci.nazwisko;";
                         $result = $connection->query($sql)->fetch_all();
                         for ($i = 0; $i < count($result); $i++) {
-                            echo "<tr>";
+                            echo "<tr id='dziecko".$result[$i][6]."'>";
                             echo "<td>" . $result[$i][0] . "</td>";
                             echo "<td>" . $result[$i][1] . "</td>";
                             echo "<td>" . $result[$i][2] . "</td>";
                             echo "<td>" . $result[$i][3] . "</td>";
                             echo "<td>" . $result[$i][4] . " " . $result[$i][5] . "</td>";
-                            echo "<td><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][2] . "\")'>Usuń dziecko</button></td>";
+                            echo "<td><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button></td>";
                             echo "</tr>";
                         }
                         ?>
@@ -407,16 +407,16 @@ for ($i = 0; $i < 5; $i++) {
                             <th></th>
                         </tr>
                         <?php
-                        $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 4 ORDER BY dzieci.nazwisko;";
+                        $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 4 ORDER BY dzieci.nazwisko;";
                         $result = $connection->query($sql)->fetch_all();
                         for ($i = 0; $i < count($result); $i++) {
-                            echo "<tr>";
+                            echo "<tr id='dziecko".$result[$i][6]."'>";
                             echo "<td>" . $result[$i][0] . "</td>";
                             echo "<td>" . $result[$i][1] . "</td>";
                             echo "<td>" . $result[$i][2] . "</td>";
                             echo "<td>" . $result[$i][3] . "</td>";
                             echo "<td>" . $result[$i][4] . " " . $result[$i][5] . "</td>";
-                            echo "<td><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][2] . "\")'>Usuń dziecko</button></td>";
+                            echo "<td><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button></td>";
                             echo "</tr>";
                         }
                         ?>
@@ -425,6 +425,34 @@ for ($i = 0; $i < 5; $i++) {
 
             </div>
         </div>
+        <script>
+            function usunDziecko(idRekordu) {
+                fetch('./../scripts/php/deleteChild.php', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({id: idRekordu})
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        // Sprawdzamy, czy PHP zwróciło dokładnie "OK"
+                        if (data.trim() === 'OK') {
+                            const element = document.getElementById('dziecko' + idRekordu);
+                            if (element) {
+                                element.style.transition = "opacity 0.5s";
+                                element.style.opacity = "0";
+
+                                setTimeout(() => element.remove(), 500);
+                            }
+                        } else {
+                            console.error('Błąd serwera:', data);
+                            alert('Wystąpił błąd podczas zapisu.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Błąd sieci:', error);
+                    });
+            }
+        </script>
 
         <div class="main-panel bigContainers">
             <div class="styling-panel jadlospisManagement">

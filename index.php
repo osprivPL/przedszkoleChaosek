@@ -71,7 +71,7 @@ if (!isset($_SESSION['error'])) {
             </div>
             <div class='inputGroup'>
                 <label for="tbxHaslo">Hasło</label><br>
-                <input type="text" name="tbxHaslo" id="tbxHaslo"><br>
+                <input type="password" name="tbxHaslo" id="tbxHaslo"><br>
                 <span class="error" id="passwordError"></span>
             </div>
         </div>
