@@ -83,7 +83,7 @@ img {
 }
 .logo-font, .logo-font-small{
     color: white;
-    font-family: 'Pacifico';
+    font-family: 'Pacifico' !important;
     text-decoration: none;
 }
 .logo-font {

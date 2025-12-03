@@ -107,22 +107,10 @@ for ($i = 0; $i < 5; $i++) {
 
 <div class="layout">
     <nav id="nav">
-        <div class="nav_child" onclick="showChildren(5)">
-            <img src="./../assets/main_page.png" alt="">
-            <div>
-                <span>REKRUTACJA</span>
-                <span class="nav_arrow">▽</span>
-            </div>
-        </div>
-        <div class="nav_child nav_child_child nav_child_rekrutacja" onclick="showContainer(<?php echo $conteiner;
+        <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
             <img src="./../assets/main_page.png" alt="">
-            <span>Wyświetl kandydatów</span>
-        </div>
-        <div class="nav_child nav_child_child nav_child_rekrutacja" onclick="showContainer(<?php echo $conteiner;
-        $conteiner++; ?>)">
-            <img src="./../assets/main_page.png" alt="">
-            <span>Przypisz zatwierdzonych kandydatów</span>
+            <span>REKRUTACJA</span>
         </div>
         <div class="nav_child" onclick="showChildren(2)">
             <img src="./../assets/main_page.png" alt="">
@@ -179,12 +167,12 @@ for ($i = 0; $i < 5; $i++) {
         <div class="nav_child nav_child_child nav_child_annoucement" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
             <img src="./../assets/main_page.png" alt="">
-            <span>Dodaj komunikat</span>
+            <span>Dodaj artykuł</span>
         </div>
         <div class="nav_child nav_child_child nav_child_annoucement" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
             <img src="./../assets/main_page.png" alt="">
-            <span>Zarządzaj komunikatami</span>
+            <span>Zarządzaj artykułami</span>
         </div>
         <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
@@ -207,15 +195,9 @@ for ($i = 0; $i < 5; $i++) {
         </div>
         <div class="main-panel bigContainers">
             <div class="styling-panel">
-                <h1><span>Wyśwwietl kandydatów</span></h1>
+                <h1><span>rekrutacja</span></h1>
             </div>
         </div>
-        <div class="main-panel bigContainers">
-            <div class="styling-panel">
-                <h1><span>Przypisz zatwierdzonych kandydatów</span></h1>
-            </div>
-        </div>
-
         <div class="main-panel bigContainers">
             <div class="styling-panel">
                 <h1 class="logo-font-small"><span>Dodaj artykul</span></h1>
