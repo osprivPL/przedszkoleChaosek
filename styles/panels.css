@@ -127,8 +127,6 @@ nav {
     min-height: 96vh;
     background-size: 100% 100%;
     font-family: 'sour gummy', sans-serif;
-    max-height: 96vh;
-    height:  96vh;
 }
 
 nav img {
@@ -141,11 +139,6 @@ nav img {
 
 nav span {
     z-index: 9;
-}
-.nav_child div{
-    display: flex;
-    justify-content: space-between;
-    flex-grow: 1;
 }
 
 .nav_child {
@@ -224,12 +217,15 @@ main {
     display: flex;
     justify-self: center;
     color: white;
+    animation-timing-function: ease-out;
+    -webkit-animation-timing-function: ease-out;
+    /* animation: zooomBounce 1s ease-in-out; */
     /*border: solid 3px black;*/
     /*border-radius: 30px;*/
     /*background: var(--green-vibrant);*/
     /*background: linear-gradient(to left bottom, rgba(50, 143, 59, 0.5), rgba(50, 143, 59, 0.7));*/
-    animation: zooom 0.7s ease-in-out;
 }
+
 
 aside, main {
     height: 80vh;
@@ -242,10 +238,22 @@ aside, main {
 /*    from {transform: translateY(100vh);}*/
 /*    to {transform: translateY(0vh);}*/
 /*}*/
-@keyframes zooom{
+@keyframes zooomBounce{
     from {transform: translateY(100vh);}
     50%{transform: translateY(-5vh);}
     to{transform: translateY(0vh);}
+}
+@keyframes slideInViewFromDown {
+    from {transform: translateY(100vh);}
+    to{transform: translateY(0vh);}
+}
+@keyframes slideInViewFromLeft {
+    from {transform: translateX(-100vw);}
+    to{transform: translateX(0vh);}
+}
+@keyframes slideInViewFromRight {
+    from {transform: translateX(100vw);}
+    to{transform: translateX(0vh);}
 }
 
 

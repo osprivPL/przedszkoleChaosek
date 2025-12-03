@@ -1,4 +1,5 @@
 nauczyciele - dodaj zdjęcia
+wyświetlanie całego  planu (per grupa lub w dziedziach)
 
 css do zrobienia:
 przechodzenie w nowe panele (dodaj animacje jakis fade out fade in np)
@@ -13,6 +14,5 @@ dzieci: poprawa wyswietlania
 komunikaty: narazie sa dla calego przedszkola, zrobic dla grup
 
 Piotrek teraz robi(w takiej kolejności):
-1. wyświetlanie się informacji w panelach
 2. animacje
 4. inne strony
