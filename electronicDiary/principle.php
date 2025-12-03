@@ -115,8 +115,8 @@ for ($i = 0; $i < 5; $i++) {
         <div class="nav_child" onclick="showChildren(2)">
             <img src="./../assets/main_page.png" alt="">
             <div>
-            <span>Artykuły</span>
-            <span class="nav_arrow">▽</span>
+                <span>Artykuły</span>
+                <span class="nav_arrow">▽</span>
             </div>
         </div>
         <div class="nav_child nav_child_child nav_child_article" onclick="showContainer(<?php echo $conteiner;
@@ -195,8 +195,58 @@ for ($i = 0; $i < 5; $i++) {
         </div>
         <div class="main-panel bigContainers main-cell-rekrutacja">
             <div class="styling-panel">
-                <h1><span>rekrutacja</span></h1>
+                <h1 class="logo-font-small"><span>rekrutacja</span></h1>
+                <?php
+                $sql = "SELECT * FROM oczekujace ORDER BY ID";
+                $result = $connection->query($sql)->fetch_all();
+                for ($i = 0; $i < count($result); $i++) {
+                    echo "<div id='Wniosek#" . $result[$i][0] . "' class='wniosek_nav'>";
+                    echo "<h2>Wniosek #" . $result[$i][0] . "</h2><br>";
+                    echo "<span>Rodzic: " . $result[$i][1] . " " . $result[$i][2] . "</span><br>";
+                    echo "<span>Dziecko: " . $result[$i][5] . " " . $result[$i][6] . "</span><br>";
+                    echo "<span>PESEL: " . $result[$i][7] . "</span><br>";
+                    echo "<span>Numer telefonu rodzica: " . $result[$i][3] . "</span>";
+                    echo "<span>Email rodzica: " . $result[$i][4] . "</span><br>";
+                    echo "<span>Adres zamieszkania: " . $result[$i][8] . "</span><br>";
+                    echo "<select>";
+                    echo "<option value=1>Grupa 1 </option>";
+                    echo "<option value=2>Grupa 2 </option>";
+                    echo "<option value=3>Grupa 3 </option>";
+                    echo "<option value=4>Grupa 4 </option>";
+                    echo "</select>";
+                    echo "<button onclick='odrzucWniosek(".$result[$i][0].")'>Odrzuć wniosek</button>";
+                    echo "<button>Zaakceptuj wniosek</button>";
+                    echo "</div>";
+                }
+                ?>
             </div>
+            <script>
+                function odrzucWniosek(idRekordu) {
+                    fetch('./../scripts/php/deleteApplication.php', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({id: idRekordu})
+                    })
+                        .then(response => response.text())
+                        .then(data => {
+                            if (data.trim() === 'OK') {
+                                const element = document.getElementById('Wniosek#' + idRekordu);
+                                if (element) {
+                                    element.style.transition = "opacity 0.5s";
+                                    element.style.opacity = "0";
+
+                                    setTimeout(() => element.remove(), 500);
+                                }
+                            } else {
+                                console.error('Błąd serwera:', data);
+                                alert('Wystąpił błąd podczas zapisu.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Błąd sieci:', error);
+                        });
+                }
+            </script>
         </div>
         <div class="main-panel bigContainers">
             <div class="styling-panel">
@@ -289,7 +339,7 @@ for ($i = 0; $i < 5; $i++) {
                         $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 1 ORDER BY dzieci.nazwisko;";
                         $result = $connection->query($sql)->fetch_all();
                         for ($i = 0; $i < count($result); $i++) {
-                            echo "<tr id='dziecko".$result[$i][6]."'>";
+                            echo "<tr id='dziecko" . $result[$i][6] . "'>";
                             echo "<td>" . $result[$i][0] . "</td>";
                             echo "<td>" . $result[$i][1] . "</td>";
                             echo "<td>" . $result[$i][2] . "</td>";
@@ -330,7 +380,7 @@ for ($i = 0; $i < 5; $i++) {
                         $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 2 ORDER BY dzieci.nazwisko;";
                         $result = $connection->query($sql)->fetch_all();
                         for ($i = 0; $i < count($result); $i++) {
-                            echo "<tr id='dziecko".$result[$i][6]."'>";
+                            echo "<tr id='dziecko" . $result[$i][6] . "'>";
                             echo "<td>" . $result[$i][0] . "</td>";
                             echo "<td>" . $result[$i][1] . "</td>";
                             echo "<td>" . $result[$i][2] . "</td>";
@@ -372,7 +422,7 @@ for ($i = 0; $i < 5; $i++) {
                         $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 3 ORDER BY dzieci.nazwisko;";
                         $result = $connection->query($sql)->fetch_all();
                         for ($i = 0; $i < count($result); $i++) {
-                            echo "<tr id='dziecko".$result[$i][6]."'>";
+                            echo "<tr id='dziecko" . $result[$i][6] . "'>";
                             echo "<td>" . $result[$i][0] . "</td>";
                             echo "<td>" . $result[$i][1] . "</td>";
                             echo "<td>" . $result[$i][2] . "</td>";
@@ -413,7 +463,7 @@ for ($i = 0; $i < 5; $i++) {
                         $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 4 ORDER BY dzieci.nazwisko;";
                         $result = $connection->query($sql)->fetch_all();
                         for ($i = 0; $i < count($result); $i++) {
-                            echo "<tr id='dziecko".$result[$i][6]."'>";
+                            echo "<tr id='dziecko" . $result[$i][6] . "'>";
                             echo "<td>" . $result[$i][0] . "</td>";
                             echo "<td>" . $result[$i][1] . "</td>";
                             echo "<td>" . $result[$i][2] . "</td>";
