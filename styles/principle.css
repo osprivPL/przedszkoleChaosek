@@ -32,14 +32,17 @@
     display: block;
     width: 100%;
 }
-
-
-
-.main-panel-add .styling-panel{
+.main-panel-add .styling-panel, .main-panel-rekrutacja .styling-panel{
     display: flex;
     justify-content: center;
 }
-.main-panel-add .formContainer{
+#main-main > .styling-panel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    flex-direction: column;
+    padding: 10px;
+}
+.formContainer{
     display: flex;
     flex-direction: column;
     border-radius: 10px;

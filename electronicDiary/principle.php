@@ -110,7 +110,7 @@ for ($i = 0; $i < 5; $i++) {
         <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
             <img src="./../assets/main_page.png" alt="">
-            <span>REKRUTACJA</span>
+            <span>Rekrutacja</span>
         </div>
         <div class="nav_child" onclick="showChildren(2)">
             <img src="./../assets/main_page.png" alt="">
@@ -131,7 +131,7 @@ for ($i = 0; $i < 5; $i++) {
         </div>
         <div class="nav_child" onclick="showChildren(4)">
             <img src="./../assets/main_page.png" alt="">
-            <span>Zarządzanie grupami</span>
+            <span>Grupy</span>
             <span class="nav_arrow">▽</span>
         </div>
         <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner;
@@ -161,18 +161,18 @@ for ($i = 0; $i < 5; $i++) {
         </div>
         <div class="nav_child" onclick="showChildren(3)">
             <img src="./../assets/main_page.png" alt="">
-            <span>Zarządzanie komunikatami</span>
+            <span>Komunikaty</span>
             <span class="nav_arrow">▽</span>
         </div>
         <div class="nav_child nav_child_child nav_child_annoucement" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
             <img src="./../assets/main_page.png" alt="">
-            <span>Dodaj artykuł</span>
+            <span>Dodaj komunikat</span>
         </div>
         <div class="nav_child nav_child_child nav_child_annoucement" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
             <img src="./../assets/main_page.png" alt="">
-            <span>Zarządzaj artykułami</span>
+            <span>Zarządzaj komunikaty</span>
         </div>
         <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
@@ -193,7 +193,8 @@ for ($i = 0; $i < 5; $i++) {
         </div>
         <div class="main-panel bigContainers main-panel-rekrutacja">
             <div class="styling-panel">
-                <h1 class="logo-font-small"><span>rekrutacja</span></h1>
+                <div class="formContainer">
+                <h1 class="logo-font-small"><span>Rekrutacja</span></h1>
                 <?php
                 $sql = "SELECT * FROM oczekujace ORDER BY ID";
                 $result = $connection->query($sql)->fetch_all();
@@ -217,6 +218,7 @@ for ($i = 0; $i < 5; $i++) {
                     echo "</div>";
                 }
                 ?>
+                </div>
             </div>
             <script>
                 function odrzucWniosek(idRekordu) {
