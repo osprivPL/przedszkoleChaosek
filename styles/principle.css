@@ -21,6 +21,18 @@
     font-size: 72px;
     height: fit-content;
 }
+.main-panel-rekrutacja .wniosek{
+    display: flex;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    margin-bottom: 5px;
+    font-family: 'Sour gummy', sans-serif;
+    box-sizing: border-box;
+}
+.wniosek .info{
+    padding: 2em;
+}
 .main-cell {
     margin: 1vh;
     width: 99%;

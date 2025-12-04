@@ -193,30 +193,37 @@ for ($i = 0; $i < 5; $i++) {
         </div>
         <div class="main-panel bigContainers main-panel-rekrutacja">
             <div class="styling-panel">
-                <h1 class="logo-font-small"><span>rekrutacja</span></h1>
-                <?php
-                $sql = "SELECT * FROM oczekujace ORDER BY ID";
-                $result = $connection->query($sql)->fetch_all();
-                for ($i = 0; $i < count($result); $i++) {
-                    echo "<div id='Wniosek#" . $result[$i][0] . "' class='wniosek_nav'>";
-                        echo "<span>" . $result[$i][0] . "</span>";
-                    /*echo "<span>Rodzic: " . $result[$i][1] . " " . $result[$i][2] . "</span><br>";*/
-                    echo "<span>" . $result[$i][5] . " " . $result[$i][6] . "</span>";
-                    /*echo "<span>PESEL: " . $result[$i][7] . "</span><br>";
-                    echo "<span>Numer telefonu rodzica: " . $result[$i][3] . "</span>";
-                    echo "<span>Email rodzica: " . $result[$i][4] . "</span><br>";
-                    echo "<span>Adres zamieszkania: " . $result[$i][8] . "</span><br>";*/
-                    echo "<select id='wniosek".$result[$i][0]."select'>";
-                    echo "<option value=1>Grupa 1 </option>";
-                    echo "<option value=2>Grupa 2 </option>";
-                    echo "<option value=3>Grupa 3 </option>";
-                    echo "<option value=4>Grupa 4 </option>";
-                    echo "</select>";
-                    echo "<button onclick='odrzucWniosek(".$result[$i][0].")'>Odrzuć wniosek</button>";
-                    echo "<button onclick='przyjmijWniosek(".$result[$i][0], ")'>Zaakceptuj wniosek</button>";
-                    echo "</div>";
-                }
-                ?>
+                <div class="formContainer">
+                    <hr>
+                    <h1 class="logo-font-small"><span>Rekrutacja</span></h1>
+                    <?php
+                    $sql = "SELECT * FROM oczekujace ORDER BY ID";
+                    $result = $connection->query($sql)->fetch_all();
+                    for ($i = 0; $i < count($result); $i++) {
+                        echo "<div id='Wniosek#" . $result[$i][0] . "' class='wniosek'>";
+                            echo "<div class='info'>";
+                                echo "<span>#" . $result[$i][0] . "</span>";
+                                echo "<span>" . $result[$i][5] . " " . $result[$i][6] . "</span>";
+                            echo "</div>";
+                            echo "<select id='wniosek".$result[$i][0]."select'>";
+                                    echo "<option value=1>Grupa 1 </option>";
+                                    echo "<option value=2>Grupa 2 </option>";
+                                    echo "<option value=3>Grupa 3 </option>";
+                                    echo "<option value=4>Grupa 4 </option>";
+                                echo "</select>";
+                            /*echo "<span>Rodzic: " . $result[$i][1] . " " . $result[$i][2] . "</span><br>";
+                            echo "<span>PESEL: " . $result[$i][7] . "</span><br>";
+                            echo "<span>Numer telefonu rodzica: " . $result[$i][3] . "</span>";
+                            echo "<span>Email rodzica: " . $result[$i][4] . "</span><br>";
+                            echo "<span>Adres zamieszkania: " . $result[$i][8] . "</span><br>";*/
+                            echo "<div class='buttons'>";
+                                echo "<button onclick='odrzucWniosek(".$result[$i][0].")'>Odrzuć wniosek</button>";
+                                echo "<button onclick='przyjmijWniosek(".$result[$i][0], ")'>Zaakceptuj wniosek</button>";
+                            echo "</div>";
+                        echo "</div>";
+                    }
+                    ?>
+                </div>
             </div>
             <script>
                 function odrzucWniosek(idRekordu) {
