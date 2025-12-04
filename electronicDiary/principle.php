@@ -182,16 +182,14 @@ for ($i = 0; $i < 5; $i++) {
     </nav>
 
     <main id="main">
-        <div class="bigContainers main-panel-witaj">
-            <h1 class='logo-font-small witaj'>
-                <span>Witaj w panelu dyrekcji</span>
+        <div class="main-panel bigContainers main-panel-witaj">
+                <span class='logo-font-small'>Witaj w panelu dyrekcji</span>
                 <?php
                 if (isset($_SESSION['powodzenie'])) {
                     echo "<div class='success-message'>" . $_SESSION['powodzenie'] . "</div>";
                     unset($_SESSION['powodzenie']);
                 }
                 ?>
-            </h1>
         </div>
         <div class="main-panel bigContainers main-panel-rekrutacja">
             <div class="styling-panel">
