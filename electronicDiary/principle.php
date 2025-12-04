@@ -172,7 +172,7 @@ for ($i = 0; $i < 5; $i++) {
         <div class="nav_child nav_child_child nav_child_annoucement" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
             <img src="./../assets/main_page.png" alt="">
-            <span>Zarządzaj komunikaty</span>
+            <span>Zarządzaj komunikatami</span>
         </div>
         <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
@@ -193,20 +193,19 @@ for ($i = 0; $i < 5; $i++) {
         </div>
         <div class="main-panel bigContainers main-panel-rekrutacja">
             <div class="styling-panel">
-                <div class="formContainer">
-                <h1 class="logo-font-small"><span>Rekrutacja</span></h1>
+                <h1 class="logo-font-small"><span>rekrutacja</span></h1>
                 <?php
                 $sql = "SELECT * FROM oczekujace ORDER BY ID";
                 $result = $connection->query($sql)->fetch_all();
                 for ($i = 0; $i < count($result); $i++) {
                     echo "<div id='Wniosek#" . $result[$i][0] . "' class='wniosek_nav'>";
-                    echo "<h2>Wniosek #" . $result[$i][0] . "</h2><br>";
-                    echo "<span>Rodzic: " . $result[$i][1] . " " . $result[$i][2] . "</span><br>";
-                    echo "<span>Dziecko: " . $result[$i][5] . " " . $result[$i][6] . "</span><br>";
-                    echo "<span>PESEL: " . $result[$i][7] . "</span><br>";
+                        echo "<span>" . $result[$i][0] . "</span>";
+                    /*echo "<span>Rodzic: " . $result[$i][1] . " " . $result[$i][2] . "</span><br>";*/
+                    echo "<span>" . $result[$i][5] . " " . $result[$i][6] . "</span>";
+                    /*echo "<span>PESEL: " . $result[$i][7] . "</span><br>";
                     echo "<span>Numer telefonu rodzica: " . $result[$i][3] . "</span>";
                     echo "<span>Email rodzica: " . $result[$i][4] . "</span><br>";
-                    echo "<span>Adres zamieszkania: " . $result[$i][8] . "</span><br>";
+                    echo "<span>Adres zamieszkania: " . $result[$i][8] . "</span><br>";*/
                     echo "<select id='wniosek".$result[$i][0]."select'>";
                     echo "<option value=1>Grupa 1 </option>";
                     echo "<option value=2>Grupa 2 </option>";
@@ -218,7 +217,6 @@ for ($i = 0; $i < 5; $i++) {
                     echo "</div>";
                 }
                 ?>
-                </div>
             </div>
             <script>
                 function odrzucWniosek(idRekordu) {
