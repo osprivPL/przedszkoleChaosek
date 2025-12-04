@@ -109,12 +109,14 @@ if (!isset($_SESSION['error'])) {
         <form action="./scripts/php/loginAsParent.php" method="post">
             <button type="submit" id="btnLoginAsParent">Zaloguj się jako Rodzic (demo)</button>
         </form>
+        <form action="./scripts/php/loginAsPrinciple.php" method="post">
+            <button type="submit" id="btnLoginAsPrinciple">Zaloguj się jako Dyrektor (demo)</button>
+        </form>
         <a href="#o_nas">O nas</a>
         <a href="#aktualnosci">Aktualności</a>
         <a href="#dojazd">Dojazd</a>
         <a href="./rekrutacja.php">Rekrutacja</a>
         <a href="#kontakt">Kontakt</a>
-        <a href="#phpOutputs">php</a>
         <?php
         if ($_SESSION['logged']) {
             if ($user->typ == 0) {
@@ -169,7 +171,6 @@ if (!isset($_SESSION['error'])) {
         <a href="#dojazd">Dojazd</a>
         <a href="./rekrutacja.php">REKRUTACJA</a>
         <a href="#kontakt">Kontakt</a>
-        <a href="#phpOutputs">php</a>
         <?php
         if ($_SESSION['logged']) {
             if ($user->typ == 0) {
@@ -346,17 +347,6 @@ if (!isset($_SESSION['error'])) {
     </div>
 </div>
 
-<div id="phpOutputs">
-    <?php
-    //     echo $_SESSION['logged'];
-    printArr($_SESSION);
-    //    echo $user->id;
-    //    echo $user->imie;
-    //    echo $user->nazwisko;
-    //    echo $user->typ;
-    ?>
-
-</div>
 <script src='./scripts/js/indexUtilities.js'></script>
 
 </body>
