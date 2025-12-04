@@ -256,6 +256,10 @@ aside, main {
     from {transform: translateX(100vw);}
     to{transform: translateX(0vh);}
 }
+@keyframes Streach {
+    from {height: 0;}
+    to{height: 100%;}
+}
 
 
 
