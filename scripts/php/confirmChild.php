@@ -1,4 +1,6 @@
 <?php
+ob_start();
+require_once('./MAIL.php');
 function generateRandomString() : string
 {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -19,8 +21,6 @@ $group = isset($input['group']) ? (int)$input['group'] : 0;
 $haslo = generateRandomString();
 
 if ($id > 0 && $connection && $group > 0 && $group <= 4) {
-
-    // 1. Pobranie danych z oczekujących
     $stmt = $connection->prepare("SELECT * FROM oczekujace WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
@@ -30,17 +30,14 @@ if ($id > 0 && $connection && $group > 0 && $group <= 4) {
     if ($result) {
         $idRodzica = 0;
 
-        // 2. Próba dodania rodzica (IGNORE - zignoruje jeśli email/tel istnieje)
+        $cryptedPassword = password_hash($haslo, PASSWORD_BCRYPT);
         $stmtParent = $connection->prepare("INSERT IGNORE INTO uzytkownicy (imie, nazwisko, typ, numerTelefonu, login, haslo) VALUES (?, ?, 0, ?, ?, ?)");
-        $stmtParent->bind_param("sssss", $result['imieRodzica'], $result['nazwiskoRodzica'], $result['numerTelefonu'], $result['email'], $haslo);
+        $stmtParent->bind_param("sssss", $result['imieRodzica'], $result['nazwiskoRodzica'], $result['numerTelefonu'], $result['email'], $cryptedPassword);
         $stmtParent->execute();
 
-        // 3. Logika ustalenia ID rodzica
         if ($stmtParent->affected_rows > 0) {
-            // Dodano nowego - bierzemy nowe ID
             $idRodzica = $connection->insert_id;
         } else {
-            // Zignorowano (duplikat) - pobieramy ID starego wpisu
             $stmtCheck = $connection->prepare("SELECT ID FROM uzytkownicy WHERE login = ?");
             $stmtCheck->bind_param("s", $result['email']);
             $stmtCheck->execute();
@@ -62,7 +59,10 @@ if ($id > 0 && $connection && $group > 0 && $group <= 4) {
             $stmtDel = $connection->prepare("DELETE FROM oczekujace WHERE id = ?");
             $stmtDel->bind_param("i", $id);
             if ($stmtDel->execute()) {
+                sendTempPassword($haslo, $result['imieRodzica'], $result['nazwiskoRodzica']);
+                ob_clean();
                 echo "OK";
+                ob_end_clean();
             }
             $stmtDel->close();
 

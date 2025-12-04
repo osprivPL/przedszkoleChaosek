@@ -257,7 +257,7 @@ for ($i = 0; $i < 5; $i++) {
                     fetch('./../scripts/php/confirmChild.php', {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({id: idRekordu, group: document.getElementById("wniosek"+idRekordu+"select")})
+                        body: JSON.stringify({id: idRekordu, group: document.getElementById("wniosek"+idRekordu+"select").value})
                     })
                         .then(response => response.text())
                         .then(data => {
