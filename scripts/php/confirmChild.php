@@ -1,4 +1,6 @@
 <?php
+error_reporting(0);
+ini_set('display_errors', 0);
 ob_start();
 require_once('./MAIL.php');
 function generateRandomString() : string
@@ -59,7 +61,11 @@ if ($id > 0 && $connection && $group > 0 && $group <= 4) {
             $stmtDel = $connection->prepare("DELETE FROM oczekujace WHERE id = ?");
             $stmtDel->bind_param("i", $id);
             if ($stmtDel->execute()) {
-                sendTempPassword($haslo, $result['imieRodzica'], $result['nazwiskoRodzica']);
+                try {
+                    sendTempPassword($haslo, $result['imieRodzica'], $result['nazwiskoRodzica']);
+                } catch (Exception $e) {
+
+                }
                 ob_clean();
                 echo "OK";
                 ob_end_clean();
