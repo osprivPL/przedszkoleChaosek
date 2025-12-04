@@ -17,6 +17,8 @@ $user = new User();
 if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
 }
+echo $_SESSION['sql'];
+$_SESSION['sql'] = $_SESSION['sql'];
 ?>
 
 <html lang="pl">

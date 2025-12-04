@@ -13,7 +13,15 @@ require_once './../../vendor/autoload.php';
 session_start();
 
 
-
+$_SESSION['sql'] = "INSERT INTO oczekujace(imieRodzica, nazwiskoRodzica, numerTelefonu, email, imieDziecka, nazwiskoDziecka, pesel, adres) VALUES ('" .
+    $_POST['frmParentImie'] . "', '" .
+    $_POST['frmParentNazwisko'] . "', '" .
+    $_POST['frmParentTelefon'] . "', '" .
+    $_POST['frmParentEmail'] . "', '" .
+    $_POST['frmChildImie'] . "', '" .
+    $_POST['frmChildNazwisko'] . "', '" .
+    $_POST['frmChildPesel'] . "', '" .
+    $_POST['frmChildAdres'] . "')";
 $mail = new PHPMailer(true);
 
 try {

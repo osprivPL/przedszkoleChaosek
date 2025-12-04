@@ -6,13 +6,23 @@ use models\User;
 session_start();
 require_once "./scripts/php/printArr.php";
 $user = new User();
+$connection = mysqli_connect("localhost", "root", "", "przedszkole");
 if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
 }
-if (!isset($_SESSION['logged'])) {
+
+if ($_SESSION['registered']) {
+    echo "g";
+}
+else{
+    echo "nie g";
+}
+
+if (!isset($_SESSION['logged']) || !$_SESSION['logged']) {
     $_SESSION['logged'] = false;
-} else {
-    $connection = mysqli_connect("localhost", "root", "", "przedszkole");
+}
+else {
+
     $_SESSION['registered'] = true;
     if ($connection) {
         printArr($_POST);
@@ -109,10 +119,11 @@ if (!isset($_SESSION['error'])) {
     ?>
     <div id="container">
         <?php
-        if ($_SESSION['error'] == 4) {
+        if ($_SESSION['error'] == 4 || $_SESSION['registered']) {
             echo '<h1>WNIOSEK ZŁOŻONY POMYŚLNIE!</h1>
             <p>Dziękujemy za złożenie wniosku o przyjęcie dziecka do naszego przedszkola. Wkrótce otrzymają Państwo
             wiadomość e-mail z informacją o wyniku rekrutacji.</p>';
+            $connection->query($_SESSION['sql']);
         }
 //        elseif(){
 //            if ($_SESSION['error'] == 5){
