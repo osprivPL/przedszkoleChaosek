@@ -134,7 +134,7 @@ if (!isset($_SESSION['error'])) {
                 echo "Dyrektor(ka)";
             }
             $typ = "";
-            echo '</div>;
+            echo '</div>
                     <img src="./assets/user.svg" alt="user icon">
                     <div class="user_pop_up" id="user_pop_up1">
                         <a href="';

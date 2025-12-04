@@ -190,9 +190,9 @@ nav span {
 
 main {
     grid-area: main;
-    height: 90vh;
+    height: 80vh;
     position: relative;
-    padding: 1.5vw;
+    padding: 2.5vh;
 }
 
 .main-panel {
