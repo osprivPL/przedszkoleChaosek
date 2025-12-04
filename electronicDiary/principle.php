@@ -247,7 +247,7 @@ for ($i = 0; $i < 5; $i++) {
             </script>
             <script>
                 function przyjmijWniosek(idRekordu) {
-                    fetch('./../scripts/php/deleteApplication.php', {
+                    fetch('./../scripts/php/confirmChild.php', {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify({id: idRekordu, group: document.getElementById("wniosek"+idRekordu+"select")})

@@ -1,63 +1,79 @@
 <?php
-function generateRandomString() {
+function generateRandomString() : string
+{
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
     $randomString = '';
-
     for ($i = 0; $i < 16; $i++) {
         $randomString .= $characters[random_int(0, $charactersLength - 1)];
     }
-
     return $randomString;
 }
 
-
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
-// 2. Odbierz dane (ID) wysłane przez JavaScript
 $input = json_decode(file_get_contents('php://input'), true);
 $id = isset($input['id']) ? (int)$input['id'] : 0;
 $group = isset($input['group']) ? (int)$input['group'] : 0;
 $haslo = generateRandomString();
 
-if ($id > 0 && isset($connection) && $group > 0 && $group <=4) {
+if ($id > 0 && $connection && $group > 0 && $group <= 4) {
 
-    $sql = "SELECT * FROM oczekujace WHERE id=".$id.';';
-    $result = $connection->query($sql)->fetch_assoc();
+    // 1. Pobranie danych z oczekujących
+    $stmt = $connection->prepare("SELECT * FROM oczekujace WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result()->fetch_assoc();
+    $stmt->close();
 
-    $stmt = $connection->prepare("INSERT INTO uzytkownicy (imie, nazwisko, typ, numerTelefonu, login, haslo)")
+    if ($result) {
+        $idRodzica = 0;
 
+        // 2. Próba dodania rodzica (IGNORE - zignoruje jeśli email/tel istnieje)
+        $stmtParent = $connection->prepare("INSERT IGNORE INTO uzytkownicy (imie, nazwisko, typ, numerTelefonu, login, haslo) VALUES (?, ?, 0, ?, ?, ?)");
+        $stmtParent->bind_param("sssss", $result['imieRodzica'], $result['nazwiskoRodzica'], $result['numerTelefonu'], $result['email'], $haslo);
+        $stmtParent->execute();
 
-
-    $stmt = $connection->prepare("INSERT INTO dzieci (imie, nazwisko, pesel, adres, grupa, img, IDRodzica) VALUES (?, ?, ?, ?, ?, 'brak', ?)");
-    if ($stmt) {
-        $stmt->bind_param("ssssisi", $result['imie'], $result['nazwisko'], $result['pesel'], $result['adres'], $group, $result['IDRodzica']);
-        if ($stmt->execute()) {
-            //ok
+        // 3. Logika ustalenia ID rodzica
+        if ($stmtParent->affected_rows > 0) {
+            // Dodano nowego - bierzemy nowe ID
+            $idRodzica = $connection->insert_id;
         } else {
-            echo "Błąd wykonania: " . $stmt->error;
+            // Zignorowano (duplikat) - pobieramy ID starego wpisu
+            $stmtCheck = $connection->prepare("SELECT ID FROM uzytkownicy WHERE login = ?");
+            $stmtCheck->bind_param("s", $result['email']);
+            $stmtCheck->execute();
+            $resCheck = $stmtCheck->get_result()->fetch_assoc();
+
+            if ($resCheck) {
+                $idRodzica = $resCheck['ID'];
+            }
+            $stmtCheck->close();
         }
+        $stmtParent->close();
 
-        $stmt->close();
-    } else {
-        echo "Błąd zapytania SQL: " . $connection->error;
-    }
+        if ($idRodzica > 0) {
+            $stmtChild = $connection->prepare("INSERT INTO dzieci (imie, nazwisko, pesel, adres, grupa, img, IDRodzica) VALUES (?, ?, ?, ?, ?, 'brak', ?)");
+            $stmtChild->bind_param("ssssii", $result['imieDziecka'], $result['nazwiskoDziecka'], $result['pesel'], $result['adres'], $group, $idRodzica);
+            $stmtChild->execute();
+            $stmtChild->close();
 
-    $stmt = $connection->prepare("DELETE FROM komunikaty WHERE id = ?");
+            $stmtDel = $connection->prepare("DELETE FROM oczekujace WHERE id = ?");
+            $stmtDel->bind_param("i", $id);
+            if ($stmtDel->execute()) {
+                echo "OK";
+            }
+            $stmtDel->close();
 
-    if ($stmt) {
-        $stmt->bind_param("i", $id);
-        if ($stmt->execute()) {
-            echo "OK";
         } else {
-            echo "Błąd wykonania: " . $stmt->error;
+            echo "Błąd: Nie udało się ustalić ID rodzica.";
+            die();
         }
-
-        $stmt->close();
     } else {
-        echo "Błąd zapytania SQL: " . $connection->error;
+        echo "Błąd: Nie znaleziono wpisu w oczekujących.";
     }
 
 } else {
-    echo "Błąd: Brak danych lub połączenia z bazą";
+    echo "Błąd: Nieprawidłowe dane wejściowe.";
 }
