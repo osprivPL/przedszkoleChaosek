@@ -194,38 +194,83 @@ for ($i = 0; $i < 5; $i++) {
         <div class="main-panel bigContainers main-panel-rekrutacja">
             <div class="styling-panel">
                 <div class="formContainer">
-                    <hr>
-                    <h1 class="logo-font-small"><span>Rekrutacja</span></h1>
-                    <?php
-                    $sql = "SELECT * FROM oczekujace ORDER BY ID";
-                    $result = $connection->query($sql)->fetch_all();
-                    for ($i = 0; $i < count($result); $i++) {
-                        echo "<div id='Wniosek#" . $result[$i][0] . "' class='wniosek'>";
-                            echo "<div class='info'>";
-                                echo "<span>#" . $result[$i][0] . "</span>";
-                                echo "<span>" . $result[$i][5] . " " . $result[$i][6] . "</span>";
+                    <div id='listOfApplications'>
+                        <hr>
+                        <h1 class="logo-font-small"><span>Rekrutacja</span></h1>
+                        <?php
+                        $sql = "SELECT * FROM oczekujace ORDER BY ID";
+                        $result = $connection->query($sql)->fetch_all();
+                        for ($i = 0; $i < count($result); $i++) {
+                            echo "<div id='Wniosek#" . $result[$i][0] . "' class='wniosek'>";
+                                echo "<span class='wniosek-number'>Wniosek #" . $result[$i][0] . "</span> ";
+                                echo "<div class='name'>";
+                                    echo "<span>" . $result[$i][5] . " " . $result[$i][6] . "</span>";
+                                echo "</div>";
+                                
+                                /*echo "<span>Rodzic: " . $result[$i][1] . " " . $result[$i][2] . "</span><br>";
+                                echo "<span>PESEL: " . $result[$i][7] . "</span><br>";
+                                echo "<span>Numer telefonu rodzica: " . $result[$i][3] . "</span>";
+                                echo "<span>Email rodzica: " . $result[$i][4] . "</span><br>";
+                                echo "<span>Adres zamieszkania: " . $result[$i][8] . "</span><br>";*/
+                                echo "<div class='buttons'>";
+                                echo "<select class='submitButton' id='wniosek".$result[$i][0]."select'>";
+                                        echo "<option value=1>Grupa 1 </option>";
+                                        echo "<option value=2>Grupa 2 </option>";
+                                        echo "<option value=3>Grupa 3 </option>";
+                                        echo "<option value=4>Grupa 4 </option>";
+                                    echo "</select>";
+                                    
+                                    echo "<div><button class='more-info' onclick='rozpatrzWniosek(".$result[$i][0], ")'>🔍︎​</button></div>";
+                                    echo "<div><button class='accept' onclick='przyjmijWniosek(".$result[$i][0], ")'>✔</button></div>";
+                                    echo "<div><button class='deny' onclick='odrzucWniosek(".$result[$i][0].")'>✖</button></div>";
+                                echo "</div>";
                             echo "</div>";
-                            echo "<select id='wniosek".$result[$i][0]."select'>";
-                                    echo "<option value=1>Grupa 1 </option>";
-                                    echo "<option value=2>Grupa 2 </option>";
-                                    echo "<option value=3>Grupa 3 </option>";
-                                    echo "<option value=4>Grupa 4 </option>";
-                                echo "</select>";
-                            /*echo "<span>Rodzic: " . $result[$i][1] . " " . $result[$i][2] . "</span><br>";
-                            echo "<span>PESEL: " . $result[$i][7] . "</span><br>";
-                            echo "<span>Numer telefonu rodzica: " . $result[$i][3] . "</span>";
-                            echo "<span>Email rodzica: " . $result[$i][4] . "</span><br>";
-                            echo "<span>Adres zamieszkania: " . $result[$i][8] . "</span><br>";*/
-                            echo "<div class='buttons'>";
-                                echo "<button onclick='odrzucWniosek(".$result[$i][0].")'>Odrzuć wniosek</button>";
-                                echo "<button onclick='przyjmijWniosek(".$result[$i][0], ")'>Zaakceptuj wniosek</button>";
-                            echo "</div>";
-                        echo "</div>";
-                    }
-                    ?>
+                        }
+                        ?>
+                    </div>
+                    <div id='Application' style='display: none'>
+                        <hr>
+                        <h1 class="logo-font-small" id='wniosekNumber'>Wniosek #0</h1>
+                        <button onclick='rozpatrzWniosek("")'>Wróć</button>
+                        <div class="buttonContainer">
+                            <button class='applicationButton activeButton' onclick='changeInfo(1)'>Dane Dziecka</button>
+                            <button class='applicationButton' onclick='changeInfo(2)'>Dane Rodzica</button>
+                        </div>
+                        <div class='infoDziecko info'>
+                            s
+                        </div>
+                        <div class='infoRodzic info' style='display: none'>
+                            d
+                        </div>
+                        <script>
+                            function changeInfo(n){
+                                let infoContainers = document.getElementsByClassName("info");
+                                let buttons = document.getElementsByClassName("applicationButton");
+                                for (let i = 0; i < 2; i++){
+                                    if (i===n-1){
+                                        infoContainers[i].style.display="block";
+                                        buttons[i].classList.add('activeButton');
+                                        continue;
+                                    }
+                                    infoContainers[i].style.display="none";
+                                    buttons[i].classList.remove('activeButton');
+                                }
+                            }
+                        </script>
+                    </div>
                 </div>
-            </div>
+            </div> 
             <script>
+                function rozpatrzWniosek(rekord){
+                    if(rekord === ""){
+                        document.getElementById('Application').style.display = "none";
+                        document.getElementById('listOfApplications').style.display = "block";
+                    }else{
+                        document.getElementById('wniosekNumber').innerHTML = "Wniosek #" + rekord;
+                        document.getElementById('Application').style.display = "block";
+                        document.getElementById('listOfApplications').style.display = "none";
+                    }
+                }
                 function odrzucWniosek(idRekordu) {
                     fetch('./../scripts/php/deleteApplication.php', {
                         method: 'POST',
