@@ -37,6 +37,7 @@
     border: var(--border1);
     border-radius: 30px;
     box-sizing: border-box;
+    backdrop-filter: blur(5px);
     padding: 20px;
     animation-timing-function: ease-out;
     -webkit-animation-timing-function: ease-out; 
@@ -130,7 +131,7 @@
 .homework-item .homework-pop-up{
     opacity: 0;
     display: flex;
-    transition: opacity .3s;
+    transition: opacity 0.3s;
     position: absolute;
     top: 0;
     left: 0;
@@ -142,7 +143,6 @@
     align-items: center;
     box-sizing: border-box;
     font-size: 24px;
-    transition: .3s;
 }
 .homework-item:hover .homework-pop-up{
     opacity: 1;
@@ -237,15 +237,16 @@
     background: linear-gradient(to left bottom, rgba(50, 143, 59, 0.5), rgba(50, 143, 59, 0.7));
     border: var(--border1);
     border-radius: 30px;
+    backdrop-filter: blur(5px);
     margin-bottom: 5px;
     animation-timing-function: ease-out;
     -webkit-animation-timing-function: ease-out; 
-    animation: slideInViewFromLeft 1s ease-out;
+    animation: slideInViewFromLeft 0.1s ease-out;
 }
-.child-info>*:nth-child(1){animation-duration: 1s;}
-.child-info>*:nth-child(2){animation-duration: 1.5s;}
-.child-info>*:nth-child(3){animation-duration: 1.8s;}
-.child-info>*:nth-child(4){animation-duration: 2s;}
+.child-info>*:nth-child(1){animation-duration: 0.2s;}
+.child-info>*:nth-child(2){animation-duration: 0.8s;}
+.child-info>*:nth-child(3){animation-duration: 1s;}
+.child-info>*:nth-child(4){animation-duration: 1.2s;}
 
 
 .child-info>h3{
@@ -272,6 +273,7 @@
     background: linear-gradient(to left bottom, rgba(50, 143, 59, 0.5), rgba(50, 143, 59, 0.7));
     border: var(--border1);
     border-radius: 30px;
+    backdrop-filter: blur(5px);
     animation-timing-function: ease-out;
     -webkit-animation-timing-function: ease-out; 
     animation: slideInViewFromRight 0.2s ease-out;
@@ -306,6 +308,7 @@
     height: 100%;
     background: var(--green-vibrant);
     background: linear-gradient(to left bottom, rgba(50, 143, 59, 0.5), rgba(50, 143, 59, 0.7));
+    backdrop-filter: blur(5px);
 }
 
 .table_cell {
@@ -335,16 +338,18 @@
     background: linear-gradient(to left bottom, rgba(50, 143, 59, 0.5), rgba(50, 143, 59, 0.7));
     border: var(--border1);
     border-radius: 30px;
+    backdrop-filter: blur(5px);
 }
 .newsCards h3{
     text-align: center;
     font-size: 48px;
     border: var(--border1);
     border-radius: 30px;
+    margin-bottom: 12px;
 }
 .newsCards p{
     text-align: justify;
 }
 .newsCards-date{
-    color: grey;
+    color: #b8b8b8;
 }
