@@ -21,17 +21,118 @@
     font-size: 72px;
     height: fit-content;
 }
+.main-panel-rekrutacja{
+    overflow-y:auto;
+}
+.main-panel-rekrutacja .formContainer{
+    gap: 3vh;
+}
 .main-panel-rekrutacja .wniosek{
-    display: flex;
-    justify-content: space-between;
-    background: rgba(255, 255, 255, 0.15);
+    display: grid;
+    grid-template-columns: 2fr 1fr;
     border-radius: 10px;
     margin-bottom: 5px;
     font-family: 'Sour gummy', sans-serif;
     box-sizing: border-box;
+    position: relative;
+    border: 5px solid var(--green-dark);
+    transition: .2s;
 }
-.wniosek .info{
-    padding: 2em;
+.wniosek:hover{
+    background: rgba(255, 255, 255, 0.15);
+}
+.wniosek .name, .wniosek select{
+    font-family: 'sour gummy', sans-serif;
+    font-size: 24px;
+}
+.wniosek-number{
+    position: absolute;
+    left:0;
+    top: 0;
+    padding: .5vh;
+    color: lightgray;
+    pointer-events: none;
+}
+.wniosek .name{
+    box-sizing: border-box;
+    padding: 4vh 1.5em;
+    font-weight: bold !important; 
+    overflow-x: auto;
+    text-wrap: nowrap;
+}
+.wniosek select{
+    height: fit-content;
+    margin-right: 3vw;
+}
+.wniosek .buttons{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+.wniosek .buttons > div{
+    height: 100%;
+    transition: .2s;
+}
+.wniosek .buttons > div:hover{
+    background-color: rgba(0,0,0,.1);
+}
+.wniosek .buttons > div:active{
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.wniosek button{
+    height: 100%;
+    font-size: 48px;
+    line-height: 48px;
+    width: 5vw;
+    box-sizing: border-box;
+    border: none;
+    background-color: rgba(0,0,0,0);
+    color: white;
+}
+.wniosek button:hover{
+    cursor: pointer;
+}
+.wniosek .more-info{
+    background: linear-gradient(to top left, blue, rgb(138, 138, 225));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.wniosek .accept{
+    background: linear-gradient(to top right, lime, rgb(255, 255, 255));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.wniosek .deny{
+    background: linear-gradient(to top left, red, rgb(247, 160, 160));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.buttonContainer{
+    display: flex;
+    margin-bottom: -5px;
+    width: 40%;
+}
+.buttonContainer button{
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 20px;
+    border: 3px solid rgba(0, 0, 0, 0.272);
+    border-top: 3px solid rgba(255, 255, 255, 0.25);
+    border-left: 3px solid rgba(255, 255, 255, 0.25);
+    background: var(--green-darker);
+    color: white;
+    cursor: pointer;
+    font-family: 'sour gummy', sans-serif;
+}
+.buttonContainer button:hover{
+    background: var(--green-dark);
+}
+.buttonContainer button.activeButton{
+    background: var(--green-vibrant);
+    cursor: default;
+    border: 3px solid rgba(0, 0, 0, 0.272);
+    border-bottom: 3px solid rgba(255, 255, 255, 0.25);
+    border-right: 3px solid rgba(255, 255, 255, 0.25);
 }
 .main-cell {
     margin: 1vh;
@@ -73,6 +174,7 @@
     padding: 0 2rem;
     width: fit-content;
     margin: 0 auto;
+    position: relative;
 }
 hr{
     position: absolute;

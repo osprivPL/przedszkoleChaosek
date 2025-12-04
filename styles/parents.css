@@ -77,7 +77,8 @@
     padding: 10px;
     font-size: 20px;
     border: 3px solid rgba(0, 0, 0, 0.272);
-    border-bottom: 3px solid rgba(255, 255, 255, 0.25);
+    border-top: 3px solid rgba(255, 255, 255, 0.25);
+    border-left: 3px solid rgba(255, 255, 255, 0.25);
     background: var(--green-darker);
     color: white;
     cursor: pointer;
@@ -89,6 +90,9 @@
 .buttonContainer button.activeButton{
     background: var(--green-vibrant);
     cursor: default;
+    border: 3px solid rgba(0, 0, 0, 0.272);
+    border-bottom: 3px solid rgba(255, 255, 255, 0.25);
+    border-right: 3px solid rgba(255, 255, 255, 0.25);
 }
 .plan-container{
     display: none;
