@@ -213,15 +213,15 @@ for ($i = 0; $i < 5; $i++) {
                                 echo "<span>Email rodzica: " . $result[$i][4] . "</span><br>";
                                 echo "<span>Adres zamieszkania: " . $result[$i][8] . "</span><br>";*/
                                 echo "<div class='buttons'>";
-                                echo "<select class='submitButton' id='wniosek".$result[$i][0]."select'>";
+                                    echo "<select class='submitButton' id='wniosek".$result[$i][0]."select'>";
                                         echo "<option value=1>Grupa 1 </option>";
                                         echo "<option value=2>Grupa 2 </option>";
                                         echo "<option value=3>Grupa 3 </option>";
                                         echo "<option value=4>Grupa 4 </option>";
                                     echo "</select>";
                                     
-                                    echo "<div><button class='more-info' onclick='rozpatrzWniosek(".$result[$i][0], ")'>🔍︎​</button></div>";
-                                    echo "<div><button class='accept' onclick='przyjmijWniosek(".$result[$i][0], ")'>✔</button></div>";
+                                    echo "<div><button class='more-info' onclick='rozpatrzWniosek(".json_encode($result[$i], 1).")'>🔍︎​</button></div>";
+                                    echo "<div><button class='accept' onclick='przyjmijWniosek(".$result[$i][0].")'>✔</button></div>";
                                     echo "<div><button class='deny' onclick='odrzucWniosek(".$result[$i][0].")'>✖</button></div>";
                                 echo "</div>";
                             echo "</div>";
@@ -266,7 +266,7 @@ for ($i = 0; $i < 5; $i++) {
                         document.getElementById('Application').style.display = "none";
                         document.getElementById('listOfApplications').style.display = "block";
                     }else{
-                        document.getElementById('wniosekNumber').innerHTML = "Wniosek #" + rekord;
+                        document.getElementById('wniosekNumber').innerHTML = "Wniosek #" + rekord[0];
                         document.getElementById('Application').style.display = "block";
                         document.getElementById('listOfApplications').style.display = "none";
                     }
