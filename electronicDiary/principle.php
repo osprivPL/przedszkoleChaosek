@@ -299,6 +299,7 @@ for ($i = 0; $i < 5; $i++) {
             </script>
             <script>
                 function przyjmijWniosek(idRekordu) {
+                    // wyciemnianie
                     fetch('./../scripts/php/confirmChild.php', {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
@@ -311,6 +312,7 @@ for ($i = 0; $i < 5; $i++) {
                                 if (element) {
                                     element.style.transition = "opacity 0.5s";
                                     element.style.opacity = "0";
+                                    // odciemnianie + kasowanie "wnisoku"
 
                                     setTimeout(() => element.remove(), 500);
                                 }
