@@ -331,7 +331,7 @@ for ($i = 0; $i < 5; $i++) {
             <div class="styling-panel">
                 <div class="formContainer">
                     <hr>
-                    <h1 class="logo-font-small"><span>Dodaj artykul</span></h1>
+                    <h1 class="logo-font-small"><span>Dodaj artykuł</span></h1>
                     <form method="post" action="../scripts/php/addArticle.php" enctype="multipart/form-data">
                         <div class="article">
                             <div class="article_header">
