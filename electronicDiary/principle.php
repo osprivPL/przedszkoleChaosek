@@ -231,16 +231,24 @@ for ($i = 0; $i < 5; $i++) {
                     <div id='Application' style='display: none'>
                         <hr>
                         <h1 class="logo-font-small" id='wniosekNumber'>Wniosek #0</h1>
-                        <button onclick='rozpatrzWniosek("")'>Wróć</button>
-                        <div class="buttonContainer">
+                        <div onclick='rozpatrzWniosek("")' class='go-back logo-font-small'>↩</div>
+                        <div class='buttonContainer'>
                             <button class='applicationButton activeButton' onclick='changeInfo(1)'>Dane Dziecka</button>
                             <button class='applicationButton' onclick='changeInfo(2)'>Dane Rodzica</button>
                         </div>
                         <div class='infoDziecko info'>
-                            s
+                            <div>Imie Dziecka: <span class='information' id='imie'></span></div>
+                            <div>Nazwisko Dziecka: <span class='information' id='nazwisko'></span></div>
+                            <div>Data Urodzenia: <span id='dataur'></span></div>
+                            <div>Pesel: <span class='information' id='pesel'></span></div>
+                            <div>Adres Zamieszkania: <span class='information' id='adres'></span></div>
                         </div>
                         <div class='infoRodzic info' style='display: none'>
-                            d
+                            <div>Imie Rodzica: <span class='information' id='imieR'></span></div>
+                            <div>Nazwisko Rodzica: <span class='information' id='nazwiskoR'></span></div>
+                            <div>Email Rodzica: <span class='information' id='email'></span></div>
+                            <div>Numer Telefonu: <span class='information' id='nrtel'></span></div>
+                            <div>Adres Zamieszkania: <span class='information' id='adres'></span></div>
                         </div>
                         <script>
                             function changeInfo(n){
@@ -248,7 +256,7 @@ for ($i = 0; $i < 5; $i++) {
                                 let buttons = document.getElementsByClassName("applicationButton");
                                 for (let i = 0; i < 2; i++){
                                     if (i===n-1){
-                                        infoContainers[i].style.display="block";
+                                        infoContainers[i].style.display="flex";
                                         buttons[i].classList.add('activeButton');
                                         continue;
                                     }
@@ -261,6 +269,26 @@ for ($i = 0; $i < 5; $i++) {
                 </div>
             </div> 
             <script>
+                function dateFromPesel(pesel) {
+                    let rok = pesel.substring(0, 2);
+                    let miesiac = parseInt(pesel.substring(2, 4), 10);
+                    let dzien = pesel.substring(4, 6);
+
+                    let stulecie = '';
+
+                    if (miesiac >= 1 && miesiac <= 12) {
+                        stulecie = '19';
+                    } else if (miesiac >= 21 && miesiac <= 32) {
+                        stulecie = '20';
+                        miesiac -= 20;
+                    }
+
+                    let pelnyRok = stulecie + rok;
+
+                    miesiac = miesiac.toString().padStart(2, '0');
+
+                    return `${pelnyRok}-${miesiac}-${dzien}`;
+                }
                 function rozpatrzWniosek(rekord){
                     if(rekord === ""){
                         document.getElementById('Application').style.display = "none";
@@ -269,6 +297,12 @@ for ($i = 0; $i < 5; $i++) {
                         document.getElementById('wniosekNumber').innerHTML = "Wniosek #" + rekord[0];
                         document.getElementById('Application').style.display = "block";
                         document.getElementById('listOfApplications').style.display = "none";
+                        rekordy = [rekord[5], rekord[6], rekord[7], rekord[8], rekord[1], rekord[2], rekord[4], rekord[3], rekord[8]];
+                        informations = document.getElementsByClassName('information');
+                        for(i = 0; i < informations.length; i++){
+                            informations[i].innerHTML = rekordy[i];
+                        }
+                        document.getElementById('dataur').innerHTML = dateFromPesel(rekord[7]);
                     }
                 }
                 function odrzucWniosek(idRekordu) {
