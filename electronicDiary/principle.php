@@ -109,11 +109,11 @@ for ($i = 0; $i < 5; $i++) {
     <nav id="nav">
         <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
-            <img src="./../assets/main_page.png" alt="">
+            <img src="./../assets/rekrutacja.png" alt="">
             <span>Rekrutacja</span>
         </div>
         <div class="nav_child" onclick="showChildren(2)">
-            <img src="./../assets/main_page.png" alt="">
+            <img src="./../assets/artykuly.png" alt="">
             <div>
                 <span>Artykuły</span>
                 <span class="nav_arrow">▽</span>
@@ -121,62 +121,62 @@ for ($i = 0; $i < 5; $i++) {
         </div>
         <div class="nav_child nav_child_child nav_child_article" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
-            <img src="./../assets/main_page.png" alt="">
+            <img src="./../assets/dodaj_artykul.png" alt="">
             <span>Dodaj artykuł</span>
         </div>
         <div class="nav_child nav_child_child nav_child_article" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
-            <img src="./../assets/main_page.png" alt="">
+            <img src="./../assets/zarzadaj_artykul.png" alt="">
             <span>Zarządzaj artykułami</span>
         </div>
         <div class="nav_child" onclick="showChildren(4)">
-            <img src="./../assets/main_page.png" alt="">
+            <img src="./../assets/2children.png" alt="">
             <span>Grupy</span>
             <span class="nav_arrow">▽</span>
         </div>
         <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
-            <img src="./../assets/main_page.png" alt="">
+            <img src="./../assets/little-kid.png" alt="">
             <span>Grupa 1</span>
         </div>
         <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
-            <img src="./../assets/main_page.png" alt="">
+            <img src="./../assets/little-kid.png" alt="">
             <span>Grupa 2</span>
         </div>
         <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
-            <img src="./../assets/main_page.png" alt="">
+            <img src="./../assets/little-kid.png" alt="">
             <span>Grupa 3</span>
         </div>
         <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
-            <img src="./../assets/main_page.png" alt="">
+            <img src="./../assets/little-kid.png" alt="">
             <span>Grupa 4</span>
         </div>
         <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
-            <img src="./../assets/main_page.png" alt="">
+            <img src="./../assets/restaurant.png" alt="">
             <span>Jadłospis</span>
         </div>
         <div class="nav_child" onclick="showChildren(3)">
-            <img src="./../assets/main_page.png" alt="">
+            <img src="./../assets/speaker.png" alt="">
             <span>Komunikaty</span>
             <span class="nav_arrow">▽</span>
         </div>
         <div class="nav_child nav_child_child nav_child_annoucement" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
-            <img src="./../assets/main_page.png" alt="">
+            <img src="./../assets/speaker_add.png" alt="">
             <span>Dodaj komunikat</span>
         </div>
         <div class="nav_child nav_child_child nav_child_annoucement" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
-            <img src="./../assets/main_page.png" alt="">
+            <img src="./../assets/speaker_gear.png" alt="">
             <span>Zarządzaj komunikatami</span>
         </div>
         <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
-            <img src="./../assets/main_page.png" alt="">
+            <img src="./../assets/lesson_plan.png" alt="">
             <span>Plan lekcji</span>
         </div>
     </nav>
