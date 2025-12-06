@@ -445,41 +445,40 @@ for ($i = 0; $i < 5; $i++) {
                 <div class='formContainer'>
                     <hr>
                     <h1 class='logo-font-small'><span>Grupa 1</span></h1>
-                    <div class="groupInfo">
-                        <h2>Informacje o grupie:</h2>
+                    <div class='groupInfo'>
                         <?php
                         $sql = "SELECT grupy.nazwa, uzytkownicy.imie, uzytkownicy.nazwisko FROM grupy JOIN uzytkownicy ON grupy.Wychowawca = uzytkownicy.ID WHERE grupy.id = 1";
                         $result = $connection->query($sql)->fetch_assoc();
-                        echo "<p>Nazwa grupy: " . $result['nazwa'] . "</p>";
-                        echo "<p>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</p>";
+                        echo "<div>Nazwa grupy: " . $result['nazwa'] . "</div>";
+                        echo "<div>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</div>";
                         ?>
                     </div>
                     <div class="groupMembers">
                         <h2>Lista dzieci w grupie:</h2>
-                        <table>
-                            <tr>
-                                <th>Imię</th>
-                                <th>Nazwisko</th>
-                                <th>PESEL</th>
-                                <th>Adres</th>
-                                <th>Rodzic</th>
-                                <th>Grupa</th>
-                            </tr>
+                        <div class="table">
+                            <div class="table-header">
+                                <div>Imię</div>
+                                <div>Nazwisko</div>
+                                <div>PESEL</div>
+                                <div>Adres</div>
+                                <div>Rodzic</div>
+                                <div></div>
+                            </div>
                             <?php
                             $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 1 ORDER BY dzieci.nazwisko;";
                             $result = $connection->query($sql)->fetch_all();
                             for ($i = 0; $i < count($result); $i++) {
-                                echo "<tr id='dziecko" . $result[$i][6] . "'>";
-                                echo "<td>" . $result[$i][0] . "</td>";
-                                echo "<td>" . $result[$i][1] . "</td>";
-                                echo "<td>" . $result[$i][2] . "</td>";
-                                echo "<td>" . $result[$i][3] . "</td>";
-                                echo "<td>" . $result[$i][4] . " " . $result[$i][5] . "</td>";
-                                echo "<td><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button></td>";
-                                echo "</tr>";
+                                echo "<div class='grid-row' id='dziecko" . $result[$i][6] . "'>";
+                                echo "<div class='grid-cell'>" . $result[$i][0] . "</div>";
+                                echo "<div class='grid-cell'>" . $result[$i][1] . "</div>";
+                                echo "<div class='grid-cell'>" . $result[$i][2] . "</div>";
+                                echo "<div class='grid-cell'>" . $result[$i][3] . "</div>";
+                                echo "<div class='grid-cell'>" . $result[$i][4] . " " . $result[$i][5] . "</div>";
+                                echo "<div class='grid-cell'><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button></div>";
+                                echo "</div>";
                             }
                             ?>
-                        </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -489,41 +488,40 @@ for ($i = 0; $i < 5; $i++) {
                 <div class='formContainer'>
                     <hr>
                     <h1 class='logo-font-small'><span>Grupa 2</span></h1>
-                    <div class="groupInfo">
-                        <h2>Informacje o grupie:</h2>
+                    <div class='groupInfo'>
                         <?php
                         $sql = "SELECT grupy.nazwa, uzytkownicy.imie, uzytkownicy.nazwisko FROM grupy JOIN uzytkownicy ON grupy.Wychowawca = uzytkownicy.ID WHERE grupy.id = 2";
                         $result = $connection->query($sql)->fetch_assoc();
-                        echo "<p>Nazwa grupy: " . $result['nazwa'] . "</p>";
-                        echo "<p>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</p>";
+                        echo "<div>Nazwa grupy: " . $result['nazwa'] . "</div>";
+                        echo "<div>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</div>";
                         ?>
                     </div>
                     <div class="groupMembers">
                         <h2>Lista dzieci w grupie:</h2>
-                        <table>
-                            <tr>
-                                <th>Imię</th>
-                                <th>Nazwisko</th>
-                                <th>PESEL</th>
-                                <th>Adres</th>
-                                <th>Rodzic</th>
-                                <th></th>
-                            </tr>
+                        <div class="table">
+                            <div class="table-header">
+                                <div>Imię</div>
+                                <div>Nazwisko</div>
+                                <div>PESEL</div>
+                                <div>Adres</div>
+                                <div>Rodzic</div>
+                                <div></div>
+                            </div>
                             <?php
                             $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 2 ORDER BY dzieci.nazwisko;";
                             $result = $connection->query($sql)->fetch_all();
                             for ($i = 0; $i < count($result); $i++) {
-                                echo "<tr id='dziecko" . $result[$i][6] . "'>";
-                                echo "<td>" . $result[$i][0] . "</td>";
-                                echo "<td>" . $result[$i][1] . "</td>";
-                                echo "<td>" . $result[$i][2] . "</td>";
-                                echo "<td>" . $result[$i][3] . "</td>";
-                                echo "<td>" . $result[$i][4] . " " . $result[$i][5] . "</td>";
-                                echo "<td><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button></td>";
-                                echo "</tr>";
+                                echo "<div class='grid-row' id='dziecko" . $result[$i][6] . "'>";
+                                echo "<div class='grid-cell'>" . $result[$i][0] . "</div>";
+                                echo "<div class='grid-cell'>" . $result[$i][1] . "</div>";
+                                echo "<div class='grid-cell'>" . $result[$i][2] . "</div>";
+                                echo "<div class='grid-cell'>" . $result[$i][3] . "</div>";
+                                echo "<div class='grid-cell'>" . $result[$i][4] . " " . $result[$i][5] . "</div>";
+                                echo "<div class='grid-cell'><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button></div>";
+                                echo "</div>";
                             }
                             ?>
-                        </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -533,43 +531,40 @@ for ($i = 0; $i < 5; $i++) {
                 <div class='formContainer'>
                     <hr>
                     <h1 class='logo-font-small'><span>Grupa 3</span></h1>
-
-                    <div class="groupInfo">
-                        <h2>Informacje o grupie:</h2>
+                    <div class='groupInfo'>
                         <?php
                         $sql = "SELECT grupy.nazwa, uzytkownicy.imie, uzytkownicy.nazwisko FROM grupy JOIN uzytkownicy ON grupy.Wychowawca = uzytkownicy.ID WHERE grupy.id = 3";
                         $result = $connection->query($sql)->fetch_assoc();
-                        echo "<p>Nazwa grupy: " . $result['nazwa'] . "</p>";
-                        echo "<p>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</p>";
+                        echo "<div>Nazwa grupy: " . $result['nazwa'] . "</div>";
+                        echo "<div>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</div>";
                         ?>
                     </div>
                     <div class="groupMembers">
                         <h2>Lista dzieci w grupie:</h2>
-                        <table>
-                            <tr>
-                                <th>Imię</th>
-                                <th>Nazwisko</th>
-                                <th>PESEL</th>
-                                <th>Adres</th>
-                                <th>Rodzic</th>
-                                <th></th>
-                            </tr>
+                        <div class="table">
+                            <div class="table-header">
+                                <div>Imię</div>
+                                <div>Nazwisko</div>
+                                <div>PESEL</div>
+                                <div>Adres</div>
+                                <div>Rodzic</div>
+                                <div></div>
+                            </div>
                             <?php
                             $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 3 ORDER BY dzieci.nazwisko;";
                             $result = $connection->query($sql)->fetch_all();
                             for ($i = 0; $i < count($result); $i++) {
-                                echo "<tr id='dziecko" . $result[$i][6] . "'>";
-                                echo "<td>" . $result[$i][0] . "</td>";
-                                echo "<td>" . $result[$i][1] . "</td>";
-                                echo "<td>" . $result[$i][2] . "</td>";
-                                echo "<td>" . $result[$i][3] . "</td>";
-                                echo "<td>" . $result[$i][4] . " " . $result[$i][5] . "</td>";
-                                echo "<td><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button></td>";
-                                echo "</tr>";
-
+                                echo "<div class='grid-row' id='dziecko" . $result[$i][6] . "'>";
+                                echo "<div class='grid-cell'>" . $result[$i][0] . "</div>";
+                                echo "<div class='grid-cell'>" . $result[$i][1] . "</div>";
+                                echo "<div class='grid-cell'>" . $result[$i][2] . "</div>";
+                                echo "<div class='grid-cell'>" . $result[$i][3] . "</div>";
+                                echo "<div class='grid-cell'>" . $result[$i][4] . " " . $result[$i][5] . "</div>";
+                                echo "<div class='grid-cell'><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button></div>";
+                                echo "</div>";
                             }
                             ?>
-                        </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -579,41 +574,39 @@ for ($i = 0; $i < 5; $i++) {
                 <div class='formContainer'>
                     <hr>
                     <h1 class='logo-font-small'>Grupa 4</h1>
-                    <div class="groupInfo">
-                        <h2>Informacje o grupie:</h2>
+                    <div class='groupInfo'>
                         <?php
                         $sql = "SELECT grupy.nazwa, uzytkownicy.imie, uzytkownicy.nazwisko FROM grupy JOIN uzytkownicy ON grupy.Wychowawca = uzytkownicy.ID WHERE grupy.id = 4";
                         $result = $connection->query($sql)->fetch_assoc();
-                        echo "<p>Nazwa grupy: " . $result['nazwa'] . "</p>";
-                        echo "<p>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</p>";
+                        echo "<div>Nazwa grupy: " . $result['nazwa'] . "</div>";
+                        echo "<div>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</div>";
                         ?>
                     </div>
                     <div class="groupMembers">
-                        <h2>Lista dzieci w grupie:</h2>
-                        <table>
-                            <tr>
-                                <th>Imię</th>
-                                <th>Nazwisko</th>
-                                <th>PESEL</th>
-                                <th>Adres</th>
-                                <th>Rodzic</th>
-                                <th></th>
-                            </tr>
+                        <div class="table">
+                            <div class="table-header">
+                                <div>Imię</div>
+                                <div>Nazwisko</div>
+                                <div>PESEL</div>
+                                <div>Adres</div>
+                                <div>Rodzic</div>
+                                <div></div>
+                            </div>
                             <?php
                             $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 4 ORDER BY dzieci.nazwisko;";
                             $result = $connection->query($sql)->fetch_all();
                             for ($i = 0; $i < count($result); $i++) {
-                                echo "<tr id='dziecko" . $result[$i][6] . "'>";
-                                echo "<td>" . $result[$i][0] . "</td>";
-                                echo "<td>" . $result[$i][1] . "</td>";
-                                echo "<td>" . $result[$i][2] . "</td>";
-                                echo "<td>" . $result[$i][3] . "</td>";
-                                echo "<td>" . $result[$i][4] . " " . $result[$i][5] . "</td>";
-                                echo "<td><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button></td>";
-                                echo "</tr>";
+                                echo "<div class='grid-row' id='dziecko" . $result[$i][6] . "'>";
+                                echo "<div class='grid-cell'>" . $result[$i][0] . "</div>";
+                                echo "<div class='grid-cell'>" . $result[$i][1] . "</div>";
+                                echo "<div class='grid-cell'>" . $result[$i][2] . "</div>";
+                                echo "<div class='grid-cell'>" . $result[$i][3] . "</div>";
+                                echo "<div class='grid-cell'>" . $result[$i][4] . " " . $result[$i][5] . "</div>";
+                                echo "<div class='grid-cell'><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button></div>";
+                                echo "</div>";
                             }
                             ?>
-                        </table>
+                        </div>
                     </div>
                 </div>
             </div>

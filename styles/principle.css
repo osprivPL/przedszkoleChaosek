@@ -165,6 +165,7 @@ button:hover{
     background-color: var(--green-vibrant);
     padding: 10px;
     transition: .3s;
+    z-index: 8;
 }
 .go-back:hover{
     background-color: var(--green-dark);
@@ -265,29 +266,55 @@ button:hover{
 .main-panel-groups{
     font-family: 'sour gummy', sans-serif;
 }
-.main-panel-groups table, th, td{
-    border: 5px solid var(--green-dark);
-    border-collapse: collapse;
-    font-size: 24px;
-}
-
-.main-panel-groups th, td{
-    padding: 20px;
-    box-sizing: border-box;
-
-}
-.main-panel-groups table{
+.main-panel-groups .groupInfo{
+    border-radius: 15px;
+    display: flex;
     width: 100%;
-    max-width: 100%;
+    border: none;
+    gap: 1em;
+    padding: 3em 0;
 }
-.main-panel-groups th{
-    
+.main-panel-groups .groupInfo > div{
+    flex-grow: 1;
+    background-color: #ffffff26;
+    border-radius: 15px;
+    font-size: 24px;
+    padding: 10px;
+    box-sizing: border-box;
+    min-width: 0;
+    width: 50%;
+    border: 5px solid var(--green-dark);
+}
+.main-panel-groups .table {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    border: 5px solid var(--green-dark);
+    overflow-x: auto;
 }
 
-.main-panel-groups td{
-    
+.main-panel-groups .table-header {
+    display: contents; 
 }
 
+.main-panel-groups .table-header > div {
+    background-color: var(--green-dark);
+    border: 3px solid var(--green-darker);
+    padding: 20px;
+    font-size: 24px;
+    line-height: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+.main-panel-groups .grid-row {
+    display: contents; 
+}
+.main-panel-groups .grid-cell {
+    border: 3px solid var(--green-dark);
+    padding: 10px;
+    font-size: 24px;
+    line-height: 24px;
+}
 
 .main-panel-food .styling-panel{
     display: flex;
