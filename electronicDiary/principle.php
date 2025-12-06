@@ -130,7 +130,7 @@ for ($i = 0; $i < 5; $i++) {
             <span>Zarządzaj artykułami</span>
         </div>
         <div class="nav_child" onclick="showChildren(4)">
-            <img src="./../assets/2children.png" alt="">
+            <img src="./../assets/group.png" alt="">
             <span>Grupy</span>
             <span class="nav_arrow">▽</span>
         </div>

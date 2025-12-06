@@ -1,7 +1,6 @@
 @import "root.css";
 
 body {
-    overflow: hidden;
     background: linear-gradient(to right top, color-mix(in srgb, var(--main-color) 90%, white 10%), color-mix(in srgb, var(--secondary-color) 85%, white 15%));
     max-width: 100vw;
     max-height: 85vh;
@@ -111,20 +110,22 @@ header #mail:hover {
 .layout {
     display: grid;
     grid-template-columns: [nav]0.2fr [main]1fr;
-    height: 90vh;
+    height: 85vh;
 }
 
 nav {
     grid-area: nav;
-    display: flex;
+    /*display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-content: flex-start;
+    align-content: flex-start;*/
 
     font-size: 28px;
     color: #ececec;
     background-image: url("./../assets/tlo_panels_nav.png");
-    min-height: 96vh;
+    min-height: 85vh;
+    max-height: 85vh;
+    overflow-y: auto;
     background-size: 100% 100%;
     font-family: 'sour gummy', sans-serif;
 }
