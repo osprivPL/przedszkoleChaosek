@@ -14,7 +14,7 @@ if ($kod == $_SESSION['kod']) {
 //    echo 'g';
 } else {
     $_SESSION['error'] = 3;
-//    header('Location: ./../../mailCode.php');
+    header('Location: ./../../mailCode.php');
 //    echo 'nieg';
     die();
 }

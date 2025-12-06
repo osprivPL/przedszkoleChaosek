@@ -12,10 +12,10 @@ if (isset($_SESSION['user'])) {
 }
 
 if ($_SESSION['registered']) {
-    echo "g";
+    //echo "g";
 }
 else{
-    echo "nie g";
+    //echo "nie g";
 }
 
 if (!isset($_SESSION['logged']) || !$_SESSION['logged']) {
@@ -88,13 +88,15 @@ if (!isset($_SESSION['error'])) {
 
     <!-- style -->
     <link rel="stylesheet" href="./styles/rekrutacja.css">
+    <link rel="stylesheet" href="./styles/style.css">
 
     <!-- czcionka -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
     <!-- ikonka -->
     <link rel="icon" type="image/x-icon" href="./assets/logo_tornado.svg">
 
@@ -105,7 +107,10 @@ if (!isset($_SESSION['error'])) {
 <!-- HEADER -->
 <!-- ============================= -->
 <header>
-    <a href="old/index.php" id="logo">
+    <div class="square_container">
+        <div class="square"></div>
+    </div>
+    <a href="index.php" class="logo logo-font">
         <img src="assets/logo_tornado.svg" alt="logo">
         <span>Przedszkole Chaosek</span>
     </a>
@@ -115,12 +120,12 @@ if (!isset($_SESSION['error'])) {
 <!-- ============================= -->
 <main>
     <?php
-    printArr($_SESSION);
+    //printArr($_SESSION);
     ?>
-    <div id="container">
+    <div id="container" class='container containerResult'>
         <?php
         if ($_SESSION['error'] == 4 || $_SESSION['registered']) {
-            echo '<h1>WNIOSEK ZŁOŻONY POMYŚLNIE!</h1>
+            echo '<h1 class="logo-font">Wniosek Złożony Pomyślnie!</h1>
             <p>Dziękujemy za złożenie wniosku o przyjęcie dziecka do naszego przedszkola. Wkrótce otrzymają Państwo
             wiadomość e-mail z informacją o wyniku rekrutacji.</p>';
             $connection->query($_SESSION['sql']);
@@ -131,7 +136,7 @@ if (!isset($_SESSION['error'])) {
 //            }
 //        }
         else {
-            echo '<h1>WYSTĄPIŁ BŁĄD PODCZAS SKŁADANIA WNIOSKU!</h1>
+            echo '<h1>Spróbuj Ponownie</h1>
             <p>Przepraszamy, ale podczas składania wniosku o przyjęcie dziecka do naszego przedszkola wystąpił błąd.
             Prosimy spróbować ponownie później. Jeśli problem będzie się powtarzał, prosimy o kontakt z administracją
             przedszkola.</p>';

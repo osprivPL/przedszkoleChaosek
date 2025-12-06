@@ -20,7 +20,7 @@ main {
     align-items: center;
     height: 85vh;
 }
-.containerLoggedIn, .containerLoggedOut{
+.container{
     display: flex;
     flex-direction: column;
     border-radius: 10px;
@@ -32,12 +32,20 @@ main {
     border: solid 5px var(--green-dark);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
     position: relative;
+    overflow-x: auto;
 }
 .containerLoggedOut{
     width: 50vw;
 }
 .containerLoggedIn{
     width: 40vw;
+}
+.containerProcess{
+    width: 600px;
+}
+.containerResult{
+    width: 1000px;
+    padding: 20px;
 }
 h1{
     font-size: 72px;
@@ -47,27 +55,17 @@ h1{
 }
 hr{
     position: absolute;
-    width: 40vw;
     border: 3px solid var(--green-dark);
     top:4rem;
     left: 1.5vw;
+    right: 1.5vw;
+    box-sizing: border-box;
     z-index: 0;
+    animation: rekrutacja_hr 1.2s ease-in-out;
 }
-.containerLoggedIn hr{
-    width: 39.5vw;
-    animation: rekrutacja_hr_logged_in 1.2s ease-in-out;
-}
-.containerLoggedOut hr{
-    width: 49.5vw;
-    animation: rekrutacja_hr_logged_out 1.2s ease-in-out;
-}
-@keyframes rekrutacja_hr_logged_in{
-    from {width: 0;}
-    to {width: 39.5vw;}
-}
-@keyframes rekrutacja_hr_logged_out{
-    from {width: 0;}
-    to {width: 49.5vw;}
+@keyframes rekrutacja_hr{
+    from {transform: scaleX(0);}
+    to {transform: scaleX(1);}
 }
 .form{
     display: flex;
@@ -137,6 +135,53 @@ h1{
 .textBlock input{
     height: 100px;
 }
-.submitButton{
+.containerLoggedIn .submitButton,
+.containerLoggedOut .submitButton{
     transform: scale(2);
+}
+
+
+.codeContainer{
+    display: flex;
+    flex-direction: column;
+    font-size: 32px;
+    gap: 1em;
+    padding: 20px;
+    color: white;
+    font-family: 'sour gummy', sans-serif;
+    font-weight: 900;
+    text-align: center;
+}
+.codeContainer form{
+    display: flex;
+    font-size: 32px;
+    gap: 1em;
+}
+.codeContainer form > *{
+    flex-grow: 1;
+}
+.codeContainer input, .codeContainer button{
+    font-family: 'sour gummy', sans-serif;
+    font-size: 32px;
+}
+.codeContainer button{
+    width: 70%;
+}
+.codeContainer input{
+    width: 30%;
+    padding-left: 10px;
+    box-sizing: border-box;
+    min-width: 10vw;
+}
+
+.containerResult{
+    font-family: 'Sour Gummy', sans-serif;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+}
+.error{
+    color: red;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
 }

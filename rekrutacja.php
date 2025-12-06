@@ -18,6 +18,9 @@ if (!isset($_SESSION['error'])) {
 
 if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
+    if($user->typ==2){
+        header('Location: ./electronicDiary/principle.php');
+    }
 }
 ?>
 
@@ -64,7 +67,7 @@ if (isset($_SESSION['user'])) {
 <!-- ============================= -->
 <main>
     <!---<?php printArr($_SESSION); ?>-->
-    <div id='container' <?php if($_SESSION['logged']){echo "class='containerLoggedIn'";}else{echo "class='containerLoggedOut'";}?>>
+    <div id='container' <?php if($_SESSION['logged']){echo "class='container containerLoggedIn'";}else{echo "class='container containerLoggedOut'";}?>>
         <hr>
         <h1 class='logo-font'>Rekrutacja</h1>
         <form id="frmRekrutacja" class='form' method="post" action=

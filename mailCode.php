@@ -17,7 +17,7 @@ $user = new User();
 if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
 }
-echo $_SESSION['sql'];
+//echo $_SESSION['sql'];
 $_SESSION['sql'] = $_SESSION['sql'];
 ?>
 
@@ -31,12 +31,14 @@ $_SESSION['sql'] = $_SESSION['sql'];
 
     <!-- style -->
     <link rel="stylesheet" href="./styles/rekrutacja.css">
-
+    <link rel="stylesheet" href="./styles/style.css">
     <!-- czcionka -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
 
     <!-- ikonka -->
     <link rel="icon" type="image/x-icon" href="./assets/logo_tornado.svg">
@@ -44,37 +46,36 @@ $_SESSION['sql'] = $_SESSION['sql'];
     <title>Przedszkole Chaosek</title>
 </head>
 <body id='body'>
-<!-- ============================= -->
-<!-- HEADER -->
-<!-- ============================= -->
 <header>
-    <a href="index.php" id="logo">
+    <div class="square_container">
+        <div class="square"></div>
+    </div>
+    <a href="index.php" class="logo logo-font">
         <img src="assets/logo_tornado.svg" alt="logo">
         <span>Przedszkole Chaosek</span>
     </a>
-    <!--zrobilem troche lepiej -->
 </header>
-<!-- ============================= -->
-<!-- MAIN -->
-<!-- ============================= -->
 <main>
     <?php
-    printArr($_SESSION);
+    //printArr($_SESSION);
     ?>
-    <div id="container">
-        <h1>Podaj kod wysłany na Twój email</h1>
-        <form action="./scripts/php/verifyCode.php" method="post" id="codeForm">
-            <label for="tbxCode">Kod:</label>
-            <input type="text" name="tbxCode" id="tbxCode" maxlength="6" required>
-            <span class="error" id="codeError"></span><br>
-            <button type="submit" id="btnVerifyCode">Zweryfikuj kod</button>
-        </form>
-        <?php
-        if ($_SESSION['error'] == 3) {
-            echo "<span class='error'>Nieprawidłowy kod</span>";
-            unset($_SESSION['error']);
-        }
-        ?>
+    <div id="container" class='container containerProcess'>
+        <hr>
+        <h1 class='logo-font'>Rekrutacja</h1>
+        <div class='codeContainer'>
+            <span>Podaj kod wysłany na Twój email</span>
+            <form action="./scripts/php/verifyCode.php" method="post" id="codeForm">
+                <input type="text" name="tbxCode" id="tbxCode" maxlength="6" required>
+                <button type="submit" id="btnVerifyCode" class='submitButton'>Zweryfikuj kod</button>
+            </form>
+            <?php
+            if ($_SESSION['error'] == 3) {
+                echo "<span class='error'>Nieprawidłowy kod</span>";
+                unset($_SESSION['error']);
+            }
+            ?>
+            <span class="error" id="codeError"></span>
+        </div>
     </div>
 </main>
 
