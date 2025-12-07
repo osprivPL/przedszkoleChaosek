@@ -228,6 +228,37 @@ main {
     /*background: linear-gradient(to left bottom, rgba(50, 143, 59, 0.5), rgba(50, 143, 59, 0.7));*/
 }
 
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 0 1.5vw;
+    background-color: var(--green-vibrant);
+    border: solid 5px var(--green-dark);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+    position: relative;
+    width: 50vw;
+    overflow-y: auto;
+}
+.formContainer h1{
+    font-size: 72px;
+    z-index: 1;
+    background-color: var(--green-vibrant);
+    padding: 0 2rem;
+    width: fit-content;
+    margin: 0 auto;
+    position: relative;
+}
+hr{
+    position: absolute;
+    border: 3px solid var(--green-dark);
+    top:4rem;
+    left: 1.5vw;
+    z-index: 0;
+    box-sizing: border-box;
+    right: 1.5vw;
+}
+
 
 aside, main {
     height: 80vh;

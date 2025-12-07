@@ -390,42 +390,48 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <!-- ============================= -->
         <!-- CAFETERIA -->
         <!-- ============================= -->
-        <div class="main-panel bigContainers" id="main-cafeteria">
+        <div class="main-panel bigContainers main-panel-food" id="main-cafeteria">
             <div class="styling-panel">
-                <div class="cafeteria-table">
-                    <span class="nzw">Nazwa</span>
-                    <?php
-                    $sql = "SELECT DISTINCT kiedy FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1)ORDER BY kiedy;";
-                    $result = $connection->query($sql)->fetch_all();
-                    for ($i = 0; $i < count($result); $i++) {
-                        echo "<span class='table_cell nzw'>" . weekDayFromDate($result[$i][0]) . "</span>";
-                    }
-                    ?>
-                    <span class="nzw">II Śniadanie</span>
-                    <?php
-                    $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 0 ORDER BY kiedy;";
-                    $result = $connection->query($sql)->fetch_all();
-                    for ($i = 0; $i < count($result); $i++) {
-                        echo "<span class='table_cell'>" . $result[$i][0] . "</span>";
-                    }
-                    ?>
-                    <span class="nzw">Obiad</span>
-                    <?php
-                    $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 1 ORDER BY kiedy;";
-                    $result = $connection->query($sql)->fetch_all();
-                    for ($i = 0; $i < count($result); $i++) {
-                        echo "<span class='table_cell'>" . $result[$i][0] . "</span>";
-                    }
-                    ?>
+                <div class="formContainer">
+                    <hr>
+                    <h1 class='logo-font-small'>Jadłospis</h1>
+                    <div>
+                        <div class="cafeteria-table">
+                            <span class="table_cell nzw">Nazwa</span>
+                            <?php
+                            $sql = "SELECT DISTINCT kiedy FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1)ORDER BY kiedy;";
+                            $result = $connection->query($sql)->fetch_all();
+                            for ($i = 0; $i < count($result); $i++) {
+                                echo "<span class='table_cell nzw'>" . weekDayFromDate($result[$i][0]) . "</span>";
+                            }
+                            ?>
+                            <span class="table_cell nzw">II Śniadanie</span>
+                            <?php
+                            $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 0 ORDER BY kiedy;";
+                            $result = $connection->query($sql)->fetch_all();
+                            for ($i = 0; $i < count($result); $i++) {
+                                echo "<span class='table_cell'>" . $result[$i][0] . "</span>";
+                            }
+                            ?>
+                            <span class="table_cell nzw">Obiad</span>
+                            <?php
+                            $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 1 ORDER BY kiedy;";
+                            $result = $connection->query($sql)->fetch_all();
+                            for ($i = 0; $i < count($result); $i++) {
+                                echo "<span class='table_cell'>" . $result[$i][0] . "</span>";
+                            }
+                            ?>
 
-                    <span class="nzw">Podwieczorek</span>
-                    <?php
-                    $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 2 ORDER BY kiedy;";
-                    $result = $connection->query($sql)->fetch_all();
-                    for ($i = 0; $i < count($result); $i++) {
-                        echo "<span class='table_cell'>" . $result[$i][0] . "</span>";
-                    }
-                    ?>
+                            <span class="table_cell nzw">Podwieczorek</span>
+                            <?php
+                            $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 2 ORDER BY kiedy;";
+                            $result = $connection->query($sql)->fetch_all();
+                            for ($i = 0; $i < count($result); $i++) {
+                                echo "<span class='table_cell'>" . $result[$i][0] . "</span>";
+                            }
+                            ?>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

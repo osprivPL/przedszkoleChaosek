@@ -296,32 +296,40 @@ body{
 }
 
 
-.cafeteria-table{
-    display: grid;
-    grid-template-columns: 0.5fr repeat(5, 1fr);
-    grid-template-rows: 0.5fr 1fr 1fr 1fr;
-    justify-content: center;
-    align-items: center;
-    border: var(--border1);
-    border-radius: 30px;
-    overflow: hidden;
+.formContainer{
+    width: 80vw;
+    max-height: 100%;
+    padding-bottom: 30px;
+    box-sizing: border-box;
 }
-#main-cafeteria span{
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    border: var(--border1);
-    height: 100%;
-    background: var(--green-vibrant);
-    background: linear-gradient(to left bottom, rgba(50, 143, 59, 0.5), rgba(50, 143, 59, 0.7));
-    backdrop-filter: blur(5px);
+
+.cafeteria-table{
+    border: 3px solid var(--green-dark);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    min-height: 80%;
+    min-width: 100%;
+    overflow-x: auto;
 }
 
 .table_cell {
-    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 20px;
     animation-timing-function: ease-out;
     -webkit-animation-timing-function: ease-out;
+    border: 3px solid var(--green-dark);
+    background-color: var(--green-vibrant);
+    font-family: 'sour gummy', sans-serif;
+    transition: .2s;
+}
+.table_cell:hover{
+    background-color: white;
+    color: var(--green-darkerer);
+    font-weight: bold;
 }
 .table_cell:nth-child(odd){
     animation: slideInViewFromDown 1s ease-out;
@@ -329,6 +337,7 @@ body{
 .table_cell:nth-child(even){
     animation: slideInViewFromRight 0.1s ease-out;
 }
+
 .table_cell:nth-child(8){animation-duration: 0.1s;}
 .table_cell:nth-child(9){animation-duration: 0.2s;}
 .table_cell:nth-child(10){animation-duration: 0.3s;}
@@ -345,11 +354,13 @@ body{
 .table_cell:nth-child(23){animation-duration: 1.4s;}
 .table_cell:nth-child(24){animation-duration: 1.5s;}
 .table_cell:nth-child(25){animation-duration: 1.6s;}
+
 .nzw{
     background: var(--green-darker);
-    background: linear-gradient(to left bottom, rgba(31, 67, 38, 0.5), rgba(31, 67, 38, 0.7)) !important;
-    font-size: 32px;
+    font-size: 24px;
+    font-weight: bold;
     animation: none !important;
+    align-items: center;
 }
 
 #main-news{
