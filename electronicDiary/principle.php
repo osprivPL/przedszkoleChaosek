@@ -206,12 +206,6 @@ for ($i = 0; $i < 5; $i++) {
                                 echo "<div class='name'>";
                                     echo "<span>" . $result[$i][5] . " " . $result[$i][6] . "</span>";
                                 echo "</div>";
-                                
-                                /*echo "<span>Rodzic: " . $result[$i][1] . " " . $result[$i][2] . "</span><br>";
-                                echo "<span>PESEL: " . $result[$i][7] . "</span><br>";
-                                echo "<span>Numer telefonu rodzica: " . $result[$i][3] . "</span>";
-                                echo "<span>Email rodzica: " . $result[$i][4] . "</span><br>";
-                                echo "<span>Adres zamieszkania: " . $result[$i][8] . "</span><br>";*/
                                 echo "<div class='buttons'>";
                                     echo "<select class='submitButton' id='wniosek".$result[$i][0]."select'>";
                                         echo "<option value=1>Grupa 1 </option>";
@@ -392,51 +386,25 @@ for ($i = 0; $i < 5; $i++) {
                 </div>
             </div>
         </div>
-        <div class="main-panel bigContainers main-panel-articles">
+        <div class="main-panel bigContainers main-panel-articles" id="main-panel-articles">
             <div class="styling-panel articlesManagement">
-                <h1><span>Zarzadządzanie artykułami</span></h1>
+                <h1><span>Zarządzanie artykułami</span></h1>
                 <?php
                 $sql = "SELECT naglowek, tresc, data, img, id FROM artykuly ORDER BY data DESC";
                 $result = $connection->query($sql)->fetch_all();
                 for ($i = 0; $i < count($result); $i++) {
                     echo "<div class='articleDetails' id='article" . $result[$i][4] . "'>";
-                    echo "<h2>" . $result[$i][0] . "</h2>";
-                    echo "<p>" . $result[$i][1] . "</p>";
-                    echo "<p>Data: " . $result[$i][2] . "</p>";
+                    echo "<h2 id='articleHeader".$result[$i][4]."'>" . $result[$i][0] . "</h2>";
+                    echo "<p id='articleContent".$result[$i][4]."'>" . $result[$i][1] . "</p>";
+                    echo "<p id='articleDate".$result[$i][4]."'>Data: " . $result[$i][2] . "</p>";
                     if (!empty($result[$i][3])) {
-                        echo "<img src='" . './.' . $result[$i][3] . "' alt='Article Image' style='max-width:200px;'><br>";
+                        echo "<img id='articleImg".$result[$i][4]."' src='" . './.' . $result[$i][3] . "' alt='Article Image' style='max-width:200px;'><br>";
                     }
+                    echo "<button class='edit_article' id='btnEditArticle" . $result[$i][4] . "' onclick='edytujArtykul(" . $result[$i][4] . ")'>Edytuj artykuł</button>";
                     echo "<button class='delete_article' onclick='ukryjArtykul(" . $result[$i][4] . ")'>Usuń artykuł</button>";
                     echo "<hr></div>";
                 }
                 ?>
-                <script>
-                    function ukryjArtykul(idRekordu) {
-                        fetch('./../scripts/php/deleteArticle.php', {
-                            method: 'POST',
-                            headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify({id: idRekordu})
-                        })
-                            .then(response => response.text())
-                            .then(data => {
-                                if (data.trim() === 'OK') {
-                                    const element = document.getElementById('article' + idRekordu);
-                                    if (element) {
-                                        element.style.transition = "opacity 0.5s";
-                                        element.style.opacity = "0";
-
-                                        setTimeout(() => element.remove(), 500);
-                                    }
-                                } else {
-                                    console.error('Błąd serwera:', data);
-                                    alert('Wystąpił błąd podczas zapisu.');
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Błąd sieci:', error);
-                            });
-                    }
-                </script>
             </div>
         </div>
 
@@ -684,7 +652,7 @@ for ($i = 0; $i < 5; $i++) {
                             foreach ($weekDates as $date) {
                                 $opis = $menu[$date][2] ?? '';
                                 echo '<span class="table_cell">';
-                                echo '<textarea class="meal-textarea" name="meals[' . $date . '][2]" placeholder="+ Dodaj">' . htmlspecialchars($opis) . '</textarea>';
+                                    echo '<textarea class="meal-textarea" name="meals[' . $date . '][2]" placeholder="+ Dodaj">' . htmlspecialchars($opis) . '</textarea>';
                                 echo '</span>';
                             }
                             ?>
@@ -694,12 +662,12 @@ for ($i = 0; $i < 5; $i++) {
                 </div>
             </div>
         </div>
-        <div class="main-panel bigContainers main-panel-add main-panel-add-komunikaty">
+        <div class="main-panel bigContainers main-panel-add main-panel-add-komunikaty" id="addAnnoucement">
             <div class="styling-panel">
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small"><span>Dodaj komunikat</span></h1>
-                    <form method="post" action="./../scripts/php/addAnoucement.php">
+                    <form method="post" action="../scripts/php/addAnnoucement.php">
                         <div class="article_header">
                             <input type="text" id="komunikatHeader"name="komunikatHeader">
                         </div>
@@ -722,7 +690,7 @@ for ($i = 0; $i < 5; $i++) {
             </div>
         </div>
 
-        <div class="main-panel bigContainers main-panel-komunikaty">
+        <div class="main-panel bigContainers main-panel-komunikaty" id="annoucementManager">
             <div class="styling-panel annoucementManagement">
                 <h1 class="logo-font-small"><span>Zarządzaj komunikatami</span></h1>
                 <?php
@@ -730,11 +698,12 @@ for ($i = 0; $i < 5; $i++) {
                 $result = $connection->query($sql)->fetch_all();
                 for ($i = 0; $i < count($result); $i++) {
                     echo "<div class='articleDetails' id='komunikat" . $result[$i][4] . "'>";
-                    echo "<h2>" . $result[$i][0] . "</h2>";
-                    echo "<p>" . $result[$i][1] . "</p>";
-                    echo "<p>Data: " . $result[$i][2] . "</p>";
+                    echo "<h2 id='annoucementHeader".$result[$i][4]."'>" . $result[$i][0] . "</h2>";
+                    echo "<p id='annoucementContent".$result[$i][4]."'>" . $result[$i][1] . "</p>";
+                    echo "<p id='annoucementDate".$result[$i][4]."'>Data: " . $result[$i][2] . "</p>";
                     echo "<p>";
                     echo "Wiedoczność: ";
+                    echo "<span id='annoucementVisibility".$result[$i][4]."'>";
                     if ($result[$i][3] == 0) {
                         echo "Wszyscy";
                     } else if ($result[$i][3] == 1) {
@@ -746,38 +715,13 @@ for ($i = 0; $i < 5; $i++) {
                     } else if ($result[$i][3] == 4) {
                         echo "Grupa 4";
                     }
+                    echo "</span>";
                     echo "</p>";
+                    echo "<button class='delete_article' onclick='edytujKomunikat(" . $result[$i][4] . ")'>Edytuj komunikat</button>";
                     echo "<button class='delete_article' onclick='ukryjKomunikat(" . $result[$i][4] . ")'>Usuń komunikat</button>";
                     echo "<hr></div>";
                 }
                 ?>
-                <script>
-                    function ukryjKomunikat(idRekordu) {
-                        fetch('./../scripts/php/deleteAnnoucement.php', {
-                            method: 'POST',
-                            headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify({id: idRekordu})
-                        })
-                            .then(response => response.text())
-                            .then(data => {
-                                if (data.trim() === 'OK') {
-                                    const element = document.getElementById('komunikat' + idRekordu);
-                                    if (element) {
-                                        element.style.transition = "opacity 0.5s";
-                                        element.style.opacity = "0";
-
-                                        setTimeout(() => element.remove(), 500);
-                                    }
-                                } else {
-                                    console.error('Błąd serwera:', data);
-                                    alert('Wystąpił błąd podczas zapisu.');
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Błąd sieci:', error);
-                            });
-                    }
-                </script>
             </div>
         </div>
         <div class="main-panel bigContainers main-panel-plan">
@@ -926,6 +870,66 @@ for ($i = 0; $i < 5; $i++) {
                 </form>
             </div>
 
+        </div>
+        <div class="main-panel bigContainers main-panel-add main-panel-add-article" id="editArticle">
+            <div class="styling-panel">
+                <div class="formContainer">
+                    <hr>
+                    <h1 class="logo-font-small"><span>Edytuj artykuł</span></h1>
+                    <form method="post" action="../scripts/php/editArticle.php" enctype="multipart/form-data">
+                        <input type="hidden" name="articleId" id="articleIdHiddenInput">
+                        <div class="article">
+                            <div class="article_header">
+                                <input type="text" id="editArticleHeader" name="editArticleHeader" required>
+                                <input type="date" id="editArticleData" name="editArticleData">
+                            </div>
+                            <textarea id="editArticleContent" name="editArticleContent" rows="10" cols="50" required></textarea><br><br>
+                        </div>
+                        <div class="details">
+                            <div class='choose-image'>
+                                <label for="editArticleImg" class='file-button submitButton'>Wybierz Zdjęcie</label>
+                                <input type="file" id="editArticleImg" name="editArticleImg" accept="image/*" style="display: none">
+                                <span id='editFileName'>Nie wybrano</span>
+                                <script>
+                                    document.getElementById('editArticleImg').addEventListener('change', function(e){
+                                        const fileName = e.target.files[0]?.name || '';
+                                        document.getElementById('editFileName').textContent = fileName ? fileName : 'Nie wybrano';
+                                    });
+                                </script>
+                            </div>
+                            <div><input id="btnAddArticle" type="submit" value="Zapisz" class='submitButton'></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="main-panel bigContainers main-panel-add main-panel-add-komunikaty" id="editAnnoucements">
+            <div class="styling-panel">
+                <div class="formContainer">
+                    <hr>
+                    <h1 class="logo-font-small"><span>Edytuj komunikat</span></h1>
+                    <form method="post" action="./../scripts/php/editAnnoucement.php">
+                        <input type="hidden" name="editKomunikatIdHiddenInput" id="editKomunikatIdHiddenInput">
+                        <div class="article_header">
+                            <input type="text" id="editKomunikatHeader" name="editKomunikatHeader" required>
+                        </div>
+                        <textarea id="editKomunikatContent" name="editKomunikatContent" rows="10" cols="50"></textarea><br><br>
+                        <div class="details">
+                            <div class="choose-visibility">
+                                <label for="editKomunikatGrupa">Wybierz widoczność</label>
+                                <select id="editKomunikatGrupa" name="editKomunikatGrupa" class='submitButton'>
+                                    <option value="0">Wszyscy</option>
+                                    <option value="1">Grupa 1</option>
+                                    <option value="2">Grupa 2</option>
+                                    <option value="3">Grupa 3</option>
+                                    <option value="4">Grupa 4</option>
+                                </select>
+                            </div>
+                            <div><input type="submit" value="Zapisz" class='submitButton'></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </main>
 </div>

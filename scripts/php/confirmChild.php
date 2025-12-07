@@ -1,9 +1,7 @@
 <?php
-// Na samym początku upewniamy się, że błędy nie są wypisywane na ekran
 error_reporting(0);
 ini_set('display_errors', 0);
 
-// Rozpoczynamy buforowanie (nawet jeśli nadrzędny plik już to zrobił)
 ob_start();
 
 require_once('./MAIL.php');
@@ -19,15 +17,11 @@ function generateRandomString() : string
     return $randomString;
 }
 
-// Funkcja pomocnicza do czyszczenia wszystkiego i kończenia skryptu
 function responseAndExit($message) {
-    // Czyścimy WSZYSTKIE poziomy buforowania, aż do zera
     while (ob_get_level()) {
         ob_end_clean();
     }
-    // Wypisujemy komunikat
     echo $message;
-    // Zabijamy skrypt
     exit;
 }
 
@@ -50,7 +44,6 @@ if ($id > 0 && $connection && $group > 0 && $group <= 4) {
         $idRodzica = 0;
 
         $cryptedPassword = password_hash($haslo, PASSWORD_BCRYPT);
-        // Poprawka: w SQL jest 6 wartości (3 to '0'), ale bindujesz 5 zmiennych - to jest OK, bo typ jest hardcoded
         $stmtParent = $connection->prepare("INSERT IGNORE INTO uzytkownicy (imie, nazwisko, typ, numerTelefonu, login, haslo) VALUES (?, ?, 0, ?, ?, ?)");
         $stmtParent->bind_param("sssss", $result['imieRodzica'], $result['nazwiskoRodzica'], $result['numerTelefonu'], $result['email'], $cryptedPassword);
         $stmtParent->execute();
@@ -83,13 +76,10 @@ if ($id > 0 && $connection && $group > 0 && $group <= 4) {
                 try {
                     sendTempPassword($haslo, $result['imieRodzica'], $result['nazwiskoRodzica']);
                 } catch (Exception $e) {
-                    // mail error, ignorujemy
                 }
 
-                // --- TU JEST KLUCZOWA ZMIANA ---
                 $stmtDel->close();
                 responseAndExit("OK");
-                // -------------------------------
             }
             $stmtDel->close();
 
