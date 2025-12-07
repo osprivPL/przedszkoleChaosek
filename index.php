@@ -169,7 +169,7 @@ if (!isset($_SESSION['error'])) {
         <a href="#o_nas">O nas</a>
         <a href="#aktualnosci">Aktualności</a>
         <a href="#dojazd">Dojazd</a>
-        <a href="./rekrutacja.php">REKRUTACJA</a>
+        <a href="./rekrutacja.php">Rekrutacja</a>
         <a href="#kontakt">Kontakt</a>
         <?php
         if ($_SESSION['logged']) {
@@ -208,7 +208,7 @@ if (!isset($_SESSION['error'])) {
         <div class="logo_img_container">
             <img src="./assets/logo_tornado.svg">
         </div>
-        <div class="text logo-font">Przedszkole<br>Chaosek</div>
+        <div class="text logo-font">Przedszkole Chaosek</div>
     </div>
 </div>
 
