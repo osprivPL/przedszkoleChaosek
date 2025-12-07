@@ -392,7 +392,6 @@ body{
     justify-content: space-between;
 }
 .newsCards .title{
-    text-align: center;
     font-size: 48px;
     border-radius: 30px;
     margin-bottom: 12px;
