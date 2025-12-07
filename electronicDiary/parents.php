@@ -439,20 +439,26 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <!-- ============================= -->
         <!-- KOMUNIKATY -->
         <!-- ============================= -->
-        <div class="main-panel bigContainers" id="main-news">
+        <div class="main-panel bigContainers main-panel-news" id="main-news">
             <div class="styling-panel">
-                <!-- TO SA NARAZIE DLA CALRGO PRZEDSZKOLA, TRZEBA ZROBIC TO ROZWIJANE DLA OGOLNYCH KOMUUNIKATOW I KONKRETNYCH GRUP-->
-                <?php
-                $sql = "SELECT tytul, tresc, data FROM komunikaty WHERE przynaleznosc = 0 ORDER BY data DESC;";
-                $result = $connection->query($sql)->fetch_all();
-                for ($i = 0; $i < count($result); $i++) {
-                    echo "<div class='newsCards'>
-                                <h3>" . $result[$i][0] . "</h3>
-                                <span class='newsCards-date'>" . $result[$i][2] . "</span>
-                                <p>" . $result[$i][1] . "</p>
-                              </div>";
-                }
-                ?>
+                <div class="formContainer">
+                    <hr>
+                    <h1 class='logo-font-small'>Komunikaty</h1>
+                    <!-- TO SA NARAZIE DLA CALRGO PRZEDSZKOLA, TRZEBA ZROBIC TO ROZWIJANE DLA OGOLNYCH KOMUUNIKATOW I KONKRETNYCH GRUP-->
+                    <?php
+                    $sql = "SELECT tytul, tresc, data FROM komunikaty WHERE przynaleznosc = 0 ORDER BY data DESC;";
+                    $result = $connection->query($sql)->fetch_all();
+                    for ($i = 0; $i < count($result); $i++) {
+                        echo "<div class='newsCards'>
+                                    <div class='header'>
+                                        <span class='title'>" . $result[$i][0] . "</span>
+                                        <span class='date'>" . $result[$i][2] . "</span>
+                                    </div>
+                                    <div><span class='content'>" . $result[$i][1] . "</span></div>
+                                </div>";
+                    }
+                    ?>
+                </div>
             </div>
         </div>
 
