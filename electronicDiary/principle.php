@@ -409,7 +409,7 @@ $dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Cz
                                 <input type="text" id="articleTitle" name="articleTitle">
                                 <input type="date" id="articleData" name="articleData">
                             </div>
-                            <textarea id="articleContent" name="articleContent" rows="10" cols="50"></textarea><br><br>
+                            <textarea id="articleContent" name="articleContent" rows="10" cols="50"></textarea>
                         </div>
                         <div class="details">
                             <div class='choose-image'>

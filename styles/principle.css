@@ -46,7 +46,7 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     border-radius: 10px;
-    margin-bottom: 5px;
+    margin-top: 15px;
     font-family: 'Sour gummy', sans-serif;
     box-sizing: border-box;
     position: relative;
@@ -181,10 +181,11 @@ button:hover{
 }
 .info > div{
     background-color: #ffffff26;
+    border: 4px solid var(--green-dark);
     padding: .5em;
     font-size: 32px;
     font-family: 'Sour Gummy', sans-serif;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 .main-panel-add input,
@@ -193,9 +194,45 @@ button:hover{
     font-size: 32px;
     font-family: 'sour gummy', sans-serif;
 }
+.main-panel-add input[type='date'],
+.main-panel-add input[type='text'],
+.main-panel-add textarea{
+    background-color: var(--green-dark);
+    color: white;
+    box-sizing: border-box;
+}
+.main-panel-add input[type='date']{
+    border-top-right-radius: 15px;
+    border-top: 6px solid var(--green-darker);
+    border-right: 6px solid var(--green-darker);
+    border-left: 3px solid var(--green-darker);
+    border-bottom: 3px solid var(--green-darker);
+}
+.main-panel-add-article input[type='text']{
+    border-top-left-radius: 15px;
+    border-top: 6px solid var(--green-darker);
+    border-right: 3px solid var(--green-darker);
+    border-left: 6px solid var(--green-darker);
+    border-bottom: 3px solid var(--green-darker);
+}
+.main-panel-add-komunikaty input[type='text']{
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-top: 6px solid var(--green-darker);
+    border-right: 6px solid var(--green-darker);
+    border-left: 6px solid var(--green-darker);
+    border-bottom: 3px solid var(--green-darker);
+}
+.main-panel-add textarea{
+    border-radius: 0 0 15px 15px;
+    border-top: 3px solid var(--green-darker);
+    border-right: 6px solid var(--green-darker);
+    border-left: 6px solid var(--green-darker);
+    border-bottom: 6px solid var(--green-darker);
+}
 .main-panel-add .article{
-    border-radius: 3px;
     overflow: hidden;
+    margin: 10px 0 20px 0;
 }
 .main-panel-add .article_header{
     display: flex;
@@ -234,6 +271,9 @@ button:hover{
 .main-panel-groups{
     font-family: 'sour gummy', sans-serif;
 }
+.main-panel-groups .formContainer{
+    width: 60vw;
+}
 .main-panel-groups .groupInfo{
     border-radius: 15px;
     display: flex;
@@ -258,6 +298,7 @@ button:hover{
     grid-template-columns: repeat(6, 1fr);
     gap: 0;
     border: 5px solid var(--green-dark);
+    border-radius: 15px;
     overflow-x: auto;
 }
 
@@ -387,7 +428,7 @@ button:hover{
 
 /* Nagłówki (Dni tygodnia) */
 .plan-header {
-    background-color: #1b6336; /* Ciemniejsza zieleń dla nagłówków */
+    background-color: var(--green-dark); /* Ciemniejsza zieleń dla nagłówków */
     color: white;
     font-family: 'Sour Gummy', cursive; /* Twoja czcionka */
     font-weight: bold;
@@ -401,7 +442,7 @@ button:hover{
 }
 
 .plan-cell {
-    background-color: #2e8b45; /* Jaśniejsza zieleń (taka jak w jadłospisie) */
+    background-color: var(--green-vibrant); /* Jaśniejsza zieleń (taka jak w jadłospisie) */
     padding: 5px;
     display: flex;
     flex-direction: column;
@@ -413,7 +454,7 @@ button:hover{
 }
 
 .time-cell {
-    background-color: #1b6336; /* Taka sama jak nagłówki */
+    background-color: var(--green-dark); /* Taka sama jak nagłówki */
     color: white;
     font-weight: bold;
     display: flex;
@@ -441,8 +482,8 @@ button:hover{
     background: linear-gradient(to top right, transparent calc(50% - 1px), #fff calc(50%), transparent calc(50% + 1px));
     opacity: 0.5;
 }
-.corner-text-top { position: absolute; top: 5px; right: 10px; color: white; font-size: 0.8em; }
-.corner-text-bottom { position: absolute; bottom: 5px; left: 10px; color: white; font-size: 0.8em; }
+.corner-text-top { position: absolute; top: 5px; right: 6px; color: white; font-size: 1em; }
+.corner-text-bottom { position: absolute; bottom: 5px; left: 6px; color: white; font-size: 1em; }
 
 .lesson-select {
     width: 100%;
