@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2025 at 10:07 PM
+-- Generation Time: Dec 08, 2025 at 06:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,7 +40,7 @@ CREATE TABLE `artykuly` (
 --
 
 INSERT INTO `artykuly` (`ID`, `naglowek`, `tresc`, `data`, `img`) VALUES
-(1, 'Jesienna wycieczka do parku', 'W październiku nasze przedszkolaki wybrały się na kolorową wycieczkę do parku, gdzie obserwowały zmieniającą się przyrodę. Dzieci zbierały liście i bawiły się na świeżym powietrzu.', '2025-11-19', './assets/articles/park.png'),
+(1, 'Jesienna wycieczka do parku', 'W październiku nasze przedszkolaki wybrały się na kolorową wycieczkę do parku, gdzie obserwowały zmieniającą się przyrodę. Dzieci zbierały liście i bawiły się na świeżym powietrzu.', '2025-11-12', './assets/articles/jesienna_wycieczka_do_parku_6935a8fb8bd92.png'),
 (3, 'Warsztaty kulinarne – robimy sałatkę owocową', 'Przedszkolaki własnoręcznie przygotowały zdrową i pyszną sałatkę owocową, ucząc się rozpoznawać różne owoce oraz dbając o higienę.', '2025-10-10', './assets/articles/salatka.png'),
 (4, 'Teatrzyk kukiełkowy', 'Nauczyciele przygotowali przedstawienie kukiełkowe, które bardzo spodobało się dzieciom i zainspirowało je do własnej twórczości.', '2025-10-27', './assets/articles/teatrzyk.png'),
 (8, 'Chaotyczna Wielkanoc', 'Sesja zdjęciowa na wielkanoc tworzy ciepłą atmosferę i buduje wyjątkowe tradycje w naszej placówce.', '2025-04-20', './assets/articles/wielkanoc.png'),
@@ -76,7 +76,8 @@ INSERT INTO `dzieci` (`ID`, `imie`, `nazwisko`, `pesel`, `adres`, `grupa`, `img`
 (6, 'Ala', 'Wiśniewska', '19301011223', 'Łódź, ul. Lipowa 3', 3, 'brak', 6),
 (7, 'Olek', 'Wiśniewski', '21310533441', 'Łódź, ul. Lipowa 3', 1, 'brak', 6),
 (8, 'Filip', 'Wiśniewski', '18222855667', 'Łódź, ul. Lipowa 3', 4, 'brak', 6),
-(9, 'Michał', 'Zieliński', '19260199887', 'Łódź, ul. Długa 50/4', 3, 'brak', 7);
+(9, 'Michał', 'Zieliński', '19260199887', 'Łódź, ul. Długa 50/4', 3, 'brak', 7),
+(18, 'Brajan', 'Symilak', '22230711738', 'Wojska Polskiego 19/10', 1, 'brak', 21);
 
 -- --------------------------------------------------------
 
@@ -151,7 +152,7 @@ INSERT INTO `jadlospis` (`id`, `kiedy`, `typ`, `opis`) VALUES
 (31, '2025-12-08', 0, 'Bułka kajzerka z polędwicą sopocką i papryką czerwoną, herbata'),
 (32, '2025-12-08', 1, 'Zupa grochowa z grzankami. Bitki schabowe w sosie własnym, kasza gryczana, ogórek konserwowy'),
 (33, '2025-12-08', 2, 'Serek homogenizowany waniliowy'),
-(34, '2025-12-09', 0, 'Płatki jaglane na mleku, chałka z masłem'),
+(34, '2025-12-09', 0, 'parówki z serem'),
 (35, '2025-12-09', 1, 'Zupa kalafiorowa z koperkiem. Udko z kurczaka pieczone, ziemniaki, surówka z kapusty pekińskiej'),
 (36, '2025-12-09', 2, 'Budyń czekoladowy z sokiem malinowym'),
 (37, '2025-12-10', 0, 'Kanapki z pastą z cieciorki (hummus) i ogórkiem świeżym, inka'),
@@ -185,7 +186,7 @@ CREATE TABLE `komunikaty` (
 INSERT INTO `komunikaty` (`ID`, `tytul`, `tresc`, `data`, `przynaleznosc`) VALUES
 (29, 'Opłaty za żywienie', 'Drodzy Rodzice, przypominamy o konieczności uiszczenia opłaty za żywienie do 10-go dnia miesiąca.', '2025-11-02', 0),
 (30, 'Ważne: Ospa wietrzna', 'Uwaga! W przedszkolu panuje ospa wietrzna. Prosimy o obserwację dzieci.', '2025-11-28', 0),
-(31, 'Piknik Rodzinny', 'Zapraszamy serdecznie na Zimowy Kiermasz, który odbędzie się w ogrodzie przedszkolnym w sobotę o 11:00.', '2025-12-05', 0),
+(31, 'Piknik Rodzinny', 'Zapraszamy serdecznie na Zimowy Kiermasz, który odbędzie się w ogrodzie przedszkolnym w sobotę o 11:00.', '2025-12-07', 0),
 (32, 'Jesienna pogoda', 'W związku z deszczową pogodą prosimy, aby każde dziecko miało w szafce kalosze i pelerynę.', '2025-10-15', 0),
 (33, 'Zdrowie dzieci', 'Przypominamy: prosimy nie przyprowadzać do przedszkola dzieci przeziębionych i z gorączką.', '2025-11-30', 0),
 (34, 'Przerwa techniczna', 'W najbliższy piątek placówka będzie nieczynna z powodu prac technicznych w sieci wodociągowej.', '2025-12-01', 0),
@@ -244,8 +245,7 @@ CREATE TABLE `oczekujace` (
 --
 
 INSERT INTO `oczekujace` (`ID`, `imieRodzica`, `nazwiskoRodzica`, `numerTelefonu`, `email`, `imieDziecka`, `nazwiskoDziecka`, `pesel`, `adres`) VALUES
-(14, 'Jan', 'Kruk', '123456789', 'jKruk@gmail.com', 'dziecko', 's', '22210309979', 'Spermastyczna 67'),
-(15, 'Jan', 'Kruk', '123456789', 'jKruk@gmail.com', 'spermiarz II', 'to samo', '22210309979', 'Spermastyczna 67');
+(29, 'Ja', 'Nie', '903241678', 'tajny@email.com', 'Maciek', 'to samo', '11111111111', 'Łódź, Harcerska 6/7');
 
 -- --------------------------------------------------------
 
@@ -415,22 +415,27 @@ CREATE TABLE `uzytkownicy` (
   `typ` int(11) NOT NULL COMMENT '0 - rodzic, 1- nauczyciel, 2-dyrekcja',
   `numerTelefonu` varchar(15) NOT NULL,
   `login` varchar(100) NOT NULL,
-  `haslo` varchar(257) NOT NULL
+  `haslo` varchar(257) NOT NULL,
+  `firstLogin` tinyint(4) NOT NULL COMMENT '0 - nie, 1 - tak',
+  `opinia` varchar(5000) DEFAULT NULL,
+  `zdjecie` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 --
 -- Dumping data for table `uzytkownicy`
 --
 
-INSERT INTO `uzytkownicy` (`ID`, `imie`, `nazwisko`, `typ`, `numerTelefonu`, `login`, `haslo`) VALUES
-(1, 'Jan', 'Kruk', 0, '123456789', 'jKruk@gmail.com', '$2y$10$V5DNoqC33NA5fe9CJ/QTMu7SSHWuKcPZfgl6GIaPtlA4hwGrwQWfq'),
-(2, 'Stanisław', 'Odrowski', 1, '999999999', 'stasiu@outlook.com', '$2y$10$GklSuzP8xNagCDpk4IPUaOI2Aahwb9rFtCZoPiOOwv9u7wk0me8B6'),
-(3, 'Jeremiasz', 'Michorczyk', 2, '666777888', 'jeremi@yahoo.com', '$2y$10$ZFmNZui9uCZRAkrpCsYTdOzpAM2BiRn1gHEnaC5M45ItwDdC.yclu'),
-(4, 'Anna', 'Kowalska', 0, '501234567', 'anna.kowalska@poczta.pl', 'haslo123'),
-(5, 'Piotr', 'Nowak', 0, '602345678', 'piotr.nowak@gmail.com', 'tajnehaslo'),
-(6, 'Magdalena', 'Wiśniewska', 0, '793456789', 'magda.wisniewska@onet.pl', 'magda2024'),
-(7, 'Tomasz', 'Zieliński', 0, '511000111', 'tomek.zielinski@wp.pl', 'qwertyuiop'),
-(8, 'Katarzyna', 'Wójcik', 0, '698765432', 'kasia.wojcik@poczta.fm', 'rodzic1');
+INSERT INTO `uzytkownicy` (`ID`, `imie`, `nazwisko`, `typ`, `numerTelefonu`, `login`, `haslo`, `firstLogin`, `opinia`, `zdjecie`) VALUES
+(1, 'Jan', 'Kruk', 0, '123456789', 'jKruk@gmail.com', '$2y$10$V5DNoqC33NA5fe9CJ/QTMu7SSHWuKcPZfgl6GIaPtlA4hwGrwQWfq', 0, NULL, NULL),
+(2, 'Stanisław', 'Odrowski', 1, '999999999', 'stasiu@outlook.com', '$2y$10$GklSuzP8xNagCDpk4IPUaOI2Aahwb9rFtCZoPiOOwv9u7wk0me8B6', 0, 'Bardzo fajny nauczyciel, ma świetne podejście do dzieci i potrafi stworzyć na lekcjach miłą atmosferę. Tłumaczy w sposób zrozumiały i zawsze stara się, żeby każdy wszystko dobrze zrozumiał. Widać, że lubi swoją pracę i zależy mu na uczniach.\n', 'stanislawOdrowski.jpg'),
+(3, 'Jeremiasz', 'Michorczyk', 2, '666777888', 'jeremi@yahoo.com', '$2y$10$ZFmNZui9uCZRAkrpCsYTdOzpAM2BiRn1gHEnaC5M45ItwDdC.yclu', 0, 'Nauczyciel z pasją, potrafi zainteresować tematem i widać, że zależy mu na uczniach. Zawsze cierpliwie wszystko tłumaczy i tworzy przyjazną atmosferę na lekcjach.\n', 'jeremiaszMichorczyk.jpg'),
+(4, 'Anna', 'Kowalska', 0, '501234567', 'anna.kowalska@poczta.pl', 'haslo123', 0, NULL, NULL),
+(5, 'Piotr', 'Nowak', 0, '602345678', 'piotr.nowak@gmail.com', 'tajnehaslo', 0, NULL, NULL),
+(6, 'Magdalena', 'Wiśniewska', 0, '793456789', 'magda.wisniewska@onet.pl', 'magda2024', 0, NULL, NULL),
+(7, 'Tomasz', 'Zieliński', 0, '511000111', 'tomek.zielinski@wp.pl', 'qwertyuiop', 0, NULL, NULL),
+(8, 'Katarzyna', 'Wójcik', 0, '698765432', 'kasia.wojcik@poczta.fm', 'rodzic1', 0, NULL, NULL),
+(15, 'Jakub', 'Juźwicki', 0, '666777678', 'juzwik@zhp.pl', '$2y$10$ziAoEp1XqJOOM/xrsN0G7O9W20qikbc7dmQG6fHFzQ9D6SkxBQ7la', 0, NULL, NULL),
+(21, 'Marcin', 'Symilak', 0, '191019101', 'mSymilak@pilka.pl', '$2y$10$xnKq49lr1AYi.5ws807NuuzJ2YSBdr8av9xXRDtYLG8PsZSKn.d9q', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -526,7 +531,9 @@ ALTER TABLE `pracedomowe`
 -- Indexes for table `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `login` (`login`),
+  ADD UNIQUE KEY `numerTelefonu` (`numerTelefonu`);
 
 --
 -- Indexes for table `wiadomosci`
@@ -544,13 +551,13 @@ ALTER TABLE `wiadomosci`
 -- AUTO_INCREMENT for table `artykuly`
 --
 ALTER TABLE `artykuly`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `dzieci`
 --
 ALTER TABLE `dzieci`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `grupy`
@@ -562,19 +569,19 @@ ALTER TABLE `grupy`
 -- AUTO_INCREMENT for table `jadlospis`
 --
 ALTER TABLE `jadlospis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=196;
 
 --
 -- AUTO_INCREMENT for table `komunikaty`
 --
 ALTER TABLE `komunikaty`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `oczekujace`
 --
 ALTER TABLE `oczekujace`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `plan_lekcji`
@@ -592,7 +599,7 @@ ALTER TABLE `pracedomowe`
 -- AUTO_INCREMENT for table `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `wiadomosci`
