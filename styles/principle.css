@@ -20,9 +20,7 @@
     display: block;
     width: 100%;
 }
-.main-panel-add .styling-panel,
-.main-panel-rekrutacja .styling-panel,
-.main-panel-groups .styling-panel{
+.styling-panel{
     display: flex;
     justify-content: center;
 }
@@ -482,11 +480,6 @@ button:hover{
     border-color: #fff !important;
     transform: scale(1.05);
 }
-
-
-.main-panel-komunikaty .styling-panel{
-    justify-content: center;
-}
 .main-panel-komunikaty .formContainer,
 .main-panel-articles .formContainer{
     width: 90%;
@@ -502,7 +495,7 @@ button:hover{
     border: 5px solid var(--green-dark);
 }
 .articleDetails h2{
-    font-size: 48px;
+    font-size: 36px;
 }
 .articleDetails .header-info{
     display: flex;
@@ -521,9 +514,12 @@ button:hover{
     align-items: flex-end;
 }
 .articleDetails .submitButton{
-    margin: 20px 20px 0 0;
+    margin: 0 20px 0 0;
     font-size: 22px;
     border: none;
+}
+.main-panel-komunikaty .submitButton{
+    margin-top: 20px;
 }
 .articleDetails .content{
     width: 80%;
