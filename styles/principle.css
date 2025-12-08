@@ -370,3 +370,108 @@ button:hover{
 .main-panel-food .submitButton{
     transform: scale(2);
 }
+.plan-grid-container {
+    display: grid;
+    /* Pierwsza kolumna (Godziny) ma 120px, reszta (5 dni) dzieli miejsce po równo */
+    grid-template-columns: 120px repeat(5, 1fr);
+    gap: 2px; /* To tworzy te ciemne linie między komórkami */
+    background-color: #14522d; /* Ciemny zielony kolor linii/ramki */
+    border: 4px solid #14522d;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Nagłówki (Dni tygodnia) */
+.plan-header {
+    background-color: #1b6336; /* Ciemniejsza zieleń dla nagłówków */
+    color: white;
+    font-family: 'Sour Gummy', cursive; /* Twoja czcionka */
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    font-size: 1.1em;
+}
+
+/* Zwykłe komórki z lekcjami */
+.plan-cell {
+    background-color: #2e8b45; /* Jaśniejsza zieleń (taka jak w jadłospisie) */
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80px; /* Wysokość wiersza */
+    color: white;
+}
+
+/* Komórka z godziną (po lewej) */
+.time-cell {
+    background-color: #1b6336; /* Taka sama jak nagłówki */
+    color: white;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    font-size: 0.9em;
+}
+
+/* Narożnik z przekreśleniem */
+.corner-cell {
+    background-color: #14522d;
+    position: relative;
+    overflow: hidden;
+}
+/* Linia przekreślająca w CSS */
+.corner-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top right, transparent calc(50% - 1px), #fff calc(50%), transparent calc(50% + 1px));
+    opacity: 0.5;
+}
+.corner-text-top { position: absolute; top: 5px; right: 10px; color: white; font-size: 0.8em; }
+.corner-text-bottom { position: absolute; bottom: 5px; left: 10px; color: white; font-size: 0.8em; }
+
+/* Styl Selecta (listy rozwijanej) żeby pasował do tła */
+.lesson-select {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    cursor: pointer;
+    font-family: inherit;
+}
+.lesson-select option {
+    color: black; /* Opcje po rozwinięciu muszą być czarne */
+    background: white;
+}
+.lesson-select:focus {
+    background: rgba(0,0,0,0.2);
+    outline: none;
+}
+
+/* Style przycisków grup */
+.group-switcher button {
+    transition: transform 0.1s;
+}
+.group-switcher button:active {
+    transform: scale(0.95);
+}
+.plan-group-btn.active {
+    background-color: #d4a373 !important; /* Brązowy kolor aktywnego przycisku */
+    border-color: #fff !important;
+    transform: scale(1.05);
+}

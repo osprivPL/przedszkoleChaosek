@@ -29,6 +29,7 @@ if ($user->typ != 2 || !$_SESSION['logged']) {
 $conteiner = 1;
 $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
+// --- OBSŁUGA JADŁOSPISU ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['meals'])) {
     $stmt = $connection->prepare("INSERT INTO jadlospis (kiedy, typ, opis) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE opis = VALUES(opis)");
 
@@ -44,6 +45,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['meals'])) {
     exit;
 }
 
+// --- NOWA OBSŁUGA PLANU LEKCJI ---
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_plan_matrix'])) {
+    // 1. Wyczyść tabelę plan_lekcji (najprostsza metoda przy pełnym nadpisywaniu macierzy)
+    // Uwaga: Jeśli chcesz zachować ID, musiałbyś robić UPDATE, ale przy macierzy prościej jest TRUNCATE lub DELETE ALL
+    $connection->query("TRUNCATE TABLE plan_lekcji");
+
+    // Przygotuj zapytanie INSERT
+    $stmt = $connection->prepare("INSERT INTO plan_lekcji (grupaID, day_of_week, godzinaLekcyjna, lekcjaID) VALUES (?, ?, ?, ?)");
+
+    // 2. Iteruj przez przesłane dane: plan[grupa][dzien][godzina] = lekcjaID
+    if (isset($_POST['plan']) && is_array($_POST['plan'])) {
+        foreach ($_POST['plan'] as $gID => $days) {
+            foreach ($days as $dayNum => $hours) {
+                foreach ($hours as $hourID => $lekcjaID) {
+                    if (!empty($lekcjaID)) {
+                        $stmt->bind_param("iiii", $gID, $dayNum, $hourID, $lekcjaID);
+                        $stmt->execute();
+                    }
+                }
+            }
+        }
+    }
+
+    $_SESSION['powodzenie'] = "Plan lekcji został zaktualizowany!";
+    header("Location: " . $_SERVER['REQUEST_URI']);
+    exit;
+}
+
+// --- DANE DO JADŁOSPISU ---
 $sqlMenu = "SELECT * FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1)";
 $resultMenu = $connection->query($sqlMenu)->fetch_all(MYSQLI_ASSOC);
 
@@ -58,6 +88,33 @@ for ($i = 0; $i < 5; $i++) {
     $weekDates[] = $startWeek->format('Y-m-d');
     $startWeek->modify('+1 day');
 }
+
+// --- DANE DO PLANU LEKCJI ---
+// 1. Pobierz godziny
+$sqlGodziny = "SELECT * FROM godzinylekcyjne ORDER BY start_time ASC";
+$resGodziny = $connection->query($sqlGodziny);
+$godzinyList = [];
+while ($row = $resGodziny->fetch_assoc()) {
+    $godzinyList[] = $row;
+}
+
+// 2. Pobierz lekcje (słownik)
+$sqlLekcjeDict = "SELECT id, nazwa FROM lekcje ORDER BY nazwa";
+$resLekcjeDict = $connection->query($sqlLekcjeDict);
+$lekcjeDict = [];
+while ($row = $resLekcjeDict->fetch_assoc()) {
+    $lekcjeDict[$row['id']] = $row['nazwa'];
+}
+
+// 3. Pobierz aktualny plan do macierzy [grupa][dzien][godzina] = lekcjaID
+$sqlCurrentPlan = "SELECT * FROM plan_lekcji";
+$resCurrentPlan = $connection->query($sqlCurrentPlan);
+$matrixPlan = [];
+while ($row = $resCurrentPlan->fetch_assoc()) {
+    $matrixPlan[$row['grupaID']][$row['day_of_week']][$row['godzinaLekcyjna']] = $row['lekcjaID'];
+}
+$dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Czwartek', 5 => 'Piątek'];
+
 ?>
 <html lang="pl">
 <head>
@@ -82,6 +139,7 @@ for ($i = 0; $i < 5; $i++) {
     <script src="./../scripts/js/panels.js"></script>
     <script src="./../scripts/js/showUserPanel.js"></script>
     <script src="./../scripts/js/principle.js"></script>
+
 </head>
 <body>
 <header>
@@ -183,14 +241,15 @@ for ($i = 0; $i < 5; $i++) {
 
     <main id="main">
         <div class="main-panel bigContainers main-panel-witaj">
-                <span class='logo-font-small'>Witaj w panelu dyrekcji</span>
-                <?php
-                if (isset($_SESSION['powodzenie'])) {
-                    echo "<div class='success-message'>" . $_SESSION['powodzenie'] . "</div>";
-                    unset($_SESSION['powodzenie']);
-                }
-                ?>
+            <span class='logo-font-small'>Witaj w panelu dyrekcji</span>
+            <?php
+            if (isset($_SESSION['powodzenie'])) {
+                echo "<div class='success-message'>" . $_SESSION['powodzenie'] . "</div>";
+                unset($_SESSION['powodzenie']);
+            }
+            ?>
         </div>
+
         <div class="main-panel bigContainers main-panel-rekrutacja">
             <div class="styling-panel">
                 <div class="formContainer">
@@ -202,22 +261,22 @@ for ($i = 0; $i < 5; $i++) {
                         $result = $connection->query($sql)->fetch_all();
                         for ($i = 0; $i < count($result); $i++) {
                             echo "<div id='Wniosek#" . $result[$i][0] . "' class='wniosek'>";
-                                echo "<span class='wniosek-number'>Wniosek #" . $result[$i][0] . "</span> ";
-                                echo "<div class='name'>";
-                                    echo "<span>" . $result[$i][5] . " " . $result[$i][6] . "</span>";
-                                echo "</div>";
-                                echo "<div class='buttons'>";
-                                    echo "<select class='submitButton' id='wniosek".$result[$i][0]."select'>";
-                                        echo "<option value=1>Grupa 1 </option>";
-                                        echo "<option value=2>Grupa 2 </option>";
-                                        echo "<option value=3>Grupa 3 </option>";
-                                        echo "<option value=4>Grupa 4 </option>";
-                                    echo "</select>";
-                                    
-                                    echo "<div><button class='more-info' onclick='rozpatrzWniosek(".json_encode($result[$i], 1).")'>🔍︎​</button></div>";
-                                    echo "<div><button class='accept' onclick='przyjmijWniosek(".$result[$i][0].")'>✔</button></div>";
-                                    echo "<div><button class='deny' onclick='odrzucWniosek(".$result[$i][0].")'>✖</button></div>";
-                                echo "</div>";
+                            echo "<span class='wniosek-number'>Wniosek #" . $result[$i][0] . "</span> ";
+                            echo "<div class='name'>";
+                            echo "<span>" . $result[$i][5] . " " . $result[$i][6] . "</span>";
+                            echo "</div>";
+                            echo "<div class='buttons'>";
+                            echo "<select class='submitButton' id='wniosek".$result[$i][0]."select'>";
+                            echo "<option value=1>Grupa 1 </option>";
+                            echo "<option value=2>Grupa 2 </option>";
+                            echo "<option value=3>Grupa 3 </option>";
+                            echo "<option value=4>Grupa 4 </option>";
+                            echo "</select>";
+
+                            echo "<div><button class='more-info' onclick='rozpatrzWniosek(".json_encode($result[$i], 1).")'>🔍︎​</button></div>";
+                            echo "<div><button class='accept' onclick='przyjmijWniosek(".$result[$i][0].")'>✔</button></div>";
+                            echo "<div><button class='deny' onclick='odrzucWniosek(".$result[$i][0].")'>✖</button></div>";
+                            echo "</div>";
                             echo "</div>";
                         }
                         ?>
@@ -261,26 +320,21 @@ for ($i = 0; $i < 5; $i++) {
                         </script>
                     </div>
                 </div>
-            </div> 
+            </div>
             <script>
                 function dateFromPesel(pesel) {
                     let rok = pesel.substring(0, 2);
                     let miesiac = parseInt(pesel.substring(2, 4), 10);
                     let dzien = pesel.substring(4, 6);
-
                     let stulecie = '';
-
                     if (miesiac >= 1 && miesiac <= 12) {
                         stulecie = '19';
                     } else if (miesiac >= 21 && miesiac <= 32) {
                         stulecie = '20';
                         miesiac -= 20;
                     }
-
                     let pelnyRok = stulecie + rok;
-
                     miesiac = miesiac.toString().padStart(2, '0');
-
                     return `${pelnyRok}-${miesiac}-${dzien}`;
                 }
                 function rozpatrzWniosek(rekord){
@@ -312,22 +366,15 @@ for ($i = 0; $i < 5; $i++) {
                                 if (element) {
                                     element.style.transition = "opacity 0.5s";
                                     element.style.opacity = "0";
-
                                     setTimeout(() => element.remove(), 500);
                                 }
                             } else {
-                                console.error('Błąd serwera:', data);
                                 alert('Wystąpił błąd podczas zapisu.');
                             }
                         })
-                        .catch(error => {
-                            console.error('Błąd sieci:', error);
-                        });
+                        .catch(error => console.error('Błąd sieci:', error));
                 }
-            </script>
-            <script>
                 function przyjmijWniosek(idRekordu) {
-                    // wyciemnianie
                     fetch('./../scripts/php/confirmChild.php', {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
@@ -340,21 +387,17 @@ for ($i = 0; $i < 5; $i++) {
                                 if (element) {
                                     element.style.transition = "opacity 0.5s";
                                     element.style.opacity = "0";
-                                    // odciemnianie + kasowanie "wnisoku"
-
                                     setTimeout(() => element.remove(), 500);
                                 }
                             } else {
-                                console.error('Błąd serwera:', data);
                                 alert('Wystąpił błąd podczas zapisu.');
                             }
                         })
-                        .catch(error => {
-                            console.error('Błąd sieci:', error);
-                        });
+                        .catch(error => console.error('Błąd sieci:', error));
                 }
             </script>
         </div>
+
         <div class="main-panel bigContainers main-panel-add main-panel-add-article">
             <div class="styling-panel">
                 <div class="formContainer">
@@ -382,7 +425,6 @@ for ($i = 0; $i < 5; $i++) {
                             </div>
                             <div><input type="submit" value="Dodaj artykuł" class='submitButton'></div>
                             <span></span>
-                            <!-- wokol wszystkich pol border czerwony i taki jakby dymek ze pole musi byc g -->
                         </div>
                     </form>
                     <script>
@@ -396,64 +438,28 @@ for ($i = 0; $i < 5; $i++) {
                             let articleContent = document.getElementById('articleContent');
                             let fileName = document.getElementById('fileName');
 
-                            if (title.value.length === 0) {
-                                title.classList.add('error');
-                                error = true;
-                            }
-                            else{
-                                title.classList.remove('error');
-                            }
-                            if (!val) {
-                                articleData.classList.add('error');
-                                error = true;
-                            }
-                            else{
-                                articleData.classList.remove('error');
-                            }
+                            if (title.value.length === 0) { title.classList.add('error'); error = true; } else { title.classList.remove('error'); }
+                            if (!val) { articleData.classList.add('error'); error = true; } else { articleData.classList.remove('error'); }
+
                             const parts = val.split('-').map(Number);
-                            if (parts.length !== 3 || parts.some(isNaN)) {
-                                articleData.classList.add('error');
-                                error = true;
-                            }
-                            else{
-                                articleData.classList.remove('error');
-                            }
-                            const d1 = new Date(parts[0], parts[1] - 1, parts[2]);
-                            const today = new Date();
-                            today.setHours(0, 0, 0, 0);
-
-                            if (d1 > today) {
-                                articleData.classList.add('error');
-                                error = true;
-                            }
-                            else{
-                                articleData.classList.remove('error');
+                            if (parts.length !== 3 || parts.some(isNaN)) { articleData.classList.add('error'); error = true; }
+                            else {
+                                const d1 = new Date(parts[0], parts[1] - 1, parts[2]);
+                                const today = new Date();
+                                today.setHours(0, 0, 0, 0);
+                                if (d1 > today) { articleData.classList.add('error'); error = true; } else { articleData.classList.remove('error'); }
                             }
 
-                            if (articleContent.value.length === 0) {
-                                articleContent.classList.add('error');
-                                error = true;
-                            }
-                            else{
-                                articleContent.classList.remove('error');
-                            }
+                            if (articleContent.value.length === 0) { articleContent.classList.add('error'); error = true; } else { articleContent.classList.remove('error'); }
+                            if (fileName.innerHTML === 'Nie wybrano'){ document.getElementById('articleImg').classList.add('error'); error = true; } else { document.getElementById('articleImg').classList.remove('error'); }
 
-                            if (fileName.innerHTML === 'Nie wybrano'){
-                                document.getElementById('articleImg').classList.add('error');
-                                error = true;
-                            }
-                            else{
-                                document.getElementById('articleImg').classList.remove('error');
-                            }
-                            if (error){
-                                return;
-                            }
-                            form.submit();
+                            if (!error) form.submit();
                         });
                     </script>
                 </div>
             </div>
         </div>
+
         <div class="main-panel bigContainers main-panel-articles" id="main-panel-articles">
             <div class="styling-panel articlesManagement">
                 <h1><span>Zarządzanie artykułami</span></h1>
@@ -476,177 +482,52 @@ for ($i = 0; $i < 5; $i++) {
             </div>
         </div>
 
-        <div class="main-panel bigContainers main-panel-groups">
-            <div class="styling-panel">
-                <div class='formContainer'>
-                    <hr>
-                    <h1 class='logo-font-small'><span>Grupa 1</span></h1>
-                    <div class='groupInfo'>
-                        <?php
-                        $sql = "SELECT grupy.nazwa, uzytkownicy.imie, uzytkownicy.nazwisko FROM grupy JOIN uzytkownicy ON grupy.Wychowawca = uzytkownicy.ID WHERE grupy.id = 1";
-                        $result = $connection->query($sql)->fetch_assoc();
-                        echo "<div>Nazwa grupy: " . $result['nazwa'] . "</div>";
-                        echo "<div>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</div>";
-                        ?>
-                    </div>
-                    <div class="groupMembers">
-                        <h2>Lista dzieci w grupie:</h2>
-                        <div class="table">
-                            <div class="table-header">
-                                <div>Imię</div>
-                                <div>Nazwisko</div>
-                                <div>PESEL</div>
-                                <div>Adres</div>
-                                <div>Rodzic</div>
-                                <div></div>
-                            </div>
+        <?php for($g=1; $g<=4; $g++): ?>
+            <div class="main-panel bigContainers main-panel-groups">
+                <div class="styling-panel">
+                    <div class='formContainer'>
+                        <hr>
+                        <h1 class='logo-font-small'><span>Grupa <?php echo $g; ?></span></h1>
+                        <div class='groupInfo'>
                             <?php
-                            $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 1 ORDER BY dzieci.nazwisko;";
-                            $result = $connection->query($sql)->fetch_all();
-                            for ($i = 0; $i < count($result); $i++) {
-                                echo "<div class='grid-row' id='dziecko" . $result[$i][6] . "'>";
-                                echo "<div class='grid-cell'>" . $result[$i][0] . "</div>";
-                                echo "<div class='grid-cell'>" . $result[$i][1] . "</div>";
-                                echo "<div class='grid-cell'>" . $result[$i][2] . "</div>";
-                                echo "<div class='grid-cell'>" . $result[$i][3] . "</div>";
-                                echo "<div class='grid-cell'>" . $result[$i][4] . " " . $result[$i][5] . "</div>";
-                                echo "<div class='grid-cell'><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button></div>";
-                                echo "</div>";
-                            }
+                            $sql = "SELECT grupy.nazwa, uzytkownicy.imie, uzytkownicy.nazwisko FROM grupy JOIN uzytkownicy ON grupy.Wychowawca = uzytkownicy.ID WHERE grupy.id = $g";
+                            $result = $connection->query($sql)->fetch_assoc();
+                            echo "<div>Nazwa grupy: " . $result['nazwa'] . "</div>";
+                            echo "<div>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</div>";
                             ?>
+                        </div>
+                        <div class="groupMembers">
+                            <h2>Lista dzieci w grupie:</h2>
+                            <div class="table">
+                                <div class="table-header">
+                                    <div>Imię</div>
+                                    <div>Nazwisko</div>
+                                    <div>PESEL</div>
+                                    <div>Adres</div>
+                                    <div>Rodzic</div>
+                                    <div></div>
+                                </div>
+                                <?php
+                                $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = $g ORDER BY dzieci.nazwisko;";
+                                $result = $connection->query($sql)->fetch_all();
+                                for ($i = 0; $i < count($result); $i++) {
+                                    echo "<div class='grid-row' id='dziecko" . $result[$i][6] . "'>";
+                                    echo "<div class='grid-cell'>" . $result[$i][0] . "</div>";
+                                    echo "<div class='grid-cell'>" . $result[$i][1] . "</div>";
+                                    echo "<div class='grid-cell'>" . $result[$i][2] . "</div>";
+                                    echo "<div class='grid-cell'>" . $result[$i][3] . "</div>";
+                                    echo "<div class='grid-cell'>" . $result[$i][4] . " " . $result[$i][5] . "</div>";
+                                    echo "<div class='grid-cell'><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button></div>";
+                                    echo "</div>";
+                                }
+                                ?>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="main-panel bigContainers main-panel-groups">
-            <div class="styling-panel">
-                <div class='formContainer'>
-                    <hr>
-                    <h1 class='logo-font-small'><span>Grupa 2</span></h1>
-                    <div class='groupInfo'>
-                        <?php
-                        $sql = "SELECT grupy.nazwa, uzytkownicy.imie, uzytkownicy.nazwisko FROM grupy JOIN uzytkownicy ON grupy.Wychowawca = uzytkownicy.ID WHERE grupy.id = 2";
-                        $result = $connection->query($sql)->fetch_assoc();
-                        echo "<div>Nazwa grupy: " . $result['nazwa'] . "</div>";
-                        echo "<div>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</div>";
-                        ?>
-                    </div>
-                    <div class="groupMembers">
-                        <h2>Lista dzieci w grupie:</h2>
-                        <div class="table">
-                            <div class="table-header">
-                                <div>Imię</div>
-                                <div>Nazwisko</div>
-                                <div>PESEL</div>
-                                <div>Adres</div>
-                                <div>Rodzic</div>
-                                <div></div>
-                            </div>
-                            <?php
-                            $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 2 ORDER BY dzieci.nazwisko;";
-                            $result = $connection->query($sql)->fetch_all();
-                            for ($i = 0; $i < count($result); $i++) {
-                                echo "<div class='grid-row' id='dziecko" . $result[$i][6] . "'>";
-                                echo "<div class='grid-cell'>" . $result[$i][0] . "</div>";
-                                echo "<div class='grid-cell'>" . $result[$i][1] . "</div>";
-                                echo "<div class='grid-cell'>" . $result[$i][2] . "</div>";
-                                echo "<div class='grid-cell'>" . $result[$i][3] . "</div>";
-                                echo "<div class='grid-cell'>" . $result[$i][4] . " " . $result[$i][5] . "</div>";
-                                echo "<div class='grid-cell'><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button></div>";
-                                echo "</div>";
-                            }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="main-panel bigContainers main-panel-groups">
-            <div class="styling-panel">
-                <div class='formContainer'>
-                    <hr>
-                    <h1 class='logo-font-small'><span>Grupa 3</span></h1>
-                    <div class='groupInfo'>
-                        <?php
-                        $sql = "SELECT grupy.nazwa, uzytkownicy.imie, uzytkownicy.nazwisko FROM grupy JOIN uzytkownicy ON grupy.Wychowawca = uzytkownicy.ID WHERE grupy.id = 3";
-                        $result = $connection->query($sql)->fetch_assoc();
-                        echo "<div>Nazwa grupy: " . $result['nazwa'] . "</div>";
-                        echo "<div>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</div>";
-                        ?>
-                    </div>
-                    <div class="groupMembers">
-                        <h2>Lista dzieci w grupie:</h2>
-                        <div class="table">
-                            <div class="table-header">
-                                <div>Imię</div>
-                                <div>Nazwisko</div>
-                                <div>PESEL</div>
-                                <div>Adres</div>
-                                <div>Rodzic</div>
-                                <div></div>
-                            </div>
-                            <?php
-                            $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 3 ORDER BY dzieci.nazwisko;";
-                            $result = $connection->query($sql)->fetch_all();
-                            for ($i = 0; $i < count($result); $i++) {
-                                echo "<div class='grid-row' id='dziecko" . $result[$i][6] . "'>";
-                                echo "<div class='grid-cell'>" . $result[$i][0] . "</div>";
-                                echo "<div class='grid-cell'>" . $result[$i][1] . "</div>";
-                                echo "<div class='grid-cell'>" . $result[$i][2] . "</div>";
-                                echo "<div class='grid-cell'>" . $result[$i][3] . "</div>";
-                                echo "<div class='grid-cell'>" . $result[$i][4] . " " . $result[$i][5] . "</div>";
-                                echo "<div class='grid-cell'><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button></div>";
-                                echo "</div>";
-                            }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="main-panel bigContainers main-panel-groups">
-            <div class="styling-panel">
-                <div class='formContainer'>
-                    <hr>
-                    <h1 class='logo-font-small'>Grupa 4</h1>
-                    <div class='groupInfo'>
-                        <?php
-                        $sql = "SELECT grupy.nazwa, uzytkownicy.imie, uzytkownicy.nazwisko FROM grupy JOIN uzytkownicy ON grupy.Wychowawca = uzytkownicy.ID WHERE grupy.id = 4";
-                        $result = $connection->query($sql)->fetch_assoc();
-                        echo "<div>Nazwa grupy: " . $result['nazwa'] . "</div>";
-                        echo "<div>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</div>";
-                        ?>
-                    </div>
-                    <div class="groupMembers">
-                        <div class="table">
-                            <div class="table-header">
-                                <div>Imię</div>
-                                <div>Nazwisko</div>
-                                <div>PESEL</div>
-                                <div>Adres</div>
-                                <div>Rodzic</div>
-                                <div></div>
-                            </div>
-                            <?php
-                            $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = 4 ORDER BY dzieci.nazwisko;";
-                            $result = $connection->query($sql)->fetch_all();
-                            for ($i = 0; $i < count($result); $i++) {
-                                echo "<div class='grid-row' id='dziecko" . $result[$i][6] . "'>";
-                                echo "<div class='grid-cell'>" . $result[$i][0] . "</div>";
-                                echo "<div class='grid-cell'>" . $result[$i][1] . "</div>";
-                                echo "<div class='grid-cell'>" . $result[$i][2] . "</div>";
-                                echo "<div class='grid-cell'>" . $result[$i][3] . "</div>";
-                                echo "<div class='grid-cell'>" . $result[$i][4] . " " . $result[$i][5] . "</div>";
-                                echo "<div class='grid-cell'><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button></div>";
-                                echo "</div>";
-                            }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php endfor; ?>
+
         <script>
             function usunDziecko(idRekordu) {
                 fetch('./../scripts/php/deleteChild.php', {
@@ -656,23 +537,18 @@ for ($i = 0; $i < 5; $i++) {
                 })
                     .then(response => response.text())
                     .then(data => {
-                        // Sprawdzamy, czy PHP zwróciło dokładnie "OK"
                         if (data.trim() === 'OK') {
                             const element = document.getElementById('dziecko' + idRekordu);
                             if (element) {
                                 element.style.transition = "opacity 0.5s";
                                 element.style.opacity = "0";
-
                                 setTimeout(() => element.remove(), 500);
                             }
                         } else {
-                            console.error('Błąd serwera:', data);
                             alert('Wystąpił błąd podczas zapisu.');
                         }
                     })
-                    .catch(error => {
-                        console.error('Błąd sieci:', error);
-                    });
+                    .catch(error => console.error('Błąd sieci:', error));
             }
         </script>
 
@@ -689,7 +565,6 @@ for ($i = 0; $i < 5; $i++) {
                             foreach ($weekDates as $date) {
                                 echo '<span class="table_cell label">';
                                 echo weekDayFromDate($date) . '<br>';
-    //                            echo '<span>' . date('d.m', strtotime($date)) . '</span>';
                                 echo '</span>';
                             }
                             ?>
@@ -703,7 +578,6 @@ for ($i = 0; $i < 5; $i++) {
                                 echo '</span>';
                             }
                             ?>
-
 
                             <span class="table_cell label">Obiad</span>
                             <?php
@@ -720,7 +594,7 @@ for ($i = 0; $i < 5; $i++) {
                             foreach ($weekDates as $date) {
                                 $opis = $menu[$date][2] ?? '';
                                 echo '<span class="table_cell">';
-                                    echo '<textarea class="meal-textarea" name="meals[' . $date . '][2]" placeholder="+ Dodaj">' . htmlspecialchars($opis) . '</textarea>';
+                                echo '<textarea class="meal-textarea" name="meals[' . $date . '][2]" placeholder="+ Dodaj">' . htmlspecialchars($opis) . '</textarea>';
                                 echo '</span>';
                             }
                             ?>
@@ -730,7 +604,6 @@ for ($i = 0; $i < 5; $i++) {
                 </div>
             </div>
             <script>
-                console.log('a');
                 document.getElementById('jadlospisFRM').addEventListener('submit', (e) => {
                     e.preventDefault();
                     let form = e.target;
@@ -739,21 +612,17 @@ for ($i = 0; $i < 5; $i++) {
                     for (let i = 0; i < meals.length; i++) {
                         let elem = meals[i];
                         if (elem.value.length === 0){
-                            elem.classList.add('error');
-                            error = true;
-                        }
-                        else{
+                            elem.classList.add('error'); error = true;
+                        } else {
                             elem.classList.remove('error');
                         }
                     }
-                    if(error){
-                        return;
-                    }
+                    if(error) return;
                     form.submit();
-
                 });
             </script>
         </div>
+
         <div class="main-panel bigContainers main-panel-add main-panel-add-komunikaty" id="addAnnoucement">
             <div class="styling-panel">
                 <div class="formContainer">
@@ -785,23 +654,9 @@ for ($i = 0; $i < 5; $i++) {
                             let error = false;
                             let header = document.getElementById('komunikatHeader');
                             let content = document.getElementById('komunikatContent');
-                            if (header.value.length === 0) {
-                                header.classList.add('error');
-                                error = true;
-                            }
-                            else{
-                                header.classList.remove('error');
-                            }
-                            if (content.value.length === 0) {
-                                content.classList.add('error');
-                                error = true;
-                            }
-                            else{
-                                content.classList.remove('error');
-                            }
-                            if(error){
-                                return;
-                            }
+                            if (header.value.length === 0) { header.classList.add('error'); error = true; } else { header.classList.remove('error'); }
+                            if (content.value.length === 0) { content.classList.add('error'); error = true; } else { content.classList.remove('error'); }
+                            if(error) return;
                             form.submit();
                         });
                     </script>
@@ -820,22 +675,10 @@ for ($i = 0; $i < 5; $i++) {
                     echo "<h2 id='annoucementHeader".$result[$i][4]."'>" . $result[$i][0] . "</h2>";
                     echo "<p id='annoucementContent".$result[$i][4]."'>" . $result[$i][1] . "</p>";
                     echo "<p id='annoucementDate".$result[$i][4]."'>Data: " . $result[$i][2] . "</p>";
-                    echo "<p>";
-                    echo "Wiedoczność: ";
-                    echo "<span id='annoucementVisibility".$result[$i][4]."'>";
-                    if ($result[$i][3] == 0) {
-                        echo "Wszyscy";
-                    } else if ($result[$i][3] == 1) {
-                        echo "Grupa 1";
-                    } else if ($result[$i][3] == 2) {
-                        echo "Grupa 2";
-                    } else if ($result[$i][3] == 3) {
-                        echo "Grupa 3";
-                    } else if ($result[$i][3] == 4) {
-                        echo "Grupa 4";
-                    }
-                    echo "</span>";
-                    echo "</p>";
+                    echo "<p>Widoczność: <span id='annoucementVisibility".$result[$i][4]."'>";
+                    if ($result[$i][3] == 0) echo "Wszyscy";
+                    else echo "Grupa " . $result[$i][3];
+                    echo "</span></p>";
                     echo "<button class='delete_article' onclick='edytujKomunikat(" . $result[$i][4] . ")'>Edytuj komunikat</button>";
                     echo "<button class='delete_article' onclick='ukryjKomunikat(" . $result[$i][4] . ")'>Usuń komunikat</button>";
                     echo "<hr></div>";
@@ -843,153 +686,107 @@ for ($i = 0; $i < 5; $i++) {
                 ?>
             </div>
         </div>
+
         <div class="main-panel bigContainers main-panel-plan">
             <div class="styling-panel planlekcjiManagement">
-                <h1 class="logo-font-small"><span>plan lekcji</span></h1>
-                <?php
-                $availableLessons = [];
-                $sqlLekcje = "SELECT id, nazwa FROM lekcje ORDER BY nazwa";
-                $resultLekcje = $connection->query($sqlLekcje);
-                while ($row = $resultLekcje->fetch_assoc()) {
-                    $availableLessons[$row['id']] = $row['nazwa'];
-                }
+                <div class="formContainer">
+                    <hr>
+                    <h1 class="logo-font-small">
+                        <span>Plan lekcji</span>
+                        <small id="current-group-label" style="font-size:0.5em; color:#ddd; font-family: sans-serif;">(Grupa 1)</small>
+                    </h1>
 
-                if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_plan_action'])) {
-                    if (isset($_POST['schedule'])) {
-                        $stmtUpdate = $connection->prepare("UPDATE plan_lekcji SET lekcjaID=?, start_time=?, end_time=? WHERE id=?");
-                        $stmtDelete = $connection->prepare("DELETE FROM plan_lekcji WHERE id=?");
-
-                        foreach ($_POST['schedule'] as $id => $data) {
-                            if (isset($data['delete']) && $data['delete'] == 1) {
-                                $stmtDelete->bind_param("i", $id);
-                                $stmtDelete->execute();
-                            } else {
-                                $stmtUpdate->bind_param("issi", $data['lekcjaID'], $data['start_time'], $data['end_time'], $id);
-                                $stmtUpdate->execute();
-                            }
-                        }
-                    }
-
-                    if (isset($_POST['new_schedule'])) {
-                        $stmtInsert = $connection->prepare("INSERT INTO plan_lekcji (grupaID, day_of_week, lekcjaID, start_time, end_time) VALUES (?, ?, ?, ?, ?)");
-
-                        foreach ($_POST['new_schedule'] as $gID => $days) {
-                            foreach ($days as $dID => $lessonData) {
-                                if (!empty($lessonData['lekcjaID']) && !empty($lessonData['start'])) {
-                                    $endVal = !empty($lessonData['end']) ? $lessonData['end'] : date('H:i', strtotime($lessonData['start']) + 2700); // domyślnie +45min
-                                    $stmtInsert->bind_param("iiiss", $gID, $dID, $lessonData['lekcjaID'], $lessonData['start'], $endVal);
-                                    $stmtInsert->execute();
-                                }
-                            }
-                        }
-                    }
-                    echo "<script>window.location.href = window.location.href;</script>";
-                    exit;
-                }
-
-                $sqlPlan = "SELECT * FROM plan_lekcji ORDER BY start_time ASC";
-                $resultPlan = $connection->query($sqlPlan)->fetch_all(MYSQLI_ASSOC);
-
-                $planData = [];
-                for ($g = 1; $g <= 4; $g++) {
-                    for ($d = 1; $d <= 5; $d++) {
-                        $planData[$g][$d] = [];
-                    }
-                }
-                foreach ($resultPlan as $row) {
-                    $planData[$row['grupaID']][$row['day_of_week']][] = $row;
-                }
-
-                $weekDays = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Czwartek', 5 => 'Piątek'];
-                ?>
-                <div class="tabs-header">
-                    <button class="tab-btn active" onclick="openGroupTab(event, 'tab_g1')">Grupa 1</button>
-                    <button class="tab-btn" onclick="openGroupTab(event, 'tab_g2')">Grupa 2</button>
-                    <button class="tab-btn" onclick="openGroupTab(event, 'tab_g3')">Grupa 3</button>
-                    <button class="tab-btn" onclick="openGroupTab(event, 'tab_g4')">Grupa 4</button>
-                </div>
-
-                <form method="POST">
-                    <input type="hidden" name="save_plan_action" value="1">
-
-                    <?php for ($g = 1; $g <= 4; $g++): ?>
-                        <div id="tab_g<?php echo $g; ?>" class="tab-content"
-                             style="display: <?php echo ($g == 1) ? 'block' : 'none'; ?>;">
-
-                            <div class="schedule-grid">
-                                <?php foreach ($weekDays as $dayNum => $dayName): ?>
-                                    <div class="day-column">
-                                        <div class="day-header"><?php echo $dayName; ?></div>
-                                        <div class="day-body">
-
-                                            <?php if (!empty($planData[$g][$dayNum])): ?>
-                                                <?php foreach ($planData[$g][$dayNum] as $lesson): ?>
-                                                    <div class="lesson-card">
-                                                        <div class="l-row">
-                                                            <input type="time"
-                                                                   name="schedule[<?php echo $lesson['id']; ?>][start_time]"
-                                                                   value="<?php echo substr($lesson['start_time'], 0, 5); ?>"
-                                                                   title="Start">
-                                                            <span>-</span>
-                                                            <input type="time"
-                                                                   name="schedule[<?php echo $lesson['id']; ?>][end_time]"
-                                                                   value="<?php echo substr($lesson['end_time'], 0, 5); ?>"
-                                                                   title="Koniec">
-                                                        </div>
-                                                        <div class="l-row">
-                                                            <select name="schedule[<?php echo $lesson['id']; ?>][lekcjaID]">
-                                                                <?php foreach ($availableLessons as $id => $name): ?>
-                                                                    <option value="<?php echo $id; ?>" <?php if ($id == $lesson['lekcjaID']) echo 'selected'; ?>>
-                                                                        <?php echo $name; ?>
-                                                                    </option>
-                                                                <?php endforeach; ?>
-                                                            </select>
-                                                        </div>
-                                                        <div class="l-row delete-check">
-                                                            <label>
-                                                                <input type="checkbox"
-                                                                       name="schedule[<?php echo $lesson['id']; ?>][delete]"
-                                                                       value="1">
-                                                                Usuń
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                <?php endforeach; ?>
-                                            <?php endif; ?>
-
-                                            <div class="lesson-card new-lesson">
-                                                <div class="l-title">+ Dodaj lekcję:</div>
-                                                <div class="l-row">
-                                                    <input type="time"
-                                                           name="new_schedule[<?php echo $g; ?>][<?php echo $dayNum; ?>][start]">
-                                                    <span>-</span>
-                                                    <input type="time"
-                                                           name="new_schedule[<?php echo $g; ?>][<?php echo $dayNum; ?>][end]">
-                                                </div>
-                                                <div class="l-row">
-                                                    <select name="new_schedule[<?php echo $g; ?>][<?php echo $dayNum; ?>][lekcjaID]">
-                                                        <option value="" selected disabled>- Przedmiot -</option>
-                                                        <?php foreach ($availableLessons as $id => $name): ?>
-                                                            <option value="<?php echo $id; ?>"><?php echo $name; ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
-                    <?php endfor; ?>
-
-                    <div class="save-bar">
-                        <button type="submit" class="btn-save-big">Zapisz zmiany w planie</button>
+                    <div class="button-container group-switcher" style="margin-bottom: 20px; display: flex; gap: 10px; justify-content: center;">
+                        <?php for ($g = 1; $g <= 4; $g++): ?>
+                            <button type="button"
+                                    id="btn-group-<?php echo $g; ?>"
+                                    class="plan-group-btn submitButton <?php echo ($g === 1) ? 'active' : ''; ?>"
+                                    onclick="showGroupPlan(<?php echo $g; ?>)"
+                                    style="min-width: 100px;">
+                                Grupa <?php echo $g; ?>
+                            </button>
+                        <?php endfor; ?>
                     </div>
-                </form>
+
+                    <form method="POST" class="form" id="planLekcjiFRM">
+                        <input type="hidden" name="update_plan_matrix" value="1">
+
+                        <?php for ($g = 1; $g <= 4; $g++): ?>
+                            <div id="group-plan-container-<?php echo $g; ?>" class="group-plan-container" style="<?php echo ($g === 1) ? 'display: block;' : 'display: none;'; ?>">
+
+                                <div class="plan-grid-container">
+
+                                    <div class="corner-cell">
+                                        <div class="corner-line"></div>
+                                        <span class="corner-text-top">Dzień</span>
+                                        <span class="corner-text-bottom">Godz.</span>
+                                    </div>
+
+                                    <?php foreach ($dniTygodniaPlan as $dayNum => $dayName): ?>
+                                        <div class="plan-header">
+                                            <?php echo $dayName; ?>
+                                        </div>
+                                    <?php endforeach; ?>
+
+                                    <?php foreach ($godzinyList as $godzina): ?>
+
+                                        <div class="time-cell">
+                                            <span><?php echo substr($godzina['start_time'], 0, 5); ?></span>
+                                            <span style="font-size:0.8em; opacity:0.7;">-</span>
+                                            <span><?php echo substr($godzina['end_time'], 0, 5); ?></span>
+                                        </div>
+
+                                        <?php foreach ($dniTygodniaPlan as $dayNum => $dayName): ?>
+                                            <div class="plan-cell">
+                                                <?php
+                                                // Pobieramy ID lekcji z bazy
+                                                $selectedLessonID = $matrixPlan[$g][$dayNum][$godzina['id']] ?? 0;
+                                                ?>
+
+                                                <select class="lesson-select" name="plan[<?php echo $g; ?>][<?php echo $dayNum; ?>][<?php echo $godzina['id']; ?>]">
+                                                    <option value=""></option>
+                                                    <?php foreach ($lekcjeDict as $lID => $lName): ?>
+                                                        <option value="<?php echo $lID; ?>" <?php echo ($selectedLessonID == $lID) ? 'selected' : ''; ?>>
+                                                            <?php echo htmlspecialchars($lName); ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        <?php endforeach; ?>
+
+                                    <?php endforeach; // Koniec pętli godzin ?>
+                                </div>
+                            </div>
+                        <?php endfor; // Koniec pętli grup ?>
+
+                        <div class='button-container' style="margin-top:20px;">
+                            <button type="submit" class="submitButton" style="padding: 15px 30px; font-size: 1.2em;">Zapisz plan</button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
+            <script>
+                // Funkcja JS do przełączania grup (bez odświeżania)
+                function showGroupPlan(groupId) {
+                    // 1. Ukryj wszystkie tabele
+                    const containers = document.querySelectorAll('.group-plan-container');
+                    containers.forEach(div => div.style.display = 'none');
+
+                    // 2. Pokaż wybraną
+                    const target = document.getElementById('group-plan-container-' + groupId);
+                    if (target) target.style.display = 'block';
+
+                    // 3. Zaktualizuj przyciski (klasa active)
+                    document.querySelectorAll('.plan-group-btn').forEach(btn => btn.classList.remove('active'));
+                    document.getElementById('btn-group-' + groupId).classList.add('active');
+
+                    // 4. Zmień mały napis
+                    document.getElementById('current-group-label').innerText = "(Grupa " + groupId + ")";
+                }
+            </script>
         </div>
+
         <div class="main-panel bigContainers main-panel-add main-panel-add-article" id="editArticle">
             <div class="styling-panel">
                 <div class="formContainer">
@@ -1033,61 +830,24 @@ for ($i = 0; $i < 5; $i++) {
                 let articleContent = document.getElementById('editArticleContent');
                 let fileName = document.getElementById('editFileName');
 
-                if (title.value.length === 0) {
-                    title.classList.add('error');
-                    error = true;
-                }
-                else{
-                    title.classList.remove('error');
-                }
-                if (!val) {
-                    articleData.classList.add('error');
-                    error = true;
-                }
-                else{
-                    articleData.classList.remove('error');
-                }
+                if (title.value.length === 0) { title.classList.add('error'); error = true; } else { title.classList.remove('error'); }
+                if (!val) { articleData.classList.add('error'); error = true; } else { articleData.classList.remove('error'); }
+
                 const parts = val.split('-').map(Number);
-                if (parts.length !== 3 || parts.some(isNaN)) {
-                    articleData.classList.add('error');
-                    error = true;
-                }
-                else{
-                    articleData.classList.remove('error');
-                }
-                const d1 = new Date(parts[0], parts[1] - 1, parts[2]);
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
-
-                if (d1 > today) {
-                    articleData.classList.add('error');
-                    error = true;
-                }
-                else{
-                    articleData.classList.remove('error');
+                if (parts.length !== 3 || parts.some(isNaN)) { articleData.classList.add('error'); error = true; }
+                else {
+                    const d1 = new Date(parts[0], parts[1] - 1, parts[2]);
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    if (d1 > today) { articleData.classList.add('error'); error = true; } else { articleData.classList.remove('error'); }
                 }
 
-                if (articleContent.value.length === 0) {
-                    articleContent.classList.add('error');
-                    error = true;
-                }
-                else{
-                    articleContent.classList.remove('error');
-                }
-
-                if (fileName.innerHTML === 'Nie wybrano'){
-                    fileName.classList.add('error');
-                    error = true;
-                }
-                else{
-                    fileName.classList.remove('error');
-                }
-                if (error){
-                    return;
-                }
-                form.submit();
+                if (articleContent.value.length === 0) { articleContent.classList.add('error'); error = true; } else { articleContent.classList.remove('error'); }
+                if (fileName.innerHTML === 'Nie wybrano'){ fileName.classList.add('error'); error = true; } else { fileName.classList.remove('error'); }
+                if (!error) form.submit();
             });
         </script>
+
         <div class="main-panel bigContainers main-panel-add main-panel-add-komunikaty" id="editAnnoucements">
             <div class="styling-panel">
                 <div class="formContainer">
