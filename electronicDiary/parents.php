@@ -314,7 +314,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                     }
 
                     //                echo $condition;
-                    $sqlSupervisor = "SELECT imie, nazwisko FROM uzytkownicy " . $condition;
+                    $sqlSupervisor = "SELECT imie, nazwisko, opinia, zdjecie FROM uzytkownicy " . $condition;
                     $result = $connection->query($sqlSupervisor)->fetch_all();
                     for ($i = 0; $i < count($result); $i++) {
                         echo "<div class='wychowawca-container' style='display:"; if($i==0){echo "flex";}else{echo "none";} echo "'>";
@@ -323,10 +323,10 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                                         . $result[$i][0] .' ' . $result[$i][1];
                                 echo "</div>";
                                 echo "<div class='wychowawca-about'>";
-                                    echo "Bardzo miły wychowawca!";
+                                    echo $result[$i][2];
                                 echo "</div>";
                             echo "</div>";
-                            echo "<div class='wychowawca-img-container'></div>";
+                            echo "<div class='wychowawca-img-container' style='background-image: url(./../assets/staff/".$result[$i][3].")'></div>";
                         echo "</div>";
                     }
                     ?>
