@@ -360,13 +360,13 @@ for ($i = 0; $i < 5; $i++) {
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small"><span>Dodaj artykuł</span></h1>
-                    <form method="post" action="../scripts/php/addArticle.php" enctype="multipart/form-data">
+                    <form method="post" action="../scripts/php/addArticle.php" enctype="multipart/form-data" id="addArticleForm">
                         <div class="article">
                             <div class="article_header">
-                                <input type="text" id="articleTitle" name="articleTitle" required>
+                                <input type="text" id="articleTitle" name="articleTitle">
                                 <input type="date" id="articleData" name="articleData">
                             </div>
-                            <textarea id="articleContent" name="articleContent" rows="10" cols="50" required></textarea><br><br>
+                            <textarea id="articleContent" name="articleContent" rows="10" cols="50"></textarea><br><br>
                         </div>
                         <div class="details">
                             <div class='choose-image'>
@@ -381,8 +381,76 @@ for ($i = 0; $i < 5; $i++) {
                                 </script>
                             </div>
                             <div><input type="submit" value="Dodaj artykuł" class='submitButton'></div>
+                            <span></span>
+                            <!-- wokol wszystkich pol border czerwony i taki jakby dymek ze pole musi byc g -->
                         </div>
                     </form>
+                    <script>
+                        document.getElementById('addArticleForm').addEventListener('submit', (e) => {
+                            e.preventDefault();
+                            let error = false;
+                            let form = e.target;
+                            let title = document.getElementById('articleTitle');
+                            let articleData = document.getElementById('articleData');
+                            const val = articleData.value;
+                            let articleContent = document.getElementById('articleContent');
+                            let fileName = document.getElementById('fileName');
+
+                            if (title.value.length === 0) {
+                                title.classList.add('error');
+                                error = true;
+                            }
+                            else{
+                                title.classList.remove('error');
+                            }
+                            if (!val) {
+                                articleData.classList.add('error');
+                                error = true;
+                            }
+                            else{
+                                articleData.classList.remove('error');
+                            }
+                            const parts = val.split('-').map(Number);
+                            if (parts.length !== 3 || parts.some(isNaN)) {
+                                articleData.classList.add('error');
+                                error = true;
+                            }
+                            else{
+                                articleData.classList.remove('error');
+                            }
+                            const d1 = new Date(parts[0], parts[1] - 1, parts[2]);
+                            const today = new Date();
+                            today.setHours(0, 0, 0, 0);
+
+                            if (d1 > today) {
+                                articleData.classList.add('error');
+                                error = true;
+                            }
+                            else{
+                                articleData.classList.remove('error');
+                            }
+
+                            if (articleContent.value.length === 0) {
+                                articleContent.classList.add('error');
+                                error = true;
+                            }
+                            else{
+                                articleContent.classList.remove('error');
+                            }
+
+                            if (fileName.innerHTML === 'Nie wybrano'){
+                                document.getElementById('articleImg').classList.add('error');
+                                error = true;
+                            }
+                            else{
+                                document.getElementById('articleImg').classList.remove('error');
+                            }
+                            if (error){
+                                return;
+                            }
+                            form.submit();
+                        });
+                    </script>
                 </div>
             </div>
         </div>
@@ -614,7 +682,7 @@ for ($i = 0; $i < 5; $i++) {
                     <hr>
                     <h1 class="logo-font-small"><span>Jadlospis</span></h1>
 
-                    <form method="POST" class='form'>
+                    <form method="POST" class='form' id="jadlospisFRM">
                         <div class="border-box">
                             <span class="table_cell label"><span>Data<br>----------<br>Posiłek</span></span>
                             <?php
@@ -661,13 +729,37 @@ for ($i = 0; $i < 5; $i++) {
                     </form>
                 </div>
             </div>
+            <script>
+                console.log('a');
+                document.getElementById('jadlospisFRM').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    let form = e.target;
+                    let meals = document.getElementsByClassName('meal-textarea');
+                    let error = false;
+                    for (let i = 0; i < meals.length; i++) {
+                        let elem = meals[i];
+                        if (elem.value.length === 0){
+                            elem.classList.add('error');
+                            error = true;
+                        }
+                        else{
+                            elem.classList.remove('error');
+                        }
+                    }
+                    if(error){
+                        return;
+                    }
+                    form.submit();
+
+                });
+            </script>
         </div>
         <div class="main-panel bigContainers main-panel-add main-panel-add-komunikaty" id="addAnnoucement">
             <div class="styling-panel">
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small"><span>Dodaj komunikat</span></h1>
-                    <form method="post" action="../scripts/php/addAnnoucement.php">
+                    <form method="post" action="../scripts/php/addAnnoucement.php" id="frmAddKomunikat">
                         <div class="article_header">
                             <input type="text" id="komunikatHeader"name="komunikatHeader">
                         </div>
@@ -686,6 +778,33 @@ for ($i = 0; $i < 5; $i++) {
                             <div><input type="submit" value="Dodaj komunikat" class='submitButton'></div>
                         </div>
                     </form>
+                    <script>
+                        document.getElementById('frmAddKomunikat').addEventListener('submit', (e) => {
+                            e.preventDefault();
+                            let form = e.target;
+                            let error = false;
+                            let header = document.getElementById('komunikatHeader');
+                            let content = document.getElementById('komunikatContent');
+                            if (header.value.length === 0) {
+                                header.classList.add('error');
+                                error = true;
+                            }
+                            else{
+                                header.classList.remove('error');
+                            }
+                            if (content.value.length === 0) {
+                                content.classList.add('error');
+                                error = true;
+                            }
+                            else{
+                                content.classList.remove('error');
+                            }
+                            if(error){
+                                return;
+                            }
+                            form.submit();
+                        });
+                    </script>
                 </div>
             </div>
         </div>
@@ -876,7 +995,7 @@ for ($i = 0; $i < 5; $i++) {
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small"><span>Edytuj artykuł</span></h1>
-                    <form method="post" action="../scripts/php/editArticle.php" enctype="multipart/form-data">
+                    <form method="post" action="../scripts/php/editArticle.php" enctype="multipart/form-data" id="editArticleForm">
                         <input type="hidden" name="articleId" id="articleIdHiddenInput">
                         <div class="article">
                             <div class="article_header">
@@ -903,6 +1022,72 @@ for ($i = 0; $i < 5; $i++) {
                 </div>
             </div>
         </div>
+        <script>
+            document.getElementById('editArticleForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                let error = false;
+                let form = e.target;
+                let title = document.getElementById('editArticleHeader');
+                let articleData = document.getElementById('editArticleData');
+                const val = articleData.value;
+                let articleContent = document.getElementById('editArticleContent');
+                let fileName = document.getElementById('editFileName');
+
+                if (title.value.length === 0) {
+                    title.classList.add('error');
+                    error = true;
+                }
+                else{
+                    title.classList.remove('error');
+                }
+                if (!val) {
+                    articleData.classList.add('error');
+                    error = true;
+                }
+                else{
+                    articleData.classList.remove('error');
+                }
+                const parts = val.split('-').map(Number);
+                if (parts.length !== 3 || parts.some(isNaN)) {
+                    articleData.classList.add('error');
+                    error = true;
+                }
+                else{
+                    articleData.classList.remove('error');
+                }
+                const d1 = new Date(parts[0], parts[1] - 1, parts[2]);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                if (d1 > today) {
+                    articleData.classList.add('error');
+                    error = true;
+                }
+                else{
+                    articleData.classList.remove('error');
+                }
+
+                if (articleContent.value.length === 0) {
+                    articleContent.classList.add('error');
+                    error = true;
+                }
+                else{
+                    articleContent.classList.remove('error');
+                }
+
+                if (fileName.innerHTML === 'Nie wybrano'){
+                    fileName.classList.add('error');
+                    error = true;
+                }
+                else{
+                    fileName.classList.remove('error');
+                }
+                if (error){
+                    return;
+                }
+                form.submit();
+            });
+        </script>
         <div class="main-panel bigContainers main-panel-add main-panel-add-komunikaty" id="editAnnoucements">
             <div class="styling-panel">
                 <div class="formContainer">

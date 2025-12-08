@@ -6,8 +6,6 @@ przechodzenie w nowe panele (dodaj animacje jakis fade out fade in np)
 wysuwające się imiona (dodaj animacje)
 tabelki
 
-wszystko w admin
-
 main plan w tabelce i jaktycznie poprawne wyświetlanie wszystkiego
 stolowka: inne tygodnie
 dzieci: poprawa wyswietlania

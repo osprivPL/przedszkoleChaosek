@@ -1,3 +1,5 @@
+
+
 function openGroupTab(evt, tabId) {
     let contents = document.getElementsByClassName("tab-content");
     for (let i = 0; i < contents.length; i++) {
@@ -62,8 +64,6 @@ async function edytujArtykul(id) {
             console.error("Nie udało się pobrać obrazka do edycji", e);
         }
     }
-    document.getElementById("AddArticleTitle").value="Edytuj artykuł";
-    document.getElementById('btnAddArticle').value = 'Zapisz';
 }
 function edytujKomunikat(id){
     document.getElementById('annoucementManager').style.display = "none";
