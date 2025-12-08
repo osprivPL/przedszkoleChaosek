@@ -121,3 +121,7 @@ img {
 .submitButton:hover {
     background-color: var(--green-dark);
 }
+
+.error{
+    border-color: red !important;
+}

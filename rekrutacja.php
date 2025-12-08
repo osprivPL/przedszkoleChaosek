@@ -18,7 +18,7 @@ if (!isset($_SESSION['error'])) {
 
 if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
-    if($user->typ==2){
+    if ($user->typ == 2) {
         header('Location: ./electronicDiary/principle.php');
     }
 }
@@ -47,7 +47,7 @@ if (isset($_SESSION['user'])) {
     <link rel="icon" type="image/x-icon" href="./assets/logo_tornado.svg">
 
     <title>Przedszkole Chaosek</title>
-    <script src="scripts/js/registerValidator.js"></script>
+
 </head>
 <body id='body'>
 <!-- ============================= -->
@@ -67,7 +67,11 @@ if (isset($_SESSION['user'])) {
 <!-- ============================= -->
 <main>
     <!---<?php printArr($_SESSION); ?>-->
-    <div id='container' <?php if($_SESSION['logged']){echo "class='container containerLoggedIn'";}else{echo "class='container containerLoggedOut'";}?>>
+    <div id='container' <?php if ($_SESSION['logged']) {
+        echo "class='container containerLoggedIn'";
+    } else {
+        echo "class='container containerLoggedOut'";
+    } ?>>
         <hr>
         <h1 class='logo-font'>Rekrutacja</h1>
         <form id="frmRekrutacja" class='form' method="post" action=
@@ -81,62 +85,75 @@ if (isset($_SESSION['user'])) {
             <div class="subContainer">
                 <div class="formsContainer">
                     <div class="
-                        <?php 
-                            if($_SESSION['logged'])
-                                {echo "frmChildLogged";}
-                            else{echo "frmChild";}
-                            ?>
+                        <?php
+                    if ($_SESSION['logged']) {
+                        echo "frmChildLogged";
+                    } else {
+                        echo "frmChild";
+                    }
+                    ?>
                         ">
-                        <?php if($_SESSION['logged']){echo "<div class='smallerFrmChild'>";}?>
-                        <div class="inputGroup"><input type="text" id="frmChildImie" name="frmChildImie" placeholder="Imię dziecka" required></div>
-                        <div class="inputGroup"><input type="text" id="frmChildNazwisko" name="frmChildNazwisko" placeholder="Nazwisko dziecka"
-                            required></div>
-                            <?php if($_SESSION['logged']){echo "</div><div class='smallerFrmChild'>";}?>
-                        <div class="inputGroup"><input type="text" id="frmChildPesel" name="frmChildPesel" placeholder="Pesel dziecka" required></div>
-                        <div class="inputGroup"><input type="text" id="frmChildAdres" name="frmChildAdres" placeholder="Adres zamieszkania dziecka"
-                            required></div>
-                            <?php if($_SESSION['logged']){echo "</div>";}?>
+                        <?php if ($_SESSION['logged']) {
+                            echo "<div class='smallerFrmChild'>";
+                        } ?>
+                        <div class="inputGroup"><input type="text" id="frmChildImie" name="frmChildImie"
+                                                       placeholder="Imię dziecka" ></div>
+                        <div class="inputGroup"><input type="text" id="frmChildNazwisko" name="frmChildNazwisko"
+                                                       placeholder="Nazwisko dziecka"
+                                                       ></div>
+                        <?php if ($_SESSION['logged']) {
+                            echo "</div><div class='smallerFrmChild'>";
+                        } ?>
+                        <div class="inputGroup"><input type="text" id="frmChildPesel" name="frmChildPesel"
+                                                       placeholder="Pesel dziecka" ></div>
+                        <div class="inputGroup"><input type="text" id="frmChildAdres" name="frmChildAdres"
+                                                       placeholder="Adres zamieszkania dziecka"
+                                                       ></div>
+                        <?php if ($_SESSION['logged']) {
+                            echo "</div>";
+                        } ?>
                     </div>
                     <div class="frmParent" <?php
                     if ($_SESSION['logged'] && $user->typ == 0) {
                         echo 'style="display:none;"';
                     }
                     ?>>
-                    <div class="inputGroup">
-                        <input type="text" id="frmParentImie" name="frmParentImie" placeholder="Imię rodzica/opiekuna" required
-                                <?php
-                                if ($_SESSION['logged'] && $user->typ == 0) {
-                                    echo 'value="' . $user->imie . '" readonly';
-                                }
-                                ?>></div>
-                    <div class="inputGroup">
-                        <input type="text" id="frmParentNazwisko" name="frmParentNazwisko"
-                            placeholder="Nazwisko rodzica/opiekuna" required
-                                <?php
-                                if ($_SESSION['logged'] && $user->typ == 0) {
-                                    echo 'value="' . $user->nazwisko . '" readonly';
-                                }
-                                ?>></div>
-                    <div class="inputGroup">
-                        <input type="text" id="frmParentTelefon" name="frmParentTelefon"
-                            placeholder="Numer telefonu rodzica/opiekuna"
-                            required
-                                <?php
-                                if ($_SESSION['logged'] && $user->typ == 0) {
-                                    echo 'value="' . $user->telefon . '" readonly';
-                                }
-                                ?>></div>
-                    <div class="inputGroup">
-                        <input type="email" id="frmParentEmail" name="frmParentEmail" placeholder="Email rodzica/opiekuna"
-                            required
-                                <?php
-                                if ($_SESSION['logged'] && $user->typ == 0) {
-                                    echo 'value="' . $user->email . '" readonly';
-                                } ?>
-                        ></div>
+                        <div class="inputGroup">
+                            <input type="text" id="frmParentImie" name="frmParentImie"
+                                   placeholder="Imię rodzica/opiekuna"
+                                    <?php
+                                    if ($_SESSION['logged'] && $user->typ == 0) {
+                                        echo 'value="' . $user->imie . '" readonly';
+                                    }
+                                    ?>></div>
+                        <div class="inputGroup">
+                            <input type="text" id="frmParentNazwisko" name="frmParentNazwisko"
+                                   placeholder="Nazwisko rodzica/opiekuna"
+                                    <?php
+                                    if ($_SESSION['logged'] && $user->typ == 0) {
+                                        echo 'value="' . $user->nazwisko . '" readonly';
+                                    }
+                                    ?>></div>
+                        <div class="inputGroup">
+                            <input type="text" id="frmParentTelefon" name="frmParentTelefon"
+                                   placeholder="Numer telefonu rodzica/opiekuna"
+                                    <?php
+                                    if ($_SESSION['logged'] && $user->typ == 0) {
+                                        echo 'value="' . $user->telefon . '" readonly';
+                                    }
+                                    ?>></div>
+                        <div class="inputGroup">
+                            <input type="email" id="frmParentEmail" name="frmParentEmail"
+                                   placeholder="Email rodzica/opiekuna"
+                                    <?php
+                                    if ($_SESSION['logged'] && $user->typ == 0) {
+                                        echo 'value="' . $user->email . '" readonly';
+                                    } ?>
+                            ></div>
                     </div>
                 </div>
-                <div class="inputGroup textBlock"><input type="text" id="frmInne" name="frmInne" placeholder="Inne ważne informacje"></div>
+                <div class="inputGroup textBlock"><input type="text" id="frmInne" name="frmInne"
+                                                         placeholder="Inne ważne informacje"></div>
             </div>
             <button id="btnRekrutacja" class="submitButton">Zapisz dziecko!</button>
             <?php
@@ -146,11 +163,124 @@ if (isset($_SESSION['user'])) {
             } ?>
             <span id="registerError" class="error"></span>
         </form>
+        <script>
+            document.getElementById('frmRekrutacja').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const form = e.target;
+                let childImie = document.getElementById('frmChildImie');
+                let childNazwisko = document.getElementById('frmChildNazwisko');
+                let childPesel = document.getElementById('frmChildPesel');
+                let childAdres = document.getElementById('frmChildAdres');
+                let parentImie = document.getElementById('frmParentImie');
+                let parentNazwisko = document.getElementById('frmParentNazwisko');
+                let parentTelefon = document.getElementById('frmParentTelefon');
+                let parentEmail = document.getElementById('frmParentEmail');
+                const phoneRegex = /^[0-9]{9}$/;
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                let error = false;
+                if (childImie.value.length < 2){
+                    error = true;
+                    childImie.classList.add('error');
+                }
+                else{
+                    childImie.classList.remove('error');
+                }
+                if (childNazwisko.value.length < 2){
+                    error = true;
+                    childNazwisko.classList.add('error');
+                }
+                else{
+                    childNazwisko.classList.remove('error');
+                }
+                if (childPesel.value.length !== 11){
+                    error = true;
+                    childPesel.classList.add('error');
+                }
+                else{
+                    childPesel.classList.remove('error');
+                }
+                if (childAdres.value.length < 5){
+                    error = true;
+                    childAdres.classList.add('error');
+                }
+                else{
+                    childAdres.classList.remove('error');
+                }
+                if (parentImie.value.length <2){
+                    error = true;
+                    parentImie.classList.add('error');
+                }
+                else{
+                    parentImie.classList.remove('error');
+                }
+                if (parentNazwisko.value.length <2){
+                    error = true;
+                    parentNazwisko.classList.add('error');
+                }
+                else{
+                    parentNazwisko.classList.remove('error');
+                }
+
+                if (!phoneRegex.test(parentTelefon.value)){
+                    error = true;
+                    parentTelefon.classList.add('error');
+                }
+                else{
+                    parentTelefon.classList.remove('error');
+                }
+                if (!emailRegex.test(parentEmail.value)){
+                    error = true;
+                    parentEmail.classList.add('error');
+                }
+                else{
+                    parentEmail.classList.remove('error');
+                }
+                if (error){
+                    return;
+                }
+                form.submit();
+            });
+            // document.getElementById("frmRekrtuacja").addEventListener("submit", (e)=>{
+            //     e.preventDefault();
+            //     const pesel = document.getElementById("frmChildPesel");
+            //     let weight = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
+            //     let sum = 0;
+            //     let controlNumber = parseInt(pesel.substring(10, 11));
+            //     let error = false;
+            //
+            //     if (document.getElementById("frmChildImie").length() < 1){
+            //         document.getElementById("frmChildImie").style.borderColor="red";
+            //         error = true;
+            //     }
+            //     if (document.getElementById("frmChildNazwisko").length() < 1){
+            //         document.getElementById("frmChildNazwisko").style.borderColor="red";
+            //         error = true;
+            //     }
+            //     if (document.getElementById("frmChildAdres").length < 1){
+            //         document.getElementById("frmChildAdres").style.borderColor="red";
+            //         error = true;
+            //     }
+            //     if (pesel.value.length !== 11 || isNaN(pesel.value)) {
+            //         pesel.style.borderColor = "red";
+            //         error = true;
+            //     }
+            //
+            //     for (let i = 0; i < weight.length; i++) {
+            //         sum += (parseInt(pesel.substring(i, i + 1)) * weight[i]);
+            //     }
+            //     sum = sum % 10;
+            //     if ((10-sum) % 10 !== controlNumber){
+            //         error = true;
+            //     }
+            //     if (error) return;
+            //
+            //     this.submit();
+            // });
+        </script>
     </div>
 </main>
 
-<script src="./scripts/js/showLogin.js"></script>
-<script src="./scripts/js/indexFormValidator.js"></script>
+<script src="scripts/js/registerValidator.js"></script>
 <?php printArr($_SESSION); ?>
 </body>
 </html>

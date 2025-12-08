@@ -212,7 +212,7 @@ body{
     width: 22vw;
     max-width: 400px;
 }
-.error {
+.errorSpan {
     color: red;
     position: absolute;
     bottom: 0;

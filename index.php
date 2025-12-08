@@ -60,23 +60,22 @@ if (!isset($_SESSION['error'])) {
                 <img src="./assets/logo_tornado.svg" alt="logo">
                 <span class='logo-font-small'>Dzienniczek Chaosu</span>
             </div>
-
         </div>
         <h3 class='logo-font-small'>Logowanie</h3>
         <div class="Login">
             <div class='inputGroup'>
                 <label for="tbxEmail">Email</label><br>
                 <input type="email" name="tbxEmail" id="tbxEmail"><br>
-                <span class="error" id="emailError"></span>
+                <span class="errorSpan" id="emailError"></span>
             </div>
             <div class='inputGroup'>
                 <label for="tbxHaslo">Hasło</label><br>
                 <input type="password" name="tbxHaslo" id="tbxHaslo"><br>
-                <span class="error" id="passwordError"></span>
+                <span class="errorSpan" id="passwordError"></span>
             </div>
         </div>
         <button id="btnLogin" class="submitButton">Zaloguj</button>
-        <span id="loginError" name="loginError" class="error">
+        <span id="loginError" name="loginError" class="errorSpan">
             <?php
             if ($_SESSION['error'] == 1) {
                 echo "Email nie istnieje w bazie danych";
@@ -91,6 +90,36 @@ if (!isset($_SESSION['error'])) {
             ?>
         </span>
     </form>
+    <script>
+        document.getElementById('loginPanel').addEventListener('submit', (e) => {
+            e.preventDefault();
+            let form=e.target;
+            let email = document.getElementById('tbxEmail');
+            let password = document.getElementById('tbxHaslo');
+            let error = false;
+            const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (email.value.length === 0 || !pattern.test(email.value)){
+                email.classList.add('error');
+                error = true;
+            }
+            else{
+                email.classList.remove('error');
+            }
+            if (password.value.length === 0){
+                password.classList.add('error');
+                error = true;
+            }
+            else{
+                password.classList.remove('error');
+            }
+            if (error){
+                return;
+            }
+
+            form.submit();
+        });
+    </script>
 </div>
 
 <!--============================-->
@@ -272,10 +301,10 @@ if (!isset($_SESSION['error'])) {
                     $bg = "background-image: url('" . $result[$i][3] . "')";
                     $style = 'style="' . $bg . '"';
                     echo '<div class="slider_element"' . $style . '>';
-                        echo '<div class="slide_content">';
-                             echo '<div class="title logo-font-small">' . $result[$i][0] . "<span>" . $result[$i][2] . "</span></div>";
-                              echo '<div class="context">' . $result[$i][1] . "</div>";
-                          echo '</div>';
+                    echo '<div class="slide_content">';
+                    echo '<div class="title logo-font-small">' . $result[$i][0] . "<span>" . $result[$i][2] . "</span></div>";
+                    echo '<div class="context">' . $result[$i][1] . "</div>";
+                    echo '</div>';
                     echo '</div>';
 //                    if ($i == 2){
 //                        die();

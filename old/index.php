@@ -111,16 +111,16 @@ if (!isset($_SESSION['error'])) {
             <div>
                 <label for="tbxEmail">Email</label>
                 <input type="email" name="tbxEmail" id="tbxEmail"><br>
-                <span class="error" id="emailError"></span>
+                <span class="errorSpan" id="emailError"></span>
             </div>
             <div>
                 <label for="tbxHaslo">Hasło</label>
                 <input type="text" name="tbxHaslo" id="tbxHaslo"><br>
-                <span class="error" id="passwordError"></span>
+                <span class="errorSpan" id="passwordError"></span>
             </div>
         </div>
         <button id="btnLogin">Zaloguj</button>
-        <span id="loginError" name="loginError" class="error">
+        <span id="loginError" name="loginError" class="errorSpan">
         <?php
         if ($_SESSION['error'] == 1) {
             echo "Nie znaleziono użytkownika o podanym emailu";

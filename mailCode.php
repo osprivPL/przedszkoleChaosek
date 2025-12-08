@@ -65,9 +65,29 @@ $_SESSION['sql'] = $_SESSION['sql'];
         <div class='codeContainer'>
             <span>Podaj kod wysłany na Twój email</span>
             <form action="./scripts/php/verifyCode.php" method="post" id="codeForm">
-                <input type="text" name="tbxCode" id="tbxCode" maxlength="6" required>
+                <input type="text" name="tbxCode" id="tbxCode" maxlength="6">
                 <button type="submit" id="btnVerifyCode" class='submitButton'>Zweryfikuj kod</button>
             </form>
+            <script>
+                document.getElementById('codeForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    let form = e.target;
+                    let error = false;
+                    let code = document.getElementById('tbxCode');
+                    if (code.value.length != 6){
+                        error = true;
+                        code.classList.add('error');
+                    }
+                    else{
+                        code.classList.remove('error');
+                    }
+
+                    if (error){
+                        return;
+                    }
+                    form.submit();
+                })
+            </script>
             <?php
             if ($_SESSION['error'] == 3) {
                 echo "<span class='error'>Nieprawidłowy kod</span>";
