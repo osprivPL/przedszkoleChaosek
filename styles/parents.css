@@ -224,8 +224,8 @@ body{
 }
 .main-child img{
     width: auto;
-    border: var(--border1);
-    border-radius: 30px;
+    border: 5px solid var(--green-dark);
+    border-radius: 25px;
     animation-timing-function: ease-out;
     -webkit-animation-timing-function: ease-out; 
     animation: slideInViewFromRight 2s ease-out;
@@ -242,13 +242,15 @@ body{
     padding: 10px;
     background: var(--green-vibrant);
     background: linear-gradient(to left bottom, rgba(50, 143, 59, 0.5), rgba(50, 143, 59, 0.7));
-    border: var(--border1);
-    border-radius: 30px;
+    border: 5px solid var(--green-darker);
+    border-radius: 25px;
     backdrop-filter: blur(5px);
     margin-bottom: 5px;
     animation-timing-function: ease-out;
     -webkit-animation-timing-function: ease-out; 
     animation: slideInViewFromLeft 0.1s ease-out;
+    font-family: 'sour gummy', sans-serif;
+    overflow-y: auto;
 }
 .child-info>*:nth-child(1){animation-duration: 0.2s;}
 .child-info>*:nth-child(2){animation-duration: 0.8s;}
@@ -265,36 +267,66 @@ body{
     align-self: stretch;
     margin-bottom: 0;
 }
-
-#main-teachers>.styling-panel{
-    border: hidden;
-    background: none;
-    gap: 10px;
+.main-panel-teachers .styling-panel{
+    display: flex;
+    justify-content: center;
 }
+.main-panel-teachers .formContainer{
+    width: 60vw;
+}
+
+
 .teacherCards{
     height: fit-content;
-    padding: 10px;
+    padding: 20px;
     font-size: 32px;
 
     background: var(--green-vibrant);
     background: linear-gradient(to left bottom, rgba(50, 143, 59, 0.5), rgba(50, 143, 59, 0.7));
-    border: var(--border1);
-    border-radius: 30px;
+    border: 5px solid var(--green-dark);
+    border-radius: 25px;
     backdrop-filter: blur(5px);
-    animation-timing-function: ease-out;
-    -webkit-animation-timing-function: ease-out; 
-    animation: slideInViewFromRight 0.2s ease-out;
-}   
-.teacherCards:nth-child(1){animation-duration: 0.5s;}
-.teacherCards:nth-child(2){animation-duration: 0.8s;}
-
-.teacherCards h3{
-    text-align: center;
-    font-size: 48px;
-    border: var(--border1);
-    border-radius: 30px;
+    opacity: 0;
+    animation: slideInViewFromDown 1s ease-in-out forwards;
+    font-family: 'sour gummy', sans-serif;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
 }
-
+.teacherCards legend{
+    font-size: 24px;
+    color: var(--green-dark);
+    font-weight: bold;
+    padding: 0 5px;
+    margin-left: 5px;
+    line-height: 0;
+}
+.teacherCards .teacherInfo{
+    flex-grow: 1;
+}
+.teacherCards .imgContainer{
+    background-image: url('../assets/user.svg');
+    max-width: 200px;
+    min-width: 200px;
+    margin: 10px;
+    height: 250px;
+    background-size: 100% 100%;
+    border-radius: 10px;
+    border: 5px solid white;
+    box-sizing: border-box;
+}
+.teacherCards h3{
+    font-size: 48px;
+}
+.teacherCards .opinia{
+    font-size: 24px;
+    border-radius: 15px;
+    max-height: 150px;
+    width: 90%;
+    overflow-y: auto;
+    padding: 10px;
+    box-sizing: border-box;
+}
 
 .formContainer{
     width: 80vw;
