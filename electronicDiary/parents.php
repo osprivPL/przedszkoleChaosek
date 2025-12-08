@@ -360,31 +360,40 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <!-- ============================= -->
         <!-- NAUCZYCIELE -->
         <!-- ============================= -->
-        <div class="main-panel bigContainers" id="main-teachers">
+        <div class="main-panel bigContainers main-panel-teachers" id="main-teachers">
             <div class="styling-panel">
-                <?php
-                $sql = "SELECT imie, nazwisko,login,typ FROM uzytkownicy WHERE typ = 1 OR typ = 2";
-                $result = $connection->query($sql)->fetch_all();
-                //                    print_r($result);
-                for ($i = 0; $i < count($result); $i++) {
-                    echo '<div class="teacherCards">';
-                    if ($result[$i][3] == 1) {
-                        $typ = "Nauczyciel";
-                    } else if ($result[$i][3] == 2) {
-                        $typ = "Dyrektor";
+                <div class="formContainer">
+                    <hr>
+                    <h1 class='logo-font-small'>Nauczyciele</h1>
+                    <?php
+                    $sql = "SELECT imie, nazwisko, login ,typ, opinia, zdjecie FROM uzytkownicy WHERE typ = 1 OR typ = 2 ORDER BY typ DESC";
+                    $result = $connection->query($sql)->fetch_all();
+                    //                    print_r($result);
+                    for ($i = 0; $i < count($result); $i++) {
+                        echo '<fieldset class="teacherCards" style="animation-delay: '.$i*0.2 .'s">';
+                        if ($result[$i][3] == 1) {
+                            $typ = "Nauczyciel";
+                        } else if ($result[$i][3] == 2) {
+                            $typ = "Dyrektor";
+                        }
+                        echo '<legend>' . $typ . '</legend>';
+                        echo '<div class="teacherInfo">';
+                        echo '<h3>' . $result[$i][0] . " " . $result[$i][1] . '</h3>';
+                        echo '<p>Email: ' . $result[$i][2] . "</p>";
+                        echo '<p>Opinia: </p><p class="opinia"> ' . $result[$i][4] . "</p>";
+                        echo '</div>';
+                        echo '<div>';
+                        echo '<div class="imgContainer" style="background-image: url("'.$result[$i][5].'")"></div>';
+                        echo '</div>';
+                        $typ = "";
+
+
+
+                        echo '</fieldset>';
                     }
-                    echo '<h3>' . $typ . '</h3>';
-                    echo '<p>' . $result[$i][0] . " " . $result[$i][1] . '</p>';
-                    echo '<p>Email: ' . $result[$i][2] . "</p>";
-                    $typ = "";
 
-
-
-                    echo '</div>';
-                }
-
-                ?>
-
+                    ?>
+                </div>
             </div>
         </div>
         <!-- ============================= -->
