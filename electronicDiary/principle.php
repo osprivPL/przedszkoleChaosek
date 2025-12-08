@@ -402,7 +402,7 @@ $dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Cz
             <div class="styling-panel">
                 <div class="formContainer">
                     <hr>
-                    <h1 class="logo-font-small"><span>Dodaj artykuł</span></h1>
+                    <h1 class="logo-font-small">Dodaj artykuł</h1>
                     <form method="post" action="../scripts/php/addArticle.php" enctype="multipart/form-data" id="addArticleForm">
                         <div class="article">
                             <div class="article_header">
@@ -560,7 +560,11 @@ $dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Cz
 
                     <form method="POST" class='form' id="jadlospisFRM">
                         <div class="border-box">
-                            <span class="table_cell label"><span>Data<br>----------<br>Posiłek</span></span>
+                            <div class="corner-cell" style='font-size: 24px'>
+                                        <div class="corner-line"></div>
+                                        <span class="corner-text-top">Dzień</span>
+                                        <span class="corner-text-bottom">Danie</span>
+                                    </div>
                             <?php
                             foreach ($weekDates as $date) {
                                 echo '<span class="table_cell label">';
@@ -688,12 +692,11 @@ $dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Cz
         </div>
 
         <div class="main-panel bigContainers main-panel-plan">
-            <div class="styling-panel planlekcjiManagement">
+            <div class="styling-panel">
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small">
                         <span>Plan lekcji</span>
-                        <small id="current-group-label" style="font-size:0.5em; color:#ddd; font-family: sans-serif;">(Grupa 1)</small>
                     </h1>
 
                     <div class="button-container group-switcher" style="margin-bottom: 20px; display: flex; gap: 10px; justify-content: center;">
@@ -759,7 +762,7 @@ $dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Cz
                             </div>
                         <?php endfor; // Koniec pętli grup ?>
 
-                        <div class='button-container' style="margin-top:20px;">
+                        <div class='button-container' style="margin-top:20px; display: flex; justify-content: center">
                             <button type="submit" class="submitButton" style="padding: 15px 30px; font-size: 1.2em;">Zapisz plan</button>
                         </div>
                     </form>
