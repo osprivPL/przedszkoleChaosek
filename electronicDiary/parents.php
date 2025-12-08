@@ -182,7 +182,8 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                             echo "shownPlan";
                         }
                         echo '">';
-                        $sql = "SELECT lekcje.nazwa, plan_lekcji.start_time, plan_lekcji.end_time FROM plan_lekcji JOIN lekcje ON plan_lekcji.lekcjaID = lekcje.id WHERE grupaID = " . $groups[$i] . " AND day_of_week = " . $dzienTygodnia . " ORDER BY start_time;";
+                        $sql = "SELECT lekcje.nazwa, godzinylekcyjne.start_time, godzinylekcyjne.end_time FROM plan_lekcji JOIN lekcje ON plan_lekcji.lekcjaID = lekcje.id JOIN godzinylekcyjne ON plan_lekcji.godzinaLekcyjna = godzinylekcyjne.id WHERE plan_lekcji.grupaID = " . $groups[$i] . " AND plan_lekcji.day_of_week = " . $dzienTygodnia . " ORDER BY godzinylekcyjne.start_time;";
+
 //                        $sql = "SELECT lekcje.nazwa, plan_lekcji.start_time, plan_lekcji.end_time FROM plan_lekcji JOIN lekcje ON plan_lekcji.lekcjaID = lekcje.id WHERE grupaID = " . $groups[$i] ." ORDER BY start_time;"; TO DLA CIEBIE PERYT NA CALY WEEK
                         $result = $connection->query($sql)->fetch_all();
                         for ($j = 0; $j < count($result); $j++) {
