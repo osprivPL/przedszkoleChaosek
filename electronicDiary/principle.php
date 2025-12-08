@@ -669,26 +669,29 @@ $dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Cz
         </div>
 
         <div class="main-panel bigContainers main-panel-komunikaty" id="annoucementManager">
-            <div class="styling-panel annoucementManagement">
+            <div class="styling-panel">
+                <div class="formContainer">
+                <hr>
                 <h1 class="logo-font-small"><span>Zarządzaj komunikatami</span></h1>
                 <?php
                 $sql = "SELECT tytul, tresc, data, przynaleznosc, id FROM komunikaty ORDER BY data DESC";
                 $result = $connection->query($sql)->fetch_all();
                 for ($i = 0; $i < count($result); $i++) {
-                    echo "<div class='articleDetails' id='komunikat" . $result[$i][4] . "'>";
+                    echo "<div class='articleDetails' id='komunikat" . $result[$i][4] . "'><div class='header-info'>";
                     echo "<h2 id='annoucementHeader".$result[$i][4]."'>" . $result[$i][0] . "</h2>";
-                    echo "<p id='annoucementContent".$result[$i][4]."'>" . $result[$i][1] . "</p>";
-                    echo "<p id='annoucementDate".$result[$i][4]."'>Data: " . $result[$i][2] . "</p>";
-                    echo "<p>Widoczność: <span id='annoucementVisibility".$result[$i][4]."'>";
+                    echo "<p class='date' id='annoucementDate".$result[$i][4]."'>" . $result[$i][2] . "</p>";
+                    echo "</div><p id='annoucementContent".$result[$i][4]."'>" . $result[$i][1] . "</p><div class='bottomContainer'><div>";
+                    echo "<button class='delete_article submitButton' onclick='edytujKomunikat(" . $result[$i][4] . ")'>Edytuj komunikat</button>";
+                    echo "<button class='delete_article submitButton' onclick='ukryjKomunikat(" . $result[$i][4] . ")'>Usuń komunikat</button></div>";
+                    echo "<p class='sentTo'><span id='annoucementVisibility".$result[$i][4]."'>";
                     if ($result[$i][3] == 0) echo "Wszyscy";
                     else echo "Grupa " . $result[$i][3];
                     echo "</span></p>";
-                    echo "<button class='delete_article' onclick='edytujKomunikat(" . $result[$i][4] . ")'>Edytuj komunikat</button>";
-                    echo "<button class='delete_article' onclick='ukryjKomunikat(" . $result[$i][4] . ")'>Usuń komunikat</button>";
-                    echo "<hr></div>";
+                    echo "</div></div>";
                 }
                 ?>
             </div>
+            </div>  
         </div>
 
         <div class="main-panel bigContainers main-panel-plan">

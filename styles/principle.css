@@ -482,3 +482,41 @@ button:hover{
     border-color: #fff !important;
     transform: scale(1.05);
 }
+
+
+.main-panel-komunikaty .styling-panel{
+    justify-content: center;
+}
+.main-panel-komunikaty .formContainer{
+    width: 100%;
+}
+.articleDetails{
+    background-color: #ffffff26;
+    border-radius: 25px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-family: 'sour gummy', sans-serif;
+    font-size: 24px;
+    margin-top: 20px;
+}
+.articleDetails h2{
+    font-size: 48px;
+}
+.articleDetails .header-info{
+    display: flex;
+    justify-content: space-between;
+}
+.articleDetails .date,
+.articleDetails .sentTo{
+    color: lightgray;
+}
+.articleDetails .bottomContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.articleDetails .submitButton{
+    margin: 20px 20px 0 0;
+    font-size: 22px;
+    border: none;
+}
