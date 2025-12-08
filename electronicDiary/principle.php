@@ -461,24 +461,27 @@ $dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Cz
         </div>
 
         <div class="main-panel bigContainers main-panel-articles" id="main-panel-articles">
-            <div class="styling-panel articlesManagement">
-                <h1><span>Zarządzanie artykułami</span></h1>
+            <div class="styling-panel">
+                <div class="formContainer">
+                <hr>
+                <h1 class='logo-font-small'><span>Zarządzanie artykułami</span></h1>
                 <?php
                 $sql = "SELECT naglowek, tresc, data, img, id FROM artykuly ORDER BY data DESC";
                 $result = $connection->query($sql)->fetch_all();
                 for ($i = 0; $i < count($result); $i++) {
-                    echo "<div class='articleDetails' id='article" . $result[$i][4] . "'>";
+                    echo "<div class='articleDetails' id='article" . $result[$i][4] . "'><div class='header-info'>";
                     echo "<h2 id='articleHeader".$result[$i][4]."'>" . $result[$i][0] . "</h2>";
-                    echo "<p id='articleContent".$result[$i][4]."'>" . $result[$i][1] . "</p>";
-                    echo "<p id='articleDate".$result[$i][4]."'>Data: " . $result[$i][2] . "</p>";
+                    echo "<p class='date' id='articleDate".$result[$i][4]."'>" . $result[$i][2] . "</p></div><div class='header-info'>";
+                    echo "<p class='content' id='articleContent".$result[$i][4]."'>" . $result[$i][1] . "</p>";
                     if (!empty($result[$i][3])) {
-                        echo "<img id='articleImg".$result[$i][4]."' src='" . './.' . $result[$i][3] . "' alt='Article Image' style='max-width:200px;'><br>";
+                        echo "<img id='articleImg".$result[$i][4]."' src='" . './.' . $result[$i][3] . "' alt='Article Image' style='max-width:200px;'></div>";
                     }
-                    echo "<button class='edit_article' id='btnEditArticle" . $result[$i][4] . "' onclick='edytujArtykul(" . $result[$i][4] . ")'>Edytuj artykuł</button>";
-                    echo "<button class='delete_article' onclick='ukryjArtykul(" . $result[$i][4] . ")'>Usuń artykuł</button>";
+                    echo "<button class='edit_article submitButton' id='btnEditArticle" . $result[$i][4] . "' onclick='edytujArtykul(" . $result[$i][4] . ")'>Edytuj artykuł</button>";
+                    echo "<button class='delete_article submitButton' onclick='ukryjArtykul(" . $result[$i][4] . ")'>Usuń artykuł</button>";
                     echo "<hr></div>";
                 }
                 ?>
+                </div>
             </div>
         </div>
 
