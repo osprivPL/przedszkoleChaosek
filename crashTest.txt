@@ -1,0 +1,65 @@
+OSTATNI PUSH: dodanie nauczycieli ig
+
+formatowanie css:
+	formatowanie index +:
+		! usuń przyciski w sticky header w indexie
+		! przedszkole chaosek zasłania hitboxy wyloguj się
+		? dziwnie się czuje gdy ikonka z Imie i nazwisko się podświetla gdy masz myszkę pomiędy panel rodzica lub wyloguj się
+
+	formatowanie rekrutacji:
+		przed zalogowanie +
+		po zalogowaniu +
+
+formatowanie dziennika:
+	rodzice +:
+		
+	dyrektor +/- (plan lekcji i zarządzaj x + artykół):
+		? gdy nic nie ma w rekrutacji powinien się pokazać jakiś obrazek i wiadomość zamiast niczego
+		! po dodaniu zdjęcia o długiej nazwy psuje się formatowanie artykułów( przesuwa się dodaj artykół na prawo + tworzy się owerflow-x
+		! bez wybrania dodaj zdięcie ani daty po kliknięciu dodaj artykół nie podświetlają się na czerwono tak jak tytuł i treść
+		! zarządaj artykułami ma rozjebane formatowanie
+		! zarządaj komunikatami też
+		? jadłosmis u dyra jest troche inny niż u rodzica (no chyba że am być)
+		! chuj wie co się dzieje w planie lekjci
+		? strasznie długo trwa aby zniknoł box danej rekrutacji po akceptacji
+		? po zaakcjeptowaniu dzieci nie pokazują się w danych grupach (pokazują się po odświerzeniu więc trzeba to zrobić po akceptacji zgłoszenia)		
+
+	nauczyciel -:
+		! zalogowany nauczyciel po wejściu w rekrutakcje ma ją wyświetlaną jak zalogowany rodzic
+		? dyrekcja w main ma podpis dyrekcja w dyrektor.php ma dyrektor(ka) tak samo u nauczyciela	
+
+funkcjonalność:
+	index:
+		możliwosć zgłoszenia rekrutacji i stworzenia konta:
+			wszystko chyba działało ale nie chciał mi wysłać kod na mail (korzystałem z temp mail ale i tak)
+
+		możliwosć zgłoszenia rekrutacji z stworzonego konta:
+			działa wszystko oprócz VVV
+			! warning w rektrutacjaCompleted po zalogowaniu się jako rodzic i złożeniu wniosku!!!!!!!!
+			? przydał by się też przycisk [wróć]
+			! pomimo nie podania kodu rodzica (wysłanego na mail) w rekrutacji u dyrektora pokazuje się zgłoszenie dziecka
+
+		wyświetlają się nowe artykuły dodane przez dyrektora +
+
+	panel rodzica:
+		wyświatlają się informacje o dzieciach +
+		wyświetlają się komunikaty +
+		wyświetlają się komunikaty dla odpowiednich grup +
+		działa poczta -
+
+	panel nauczyciela:
+		jakieś szponty nie pamiętam co on może robić
+			nic nie ma
+		
+	panel dyrektora:
+		możliwość dodania artykułów +
+		możliwosć dodania komunikatów +
+
+	mail:
+	! mail u rodzica działa tak o 10% lepiej niż u dyrekcji
+	! u dyrekcji poczta nie działa
+
+
+legenda:
+! - WAŻNE\BŁĄD
+? - na pewno ma tak być?
