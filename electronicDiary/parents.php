@@ -106,7 +106,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <script>
             <?php
             $json = array();
-            $sql = "SELECT imie, nazwisko, pesel, adres, grupa, img FROM dzieci WHERE IDRodzica = " . $user->id . ";";
+            $sql = "SELECT imie, nazwisko, pesel, adres, grupa, img, opinia FROM dzieci WHERE IDRodzica = " . $user->id . ";";
             $result = $connection->query($sql)->fetch_all();
             foreach ($result as $row) {
                 $json[] = $row;

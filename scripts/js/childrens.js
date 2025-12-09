@@ -20,6 +20,7 @@ function dateFromPesel(pesel) {
 }
 
 function createDiv(arr) {
+    console.log(arr)
     let container = document.createElement('div');
     container.classList.add('main-panel');
     container.classList.add('main-child');
@@ -46,7 +47,7 @@ function createDiv(arr) {
     divInfo.appendChild(GroupNum);
 
     let Opinion = document.createElement('span');
-    Opinion.innerHTML = "<h4>Opinia:</h4> " + "<br>" + " ";
+    Opinion.innerHTML = "<h4>Opinia: "+arr[6]+"</h4> " + "<br>" + " ";
     Opinion.classList.add('info-opinia');
     divInfo.appendChild(Opinion);
 

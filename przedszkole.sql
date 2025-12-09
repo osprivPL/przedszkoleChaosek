@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2025 at 07:08 PM
+-- Generation Time: Dec 09, 2025 at 08:21 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -60,24 +60,25 @@ CREATE TABLE `dzieci` (
   `adres` varchar(100) NOT NULL,
   `grupa` int(20) DEFAULT NULL,
   `img` varchar(50) NOT NULL,
-  `IDRodzica` int(11) NOT NULL
+  `IDRodzica` int(11) NOT NULL,
+  `opinia` varchar(5000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 --
 -- Dumping data for table `dzieci`
 --
 
-INSERT INTO `dzieci` (`ID`, `imie`, `nazwisko`, `pesel`, `adres`, `grupa`, `img`, `IDRodzica`) VALUES
-(1, 'Jonaszek', 'Kruk', '21241201290', 'Łódź, ul. Sienkiewicza 6, m. 7', 1, 'Jonaszek_Kruk.png', 1),
-(2, 'Aldona', 'Kruk', '20271912145', 'Łódź, ul. Sienkiewicza 6, m. 7', 2, 'Aldona_Kruk.png', 1),
-(3, 'Zosia', 'Kowalska', '21231501234', 'Łódź, ul. Kwiatowa 5/10', 1, 'brak', 4),
-(4, 'Jan', 'Kowalski', '18251209876', 'Łódź, ul. Kwiatowa 5/10', 4, 'brak', 4),
-(5, 'Krzyś', 'Nowak', '20252005432', 'Łódź, ul. Słoneczna 12', 2, 'brak', 5),
-(6, 'Ala', 'Wiśniewska', '19301011223', 'Łódź, ul. Lipowa 3', 3, 'brak', 6),
-(7, 'Olek', 'Wiśniewski', '21310533441', 'Łódź, ul. Lipowa 3', 1, 'brak', 6),
-(8, 'Filip', 'Wiśniewski', '18222855667', 'Łódź, ul. Lipowa 3', 4, 'brak', 6),
-(9, 'Michał', 'Zieliński', '19260199887', 'Łódź, ul. Długa 50/4', 3, 'brak', 7),
-(18, 'Brajan', 'Symilak', '22230711738', 'Wojska Polskiego 19/10', 1, 'brak', 21);
+INSERT INTO `dzieci` (`ID`, `imie`, `nazwisko`, `pesel`, `adres`, `grupa`, `img`, `IDRodzica`, `opinia`) VALUES
+(1, 'Jonaszek', 'Kruk', '21241201290', 'Łódź, ul. Sienkiewicza 6, m. 7', 1, 'Jonaszek_Kruk.png', 1, 'Uczeń jest kulturalny, zaangażowany na lekcjach i chętnie współpracuje z rówieśnikami.'),
+(2, 'Aldona', 'Kruk', '20271912145', 'Łódź, ul. Sienkiewicza 6, m. 7', 2, 'Aldona_Kruk.png', 1, 'Dziecko systematycznie pracuje na zajęciach, sumiennie wywiązuje się z obowiązków i dąży do poprawy wyników.'),
+(3, 'Zosia', 'Kowalska', '21231501234', 'Łódź, ul. Kwiatowa 5/10', 1, 'brak', 4, 'Uczeń prezentuje wysoką kulturę osobistą, szanuje kolegów i nauczycieli oraz dba o dobrą atmosferę w klasie.'),
+(4, 'Jan', 'Kowalski', '18251209876', 'Łódź, ul. Kwiatowa 5/10', 4, 'brak', 4, 'Dziecko aktywnie uczestniczy w lekcjach, zadaje pytania i chętnie dzieli się swoimi spostrzeżeniami'),
+(5, 'Krzyś', 'Nowak', '20252005432', 'Łódź, ul. Słoneczna 12', 2, 'brak', 5, 'Uczeń potrafi pracować zarówno samodzielnie, jak i w grupie, przejmuje odpowiedzialność za powierzone zadania.'),
+(6, 'Ala', 'Wiśniewska', '19301011223', 'Łódź, ul. Lipowa 3', 3, 'brak', 6, 'Dziecko rozwija swoje mocne strony, wykazuje ciekawość świata i chętnie podejmuje nowe wyzwania edukacyjne.'),
+(7, 'Olek', 'Wiśniewski', '21310533441', 'Łódź, ul. Lipowa 3', 1, 'brak', 6, 'Uczeń stosuje się do zasad panujących w klasie, reaguje na uwagi i stara się korygować swoje zachowanie.'),
+(8, 'Filip', 'Wiśniewski', '18222855667', 'Łódź, ul. Lipowa 3', 4, 'brak', 6, 'Dziecko jest empatyczne, wspiera rówieśników i potrafi rozwiązywać drobne konflikty w spokojny sposób.'),
+(9, 'Michał', 'Zieliński', '19260199887', 'Łódź, ul. Długa 50/4', 3, 'brak', 7, 'Uczeń dobrze organizuje swoją pracę, zazwyczaj przygotowuje się do zajęć i przynosi potrzebne materiały.'),
+(18, 'Brajan', 'Symilak', '22230711738', 'Wojska Polskiego 19/10', 1, 'brak', 21, 'Dziecko robi zauważalne postępy, a jego wysiłek i systematyczność pozytywnie wpływają na osiągane wyniki.');
 
 -- --------------------------------------------------------
 
@@ -200,27 +201,28 @@ CREATE TABLE `komunikaty` (
   `tytul` varchar(1000) NOT NULL,
   `tresc` varchar(1000) NOT NULL,
   `data` date NOT NULL,
-  `przynaleznosc` int(11) NOT NULL COMMENT '0 - ogolne, 1 - gr1, 2 - gr2, 3-gr3, 4-gr4'
+  `przynaleznosc` int(11) NOT NULL COMMENT '0 - ogolne, 1 - gr1, 2 - gr2, 3-gr3, 4-gr4',
+  `autor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 --
 -- Dumping data for table `komunikaty`
 --
 
-INSERT INTO `komunikaty` (`ID`, `tytul`, `tresc`, `data`, `przynaleznosc`) VALUES
-(29, 'Opłaty za żywienie', 'Drodzy Rodzice, przypominamy o konieczności uiszczenia opłaty za żywienie do 10-go dnia miesiąca.', '2025-11-02', 0),
-(30, 'Ważne: Ospa wietrzna', 'Uwaga! W przedszkolu panuje ospa wietrzna. Prosimy o obserwację dzieci.', '2025-11-28', 0),
-(31, 'Piknik Rodzinny', 'Zapraszamy serdecznie na Zimowy Kiermasz, który odbędzie się w ogrodzie przedszkolnym w sobotę o 11:00.', '2025-12-07', 0),
-(32, 'Jesienna pogoda', 'W związku z deszczową pogodą prosimy, aby każde dziecko miało w szafce kalosze i pelerynę.', '2025-10-15', 0),
-(33, 'Zdrowie dzieci', 'Przypominamy: prosimy nie przyprowadzać do przedszkola dzieci przeziębionych i z gorączką.', '2025-11-30', 0),
-(34, 'Przerwa techniczna', 'W najbliższy piątek placówka będzie nieczynna z powodu prac technicznych w sieci wodociągowej.', '2025-12-01', 0),
-(35, 'Podpisanie rzeczy', 'Grupa 1: Prosimy o podpisanie wszystkich smoczków i przytulanek przyniesionych do leżakowania.', '2025-09-05', 1),
-(36, 'Artykuły higieniczne', 'Do rodziców Grupy 1: Kończą się zapasy chusteczek nawilżanych, prosimy o dostarczenie nowych paczek.', '2025-11-25', 1),
-(37, 'Wyjście do parku', 'Grupa 2: Jutro idziemy na dłuższy spacer do parku, prosimy o wygodne obuwie.', '2025-10-10', 2),
-(38, 'Materiały plastyczne', 'Rodzice Grupy 2: Zbieramy rolki po ręcznikach papierowych i kartony na zajęcia plastyczne.', '2025-11-18', 2),
-(39, 'Mikołajki', 'Grupa 3: Prosimy, aby w dniu 6 grudnia dzieci przyszły ubrane na czerwono lub w czapkach Mikołaja.', '2025-11-29', 3),
-(40, 'Zajęcia z rytmiki', 'Dla Grupy 3: W czwartek odbędą się zajęcia z rytmiki, prosimy o strój gimnastyczny w worku.', '2025-11-27', 3),
-(44, 'mamdosc', 'backendowiec tego dziennika ma dosc.', '2025-12-02', 0);
+INSERT INTO `komunikaty` (`ID`, `tytul`, `tresc`, `data`, `przynaleznosc`, `autor`) VALUES
+(29, 'Opłaty za żywienie', 'Drodzy Rodzice, przypominamy o konieczności uiszczenia opłaty za żywienie do 10-go dnia miesiąca.', '2025-11-02', 0, 3),
+(30, 'Ważne: Ospa wietrzna', 'Uwaga! W przedszkolu panuje ospa wietrzna. Prosimy o obserwację dzieci.', '2025-11-28', 0, 3),
+(31, 'Piknik Rodzinny', 'Zapraszamy serdecznie na Zimowy Kiermasz, który odbędzie się w ogrodzie przedszkolnym w sobotę o 11:00.', '2025-12-07', 0, 3),
+(32, 'Jesienna pogoda', 'W związku z deszczową pogodą prosimy, aby każde dziecko miało w szafce kalosze i pelerynę.', '2025-10-15', 0, 3),
+(33, 'Zdrowie dzieci', 'Przypominamy: prosimy nie przyprowadzać do przedszkola dzieci przeziębionych i z gorączką.', '2025-11-30', 0, 3),
+(34, 'Przerwa techniczna', 'W najbliższy piątek placówka będzie nieczynna z powodu prac technicznych w sieci wodociągowej.', '2025-12-01', 0, 3),
+(35, 'Podpisanie rzeczy', 'Grupa 1: Prosimy o podpisanie wszystkich smoczków i przytulanek przyniesionych do leżakowania.', '2025-09-05', 1, 3),
+(36, 'Artykuły higieniczne', 'Do rodziców Grupy 1: Kończą się zapasy chusteczek nawilżanych, prosimy o dostarczenie nowych paczek.', '2025-11-25', 1, 3),
+(37, 'Wyjście do parku', 'Grupa 2: Jutro idziemy na dłuższy spacer do parku, prosimy o wygodne obuwie.', '2025-10-10', 2, 3),
+(38, 'Materiały plastyczne', 'Rodzice Grupy 2: Zbieramy rolki po ręcznikach papierowych i kartony na zajęcia plastyczne.', '2025-11-18', 2, 3),
+(39, 'Mikołajki', 'Grupa 3: Prosimy, aby w dniu 6 grudnia dzieci przyszły ubrane na czerwono lub w czapkach Mikołaja.', '2025-11-29', 3, 3),
+(40, 'Zajęcia z rytmiki', 'Dla Grupy 3: W czwartek odbędą się zajęcia z rytmiki, prosimy o strój gimnastyczny w worku.', '2025-11-27', 3, 3),
+(44, 'mamdosc', 'backendowiec tego dziennika ma dosc.', '2025-12-02', 0, 3);
 
 -- --------------------------------------------------------
 
@@ -543,7 +545,8 @@ ALTER TABLE `jadlospis`
 -- Indexes for table `komunikaty`
 --
 ALTER TABLE `komunikaty`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `autor` (`autor`);
 
 --
 -- Indexes for table `lekcje`
@@ -675,6 +678,12 @@ ALTER TABLE `dzieci`
 --
 ALTER TABLE `grupy`
   ADD CONSTRAINT `grupy_ibfk_1` FOREIGN KEY (`Wychowawca`) REFERENCES `uzytkownicy` (`ID`);
+
+--
+-- Constraints for table `komunikaty`
+--
+ALTER TABLE `komunikaty`
+  ADD CONSTRAINT `komunikaty_ibfk_1` FOREIGN KEY (`autor`) REFERENCES `uzytkownicy` (`ID`);
 
 --
 -- Constraints for table `plan_lekcji`

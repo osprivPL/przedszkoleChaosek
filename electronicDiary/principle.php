@@ -520,7 +520,7 @@ $dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Cz
                                     echo "<div class='grid-cell'>" . $result[$i][2] . "</div>";
                                     echo "<div class='grid-cell'>" . $result[$i][3] . "</div>";
                                     echo "<div class='grid-cell'>" . $result[$i][4] . " " . $result[$i][5] . "</div>";
-                                    echo "<div class='grid-cell'><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button></div>";
+                                    echo "<div class='grid-cell'><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button><button></button></div>";
                                     echo "</div>";
                                 }
                                 ?>
