@@ -85,6 +85,7 @@ img {
     font-family: 'Pacifico' !important;
     text-decoration: none;
     font-weight: 400;
+    text-wrap: nowrap;
 }
 .logo-font {
     text-shadow: 5px 5px 0 var(--green-darker),

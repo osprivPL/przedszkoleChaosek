@@ -50,11 +50,12 @@
     font-family: 'Sour gummy', sans-serif;
     box-sizing: border-box;
     position: relative;
-    border: 5px solid var(--green-dark);
+    border: 5px solid var(--green-darker);
+    background-color: var(--green-dark);
     transition: .2s;
 }
 .wniosek:hover{
-    background: rgba(255, 255, 255, 0.15);
+    background-color: var(--green-vibrant);
 }
 .wniosek .name, .wniosek select{
     font-family: 'sour gummy', sans-serif;
@@ -122,6 +123,9 @@ button:hover{
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+.application {
+    position: relative;
+}
 .go-back{
     font-size: 60px;
     line-height: 60px;
@@ -129,10 +133,10 @@ button:hover{
     text-align: center;
     position: absolute;
     top: 20px;
-    left: 20px;
+    left: 0px;
     background-color: var(--green-vibrant);
     padding: 10px;
-    transition: .3s;
+    transition: background-color .3s;
     z-index: 8;
 }
 .go-back:hover{
@@ -146,6 +150,22 @@ button:hover{
     display: flex;
     width: 40%;
     margin-bottom: -5px;
+}
+@media (max-width: 1200px){
+    .go-back{
+        font-size: 4vw;
+        line-height: 4vw;
+        width: 4vw;
+        top: 2vw;
+        left: 0vw;
+        padding: 1vw;
+    }
+    h1{
+        font-size: 6vw !important;
+    }
+    hr{
+        top: 5.5vw;
+    }
 }
 .buttonContainer button{
     flex-grow: 1;
@@ -172,16 +192,19 @@ button:hover{
 .info{
     display: flex;
     flex-direction: column;
-    gap: 1em;
-    border: 5px solid var(--green-dark);
+    gap: 1.5em;
+    border: 5px solid var(--green-darker);
     padding: 1em;
-    border-radius: 10px;
+    border-radius: 20px;
     border-top-left-radius: 0;
     box-sizing: border-box;
+    background: var(--green-dark);
 }
 .info > div{
-    background-color: #ffffff26;
-    border: 4px solid var(--green-dark);
+    background: rgba(0, 0, 0, 0.15);
+    border-right: 5px solid var(--green-darker);
+    border-bottom: 5px solid var(--green-darker);
+    box-sizing: border-box;
     padding: .5em;
     font-size: 32px;
     font-family: 'Sour Gummy', sans-serif;
@@ -339,7 +362,7 @@ button:hover{
     border: solid 5px var(--green-dark);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
     position: relative;
-    width: 90%;
+    width: 100%;
     height: 100%;
     overflow-y: auto;
     box-sizing: border-box;
@@ -353,7 +376,7 @@ button:hover{
 .main-panel-food .border-box{
     border: 4px solid #14522d;
     display: grid;
-    grid-template-columns: 150px 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: .5fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 80px 1fr 1fr 1fr;
     height: 80%;
     border-radius: 15px;
@@ -411,26 +434,24 @@ button:hover{
 }
 .main-panel-plan .formContainer{
     width: 100%;
+    position: relative;
 }
 .plan-grid-container {
     display: grid;
-    /* Pierwsza kolumna (Godziny) ma 120px, reszta (5 dni) dzieli miejsce po równo */
     grid-template-columns: 120px repeat(5, 1fr);
-    gap: 2px; /* To tworzy te ciemne linie między komórkami */
-    background-color: #14522d; /* Ciemny zielony kolor linii/ramki */
+    gap: 2px;
+    background-color: #14522d;
     border: 4px solid #14522d;
     border-radius: 10px;
     overflow: hidden;
-    margin-top: 15px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     font-family: 'sour gummy', sans-serif;
 }
 
-/* Nagłówki (Dni tygodnia) */
 .plan-header {
-    background-color: var(--green-dark); /* Ciemniejsza zieleń dla nagłówków */
+    background-color: var(--green-dark);
     color: white;
-    font-family: 'Sour Gummy', cursive; /* Twoja czcionka */
+    font-family: 'Sour Gummy', cursive;
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -442,7 +463,7 @@ button:hover{
 }
 
 .plan-cell {
-    background-color: var(--green-vibrant); /* Jaśniejsza zieleń (taka jak w jadłospisie) */
+    background-color: var(--green-vibrant);
     padding: 5px;
     display: flex;
     flex-direction: column;
@@ -509,8 +530,22 @@ button:hover{
     background: rgba(0,0,0,0.2);
     outline: none;
 }
-
-/* Style przycisków grup */
+.button-container{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-end;
+    position: sticky;
+    bottom: 0px;
+    padding: 30px 0 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-image: linear-gradient(to top, var(--green-vibrant),var(--green-vibrant), transparent)
+}
+.group-switcher{
+    display: flex;
+    gap: 10px;
+}
 .group-switcher button {
     transition: transform 0.1s;
 }

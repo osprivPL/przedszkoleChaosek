@@ -281,9 +281,9 @@ $dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Cz
                         }
                         ?>
                     </div>
-                    <div id='Application' style='display: none'>
+                    <div class='application' id='Application' style='display: none'>
                         <hr>
-                        <h1 class="logo-font-small" id='wniosekNumber'>Wniosek #0</h1>
+                        <h1 class="logo-font-small"><span id='wniosekNumber'>Wniosek #0</span></h1>
                         <div onclick='rozpatrzWniosek("")' class='go-back logo-font-small'>↩</div>
                         <div class='buttonContainer'>
                             <button class='applicationButton activeButton' onclick='changeInfo(1)'>Dane Dziecka</button>
@@ -705,18 +705,6 @@ $dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Cz
                         <span>Plan lekcji</span>
                     </h1>
 
-                    <div class="button-container group-switcher" style="margin-bottom: 20px; display: flex; gap: 10px; justify-content: center;">
-                        <?php for ($g = 1; $g <= 4; $g++): ?>
-                            <button type="button"
-                                    id="btn-group-<?php echo $g; ?>"
-                                    class="plan-group-btn submitButton <?php echo ($g === 1) ? 'active' : ''; ?>"
-                                    onclick="showGroupPlan(<?php echo $g; ?>)"
-                                    style="min-width: 100px;">
-                                Grupa <?php echo $g; ?>
-                            </button>
-                        <?php endfor; ?>
-                    </div>
-
                     <form method="POST" class="form" id="planLekcjiFRM">
                         <input type="hidden" name="update_plan_matrix" value="1">
 
@@ -767,9 +755,19 @@ $dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Cz
                                 </div>
                             </div>
                         <?php endfor; // Koniec pętli grup ?>
-
-                        <div class='button-container' style="margin-top:20px; display: flex; justify-content: center">
-                            <button type="submit" class="submitButton" style="padding: 15px 30px; font-size: 1.2em;">Zapisz plan</button>
+                        <div class="button-container">
+                        <div class='group-switcher'>
+                        <?php for ($g = 1; $g <= 4; $g++): ?>
+                            <button type="button"
+                                    id="btn-group-<?php echo $g; ?>"
+                                    class="plan-group-btn submitButton <?php echo ($g === 1) ? 'active' : ''; ?>"
+                                    onclick="showGroupPlan(<?php echo $g; ?>)"
+                                    style="min-width: 100px;">
+                                Grupa <?php echo $g; ?>
+                            </button>
+                        <?php endfor; ?>
+                        </div>
+                            <button type="submit" class="submitButton" style="font-size: 1.6em;">Zapisz plan</button>
                         </div>
                     </form>
                 </div>
