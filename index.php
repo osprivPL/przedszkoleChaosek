@@ -129,23 +129,27 @@ if (!isset($_SESSION['error'])) {
     <div class="square_container">
         <div class="square"></div>
     </div>
+    <div class="options" onclick='userPanel(4)'>
+            <span>☰ <span class='sectionsLabel'>Sekcje</span></span>
+            <div class="options_pop_up" id='user_pop_up4'>
+                <a href="#o_nas">O nas</a>
+                <a href="#aktualnosci">Aktualności</a>
+                <a href="#dojazd">Dojazd</a>
+                <a href="./rekrutacja.php">Rekrutacja</a>
+                <a href="#kontakt">Kontakt</a>
+        </div>
+    </div>
     <a class="logo" href="#header">
         <img src="./assets/logo_tornado.svg" alt="logo">
-        <div class="text logo-font-small">Przedszkole Chaosek</div>
+        <div class="text logo-font-small"><span class='labelPrzedszkole'>Przedszkole</span> Chaosek</div>
     </a>
+    
     <div class="nav">
-        <!--            --><?php //printArr($_SESSION); ?>
-        <form action="./scripts/php/loginAsParent.php" method="post">
-            <button type="submit" id="btnLoginAsParent">Zaloguj się jako Rodzic (demo)</button>
-        </form>
-        <form action="./scripts/php/loginAsPrinciple.php" method="post">
-            <button type="submit" id="btnLoginAsPrinciple">Zaloguj się jako Dyrektor (demo)</button>
-        </form>
-        <a href="#o_nas">O nas</a>
-        <a href="#aktualnosci">Aktualności</a>
-        <a href="#dojazd">Dojazd</a>
-        <a href="./rekrutacja.php">Rekrutacja</a>
-        <a href="#kontakt">Kontakt</a>
+        <a href="#o_nas" class='sectionss'>O nas</a>
+        <a href="#aktualnosci" class='sectionss'>Aktualności</a>
+        <a href="#dojazd" class='sectionss'>Dojazd</a>
+        <a href="./rekrutacja.php" class='sectionss'>Rekrutacja</a>
+        <a href="#kontakt" class='sectionss'>Kontakt</a>
         <?php
         if ($_SESSION['logged']) {
             if ($user->typ == 0) {
@@ -156,7 +160,7 @@ if (!isset($_SESSION['error'])) {
                 $typ = "Dyrekcja";
             }
             echo '<div onclick="userPanel(1)" class="user">
-                    <div>' . $user->imie . ' ' . $user->nazwisko . '<br>';
+                    <div class="userLabel">' . $user->imie . ' ' . $user->nazwisko . '<br>';
             if ($user->typ == 0) {
                 echo "Rodzic";
             } else if ($user->typ == 1) {
@@ -195,6 +199,22 @@ if (!isset($_SESSION['error'])) {
 <div class="header" id="header">
     <div class="square"></div>
     <div class="nav">
+        <div class="options" onclick='userPanel(3)'>
+            <span>☰ Sekcje</span>
+            <div class="options_pop_up" id='user_pop_up3'>
+            <a href="#o_nas">O nas</a>
+            <a href="#aktualnosci">Aktualności</a>
+            <a href="#dojazd">Dojazd</a>
+            <a href="./rekrutacja.php">Rekrutacja</a>
+            <a href="#kontakt">Kontakt</a>
+        </div>
+        </div>
+        <form action="./scripts/php/loginAsParent.php" method="post">
+                    <button type="submit" id="btnLoginAsParent">Zaloguj się jako Rodzic (demo)</button>
+                </form>
+                <form action="./scripts/php/loginAsPrinciple.php" method="post">
+                    <button type="submit" id="btnLoginAsPrinciple">Zaloguj się jako Dyrektor (demo)</button>
+                </form>
         <a href="#o_nas">O nas</a>
         <a href="#aktualnosci">Aktualności</a>
         <a href="#dojazd">Dojazd</a>
@@ -237,7 +257,7 @@ if (!isset($_SESSION['error'])) {
         <div class="logo_img_container">
             <img src="./assets/logo_tornado.svg">
         </div>
-        <div class="text logo-font">Przedszkole Chaosek</div>
+        <div class="text logo-font" style='text-wrap: wrap;'>Przedszkole Chaosek</div>
     </div>
 </div>
 
@@ -256,7 +276,6 @@ if (!isset($_SESSION['error'])) {
             ruchu i zajęć artystycznych. Bezpieczeństwo i otwartość na potrzeby rodziny są dla nas priorytetem.
         </div>
     </div>
-    <img src="./assets/onasimage1.png">
 </div>
 
 <!--============================-->
