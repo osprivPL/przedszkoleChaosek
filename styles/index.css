@@ -278,8 +278,6 @@ body{
     background-color: var(--green-darker);
     border-radius: 12px;
     width: fit-content;
-    align-items: center;
-    text-align: right;
     display: none;
     opacity: 0;
     padding: 15px;
@@ -439,7 +437,7 @@ body{
     padding: 3em;
     position: relative;
     box-sizing: border-box;
-    background-position: 100% 100%;
+    background-size: 100% 100%;
     background-image: url('../assets/tlo_o_nas.png')
 }
 

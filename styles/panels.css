@@ -107,14 +107,22 @@ header #mail:hover {
 .user_pop_up a:hover{
     background-color: var(--green-dark);
 }
-.layout {
-    display: grid;
-    grid-template-columns: [nav]0.2fr [main]1fr;
-    height: 85vh;
+.options{
+    cursor: pointer;
+    background-color: var(--green-darker);
+    border-radius: 12px;
+    width: fit-content;
+    align-items: center;
+    display: none;
+    opacity: 0;
+    padding: 15px;
+    position: relative;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 48px;
+    transition: .3s;
 }
-
 nav {
-    grid-area: nav;
     /*display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -128,8 +136,16 @@ nav {
     overflow-y: auto;
     background-size: 100% 100%;
     font-family: 'sour gummy', sans-serif;
+    position: absolute;
+    width: 300px;
+    z-index: 9999;
+    transition: .5s;
 }
-
+nav.visible{
+    opacity: 1 !important;
+    transform: translateX(0);
+    pointer-events: all;
+}
 nav img {
     height: 50px;
     width: 50px;
@@ -190,10 +206,11 @@ nav span {
 
 
 main {
-    grid-area: main;
     height: 80vh;
     position: relative;
     padding: 2.5vh;
+    margin-left: 300px;
+    transition: .5s;
 }
 
 .main-panel {
@@ -315,7 +332,31 @@ aside, main {
     to{height: 100%;}
 }
 
-
+@media (max-width: 1300px){
+    .options{
+        display: block;
+        opacity: 1;
+    }
+    .userLabel{
+        display: none;
+    }
+    .user{
+        padding: 0;
+    }
+    .user_pop_up{
+        left: auto;
+        right: 0;
+        width: 200px;
+    }
+    nav{
+        opacity: 1;
+        transform: translateX(-300px);
+        pointer-events: none;
+    }
+    main{
+        margin-left: 0;
+    }
+}
 
 
 

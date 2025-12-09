@@ -129,9 +129,9 @@ if (!isset($_SESSION['error'])) {
     <div class="square_container">
         <div class="square"></div>
     </div>
-    <div class="options" onclick='userPanel(4)'>
+    <div class="options" onclick='showSomething(1)'>
             <span>☰ <span class='sectionsLabel'>Sekcje</span></span>
-            <div class="options_pop_up" id='user_pop_up4'>
+            <div class="options_pop_up" id='somethingBeingShown1'>
                 <a href="#o_nas">O nas</a>
                 <a href="#aktualnosci">Aktualności</a>
                 <a href="#dojazd">Dojazd</a>
@@ -159,7 +159,7 @@ if (!isset($_SESSION['error'])) {
             } else if ($user->typ == 2) {
                 $typ = "Dyrekcja";
             }
-            echo '<div onclick="userPanel(1)" class="user">
+            echo '<div onclick="showSomething(2)" class="user">
                     <div class="userLabel">' . $user->imie . ' ' . $user->nazwisko . '<br>';
             if ($user->typ == 0) {
                 echo "Rodzic";
@@ -171,7 +171,7 @@ if (!isset($_SESSION['error'])) {
             $typ = "";
             echo '</div>
                     <img src="./assets/user.svg" alt="user icon">
-                    <div class="user_pop_up" id="user_pop_up1">
+                    <div class="user_pop_up" id="somethingBeingShown2">
                         <a href="';
             if ($user->typ == 0) {
                 echo "./electronicDiary/parents.php";
@@ -199,9 +199,9 @@ if (!isset($_SESSION['error'])) {
 <div class="header" id="header">
     <div class="square"></div>
     <div class="nav">
-        <div class="options" onclick='userPanel(3)'>
+        <div class="options" onclick='showSomething(3)'>
             <span>☰ Sekcje</span>
-            <div class="options_pop_up" id='user_pop_up3'>
+            <div class="options_pop_up" id='somethingBeingShown3'>
             <a href="#o_nas">O nas</a>
             <a href="#aktualnosci">Aktualności</a>
             <a href="#dojazd">Dojazd</a>
@@ -229,10 +229,10 @@ if (!isset($_SESSION['error'])) {
             } else if ($user->typ == 2) {
                 $typ = "Dyrekcja";
             }
-            echo '<div onclick="userPanel(2)" class="user">
+            echo '<div onclick="showSomething(4)" class="user">
                     <div>' . $user->imie . ' ' . $user->nazwisko . '<br>' . $typ . '</div>
                     <img src="./assets/user.svg" alt="user icon">
-                    <div class="user_pop_up" id="user_pop_up2">
+                    <div class="user_pop_up" id="somethingBeingShown4">
                         <a href="';
             if ($user->typ == 0) {
                 echo "./electronicDiary/parents.php";

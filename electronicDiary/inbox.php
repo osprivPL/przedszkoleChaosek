@@ -55,6 +55,9 @@ if (!$_SESSION['logged']) {
     <div class="square_container">
         <div class="square"></div>
     </div>
+    <div class="options" onclick='showSomething(1)'>
+        <span>☰</span>
+    </div>
     <a href="../index.php" id="logo" class='logo'>
         <img src="./../assets/logo_tornado.svg" alt="logo">
         <span class='logo-font-small'>Przedszkole Chaosek</span>
@@ -62,7 +65,7 @@ if (!$_SESSION['logged']) {
     <!--Tymon zrobił by to lepiej-->
     <div class="header-ui">
         <a href="./parents.php"><img id="mail" src="./../assets/main_page2.png" alt="główna"></a>
-        <div onclick="userPanel(1)" class="user">
+        <div onclick="showSomething(2)" class="user">
                     <div><?php echo $user->imie.' '.$user->nazwisko;?><br>
                         <?php
                             if ($user->typ == 0){
@@ -77,7 +80,7 @@ if (!$_SESSION['logged']) {
                         ?>
                     </div>
                     <img src="../assets/user.svg" alt="user icon">
-                    <div class="user_pop_up" id="user_pop_up1">
+                    <div class="user_pop_up" id="somethingBeingShown2">
                         <a href=<?php
                         if ($user->typ == 0){
                             echo 'parents';
@@ -114,7 +117,7 @@ if (!$_SESSION['logged']) {
     <!-- ============================= -->
     <!-- NAVIGATION -->
     <!-- ============================= -->
-    <nav>
+    <nav id='somethingBeingShown1'>
         <!-- ZROBIC IKONKI DO TEGO, CZYT. ZMIENIC -->
         <div class="nav_child" onclick="showContainer(0)">
             <img src="./../assets/mailbox.png" alt="">

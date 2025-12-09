@@ -146,17 +146,20 @@ $dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Cz
     <div class="square_container">
         <div class="square"></div>
     </div>
+    <div class="options" onclick='showSomething(1)'>
+        <span>☰</span>
+    </div>
     <a href="../index.php" id="logo" class='logo'>
         <img src="./../assets/logo_tornado.svg" alt="logo">
         <span class='logo-font-small'>Przedszkole Chaosek</span>
     </a>
     <div class="header-ui">
-        <a href="./inbox.php"><img id="mail" src="./../assets/mail.png" alt="mail"></a>
-        <div onclick="userPanel(1)" class="user">
-            <div><?php echo $user->imie . ' ' . $user->nazwisko; ?><br>Dyrektor(ka)</div>
+        <div onclick="showSomething(2)" class="user">
+            <div class='userLabel'><?php echo $user->imie . ' ' . $user->nazwisko; ?><br>Dyrektor(ka)</div>
             <img src="../assets/user.svg" alt="user icon">
-            <div class="user_pop_up" id="user_pop_up1">
+            <div class="user_pop_up" id="somethingBeingShown2">
                 <a href="../index.php">Strona Główna</a>
+                <a href="inbox.php">Poczta</a>
                 <a href="../scripts/php/logout.php">Wyloguj Się</a>
             </div>
         </div>
@@ -164,7 +167,7 @@ $dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Cz
 </header>
 
 <div class="layout">
-    <nav id="nav">
+    <nav id="somethingBeingShown1">
         <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
             <img src="./../assets/rekrutacja.png" alt="">

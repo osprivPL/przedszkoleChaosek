@@ -151,22 +151,6 @@ button:hover{
     width: 40%;
     margin-bottom: -5px;
 }
-@media (max-width: 1200px){
-    .go-back{
-        font-size: 4vw;
-        line-height: 4vw;
-        width: 4vw;
-        top: 2vw;
-        left: 0vw;
-        padding: 1vw;
-    }
-    h1{
-        font-size: 6vw !important;
-    }
-    hr{
-        top: 5.5vw;
-    }
-}
 .buttonContainer button{
     flex-grow: 1;
     padding: 10px;
@@ -599,4 +583,21 @@ button:hover{
 }
 .articleDetails .content{
     width: 80%;
+}
+/*SKALOWANIE H1 FORM CONTAINEROW*/
+@media (max-width: 1200px){
+    .go-back{
+        font-size: 4vw;
+        line-height: 4vw;
+        width: 4vw;
+        top: 2vw;
+        left: 0vw;
+        padding: 1vw;
+    }
+    .formContainer h1{
+        font-size: 6vw !important;
+    }
+    .formContainer hr{
+        top: 5.5vw;
+    }
 }
