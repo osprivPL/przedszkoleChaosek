@@ -109,3 +109,76 @@ function ukryjKomunikat(idRekordu) {
             console.error('Błąd sieci:', error);
         });
 }
+
+function usunDziecko(idRekordu) {
+    fetch('./../scripts/php/deleteChild.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({id: idRekordu})
+    })
+        .then(response => response.text())
+        .then(data => {
+            if (data.trim() === 'OK') {
+                const element = document.getElementById('dziecko' + idRekordu);
+                if (element) {
+                    element.style.transition = "opacity 0.5s";
+                    element.style.opacity = "0";
+                    setTimeout(() => element.remove(), 500);
+                }
+            } else {
+                alert('Wystąpił błąd podczas zapisu.');
+            }
+        })
+        .catch(error => console.error('Błąd sieci:', error));
+}
+
+function edytujDziecko(daneDziecka, idPanel) {
+    daneDziecka = daneDziecka.split(';');
+    daneDziecka.splice(6,1);
+    document.getElementById("group"+idPanel+"Management").style.display="none";
+    console.log("Dane dziecka:", daneDziecka);
+    document.getElementById('editChild').style.display='flex';
+    document.getElementById('editChildName').value=daneDziecka[0];
+    document.getElementById('editChildSurname').value=daneDziecka[1];
+    document.getElementById('editChildPesel').value=daneDziecka[2];
+    document.getElementById('editChildAddress').value=daneDziecka[3];
+    let select = document.getElementById('editChildGrupa');
+    for (let i = 0; i < select.options.length; i++) {
+        if (select.options[i].value === daneDziecka[6]) {
+            select.options[i].selected = 'selected';
+            break;
+        }
+    }
+    document.getElementById('editChildId').value=idPanel;
+    document.getElementById('editChildOpinion').value = daneDziecka[7];
+
+}
+function saveChildrenChanges(idRekordu){
+    fetch('./../scripts/php/editChild.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({id: idRekordu})
+    })
+        .then(response => response.text())
+        .then(data => {
+            if (data.trim() === 'OK') {
+                const element = document.getElementById('dziecko' + idRekordu);
+                if (element) {
+                    element.style.transition = "opacity 0.5s";
+                    element.style.opacity = "0";
+                    setTimeout(() => element.remove(), 500);
+                }
+            } else {
+                alert('Wystąpił błąd podczas zapisu.');
+            }
+        })
+        .catch(error => console.error('Błąd sieci:', error));
+}
+function showGroupPlan(groupId) {
+    const containers = document.querySelectorAll('.group-plan-container');
+    containers.forEach(div => div.style.display = 'none');
+    const target = document.getElementById('group-plan-container-' + groupId);
+    if (target) target.style.display = 'block';
+    document.querySelectorAll('.plan-group-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById('btn-group-' + groupId).classList.add('active');
+}
