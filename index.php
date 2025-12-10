@@ -93,27 +93,25 @@ if (!isset($_SESSION['error'])) {
     <script>
         document.getElementById('loginPanel').addEventListener('submit', (e) => {
             e.preventDefault();
-            let form=e.target;
+            let form = e.target;
             let email = document.getElementById('tbxEmail');
             let password = document.getElementById('tbxHaslo');
             let error = false;
             const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            if (email.value.length === 0 || !pattern.test(email.value)){
+            if (email.value.length === 0 || !pattern.test(email.value)) {
                 email.classList.add('error');
                 error = true;
-            }
-            else{
+            } else {
                 email.classList.remove('error');
             }
-            if (password.value.length === 0){
+            if (password.value.length === 0) {
                 password.classList.add('error');
                 error = true;
-            }
-            else{
+            } else {
                 password.classList.remove('error');
             }
-            if (error){
+            if (error) {
                 return;
             }
 
@@ -130,20 +128,20 @@ if (!isset($_SESSION['error'])) {
         <div class="square"></div>
     </div>
     <div class="options" onclick='showSomething(1)'>
-            <span>☰ <span class='sectionsLabel'>Sekcje</span></span>
-            <div class="options_pop_up" id='somethingBeingShown1'>
-                <a href="#o_nas">O nas</a>
-                <a href="#aktualnosci">Aktualności</a>
-                <a href="#dojazd">Dojazd</a>
-                <a href="./rekrutacja.php">Rekrutacja</a>
-                <a href="#kontakt">Kontakt</a>
+        <span>☰ <span class='sectionsLabel'>Sekcje</span></span>
+        <div class="options_pop_up" id='somethingBeingShown1'>
+            <a href="#o_nas">O nas</a>
+            <a href="#aktualnosci">Aktualności</a>
+            <a href="#dojazd">Dojazd</a>
+            <a href="./rekrutacja.php">Rekrutacja</a>
+            <a href="#kontakt">Kontakt</a>
         </div>
     </div>
     <a class="logo" href="#header">
         <img src="./assets/logo_tornado.svg" alt="logo">
         <div class="text logo-font-small"><span class='labelPrzedszkole'>Przedszkole</span> Chaosek</div>
     </a>
-    
+
     <div class="nav">
         <a href="#o_nas" class='sectionss'>O nas</a>
         <a href="#aktualnosci" class='sectionss'>Aktualności</a>
@@ -202,19 +200,22 @@ if (!isset($_SESSION['error'])) {
         <div class="options" onclick='showSomething(3)'>
             <span>☰ Sekcje</span>
             <div class="options_pop_up" id='somethingBeingShown3'>
-            <a href="#o_nas">O nas</a>
-            <a href="#aktualnosci">Aktualności</a>
-            <a href="#dojazd">Dojazd</a>
-            <a href="./rekrutacja.php">Rekrutacja</a>
-            <a href="#kontakt">Kontakt</a>
-        </div>
+                <a href="#o_nas">O nas</a>
+                <a href="#aktualnosci">Aktualności</a>
+                <a href="#dojazd">Dojazd</a>
+                <a href="./rekrutacja.php">Rekrutacja</a>
+                <a href="#kontakt">Kontakt</a>
+            </div>
         </div>
         <form action="./scripts/php/loginAsParent.php" method="post">
-                    <button type="submit" id="btnLoginAsParent">Zaloguj się jako Rodzic (demo)</button>
-                </form>
-                <form action="./scripts/php/loginAsPrinciple.php" method="post">
-                    <button type="submit" id="btnLoginAsPrinciple">Zaloguj się jako Dyrektor (demo)</button>
-                </form>
+            <button type="submit" id="btnLoginAsParent">Zaloguj się jako Rodzic (demo)</button>
+        </form>
+        <form action="./scripts/php/loginAsTeacher.php" method="post">
+            <button type="submit" id="btnLoginAsTeacher">Zaloguj się jako Nauczyciel (demo)</button>
+        </form>
+        <form action="./scripts/php/loginAsPrinciple.php" method="post">
+            <button type="submit" id="btnLoginAsPrinciple">Zaloguj się jako Dyrektor (demo)</button>
+        </form>
         <a href="#o_nas">O nas</a>
         <a href="#aktualnosci">Aktualności</a>
         <a href="#dojazd">Dojazd</a>
