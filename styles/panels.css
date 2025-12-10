@@ -351,6 +351,18 @@ aside, main {
     font-size: 20px;
 }
 
+.main-panel-witaj{
+    display: flex;
+}
+.main-panel-witaj span{
+    background-color: var(--green-vibrant);
+    padding: 2em;
+    border-radius: 15px;
+    border: 5px solid var(--green-dark);
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    font-size: 72px;
+    height: fit-content;
+}
 @media (max-width: 1300px){
     .options{
         display: block;
@@ -379,16 +391,17 @@ aside, main {
         width: 100% !important;
     }
 }
-
-.main-panel-witaj{
-    display: flex;
-}
-.main-panel-witaj span{
-    background-color: var(--green-vibrant);
-    padding: 2em;
-    border-radius: 15px;
-    border: 5px solid var(--green-dark);
-    box-shadow: 0 0 50px rgba(0,0,0,0.5);
-    font-size: 72px;
-    height: fit-content;
+@media (max-width: 650px){
+    .labelPrzedszkole{
+        display: none;
+    }
+    header .logo-font-small{
+        margin-left: -40px;
+    }
+    .formContainer h1.logo-font-small{
+        font-size: 48px;
+    }
+    .formContainer hr{
+        top: 2.5rem;
+    }
 }

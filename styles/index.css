@@ -820,6 +820,15 @@ h1 {
     .sticky-banner .labelPrzedszkole{
         display: none;
     }
+    .header .labelSections{
+        display: none;
+    }
+    .header .labelUser{
+        display: none;
+    }
+    .header .user{
+        padding: 0;
+    }
 }
 /* HEADER ZMIANY NAVA*/
 @media (max-width: 1000px){
