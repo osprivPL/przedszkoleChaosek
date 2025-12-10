@@ -1,6 +1,10 @@
 body{
     overflow: hidden;
 }
+.styling-panel{
+    display: flex;
+    justify-content: center;
+}
 #main-main {
     display: flex;
     overflow-x: hidden;
@@ -272,7 +276,7 @@ body{
     justify-content: center;
 }
 .main-panel-teachers .formContainer{
-    width: 60vw;
+    width: 80%;
 }
 
 
@@ -287,11 +291,10 @@ body{
     border-radius: 25px;
     backdrop-filter: blur(5px);
     opacity: 0;
-    animation: slideInViewFromDown 1s ease-in-out forwards;
+    animation: slideInViewFromDown 2s ease-in-out forwards;
     font-family: 'sour gummy', sans-serif;
     margin-top: 30px;
     display: flex;
-    align-items: center;
 }
 .teacherCards legend{
     font-size: 24px;
@@ -306,17 +309,23 @@ body{
 }
 .teacherCards .imgContainer{
     background-image: url('../assets/user.svg');
-    max-width: 200px;
-    min-width: 200px;
+    max-width: 175px;
+    min-width: 175px;
     margin: 10px;
-    height: 250px;
+    min-height: 200px;
     background-size: 100% 100%;
     border-radius: 10px;
     border: 5px solid white;
     box-sizing: border-box;
 }
 .teacherCards h3{
-    font-size: 48px;
+    font-size: 36px;
+}
+.teacherCards .email{
+    font-size: 24px;
+    color: lightgray;
+    margin-left: 15px;
+    font-weight: 600;
 }
 .teacherCards .opinia{
     font-size: 24px;
@@ -335,42 +344,37 @@ body{
     box-sizing: border-box;
 }
 
-.cafeteria-table{
-    border: 3px solid var(--green-dark);
+.main-panel-food .cafeteria-table{
+    border: 4px solid #14522d;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: .5fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 80px 1fr 1fr 1fr;
     min-height: 80%;
-    min-width: 100%;
-    overflow-x: auto;
+    border-radius: 15px;
 }
-
-.table_cell {
+.main-panel-food .table_cell:first-child span{
+    transform: rotate(30deg);
+}
+.main-panel-food .table_cell{
+    padding: 1em;
+    font-size: 18px;
+    border: 1px solid #14522d;
+    font-family: 'sour gummy', sans-serif;
+}
+.main-panel-food .table_cell.label{
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
+    background-color: var(--green-dark);
+    border: 1px solid #14522d;
     font-size: 20px;
-    animation-timing-function: ease-out;
-    -webkit-animation-timing-function: ease-out;
-    border: 3px solid var(--green-dark);
-    background-color: var(--green-vibrant);
-    font-family: 'sour gummy', sans-serif;
-    transition: .2s;
-}
-.table_cell:hover{
-    background-color: white;
-    color: var(--green-darkerer);
     font-weight: bold;
-}
-.table_cell:nth-child(odd){
-    animation: slideInViewFromDown 1s ease-out forwards;
-}
-.table_cell:nth-child(even){
-    animation: slideInViewFromRight 1s ease-out forwards;
+    padding: 5px;
 }
 
-.table_cell:nth-child(8){animation-delay: 0.1s;opacity: 0;}
+
+
+/*.table_cell:nth-child(8){animation-delay: 0.1s;opacity: 0;}
 .table_cell:nth-child(9){animation-delay: 0.2s;opacity: 0;}
 .table_cell:nth-child(10){animation-delay: 0.3s;opacity: 0;}
 .table_cell:nth-child(11){animation-delay: 0.4s;opacity: 0;}
@@ -385,7 +389,7 @@ body{
 .table_cell:nth-child(22){animation-delay: 1.3s;opacity: 0;}
 .table_cell:nth-child(23){animation-delay: 1.4s;opacity: 0;}
 .table_cell:nth-child(24){animation-delay: 1.5s;opacity: 0;}
-.table_cell:nth-child(25){animation-delay: 1.6s;opacity: 0;}
+.table_cell:nth-child(25){animation-delay: 1.6s;opacity: 0;}*/
 
 .nzw{
     background: var(--green-darker);
@@ -413,13 +417,10 @@ body{
     margin-bottom: 10px;
     box-sizing: border-box;
     border: 5px solid var(--green-dark);
+    animation: 2s slideInViewFromDown forwards;
+    opacity: 0;
 }
-.newsCards:nth-child(odd){
-    animation: KomunikatSlideInViewFromRight 2.2s ease-in-out;
-}
-.newsCards:nth-child(even){
-    animation: KomunikatSlideInViewFromLeft 2.2s ease-in-out;
-}
+
 .newsCards .header{
     display: flex;
     justify-content: space-between;

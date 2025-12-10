@@ -139,7 +139,7 @@ nav {
     position: absolute;
     width: 300px;
     z-index: 9999;
-    transition: .5s;
+    transition: transform .5s;
 }
 nav.visible{
     opacity: 1 !important;
@@ -210,7 +210,7 @@ main {
     position: relative;
     padding: 2.5vh;
     margin-left: 300px;
-    transition: .5s;
+    transition: margin-left .5s;
 }
 
 .main-panel {
@@ -286,6 +286,28 @@ hr{
 aside, main {
     height: 80vh;
 }
+
+
+.corner-cell {
+    background-color: #14522d;
+    position: relative;
+    overflow: hidden;
+    font-family: 'sour gummy', sans-serif;
+}
+/* Linia przekreślająca w CSS */
+.corner-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top right, transparent calc(50% - 1px), #fff calc(50%), transparent calc(50% + 1px));
+    opacity: 0.5;
+}
+.corner-text-top { position: absolute; top: 5px; right: 6px; color: white; font-size: 1em; }
+.corner-text-bottom { position: absolute; bottom: 5px; left: 6px; color: white; font-size: 1em; }
+
+
 
 /*.nav_child_child_animation{*/
 /*    animation: appearSelf 0.5s ease-in-out;*/
