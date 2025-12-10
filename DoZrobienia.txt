@@ -1,5 +1,3 @@
-nauczyciele - dodaj zdjęcia
-wyświetlanie całego  planu (per grupa lub w dziedziach)
 
 css do zrobienia:
 przechodzenie w nowe panele (dodaj animacje jakis fade out fade in np)
