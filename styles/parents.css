@@ -309,8 +309,8 @@ body{
 }
 .teacherCards .imgContainer{
     background-image: url('../assets/user.svg');
-    max-width: 175px;
-    min-width: 175px;
+    max-width: 150px;
+    min-width: 150px;
     margin: 10px;
     min-height: 200px;
     background-size: 100% 100%;
@@ -328,6 +328,7 @@ body{
     font-weight: 600;
 }
 .teacherCards .opinia{
+    margin-top: 10px;
     font-size: 24px;
     border-radius: 15px;
     max-height: 150px;
@@ -335,6 +336,8 @@ body{
     overflow-y: auto;
     padding: 10px;
     box-sizing: border-box;
+    background-color: rgba(0,0,0,.15);
+    min-height: 150px;  
 }
 
 .formContainer{
@@ -407,7 +410,7 @@ body{
     padding: 10px;
     padding-inline: 20px;
     font-size: 24px;
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color:  rgba(0, 0, 0, 0.25);
     border-radius: 30px;
     backdrop-filter: blur(5px);
     animation-timing-function: ease-out;
@@ -416,7 +419,9 @@ body{
     margin: 0 auto;
     margin-bottom: 10px;
     box-sizing: border-box;
-    border: 5px solid var(--green-dark);
+    border: 8px solid var(--green-dark);
+    border-left: none;
+    border-top: none;
     animation: 2s slideInViewFromDown forwards;
     opacity: 0;
 }

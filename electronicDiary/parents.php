@@ -382,9 +382,8 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                         }
                         echo '<legend>' . $typ . '</legend>';
                         echo '<div class="teacherInfo">';
-                        echo '<h3>' . $result[$i][0] . " " . $result[$i][1] . '</h3>';
-                        echo '<p>Email: ' . $result[$i][2] . "</p>";
-                        echo '<p>Opinia: </p><p class="opinia"> ' . $result[$i][4] . "</p>";
+                        echo '<h3>' . $result[$i][0] . " " . $result[$i][1] . '<span class="email">' .$result[$i][2] . '</span></h3>';
+                        echo '<p class="opinia"> ' . $result[$i][4] . "</p>";
                         echo '</div>';
                         echo '<div>';
                         echo "<div class='imgContainer' style='background-image: url(./../assets/staff/".$result[$i][5].")'></div>";
@@ -410,15 +409,19 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                     <h1 class='logo-font-small'>Jadłospis</h1>
                     <div>
                         <div class="cafeteria-table">
-                            <span class="table_cell nzw">Nazwa</span>
+                            <div class="corner-cell" style='font-size: 24px'>
+                                        <div class="corner-line"></div>
+                                        <span class="corner-text-top">Dzień</span>
+                                        <span class="corner-text-bottom">Danie</span>
+                                    </div>
                             <?php
                             $sql = "SELECT DISTINCT kiedy FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1)ORDER BY kiedy;";
                             $result = $connection->query($sql)->fetch_all();
                             for ($i = 0; $i < count($result); $i++) {
-                                echo "<span class='table_cell nzw'>" . weekDayFromDate($result[$i][0]) . "</span>";
+                                echo "<span class='table_cell label'>" . weekDayFromDate($result[$i][0]) . "</span>";
                             }
                             ?>
-                            <span class="table_cell nzw">II Śniadanie</span>
+                            <span class="table_cell label">II Śniadanie</span>
                             <?php
                             $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 0 ORDER BY kiedy;";
                             $result = $connection->query($sql)->fetch_all();
@@ -426,7 +429,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                                 echo "<span class='table_cell'>" . $result[$i][0] . "</span>";
                             }
                             ?>
-                            <span class="table_cell nzw">Obiad</span>
+                            <span class="table_cell label">Obiad</span>
                             <?php
                             $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 1 ORDER BY kiedy;";
                             $result = $connection->query($sql)->fetch_all();
@@ -435,7 +438,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                             }
                             ?>
 
-                            <span class="table_cell nzw">Podwieczorek</span>
+                            <span class="table_cell label">Podwieczorek</span>
                             <?php
                             $sql = "SELECT opis FROM jadlospis WHERE YEARWEEK(kiedy, 1) = YEARWEEK(CURDATE(), 1) AND typ = 2 ORDER BY kiedy;";
                             $result = $connection->query($sql)->fetch_all();
@@ -462,7 +465,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                     $sql = "SELECT tytul, tresc, data FROM komunikaty WHERE przynaleznosc = 0 ORDER BY data DESC;";
                     $result = $connection->query($sql)->fetch_all();
                     for ($i = 0; $i < count($result); $i++) {
-                        echo "<div class='newsCards'>
+                        echo "<div class='newsCards' style='animation-delay: ".$i*0.2 ."s'>
                                     <div class='header'>
                                         <span class='title'>" . $result[$i][0] . "</span>
                                         <span class='date'>" . $result[$i][2] . "</span>
