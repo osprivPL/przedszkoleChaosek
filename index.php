@@ -215,6 +215,7 @@ if (!isset($_SESSION['error'])) {
                 <a href="#dojazd">Dojazd</a>
                 <a href="./rekrutacja.php">Rekrutacja</a>
                 <a href="#kontakt">Kontakt</a>
+
             </div>
         </div>
         <form action="./scripts/php/loginAsParent.php" method="post">
