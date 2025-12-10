@@ -19,25 +19,16 @@ body{
 }
 
 #main-main>.styling-panel{
-    display: block;
-    column-count: 3;
-    column-gap: 20px;
-    page-break-inside: avoid;
-    break-inside: avoid-column;
-    padding: 1vw;
-    border: hidden;
-    background: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
     animation:none;
+    width: 100%;
+    gap: 20px;
 }
 
 .main-cell {
-    break-inside: avoid-column;
     margin-bottom: 20px;
-    width: 100%;
+    width: 500px;
     color: white;
     background: var(--green-vibrant);
     background: linear-gradient(to left bottom, rgba(50, 143, 59, 0.5), rgba(50, 143, 59, 0.7));

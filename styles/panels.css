@@ -325,6 +325,9 @@ aside, main {
     main{
         margin-left: 0;
     }
+    .formContainer{
+        width: 100% !important;
+    }
 }
 
 .main-panel-witaj{

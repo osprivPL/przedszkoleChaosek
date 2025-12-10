@@ -77,9 +77,8 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
     </a>
     <!--Tymon zrobił by to lepiej-->
     <div class="header-ui">
-        <a href="./inbox.php"><img id="mail" src="./../assets/mail.png" alt="mail"></a>
         <div onclick="showSomething(2)" class="user">
-            <div><?php echo $user->imie . ' ' . $user->nazwisko; ?><br>Rodzic</div>
+            <div class='userLabel'><?php echo $user->imie . ' ' . $user->nazwisko; ?><br>Rodzic</div>
             <img src="../assets/user.svg" alt="user icon">
             <div class="user_pop_up" id="somethingBeingShown2">
                 <a href="../index.php">Strona Główna</a>
