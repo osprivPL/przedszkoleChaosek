@@ -285,8 +285,7 @@ body{
     padding: 20px;
     font-size: 32px;
 
-    background: var(--green-vibrant);
-    background: linear-gradient(to left bottom, rgba(50, 143, 59, 0.5), rgba(50, 143, 59, 0.7));
+    background-color:  rgba(0, 0, 0, 0.25);;
     border: 5px solid var(--green-dark);
     border-radius: 25px;
     backdrop-filter: blur(5px);
@@ -298,11 +297,13 @@ body{
 }
 .teacherCards legend{
     font-size: 24px;
-    color: var(--green-dark);
+    color: white;
     font-weight: bold;
-    padding: 0 5px;
-    margin-left: 5px;
-    line-height: 0;
+    padding: 3px 20px;
+    line-height: 24px;
+    border: 3px solid rgba(0, 0, 0, 0.25);
+    background-color: var(--green-dark);
+    border-radius: 10px;
 }
 .teacherCards .teacherInfo{
     flex-grow: 1;
@@ -315,7 +316,7 @@ body{
     min-height: 200px;
     background-size: 100% 100%;
     border-radius: 10px;
-    border: 5px solid white;
+    border: 5px solid var(--green-darker);
     box-sizing: border-box;
 }
 .teacherCards h3{
@@ -417,7 +418,7 @@ body{
     -webkit-animation-timing-function: ease-out;
     font-family: 'sour gummy', sans-serif;
     margin: 0 auto;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     box-sizing: border-box;
     border: 8px solid var(--green-dark);
     border-left: none;
