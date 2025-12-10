@@ -384,7 +384,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                         echo '<p>Opinia: </p><p class="opinia"> ' . $result[$i][4] . "</p>";
                         echo '</div>';
                         echo '<div>';
-                        echo '<div class="imgContainer" style="background-image: url("'.$result[$i][5].'")"></div>';
+                        echo "<div class='imgContainer' style='background-image: url(./../assets/staff/".$result[$i][5].")'></div>";
                         echo '</div>';
                         $typ = "";
 
