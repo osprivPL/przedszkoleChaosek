@@ -29,15 +29,11 @@ if ($user->typ != 1 || !$_SESSION['logged']) {
 }
 
 $conteiner = 1;
-$groups = []; // Tu będą ID grup nauczyciela
+$groups = [];
 
 $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
-// =============================================================
-// NAPRAWA: KONFIGURACJA PLANU LEKCJI
-// =============================================================
 
-// 1. Dni tygodnia
 $dniTygodniaPlan = [
         1 => 'Poniedziałek',
         2 => 'Wtorek',
@@ -46,7 +42,6 @@ $dniTygodniaPlan = [
         5 => 'Piątek'
 ];
 
-// 2. Pobieranie godzin
 $godzinyList = [];
 $sqlG = "SELECT id, start_time, end_time FROM godzinylekcyjne ORDER BY start_time ASC";
 $resG = $connection->query($sqlG);
@@ -56,7 +51,6 @@ if ($resG) {
     }
 }
 
-// 3. Słownik Lekcji (ID => Nazwa)
 $lekcjeDict = [];
 $sqlL = "SELECT id, nazwa FROM lekcje";
 $resL = $connection->query($sqlL);
@@ -447,8 +441,6 @@ if ($resP) {
                     <div id="planLekcjiContainer">
 
                         <?php
-                        // Zamiast for ($g=1; $g<=4...), używamy foreach po grupach nauczyciela
-                        // Zmienna $index posłuży do określenia, który element jest pierwszy (display: block)
                         if (empty($groups)) {
                             echo "<div style='text-align:center; padding: 20px;'>Brak przypisanych grup.</div>";
                         }
@@ -484,7 +476,6 @@ if ($resP) {
                                         <?php foreach ($dniTygodniaPlan as $dayNum => $dayName): ?>
                                             <div class="plan-cell">
                                                 <?php
-                                                // Używamy $groupID z pętli foreach
                                                 $selectedLessonID = $matrixPlan[$groupID][$dayNum][$godzina['id']] ?? 0;
                                                 $lessonName = $lekcjeDict[$selectedLessonID] ?? '';
 
@@ -505,7 +496,6 @@ if ($resP) {
                         <div class="button-container">
                             <div class='group-switcher'>
                                 <?php
-                                // Generujemy przyciski tylko dla grup z tablicy $groups
                                 foreach ($groups as $index => $groupID):
                                     ?>
                                     <button type="button"
