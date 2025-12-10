@@ -28,7 +28,7 @@ if ($user->typ != 1 || !$_SESSION['logged']) {
     die();
 }
 
-$conteiner = 0;
+$conteiner = 1;
 $groups = [];
 
 $connection = mysqli_connect("localhost", "root", "", "przedszkole");
