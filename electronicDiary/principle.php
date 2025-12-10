@@ -237,7 +237,12 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
             <span>Plan lekcji</span>
         </div>
     </nav>
-
+    <script>
+        const nav = document.getElementById('somethingBeingShown1');
+        nav.addEventListener('mouseleave', () => {
+        nav.classList.remove('visible');
+        });
+    </script>
     <main id="main">
         <div class="main-panel bigContainers main-panel-witaj">
             <span class='logo-font-small'>Witaj w panelu dyrekcji</span>

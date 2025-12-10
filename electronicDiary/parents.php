@@ -109,8 +109,9 @@ $resultChildren = $connection->query($sqlChildren)->fetch_all(MYSQLI_ASSOC);
     </div>
     <a href="../index.php" id="logo" class='logo'>
         <img src="./../assets/logo_tornado.svg" alt="logo">
-        <span class='logo-font-small'>Przedszkole Chaosek</span>
+        <span class='logo-font-small'><span class='labelPrzedszkole'>Przedszkole</span> Chaosek</span>
     </a>
+    <!--Tymon zrobił by to lepiej-->
     <div class="header-ui">
         <div onclick="showSomething(2)" class="user">
             <div class='userLabel'><?php echo $user->imie . ' ' . $user->nazwisko; ?><br>Rodzic</div>
@@ -167,7 +168,12 @@ $resultChildren = $connection->query($sqlChildren)->fetch_all(MYSQLI_ASSOC);
             <span>Komunikaty</span>
         </div>
     </nav>
-
+    <script>
+        const nav = document.getElementById('somethingBeingShown1');
+        nav.addEventListener('mouseleave', () => {
+        nav.classList.remove('visible');
+        });
+    </script>
     <main id="main">
         <div class="main-panel bigContainers" id="main-main">
             <div class="styling-panel styling-panel-js">
@@ -343,7 +349,7 @@ $resultChildren = $connection->query($sqlChildren)->fetch_all(MYSQLI_ASSOC);
                                 echo "'>";
                                 echo "<div>";
                                 echo "<div class='wychowawca-name'>" . $resultSup[$i][0] . ' ' . $resultSup[$i][1] . "</div>";
-                                echo "<div class='wychowawca-about'>" . $resultSup[$i][2] . "</div>";
+                                echo "<div class='wychowawca-about'><div></div>" . $resultSup[$i][2] . "</div>";
                                 echo "</div>";
                                 echo "<div class='wychowawca-img-container' style='background-image: url(./../assets/staff/" . $resultSup[$i][3] . ")'></div>";
                                 echo "</div>";
@@ -377,6 +383,9 @@ $resultChildren = $connection->query($sqlChildren)->fetch_all(MYSQLI_ASSOC);
             </div>
         </div>
 
+        <!-- ============================= -->
+        <!-- NAUCZYCIELE -->
+        <!-- ============================= -->
         <div class="main-panel bigContainers main-panel-teachers" id="main-teachers">
             <div class="styling-panel">
                 <div class="formContainer">
@@ -385,8 +394,9 @@ $resultChildren = $connection->query($sqlChildren)->fetch_all(MYSQLI_ASSOC);
                     <?php
                     $sql = "SELECT imie, nazwisko, login ,typ, opinia, zdjecie FROM uzytkownicy WHERE typ = 1 OR typ = 2 ORDER BY typ DESC";
                     $result = $connection->query($sql)->fetch_all();
+                    //                    print_r($result);
                     for ($i = 0; $i < count($result); $i++) {
-                        echo '<fieldset class="teacherCards" style="animation-delay: ' . $i * 0.2 . 's">';
+                        echo '<fieldset class="teacherCards" style="animation-delay: '.$i*0.2 .'s">';
                         if ($result[$i][3] == 1) {
                             $typ = "Nauczyciel";
                         } else if ($result[$i][3] == 2) {
@@ -394,19 +404,26 @@ $resultChildren = $connection->query($sqlChildren)->fetch_all(MYSQLI_ASSOC);
                         }
                         echo '<legend>' . $typ . '</legend>';
                         echo '<div class="teacherInfo">';
-                        echo '<h3>' . $result[$i][0] . " " . $result[$i][1] . '<span class="email">' . $result[$i][2] . '</span></h3>';
+                        echo '<h3>' . $result[$i][0] . " " . $result[$i][1] . '<span class="email">' .$result[$i][2] . '</span></h3>';
+                        echo "<div class='imgContainer imgContainer2' style='background-image: url(./../assets/staff/".$result[$i][5].");display: none'></div>";
+                        echo '<p class="email emailPlacedBelow" style="display: none">'.$result[$i][2].'</p>';
                         echo '<p class="opinia"> ' . $result[$i][4] . "</p>";
                         echo '</div>';
                         echo '<div>';
-                        echo "<div class='imgContainer' style='background-image: url(./../assets/staff/" . $result[$i][5] . ")'></div>";
+                        echo "<div class='imgContainer imgContainer1' style='background-image: url(./../assets/staff/".$result[$i][5].")'></div>";
                         echo '</div>';
                         $typ = "";
+
+
+
                         echo '</fieldset>';
                     }
+
                     ?>
                 </div>
             </div>
         </div>
+
 
         <div class="main-panel bigContainers main-panel-food" id="main-cafeteria">
             <div class="styling-panel">
@@ -458,28 +475,39 @@ $resultChildren = $connection->query($sqlChildren)->fetch_all(MYSQLI_ASSOC);
             </div>
         </div>
 
+        <!-- ============================= -->
+        <!-- KOMUNIKATY -->
+        <!-- ============================= -->
         <div class="main-panel bigContainers main-panel-news" id="main-news">
             <div class="styling-panel">
                 <div class="formContainer">
                     <hr>
                     <h1 class='logo-font-small'>Komunikaty</h1>
+                    <!-- TO SA NARAZIE DLA CALRGO PRZEDSZKOLA, TRZEBA ZROBIC TO ROZWIJANE DLA OGOLNYCH KOMUUNIKATOW I KONKRETNYCH GRUP-->
                     <?php
                     $sql = "SELECT tytul, tresc, data,przynaleznosc FROM komunikaty WHERE przynaleznosc = 0 ORDER BY data DESC;";
                     $result = $connection->query($sql)->fetch_all();
                     for ($i = 0; $i < count($result); $i++) {
-                        echo "<div class='newsCards' style='animation-delay: " . $i * 0.2 . "s'>
+                        echo "<div class='newsCards' style='animation-delay: ".$i*0.2 ."s'>
                                     <div class='header'>
                                         <span class='title'>" . $result[$i][0] . "</span>
-                                        <span class='date'>" . $result[$i][2] . "</span>
+                                        <span class='date'>" . $result[$i][2] . "
+                                        <br><span class='labelVisibleFor2' style='display:none'>";
+                                        if ($result[$i][3] == 0) {
+                                            echo "Wszyscy";
+                                        } else {
+                                            echo "Grupa " . $result[$i][3];
+                                        }
+                                    echo "</span></span>
                                     </div>
                                     <div><span class='content'>" . $result[$i][1] . "</span>
                                     <span class='labelVisibleFor1' style='float: right; color: lightgray;'><br>";
-                        if ($result[$i][3] == 0) {
-                            echo "Wszyscy";
-                        } else {
-                            echo "Grupa " . $result[$i][3];
-                        }
-                        echo "</span></div>
+                                        if ($result[$i][3] == 0) {
+                                            echo "Wszyscy";
+                                        } else {
+                                            echo "Grupa " . $result[$i][3];
+                                        }
+                                    echo "</span></div>
                                     <div></div>
                                 </div>";
                     }
@@ -487,6 +515,7 @@ $resultChildren = $connection->query($sqlChildren)->fetch_all(MYSQLI_ASSOC);
                 </div>
             </div>
         </div>
+
         <?php foreach ($resultChildren as $child): ?>
             <div id="panel-<?php echo $child['pesel']; ?>" class="main-panel main-child bigContainers"
                  style="display: none;">

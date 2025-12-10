@@ -133,12 +133,11 @@ if ($resP) {
     </div>
     <a href="../index.php" id="logo" class='logo'>
         <img src="./../assets/logo_tornado.svg" alt="logo">
-        <span class='logo-font-small'>Przedszkole Chaosek</span>
+        <span class='logo-font-small'><span class='labelPrzedszkole'>Przedszkole</span> Chaosek</span>
     </a>
     <div class="header-ui">
-        <a href="./inbox.php"><img id="mail" src="./../assets/mail.png" alt="mail"></a>
         <div onclick="showSomething(2)" class="user">
-            <div><?php echo $user->imie . ' ' . $user->nazwisko; ?><br>Nauczyciel(ka)</div>
+            <div class='userLabel'><?php echo $user->imie . ' ' . $user->nazwisko; ?><br>Nauczyciel(ka)</div>
             <img src="../assets/user.svg" alt="user icon">
             <div class="user_pop_up" id="somethingBeingShown2">
                 <a href="../index.php">Strona Główna</a>
@@ -215,7 +214,12 @@ if ($resP) {
             <span>Plan lekcji</span>
         </div>
     </nav>
-
+        <script>
+        const nav = document.getElementById('somethingBeingShown1');
+        nav.addEventListener('mouseleave', () => {
+        nav.classList.remove('visible');
+        });
+    </script>
     <main id="main">
         <div class="main-panel bigContainers main-panel-witaj">
             <span class='logo-font-small'>Witaj w panelu nauczyciela</span>
