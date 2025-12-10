@@ -89,8 +89,7 @@ for ($i = 0; $i < 5; $i++) {
     $startWeek->modify('+1 day');
 }
 
-// --- DANE DO PLANU LEKCJI ---
-// 1. Pobierz godziny
+$dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Czwartek', 5 => 'Piątek'];
 $sqlGodziny = "SELECT * FROM godzinylekcyjne ORDER BY start_time ASC";
 $resGodziny = $connection->query($sqlGodziny);
 $godzinyList = [];
@@ -98,7 +97,6 @@ while ($row = $resGodziny->fetch_assoc()) {
     $godzinyList[] = $row;
 }
 
-// 2. Pobierz lekcje (słownik)
 $sqlLekcjeDict = "SELECT id, nazwa FROM lekcje ORDER BY nazwa";
 $resLekcjeDict = $connection->query($sqlLekcjeDict);
 $lekcjeDict = [];
@@ -106,14 +104,12 @@ while ($row = $resLekcjeDict->fetch_assoc()) {
     $lekcjeDict[$row['id']] = $row['nazwa'];
 }
 
-// 3. Pobierz aktualny plan do macierzy [grupa][dzien][godzina] = lekcjaID
 $sqlCurrentPlan = "SELECT * FROM plan_lekcji";
 $resCurrentPlan = $connection->query($sqlCurrentPlan);
 $matrixPlan = [];
 while ($row = $resCurrentPlan->fetch_assoc()) {
     $matrixPlan[$row['grupaID']][$row['day_of_week']][$row['godzinaLekcyjna']] = $row['lekcjaID'];
 }
-$dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Czwartek', 5 => 'Piątek'];
 
 ?>
 <html lang="pl">

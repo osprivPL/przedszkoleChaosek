@@ -29,10 +29,57 @@ if ($user->typ != 1 || !$_SESSION['logged']) {
 }
 
 $conteiner = 1;
-$groups = [];
+$groups = []; // Tu będą ID grup nauczyciela
 
 $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
+// =============================================================
+// NAPRAWA: KONFIGURACJA PLANU LEKCJI
+// =============================================================
+
+// 1. Dni tygodnia
+$dniTygodniaPlan = [
+        1 => 'Poniedziałek',
+        2 => 'Wtorek',
+        3 => 'Środa',
+        4 => 'Czwartek',
+        5 => 'Piątek'
+];
+
+// 2. Pobieranie godzin
+$godzinyList = [];
+$sqlG = "SELECT id, start_time, end_time FROM godzinylekcyjne ORDER BY start_time ASC";
+$resG = $connection->query($sqlG);
+if ($resG) {
+    while ($row = $resG->fetch_assoc()) {
+        $godzinyList[] = $row;
+    }
+}
+
+// 3. Słownik Lekcji (ID => Nazwa)
+$lekcjeDict = [];
+$sqlL = "SELECT id, nazwa FROM lekcje";
+$resL = $connection->query($sqlL);
+if ($resL) {
+    while ($row = $resL->fetch_assoc()) {
+        $lekcjeDict[$row['id']] = $row['nazwa'];
+    }
+}
+if (empty($lekcjeDict)) {
+    $lekcjeDict = [
+            1 => 'Matematyka', 2 => 'J. Polski', 3 => 'Angielski',
+            4 => 'WF', 5 => 'Plastyka', 6 => 'Muzyka'
+    ];
+}
+
+$matrixPlan = [];
+$sqlP = "SELECT grupaID AS id_grupy, day_of_week AS dzien_tygodnia, godzinaLekcyjna AS id_godziny, lekcjaID AS id_przedmiotu FROM plan_lekcji";
+$resP = $connection->query($sqlP);
+if ($resP) {
+    while ($row = $resP->fetch_assoc()) {
+        $matrixPlan[$row['id_grupy']][$row['dzien_tygodnia']][$row['id_godziny']] = $row['id_przedmiotu'];
+    }
+}
 ?>
 
 <html lang="pl">
@@ -43,25 +90,43 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="author" content="Michał Ożdżyński Stanisław Odrowski Piotr Peryt">
 
-    <!-- style -->
     <link rel="stylesheet" href="./../styles/style.css">
     <link rel="stylesheet" href="./../styles/panels.css">
     <link rel="stylesheet" href="./../styles/parents.css">
 
-    <!-- czcionka -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
 
-    <!-- ikonka -->
     <link rel="icon" type="image/x-icon" href="./../assets/logo_tornado.svg">
 
     <title>Przedszkole Chaosek - Panel nauczyciela</title>
     <script src="./../scripts/js/panels.js"></script>
     <script src="./../scripts/js/childrens.js"></script>
     <script src="./../scripts/js/showUserPanel.js"></script>
+
+    <script>
+        function showGroupPlan(groupNum) {
+            // Ukryj wszystkie kontenery planu
+            const containers = document.getElementsByClassName('group-plan-container');
+            for (let i = 0; i < containers.length; i++) {
+                containers[i].style.display = 'none';
+            }
+            // Pokaż wybrany
+            const selected = document.getElementById('group-plan-container-' + groupNum);
+            if (selected) selected.style.display = 'block';
+
+            // Aktualizuj klasy przycisków
+            const buttons = document.getElementsByClassName('plan-group-btn');
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+            const activeBtn = document.getElementById('btn-group-' + groupNum);
+            if(activeBtn) activeBtn.classList.add('active');
+        }
+    </script>
 
 </head>
 <body>
@@ -76,7 +141,6 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         <img src="./../assets/logo_tornado.svg" alt="logo">
         <span class='logo-font-small'>Przedszkole Chaosek</span>
     </a>
-    <!--Tymon zrobił by to lepiej-->
     <div class="header-ui">
         <a href="./inbox.php"><img id="mail" src="./../assets/mail.png" alt="mail"></a>
         <div onclick="showSomething(2)" class="user">
@@ -91,9 +155,6 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 </header>
 
 <div class="layout">
-    <!-- ============================= -->
-    <!-- NAVIGATION -->
-    <!-- ============================= -->
     <nav id="somethingBeingShown1">
         <div class="nav_child" id="nav_child_dzieci" onclick="showChildren(4)">
             <img src="./../assets/playing.png" alt="">
@@ -102,8 +163,11 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         </div>
 
         <?php
+        // Tutaj pobierane są grupy nauczyciela
         $sql = "SELECT nazwa, id FROM grupy WHERE Wychowawca = " . $user->id . ";";
         $resultGroups = $connection->query($sql)->fetch_all();
+
+        // Zbieramy ID grup do tablicy $groups, żeby użyć ich później w Planie Lekcji
         for ($i = 0; $i < count($resultGroups); $i++) {
             echo '<div class="nav_child nav_child_child nav_child_group" onclick="showContainer(' . $conteiner . ')">
                         <img src="./../assets/group.png" alt="">
@@ -151,11 +215,13 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             <img src="./../assets/speaker_gear.png" alt="">
             <span>Zarządzaj komunikatami</span>
         </div>
+        <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
+            <img src="./../assets/lesson_plan.png" alt="">
+            <span>Plan lekcji</span>
+        </div>
     </nav>
 
-    <!-- ============================= -->
-    <!-- MAIN -->
-    <!-- ============================= -->
     <main id="main">
         <div class="main-panel bigContainers main-panel-witaj">
             <span class='logo-font-small'>Witaj w panelu nauczyciela</span>
@@ -165,7 +231,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                 unset($_SESSION['powodzenie']);
             }
             ?>
-            <?php print_r($_SESSION); ?>
+            <?php // print_r($_SESSION); ?>
         </div>
         <?php
         for ($i = 0; $i < count($resultGroups); $i++) {
@@ -178,9 +244,6 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             echo '</div>';
         }
         ?>
-        <!-- ============================= -->
-        <!-- NAUCZYCIELE -->
-        <!-- ============================= -->
         <div class="main-panel bigContainers main-panel-teachers" id="main-teachers">
             <div class="styling-panel">
                 <div class="formContainer">
@@ -189,7 +252,6 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                     <?php
                     $sql = "SELECT imie, nazwisko, login ,typ, opinia, zdjecie FROM uzytkownicy WHERE typ = 1 OR typ = 2 ORDER BY typ DESC";
                     $result = $connection->query($sql)->fetch_all();
-                    //                    print_r($result);
                     for ($i = 0; $i < count($result); $i++) {
                         echo '<fieldset class="teacherCards" style="animation-delay: ' . $i * 0.2 . 's">';
                         if ($result[$i][3] == 1) {
@@ -206,18 +268,13 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                         echo "<div class='imgContainer' style='background-image: url(./../assets/staff/" . $result[$i][5] . ")'></div>";
                         echo '</div>';
                         $typ = "";
-
-
                         echo '</fieldset>';
                     }
-
                     ?>
                 </div>
             </div>
         </div>
-        <!-- ============================= -->
-        <!-- CAFETERIA -->
-        <!-- ============================= -->
+
         <div class="main-panel bigContainers main-panel-food" id="main-cafeteria">
             <div class="styling-panel">
                 <div class="formContainer">
@@ -267,6 +324,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                 </div>
             </div>
         </div>
+
         <div class="main-panel bigContainers main-panel-add main-panel-add-komunikaty" id="addAnnoucement">
             <div class="styling-panel">
                 <div class="formContainer">
@@ -283,9 +341,9 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                                 <select id="komunikatGrupa" name="komunikatGrupa" class='submitButton'>
                                     <option value="0">Wszyscy</option>
                                     <?php
-                                        for ($i = 0; $i < count($groups); $i++) {
-                                            echo '<option value="' . $groups[$i] . '">Grupa ' . $groups[$i] . '</option>';
-                                        }
+                                    for ($i = 0; $i < count($groups); $i++) {
+                                        echo '<option value="' . $groups[$i] . '">Grupa ' . $groups[$i] . '</option>';
+                                    }
                                     ?>
                                 </select>
                             </div>
@@ -378,8 +436,92 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             </div>
         </div>
 
+        <div class="main-panel bigContainers main-panel-plan">
+            <div class="styling-panel">
+                <div class="formContainer">
+                    <hr>
+                    <h1 class="logo-font-small">
+                        <span>Plan lekcji (Podgląd)</span>
+                    </h1>
+
+                    <div id="planLekcjiContainer">
+
+                        <?php
+                        // Zamiast for ($g=1; $g<=4...), używamy foreach po grupach nauczyciela
+                        // Zmienna $index posłuży do określenia, który element jest pierwszy (display: block)
+                        if (empty($groups)) {
+                            echo "<div style='text-align:center; padding: 20px;'>Brak przypisanych grup.</div>";
+                        }
+
+                        foreach ($groups as $index => $groupID):
+                            ?>
+                            <div id="group-plan-container-<?php echo $groupID; ?>"
+                                 class="group-plan-container"
+                                 style="<?php echo ($index === 0) ? 'display: block;' : 'display: none;'; ?>">
+
+                                <div class="plan-grid-container">
+
+                                    <div class="corner-cell">
+                                        <div class="corner-line"></div>
+                                        <span class="corner-text-top">Dzień</span>
+                                        <span class="corner-text-bottom">Godz.</span>
+                                    </div>
+
+                                    <?php foreach ($dniTygodniaPlan as $dayNum => $dayName): ?>
+                                        <div class="plan-header">
+                                            <?php echo $dayName; ?>
+                                        </div>
+                                    <?php endforeach; ?>
+
+                                    <?php foreach ($godzinyList as $godzina): ?>
+
+                                        <div class="time-cell">
+                                            <span><?php echo substr($godzina['start_time'], 0, 5); ?></span>
+                                            <span style="font-size:0.8em; opacity:0.7;">-</span>
+                                            <span><?php echo substr($godzina['end_time'], 0, 5); ?></span>
+                                        </div>
+
+                                        <?php foreach ($dniTygodniaPlan as $dayNum => $dayName): ?>
+                                            <div class="plan-cell">
+                                                <?php
+                                                // Używamy $groupID z pętli foreach
+                                                $selectedLessonID = $matrixPlan[$groupID][$dayNum][$godzina['id']] ?? 0;
+                                                $lessonName = $lekcjeDict[$selectedLessonID] ?? '';
+
+                                                if ($lessonName !== '') {
+                                                    echo '<span class="lesson-name">' . htmlspecialchars($lessonName) . '</span>';
+                                                } else {
+                                                    echo '<span class="lesson-empty" style="color: #ccc;">-</span>';
+                                                }
+                                                ?>
+                                            </div>
+                                        <?php endforeach; ?>
+
+                                    <?php endforeach;?>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+
+                        <div class="button-container">
+                            <div class='group-switcher'>
+                                <?php
+                                // Generujemy przyciski tylko dla grup z tablicy $groups
+                                foreach ($groups as $index => $groupID):
+                                    ?>
+                                    <button type="button"
+                                            id="btn-group-<?php echo $groupID; ?>"
+                                            class="plan-group-btn submitButton <?php echo ($index === 0) ? 'active' : ''; ?>"
+                                            onclick="showGroupPlan(<?php echo $groupID; ?>)"
+                                            style="min-width: 100px;">
+                                        Grupa <?php echo $groupID; ?>
+                                    </button>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
-
-
 </body>
 </html>
