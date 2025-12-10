@@ -1,4 +1,5 @@
 @import "root.css";
+@import "animations.css";
 
 body {
     background: linear-gradient(to right top, color-mix(in srgb, var(--main-color) 90%, white 10%), color-mix(in srgb, var(--secondary-color) 85%, white 15%));
@@ -123,11 +124,6 @@ header #mail:hover {
     transition: .3s;
 }
 nav {
-    /*display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-content: flex-start;*/
-
     font-size: 28px;
     color: #ececec;
     background-image: url("./../assets/tlo_panels_nav.png");
@@ -277,10 +273,7 @@ hr{
     animation: hr 1s;
 }
 
-@keyframes hr{
-    from {transform: scaleX(0);}
-    to {transform: scaleX(1);}
-}
+
 
 
 aside, main {
@@ -308,52 +301,6 @@ aside, main {
 .corner-text-bottom { position: absolute; bottom: 5px; left: 6px; color: white; font-size: 1em; }
 
 
-
-/*.nav_child_child_animation{*/
-/*    animation: appearSelf 0.5s ease-in-out;*/
-/*}*/
-/*@keyframes apperarSelf {*/
-/*    from {transform: translateY(100vh);}*/
-/*    to {transform: translateY(0vh);}*/
-/*}*/
-@keyframes zooomBounce{
-    from {transform: translateY(100vh);}
-    50%{transform: translateY(-5vh);}
-    to{transform: translateY(0vh);}
-}
-@keyframes slideInViewFromDown {
-    from {transform: translateY(100vh); opacity:1;}
-    to{transform: translateY(0vh); opacity:1;}
-}
-@keyframes KomunikatSlideInViewFromLeft {
-    from {transform: translateX(-100vw);}
-    50%{transform: translateX(10vh);}
-    51%{transform: translateX(10vh);}
-    75%{transform: translateX(-5vh);}
-    76%{transform: translateX(-5vh);}
-    to{transform: translateX(0vh);}
-}
-@keyframes KomunikatSlideInViewFromRight {
-    from {transform: translateX(100vw);}
-    50%{transform: translateX(-10vh);}
-    51%{transform: translateX(-10vh);}
-    75%{transform: translateX(5vh);}
-    76%{transform: translateX(5vh);}
-    to{transform: translateX(0vh);}
-}
-@keyframes slideInViewFromLeft{
-    from {transform: translateX(-100vw);}
-    to{transform: translateX(0vh);}
-}
-@keyframes slideInViewFromRight {
-    from {transform: translateX(100vw);opacity: 1;}
-    to{transform: translateX(0vh);opacity: 1;}
-}
-@keyframes Streach {
-    from {height: 0;}
-    to{height: 100%;}
-}
-
 @media (max-width: 1300px){
     .options{
         display: block;
@@ -380,7 +327,15 @@ aside, main {
     }
 }
 
-
-
-
-
+.main-panel-witaj{
+    display: flex;
+}
+.main-panel-witaj span{
+    background-color: var(--green-vibrant);
+    padding: 2em;
+    border-radius: 15px;
+    border: 5px solid var(--green-dark);
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    font-size: 72px;
+    height: fit-content;
+}

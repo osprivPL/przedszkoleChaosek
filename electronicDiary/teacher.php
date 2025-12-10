@@ -29,6 +29,7 @@ if ($user->typ != 1 || !$_SESSION['logged']) {
 }
 
 $conteiner = 0;
+$groups = [];
 
 $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
@@ -57,7 +58,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
     <!-- ikonka -->
     <link rel="icon" type="image/x-icon" href="./../assets/logo_tornado.svg">
 
-    <title>Przedszkole Chaosek - Panel rodzica</title>
+    <title>Przedszkole Chaosek - Panel nauczyciela</title>
     <script src="./../scripts/js/panels.js"></script>
     <script src="./../scripts/js/childrens.js"></script>
     <script src="./../scripts/js/showUserPanel.js"></script>
@@ -79,7 +80,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
     <div class="header-ui">
         <a href="./inbox.php"><img id="mail" src="./../assets/mail.png" alt="mail"></a>
         <div onclick="showSomething(2)" class="user">
-            <div><?php echo $user->imie . ' ' . $user->nazwisko; ?><br>Rodzic</div>
+            <div><?php echo $user->imie . ' ' . $user->nazwisko; ?><br>Nauczyciel(ka)</div>
             <img src="../assets/user.svg" alt="user icon">
             <div class="user_pop_up" id="somethingBeingShown2">
                 <a href="../index.php">Strona Główna</a>
@@ -94,7 +95,6 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
     <!-- NAVIGATION -->
     <!-- ============================= -->
     <nav id="somethingBeingShown1">
-
         <div class="nav_child" id="nav_child_dzieci" onclick="showChildren(4)">
             <img src="./../assets/playing.png" alt="">
             <span>Grupy</span>
@@ -102,13 +102,14 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
         </div>
 
         <?php
-        $sql = "SELECT nazwa FROM grupy WHERE Wychowawca = " . $user->id . ";";
+        $sql = "SELECT nazwa, id FROM grupy WHERE Wychowawca = " . $user->id . ";";
         $resultGroups = $connection->query($sql)->fetch_all();
         for ($i = 0; $i < count($resultGroups); $i++) {
             echo '<div class="nav_child nav_child_child nav_child_group" onclick="showContainer(' . $conteiner . ')">
                         <img src="./../assets/group.png" alt="">
-                        <span>' . $resultGroups[$i][0] . '</span>
+                        <span>Grupa ' . $resultGroups[$i][1] . ' - ' . $resultGroups[$i][0] . '</span>
                     </div>';
+            $groups[] = $resultGroups[$i][1];
             $conteiner++;
         }
         ?>
@@ -130,9 +131,25 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
             <img src="./../assets/restaurant.png" alt="">
             <span>Stołówka</span>
         </div>
-        <div class="nav_child" onclick="showContainer(<?php echo $conteiner; ?>)">
+        <div class="nav_child" onclick="showChildren(3)">
             <img src="./../assets/speaker.png" alt="">
             <span>Komunikaty</span>
+            <span class="nav_arrow">▽</span>
+        </div>
+        <div class="nav_child nav_child_child nav_child_annoucement" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
+            <img src="./../assets/speaker_add.png" alt="">
+            <span>Dodaj komunikat</span>
+        </div>
+        <div class="nav_child nav_child_child nav_child_annoucement" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
+            <img src="./../assets/speaker_gear.png" alt="">
+            <span>Wyświetl komunikaty</span>
+        </div>
+        <div class="nav_child nav_child_child nav_child_annoucement" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
+            <img src="./../assets/speaker_gear.png" alt="">
+            <span>Zarządzaj komunikatami</span>
         </div>
     </nav>
 
@@ -140,16 +157,25 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
     <!-- MAIN -->
     <!-- ============================= -->
     <main id="main">
+        <div class="main-panel bigContainers main-panel-witaj">
+            <span class='logo-font-small'>Witaj w panelu nauczyciela</span>
+            <?php
+            if (isset($_SESSION['powodzenie'])) {
+                echo "<div class='success-message'>" . $_SESSION['powodzenie'] . "</div>";
+                unset($_SESSION['powodzenie']);
+            }
+            ?>
+        </div>
         <?php
         for ($i = 0; $i < count($resultGroups); $i++) {
             echo '<div class="main-panel bigContainers main-panel-groups" id="main-groups">';
             echo '<div class="styling-panel">';
             echo "<div class='formContainer'>";
-            echo 'Grupa'. $resultGroups[$i][0];
+            echo 'Grupa' . $resultGroups[$i][0];
             echo '</div>';
             echo '</div>';
             echo '</div>';
-            }
+        }
         ?>
         <!-- ============================= -->
         <!-- NAUCZYCIELE -->
@@ -240,18 +266,70 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                 </div>
             </div>
         </div>
+        <div class="main-panel bigContainers main-panel-add main-panel-add-komunikaty" id="addAnnoucement">
+            <div class="styling-panel">
+                <div class="formContainer">
+                    <hr>
+                    <h1 class="logo-font-small"><span>Dodaj komunikat</span></h1>
+                    <form method="post" action="../scripts/php/addAnnoucement.php" id="frmAddKomunikat">
+                        <div class="article_header">
+                            <input type="text" id="komunikatHeader" name="komunikatHeader">
+                        </div>
+                        <textarea id="komunikatContent" name="komunikatContent" rows="10" cols="50"></textarea><br><br>
+                        <div class="details">
+                            <div class="choose-visibility">
+                                <label for="komunikatGrupa">Wybierz widoczność</label>
+                                <select id="komunikatGrupa" name="komunikatGrupa" class='submitButton'>
+                                    <option value="0">Wszyscy</option>
+                                    <?php
+                                        for ($i = 0; $i < count($groups); $i++) {
+                                            echo '<option value="' . $groups[$i] . '">Grupa ' . $groups[$i] . '</option>';
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                            <div><input type="submit" value="Dodaj komunikat" class='submitButton'></div>
+                        </div>
+                    </form>
+                    <script>
+                        document.getElementById('frmAddKomunikat').addEventListener('submit', (e) => {
+                            e.preventDefault();
+                            let form = e.target;
+                            let error = false;
+                            let header = document.getElementById('komunikatHeader');
+                            let content = document.getElementById('komunikatContent');
+                            if (header.value.length === 0) {
+                                header.classList.add('error');
+                                error = true;
+                            } else {
+                                header.classList.remove('error');
+                            }
+                            if (content.value.length === 0) {
+                                content.classList.add('error');
+                                error = true;
+                            } else {
+                                content.classList.remove('error');
+                            }
+                            if (error) return;
+                            form.submit();
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
 
-        <!-- ============================= -->
-        <!-- KOMUNIKATY -->
-        <!-- ============================= -->
+
         <div class="main-panel bigContainers main-panel-news" id="main-news">
             <div class="styling-panel">
                 <div class="formContainer">
                     <hr>
                     <h1 class='logo-font-small'>Komunikaty</h1>
-                    <!-- TO SA NARAZIE DLA CALRGO PRZEDSZKOLA, TRZEBA ZROBIC TO ROZWIJANE DLA OGOLNYCH KOMUUNIKATOW I KONKRETNYCH GRUP-->
                     <?php
-                    $sql = "SELECT tytul, tresc, data FROM komunikaty WHERE przynaleznosc = 0 ORDER BY data DESC;";
+                    $condition = "WHERE przynaleznosc = 0 ";
+                    for ($i = 0; $i < count($groups); $i++) {
+                        $condition .= "OR przynaleznosc = " . $groups[$i] . " ";
+                    }
+                    $sql = "SELECT tytul, tresc, data, przynaleznosc FROM komunikaty " . $condition . "ORDER BY data DESC;";
                     $result = $connection->query($sql)->fetch_all();
                     for ($i = 0; $i < count($result); $i++) {
                         echo "<div class='newsCards' style='animation-delay: " . $i * 0.2 . "s'>
@@ -260,40 +338,45 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                                         <span class='date'>" . $result[$i][2] . "</span>
                                     </div>
                                     <div><span class='content'>" . $result[$i][1] . "</span></div>
+                                    <div><span>";
+                        if ($result[$i][3] == 0) {
+                            echo "Wszyscy";
+                        } else {
+                            echo "Grupa " . $result[$i][3];
+                        }
+                        echo "</span></div>
                                 </div>";
                     }
                     ?>
                 </div>
             </div>
         </div>
+        <div class="main-panel bigContainers main-panel-komunikaty" id="annoucementManager">
+            <div class="styling-panel">
+                <div class="formContainer">
+                    <hr>
+                    <h1 class="logo-font-small"><span>Zarządzaj komunikatami</span></h1>
+                    <?php
+                    $sql = "SELECT tytul, tresc, data, przynaleznosc, id FROM komunikaty WHERE autor = ".$user->id." ORDER BY data DESC";
+                    $result = $connection->query($sql)->fetch_all();
+                    for ($i = 0; $i < count($result); $i++) {
+                        echo "<div class='articleDetails' id='komunikat" . $result[$i][4] . "'><div class='header-info'>";
+                        echo "<h2 id='annoucementHeader".$result[$i][4]."'>" . $result[$i][0] . "</h2>";
+                        echo "<p class='date' id='annoucementDate".$result[$i][4]."'>" . $result[$i][2] . "</p>";
+                        echo "</div><p id='annoucementContent".$result[$i][4]."'>" . $result[$i][1] . "</p><div class='bottomContainer'><div>";
+                        echo "<button class='delete_article submitButton' onclick='edytujKomunikat(" . $result[$i][4] . ")'>Edytuj komunikat</button>";
+                        echo "<button class='delete_article submitButton' onclick='ukryjKomunikat(" . $result[$i][4] . ")'>Usuń komunikat</button></div>";
+                        echo "<p class='sentTo'><span id='annoucementVisibility".$result[$i][4]."'>";
+                        if ($result[$i][3] == 0) echo "Wszyscy";
+                        else echo "Grupa " . $result[$i][3];
+                        echo "</span></p>";
+                        echo "</div></div>";
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
 
-
-        <!-- ============================= -->
-        <!-- DZIECI -->
-        <!-- ============================= -->
-        <!--<aside>
-        <ul id="listaDzieci">
-            <?php
-        $connection = mysqli_connect("localhost", "root", "", "przedszkole");
-        $json = array();
-        if (!$connection) {
-            echo "Brak połączenia z bazą danych";
-        } else {
-            if ($result = $connection->query(sprintf("SELECT imie, nazwisko, pesel, adres, grupa FROM dzieci WHERE IDrodzica='%s'", mysqli_real_escape_string($connection, $user->id)))) {
-                $result = $result->fetch_all();
-                foreach ($result as $row) {
-                    $json[] = $row;
-                }
-            }
-        }
-        $connection->close();
-        ?>
-
-        </ul>
-    </aside>
-    <?php printArr($_SESSION); ?>
-
-    <script src="./../scripts/js/showLogin.js"></script>-->
     </main>
 
 
