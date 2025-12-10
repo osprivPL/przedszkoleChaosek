@@ -157,15 +157,14 @@ if (!isset($_SESSION['error'])) {
         <?php
         if ($_SESSION['logged']) {
             if ($user->typ[0] == 1) {
-                $typ = "Rodzic/";
+                $typ = "Rodzic";
             }
             if ($user->typ[1] == 1) {
-                $typ = "Nauczyciel/";
+                $typ = "Nauczyciel";
             }
             if ($user->typ[2] == 1) {
-                $typ = "Dyrekcja/";
+                $typ = "Dyrekcja";
             }
-            $typ = substr($typ, 0, strlen($typ) - 1);
             echo '<div onclick="showSomething(2)" class="user">
                     <div class="userLabel">' . $user->imie . ' ' . $user->nazwisko . '<br>';
             if ($user->typ[0] == 1) {
@@ -236,15 +235,14 @@ if (!isset($_SESSION['error'])) {
         $typ = '';
         if ($_SESSION['logged']) {
             if ($user->typ[0] == 1) {
-                $typ .= "Rodzic/";
+                $typ = "Rodzic";
             }
             if ($user->typ[1] == 1) {
-                $typ .= "Nauczyciel/";
+                $typ = "Nauczyciel";
             }
             if ($user->typ[2] == 1) {
-                $typ .= "Dyrekcja/";
+                $typ = "Dyrekcja";
             }
-            $typ = substr($typ, 0, strlen($typ) - 1);
             echo '<div onclick="showSomething(4)" class="user">
                     <div class="labelUser">' . $user->imie . ' ' . $user->nazwisko . '<br>' . $typ . '</div>
                     <img src="./assets/user.svg" alt="user icon">

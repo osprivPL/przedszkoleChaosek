@@ -299,7 +299,7 @@ button:hover{
 }
 
 .main-panel-groups .table-header {
-    display: contents; 
+    display: contents;
 }
 
 .main-panel-groups .table-header > div {
@@ -312,7 +312,7 @@ button:hover{
     text-align: center;
 }
 .main-panel-groups .grid-row {
-    display: contents; 
+    display: contents;
 }
 .main-panel-groups .grid-cell {
     border: 3px solid var(--green-dark);

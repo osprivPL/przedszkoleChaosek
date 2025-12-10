@@ -4,6 +4,7 @@ require_once "./../scripts/php/printArr.php";
 require_once "./../scripts/php/weekDayFromDate.php";
 
 require_once __DIR__ . '/../models/User.php';
+
 use models\User;
 
 session_start();
@@ -86,7 +87,7 @@ if ($resP) {
 
     <link rel="stylesheet" href="./../styles/style.css">
     <link rel="stylesheet" href="./../styles/panels.css">
-    <link rel="stylesheet" href="./../styles/parents.css">
+    <link rel="stylesheet" href="./../styles/teacher.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -118,7 +119,7 @@ if ($resP) {
                 buttons[i].classList.remove('active');
             }
             const activeBtn = document.getElementById('btn-group-' + groupNum);
-            if(activeBtn) activeBtn.classList.add('active');
+            if (activeBtn) activeBtn.classList.add('active');
         }
     </script>
 
@@ -214,10 +215,10 @@ if ($resP) {
             <span>Plan lekcji</span>
         </div>
     </nav>
-        <script>
+    <script>
         const nav = document.getElementById('somethingBeingShown1');
         nav.addEventListener('mouseleave', () => {
-        nav.classList.remove('visible');
+            nav.classList.remove('visible');
         });
     </script>
     <main id="main">
@@ -236,12 +237,47 @@ if ($resP) {
             echo '<div class="main-panel bigContainers main-panel-groups" id="main-groups">';
             echo '<div class="styling-panel">';
             echo "<div class='formContainer'>";
-            echo 'Grupa' . $resultGroups[$i][0];
+            print_r($resultGroups);
+            echo '<br><br>';
+            echo '<hr>';
+            echo '<h1 class="logo-font-small"><span>Grupa ' . $resultGroups[$i][1] . "</span></h1>";
+            echo '<div class="groupInfo">';
+            $sql = "SELECT grupy.nazwa, uzytkownicy.imie, uzytkownicy.nazwisko FROM grupy JOIN uzytkownicy ON grupy.Wychowawca = uzytkownicy.ID WHERE grupy.id =".$resultGroups[$i][1].";";
+            $result = $connection->query($sql)->fetch_assoc();
+            echo "<div>Nazwa grupy: " . $result['nazwa'] . "</div>";
+            echo "<div>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</div>";
+            echo '</div>';
+            echo '<div class="groupMembers">';
+            echo '<h2>Lista dzieci w grupie:</h2>';
+            echo '<div class="table" >';
+            echo '<div class="table-header">
+                                    <div>Imię</div>
+                                    <div>Nazwisko</div>
+                                    <div>PESEL</div>
+                                    <div>Adres</div>
+                                    <div>Rodzic</div>
+                                </div>';
+            $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID, dzieci.grupa, dzieci.opinia FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa =". $resultGroups[$i][1]." ORDER BY dzieci.nazwisko;";
+            $result = $connection->query($sql)->fetch_all();
+            for ($j = 0; $j < count($result); $j++) {
+                $arr = implode(";", $result[$j]);
+                echo "<div class='grid-row' id='dziecko" . $result[$j][6] . "'>";
+                echo "<div class='grid-cell'>" . $result[$j][0] . "</div>";
+                echo "<div class='grid-cell'>" . $result[$j][1] . "</div>";
+                echo "<div class='grid-cell'>" . $result[$j][2] . "</div>";
+                echo "<div class='grid-cell'>" . $result[$j][3] . "</div>";
+                echo "<div class='grid-cell'>" . $result[$j][4] . " " . $result[$j][5] . "</div>";
+                echo "</div>";
+            }
+
+            echo '</div>';
+            echo '</div>';
             echo '</div>';
             echo '</div>';
             echo '</div>';
         }
         ?>
+
         <div class="main-panel bigContainers main-panel-teachers" id="main-teachers">
             <div class="styling-panel">
                 <div class="formContainer">
@@ -414,16 +450,16 @@ if ($resP) {
                     <hr>
                     <h1 class="logo-font-small"><span>Zarządzaj komunikatami</span></h1>
                     <?php
-                    $sql = "SELECT tytul, tresc, data, przynaleznosc, id FROM komunikaty WHERE autor = ".$user->id." ORDER BY data DESC";
+                    $sql = "SELECT tytul, tresc, data, przynaleznosc, id FROM komunikaty WHERE autor = " . $user->id . " ORDER BY data DESC";
                     $result = $connection->query($sql)->fetch_all();
                     for ($i = 0; $i < count($result); $i++) {
                         echo "<div class='articleDetails' id='komunikat" . $result[$i][4] . "'><div class='header-info'>";
-                        echo "<h2 id='annoucementHeader".$result[$i][4]."'>" . $result[$i][0] . "</h2>";
-                        echo "<p class='date' id='annoucementDate".$result[$i][4]."'>" . $result[$i][2] . "</p>";
-                        echo "</div><p id='annoucementContent".$result[$i][4]."'>" . $result[$i][1] . "</p><div class='bottomContainer'><div>";
+                        echo "<h2 id='annoucementHeader" . $result[$i][4] . "'>" . $result[$i][0] . "</h2>";
+                        echo "<p class='date' id='annoucementDate" . $result[$i][4] . "'>" . $result[$i][2] . "</p>";
+                        echo "</div><p id='annoucementContent" . $result[$i][4] . "'>" . $result[$i][1] . "</p><div class='bottomContainer'><div>";
                         echo "<button class='delete_article submitButton' onclick='edytujKomunikat(" . $result[$i][4] . ")'>Edytuj komunikat</button>";
                         echo "<button class='delete_article submitButton' onclick='ukryjKomunikat(" . $result[$i][4] . ")'>Usuń komunikat</button></div>";
-                        echo "<p class='sentTo'><span id='annoucementVisibility".$result[$i][4]."'>";
+                        echo "<p class='sentTo'><span id='annoucementVisibility" . $result[$i][4] . "'>";
                         if ($result[$i][3] == 0) echo "Wszyscy";
                         else echo "Grupa " . $result[$i][3];
                         echo "</span></p>";
@@ -492,7 +528,7 @@ if ($resP) {
                                             </div>
                                         <?php endforeach; ?>
 
-                                    <?php endforeach;?>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
                         <?php endforeach; ?>
