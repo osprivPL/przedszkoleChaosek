@@ -66,50 +66,39 @@ if (!$_SESSION['logged']) {
     <div class="header-ui">
         <a href="./parents.php"><img id="mail" src="./../assets/main_page2.png" alt="główna"></a>
         <div onclick="showSomething(2)" class="user">
-                    <div><?php echo $user->imie.' '.$user->nazwisko;?><br>
-                        <?php
-                            if ($user->typ == 0){
-                                echo 'Rodzic';
-                            }
-                            else if ($user->typ == 1){
-                                echo 'Nauczyciel(ka)';
-                            }
-                            else if ($user->typ == 2){
-                                echo "Dyrektor(ka)";
-                            }
-                        ?>
-                    </div>
-                    <img src="../assets/user.svg" alt="user icon">
-                    <div class="user_pop_up" id="somethingBeingShown2">
-                        <a href=<?php
-                        if ($user->typ == 0){
-                            echo 'parents';
-                        }
-                        else if ($user->typ == 1){
-                            echo 'teacher';
-                        }
-                        else if ($user->typ ==2){
-                            echo 'principle';
-                        }
-                        echo '.php';
-                        ?>
-                        >
-                            <?php
-                                if ($user->typ == 0){
-                                    echo 'Panel rodzica';
-                                }
-                                else if ($user->typ == 1){
-                                    echo 'Panel nauczyciela';
-                                }
-                                else if ($user->typ ==2){
-                                    echo 'Panel dyrektora';
-                                }
-                            ?>
-                        </a>
-                        <a href="../index.php">Strona Główna</a>
-                        <a href="../scripts/php/logout.php">Wyloguj Się</a>
-                    </div>
-                </div>
+            <div><?php echo $user->imie . ' ' . $user->nazwisko; ?><br>
+                <?php
+                if ($user->typ[0] == 1) {
+                    $typ = "Rodzic/";
+                }
+                if ($user->typ[1] == 1) {
+                    $typ = "Nauczyciel/";
+                }
+                if ($user->typ[2] == 1) {
+                    $typ = "Dyrekcja/";
+                }
+                $typ = substr($typ, 0, strlen($typ) - 1);
+                echo $typ;
+                ?>
+            </div>
+            <img src="../assets/user.svg" alt="user icon">
+            <div class="user_pop_up" id="somethingBeingShown2">
+                <?php
+                if ($user->typ[0] == 1) {
+                    echo '<a href="./parents.php">Panel Rodzica</a>';
+                }
+                if ($user->typ[1] == 1) {
+                    echo '<a href="./teacher.php">Panel Nauczyciela</a>';
+                }
+                if ($user->typ[2] == 1) {
+                    echo '<a href="./principle.php">Panel Dyrekcji</a>';
+                }
+                $typ = substr($typ, 0, strlen($typ) - 1);
+                ?>
+                <a href="../index.php">Strona Główna</a>
+                <a href="../scripts/php/logout.php">Wyloguj Się</a>
+            </div>
+        </div>
     </div>
 </header>
 
@@ -123,7 +112,7 @@ if (!$_SESSION['logged']) {
             <img src="./../assets/mailbox.png" alt="">
             <span>Odebrane</span>
         </div>
-        <div class="nav_child "onclick=" showContainer(1)">
+        <div class="nav_child " onclick=" showContainer(1)">
             <img src="./../assets/send.png" alt="">
             <span>Wysłane</span>
         </div>
@@ -131,7 +120,7 @@ if (!$_SESSION['logged']) {
             <img src="./../assets/recycle-bin.png" alt="">
             <span>Usunięte</span>
         </div>
-        <div class="nav_child "onclick="showContainer(3)">
+        <div class="nav_child " onclick="showContainer(3)">
             <img src="./../assets/drafts.png" alt="">
             <span>Kopie robocze</span>
         </div>
@@ -167,7 +156,8 @@ if (!$_SESSION['logged']) {
             }
             ?>
             <script>setIleWiadomosci(<?php echo count($result);?>);</script>
-        </>
+        </
+        >
         <table id="sentContainer" class="messagesContainer">
             <tr class="messageCard headerCard">
                 <td><input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)"></td>
@@ -192,7 +182,8 @@ if (!$_SESSION['logged']) {
             }
             ?>
             <script>setIleWiadomosci(<?php echo count($result);?>);</script>
-        </>
+        </
+        >
         <div id="deletedContainer" class="messagesContainer">
         </div>
         <div id="draftsContainer" class="messagesContainer">

@@ -28,13 +28,16 @@ if (!$connection) {
     if ($result = $connection->query(sprintf("SELECT * FROM uzytkownicy WHERE login='%s'", mysqli_real_escape_string($connection, $email)))) {
         if ($result->num_rows > 0){
             $result=$result->fetch_assoc();
+            $sql = "SELECT rodzic,nauczyciel,dyrektor FROM uprawnienia WHERE id=".$result['typ'].";";
+            $permResult = $connection->query($sql);
+            $permResult = $permResult->fetch_assoc();
             echo password_hash("haslo", PASSWORD_DEFAULT);
             if (password_verify($password, $result['haslo'])) {
                 $user = new User(
                     $result['ID'],
                     $result['imie'],
                     $result['nazwisko'],
-                    $result['typ'],
+                    $permResult,
                     $result['numerTelefonu'],
                     $result['login']
                 );

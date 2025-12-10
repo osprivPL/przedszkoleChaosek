@@ -22,7 +22,7 @@ if ($connection) {
     $sql = "INSERT INTO komunikaty (tytul, tresc, przynaleznosc, data, autor) VALUES ('$title', '$content', '$visibility', CURRENT_DATE(), ".$user->id.")";
     $connection->query($sql);
     $_SESSION['powodzenie'] = "Komunikat został dodany pomyślnie.";
-    if ($user->typ == 1){
+    if ($user->typ[1] == 1){
         header("Location: ./../../electronicDiary/teacher.php");
     }
     else{
@@ -32,7 +32,7 @@ if ($connection) {
 }
 else{
     $_SESSION['powodzenie'] = "Wystąpił błąd, spróbuj ponownie później.";
-    if ($user->typ == 1){
+    if ($user->typ[1] == 1){
         header("Location: ./../../electronicDiary/teacher.php");
     }
     else{

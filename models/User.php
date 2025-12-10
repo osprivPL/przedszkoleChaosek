@@ -11,7 +11,7 @@ class User
     public $telefon;
     public $email;
 
-    function __construct($id = -1, $imie="", $nazwisko="", $typ=-1, $telefon="", $email="")
+    function __construct($id = -1, $imie="", $nazwisko="", $typ=[], $telefon="", $email="")
     {
         $this->id = $id;
         $this->imie = $imie;

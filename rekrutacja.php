@@ -18,7 +18,7 @@ if (!isset($_SESSION['error'])) {
 
 if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
-    if ($user->typ == 2) {
+    if ($user->typ[2] == 0) {
         header('Location: ./electronicDiary/principle.php');
     }
 }
@@ -76,7 +76,7 @@ if (isset($_SESSION['user'])) {
         <h1 class='logo-font'>Rekrutacja</h1>
         <form id="frmRekrutacja" class='form' method="post" action=
                 <?php
-                if ($_SESSION['logged'] && $user->typ == 0) {
+                if ($_SESSION['logged'] && $user->typ[0] == 1 && $user->typ[1] == 0 && $user->typ[2] == 0) {
                     echo "rekrutacjaCompleted.php";
                 } else {
                     echo "./scripts/php/MAIL.php";
@@ -114,7 +114,7 @@ if (isset($_SESSION['user'])) {
                         } ?>
                     </div>
                     <div class="frmParent" <?php
-                    if ($_SESSION['logged'] && $user->typ == 0) {
+                    if ($_SESSION['logged'] && in_array(1, $user->typ)) {
                         echo 'style="display:none;"';
                     }
                     ?>>
@@ -122,7 +122,7 @@ if (isset($_SESSION['user'])) {
                             <input type="text" id="frmParentImie" name="frmParentImie"
                                    placeholder="Imię rodzica/opiekuna"
                                     <?php
-                                    if ($_SESSION['logged'] && $user->typ == 0) {
+                                    if ($_SESSION['logged'] && in_array(1, $user->typ)) {
                                         echo 'value="' . $user->imie . '" readonly';
                                     }
                                     ?>></div>
@@ -130,7 +130,7 @@ if (isset($_SESSION['user'])) {
                             <input type="text" id="frmParentNazwisko" name="frmParentNazwisko"
                                    placeholder="Nazwisko rodzica/opiekuna"
                                     <?php
-                                    if ($_SESSION['logged'] && $user->typ == 0) {
+                                    if ($_SESSION['logged'] && in_array(1, $user->typ)) {
                                         echo 'value="' . $user->nazwisko . '" readonly';
                                     }
                                     ?>></div>
@@ -138,7 +138,7 @@ if (isset($_SESSION['user'])) {
                             <input type="text" id="frmParentTelefon" name="frmParentTelefon"
                                    placeholder="Numer telefonu rodzica/opiekuna"
                                     <?php
-                                    if ($_SESSION['logged'] && $user->typ == 0) {
+                                    if ($_SESSION['logged'] && in_array(1, $user->typ)) {
                                         echo 'value="' . $user->telefon . '" readonly';
                                     }
                                     ?>></div>
@@ -146,7 +146,7 @@ if (isset($_SESSION['user'])) {
                             <input type="email" id="frmParentEmail" name="frmParentEmail"
                                    placeholder="Email rodzica/opiekuna"
                                     <?php
-                                    if ($_SESSION['logged'] && $user->typ == 0) {
+                                    if ($_SESSION['logged'] && in_array(1, $user->typ)) {
                                         echo 'value="' . $user->email . '" readonly';
                                     } ?>
                             ></div>

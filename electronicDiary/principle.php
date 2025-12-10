@@ -21,7 +21,7 @@ if (!isset($_SESSION['logged'])) {
 if (!isset($_SESSION['error'])) {
     $_SESSION['error'] = -1;
 }
-if ($user->typ != 2 || !$_SESSION['logged']) {
+if ($user->typ[2] != 1 || !$_SESSION['logged']) {
     header('Location: ./../index.php');
     die();
 }

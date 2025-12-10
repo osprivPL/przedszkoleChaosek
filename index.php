@@ -124,6 +124,9 @@ if (!isset($_SESSION['error'])) {
 <!--Sticky nav-->
 <!--============================-->
 <div class="sticky-banner">
+    <script>
+        console.log(<?php echo print_r($user->typ); ?>);
+    </script>
     <div class="square_container">
         <div class="square"></div>
     </div>
@@ -148,40 +151,48 @@ if (!isset($_SESSION['error'])) {
         <a href="#dojazd" class='sectionss'>Dojazd</a>
         <a href="./rekrutacja.php" class='sectionss'>Rekrutacja</a>
         <a href="#kontakt" class='sectionss'>Kontakt</a>
+        <script>
+            console.log(<?php echo print_r($user->typ); ?>);
+        </script>
         <?php
         if ($_SESSION['logged']) {
-            if ($user->typ == 0) {
-                $typ = "Rodzic";
-            } else if ($user->typ == 1) {
-                $typ = "Nauczyciel";
-            } else if ($user->typ == 2) {
-                $typ = "Dyrekcja";
+            if ($user->typ[0] == 1) {
+                $typ = "Rodzic/";
             }
+            if ($user->typ[1] == 1) {
+                $typ = "Nauczyciel/";
+            }
+            if ($user->typ[2] == 1) {
+                $typ = "Dyrekcja/";
+            }
+            $typ = substr($typ, 0, strlen($typ) - 1);
             echo '<div onclick="showSomething(2)" class="user">
                     <div class="userLabel">' . $user->imie . ' ' . $user->nazwisko . '<br>';
-            if ($user->typ == 0) {
-                echo "Rodzic";
-            } else if ($user->typ == 1) {
-                echo "Nauczyciel";
-            } else if ($user->typ == 2) {
-                echo "Dyrektor(ka)";
+            if ($user->typ[0] == 1) {
+                $typ = "Rodzic/";
             }
+            if ($user->typ[1] == 1) {
+                $typ = "Nauczyciel/";
+            }
+            if ($user->typ[2] == 1) {
+                $typ = "Dyrekcja/";
+            }
+            $typ = substr($typ, 0, strlen($typ) - 1);
+            echo $typ;
             $typ = "";
             echo '</div>
                     <img src="./assets/user.svg" alt="user icon">
-                    <div class="user_pop_up" id="somethingBeingShown2">
-                        <a href="';
-            if ($user->typ == 0) {
-                echo "./electronicDiary/parents.php";
-                $typ = "Rodzica";
-            } else if ($user->typ == 1) {
-                echo "./electronicDiary/teacher.php";
-                $typ = "Nauczyciela";
-            } else if ($user->typ == 2) {
-                echo "./electronicDiary/principle.php";
-                $typ = "Dyrekcji";
+                    <div class="user_pop_up" id="somethingBeingShown2">';
+            if ($user->typ[0] == 1) {
+                echo '<a href="./electronicDiary/parents.php">Panel Rodzica</a>';
             }
-            echo '">Panel  ' . $typ . ' </a><a href="./scripts/php/logout.php">Wyloguj Się</a>
+            if ($user->typ[1] == 1) {
+                echo '<a href="./electronicDiary/teacher.php">Panel Nauczyciela</a>';
+            }
+            if ($user->typ[2] == 1) {
+                echo '<a href="./electronicDiary/principle.php">Panel Dyrekcji</a>';
+            }
+            echo '<a href="./scripts/php/logout.php">Wyloguj Się</a>
                     </div>
                 </div>';
         } else {
@@ -222,31 +233,33 @@ if (!isset($_SESSION['error'])) {
         <a href="./rekrutacja.php">Rekrutacja</a>
         <a href="#kontakt">Kontakt</a>
         <?php
+        $typ = '';
         if ($_SESSION['logged']) {
-            if ($user->typ == 0) {
-                $typ = "Rodzic";
-            } else if ($user->typ == 1) {
-                $typ = "Nauczyciel";
-            } else if ($user->typ == 2) {
-                $typ = "Dyrekcja";
+            if ($user->typ[0] == 1) {
+                $typ .= "Rodzic/";
             }
+            if ($user->typ[1] == 1) {
+                $typ .= "Nauczyciel/";
+            }
+            if ($user->typ[2] == 1) {
+                $typ .= "Dyrekcja/";
+            }
+            $typ = substr($typ, 0, strlen($typ) - 1);
             echo '<div onclick="showSomething(4)" class="user">
                     <div class="labelUser">' . $user->imie . ' ' . $user->nazwisko . '<br>' . $typ . '</div>
                     <img src="./assets/user.svg" alt="user icon">
-                    <div class="user_pop_up" id="somethingBeingShown4">
-                        <a href="';
-            if ($user->typ == 0) {
-                echo "./electronicDiary/parents.php";
-                $typ = "Rodzica";
-            } else if ($user->typ == 1) {
-                echo "./electronicDiary/teacher.php";
-                $typ = "Nauczyciela";
-            } else if ($user->typ == 2) {
-                echo "./electronicDiary/principle.php";
-                $typ = "Dyrekcji";
+                    <div class="user_pop_up" id="somethingBeingShown4">';
+
+            if ($user->typ[0] == 1) {
+                echo '<a href="./electronicDiary/parents.php">Panel Rodzica</a>';
             }
-            echo '">Panel  ' . $typ . ' </a>
-                        <a href="./scripts/php/logout.php">Wyloguj Się</a>
+            if ($user->typ[1] == 1) {
+                echo '<a href="./electronicDiary/teacher.php">Panel Nauczyciela</a>';
+            }
+            if ($user->typ[2] == 1) {
+                echo '<a href="./electronicDiary/principle.php">Panel Dyrekcji</a>';
+            }
+            echo '<a href="./scripts/php/logout.php">Wyloguj Się</a>
                     </div>
                 </div>';
         } else {
