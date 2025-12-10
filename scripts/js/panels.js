@@ -37,3 +37,28 @@ function showGroups(n){
         })
     }
 }
+function ukryjKomunikat(idRekordu) {
+    fetch('./../scripts/php/deleteAnnoucement.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({id: idRekordu})
+    })
+        .then(response => response.text())
+        .then(data => {
+            if (data.trim() === 'OK') {
+                const element = document.getElementById('komunikat' + idRekordu);
+                if (element) {
+                    element.style.transition = "opacity 0.5s";
+                    element.style.opacity = "0";
+
+                    setTimeout(() => element.remove(), 500);
+                }
+            } else {
+                console.error('Błąd serwera:', data);
+                alert('Wystąpił błąd podczas zapisu.');
+            }
+        })
+        .catch(error => {
+            console.error('Błąd sieci:', error);
+        });
+}
