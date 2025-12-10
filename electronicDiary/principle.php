@@ -489,7 +489,7 @@ $dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Cz
         </div>
 
         <?php for($g=1; $g<=4; $g++): ?>
-            <div class="main-panel bigContainers main-panel-groups">
+            <div class="main-panel bigContainers main-panel-groups" id="group<?php echo $g ?>Management">
                 <div class="styling-panel">
                     <div class='formContainer'>
                         <hr>
@@ -514,16 +514,17 @@ $dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Cz
                                     <div></div>
                                 </div>
                                 <?php
-                                $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = $g ORDER BY dzieci.nazwisko;";
+                                $sql = "SELECT dzieci.imie, dzieci.nazwisko, dzieci.pesel, dzieci.adres, uzytkownicy.imie, uzytkownicy.nazwisko, dzieci.ID, dzieci.grupa, dzieci.opinia FROM dzieci JOIN uzytkownicy ON dzieci.IDRodzica = uzytkownicy.ID WHERE dzieci.grupa = $g ORDER BY dzieci.nazwisko;";
                                 $result = $connection->query($sql)->fetch_all();
                                 for ($i = 0; $i < count($result); $i++) {
+                                    $arr = implode(";", $result[$i]);
                                     echo "<div class='grid-row' id='dziecko" . $result[$i][6] . "'>";
                                     echo "<div class='grid-cell'>" . $result[$i][0] . "</div>";
                                     echo "<div class='grid-cell'>" . $result[$i][1] . "</div>";
                                     echo "<div class='grid-cell'>" . $result[$i][2] . "</div>";
                                     echo "<div class='grid-cell'>" . $result[$i][3] . "</div>";
                                     echo "<div class='grid-cell'>" . $result[$i][4] . " " . $result[$i][5] . "</div>";
-                                    echo "<div class='grid-cell'><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button><button></button></div>";
+                                    echo "<div class='grid-cell'><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button><button class='edit_child' onclick='edytujDziecko(\"".$arr."\", ". $g .")'>Edytuj informacje".$g."</button></div>";
                                     echo "</div>";
                                 }
                                 ?>
@@ -533,30 +534,6 @@ $dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Cz
                 </div>
             </div>
         <?php endfor; ?>
-
-        <script>
-            function usunDziecko(idRekordu) {
-                fetch('./../scripts/php/deleteChild.php', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({id: idRekordu})
-                })
-                    .then(response => response.text())
-                    .then(data => {
-                        if (data.trim() === 'OK') {
-                            const element = document.getElementById('dziecko' + idRekordu);
-                            if (element) {
-                                element.style.transition = "opacity 0.5s";
-                                element.style.opacity = "0";
-                                setTimeout(() => element.remove(), 500);
-                            }
-                        } else {
-                            alert('Wystąpił błąd podczas zapisu.');
-                        }
-                    })
-                    .catch(error => console.error('Błąd sieci:', error));
-            }
-        </script>
 
         <div class="main-panel bigContainers main-panel-food">
             <div class="styling-panel jadlospisManagement">
@@ -739,7 +716,6 @@ $dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Cz
                                         <?php foreach ($dniTygodniaPlan as $dayNum => $dayName): ?>
                                             <div class="plan-cell">
                                                 <?php
-                                                // Pobieramy ID lekcji z bazy
                                                 $selectedLessonID = $matrixPlan[$g][$dayNum][$godzina['id']] ?? 0;
                                                 ?>
 
@@ -754,10 +730,10 @@ $dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Cz
                                             </div>
                                         <?php endforeach; ?>
 
-                                    <?php endforeach; // Koniec pętli godzin ?>
+                                    <?php endforeach;?>
                                 </div>
                             </div>
-                        <?php endfor; // Koniec pętli grup ?>
+                        <?php endfor; ?>
                         <div class="button-container">
                         <div class='group-switcher'>
                         <?php for ($g = 1; $g <= 4; $g++): ?>
@@ -776,25 +752,6 @@ $dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Cz
                 </div>
             </div>
 
-            <script>
-                // Funkcja JS do przełączania grup (bez odświeżania)
-                function showGroupPlan(groupId) {
-                    // 1. Ukryj wszystkie tabele
-                    const containers = document.querySelectorAll('.group-plan-container');
-                    containers.forEach(div => div.style.display = 'none');
-
-                    // 2. Pokaż wybraną
-                    const target = document.getElementById('group-plan-container-' + groupId);
-                    if (target) target.style.display = 'block';
-
-                    // 3. Zaktualizuj przyciski (klasa active)
-                    document.querySelectorAll('.plan-group-btn').forEach(btn => btn.classList.remove('active'));
-                    document.getElementById('btn-group-' + groupId).classList.add('active');
-
-                    // 4. Zmień mały napis
-                    document.getElementById('current-group-label').innerText = "(Grupa " + groupId + ")";
-                }
-            </script>
         </div>
 
         <div class="main-panel bigContainers main-panel-add main-panel-add-article" id="editArticle">
@@ -882,6 +839,34 @@ $dniTygodniaPlan = [1 => 'Poniedziałek', 2 => 'Wtorek', 3 => 'Środa', 4 => 'Cz
                             </div>
                             <div><input type="submit" value="Zapisz" class='submitButton'></div>
                         </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="main-panel bigContainers main-panel-edit-child" id="editChild">
+            <div class="styling-panel">
+                <div class="formContainer">
+                    <hr>
+                    <h1 class="logo-font-small"><span>Edytuj dziecko</span></h1>
+                    <form method="post" action="./../scripts/php/editChild.php">
+                        <input type="hidden" id="editChildId" name="editChildId">
+                        <label for="editChildName">Imię:</label>
+                        <input type="text" name="editChildName" id="editChildName" required>
+                        <label for="editChildSurname">Nazwisko:</label>
+                        <input type="text" name="editChildSurname" id="editChildSurname" required>
+                        <label for="editChildPesel">PESEL:</label>
+                        <input type="text" name="editChildPesel" id="editChildPesel" required>
+                        <label for="editChildAddress">Adres zamieszkania:</label>
+                        <input type="text" name="editChildAddress" id="editChildAddress" required>
+                        <label for="editChildGrupa">Grupa:</label>
+                        <select id="editChildGrupa" name="editChildGrupa" class="submitButton">
+                            <option value="1">Grupa 1</option>
+                            <option value="2">Grupa 2</option>
+                            <option value="3">Grupa 3</option>
+                            <option value="4">Grupa 4</option>
+                        </select>
+                        <textarea id="editChildOpinion" name="editChildOpinion"></textarea>
+                        <button id="saveChanges" onclick="editChildren()">Zapisz zmiany</button>
                     </form>
                 </div>
             </div>

@@ -6,7 +6,6 @@ jadlospis(r)
 plan lekcji (swoje) (r)
 komunikaty (widzi/pisze wszystkie + grupy) (d)
 Prace domowe (dodawanie tylko dla grupy swojej)
-
 -->
 <?php
 require_once "./../scripts/php/printArr.php";
