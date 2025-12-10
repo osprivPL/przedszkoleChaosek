@@ -22,21 +22,21 @@ if ($connection) {
     $sql = "INSERT INTO komunikaty (tytul, tresc, przynaleznosc, data, autor) VALUES ('$title', '$content', '$visibility', CURRENT_DATE(), ".$user->id.")";
     $connection->query($sql);
     $_SESSION['powodzenie'] = "Komunikat został dodany pomyślnie.";
-    if ($user->typ[1] == 1){
-        header("Location: ./../../electronicDiary/teacher.php");
+    if ($user->typ[2] == 1){
+        header("Location: ./../../electronicDiary/principle.php");
     }
     else{
-        header("Location: ./../../electronicDiary/principle.php");
+        header("Location: ./../../electronicDiary/teacher.php");
     }
     die();
 }
 else{
     $_SESSION['powodzenie'] = "Wystąpił błąd, spróbuj ponownie później.";
-    if ($user->typ[1] == 1){
-        header("Location: ./../../electronicDiary/teacher.php");
+    if ($user->typ[2] == 1){
+        header("Location: ./../../electronicDiary/principle.php");
     }
     else{
-        header("Location: ./../../electronicDiary/principle.php");
+        header("Location: ./../../electronicDiary/teacher.php");
     }
     die();
 }
