@@ -67,7 +67,7 @@ function createDiv(arr) {
 
 function showDzieci(json){
     for (let i = 0; i < json.length; i++){
-        // console.log(json[i]);
+        console.log(json[i]);
         let nav = document.getElementById('somethingBeingShown1');
         let div = document.createElement('div');
         let img = document.createElement('img');
