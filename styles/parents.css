@@ -355,6 +355,7 @@ body{
     grid-template-rows: 80px 1fr 1fr 1fr;
     min-height: 80%;
     border-radius: 15px;
+    animation: slideInViewFromDown 2s;
 }
 .main-panel-food .table_cell:first-child span{
     transform: rotate(30deg);
@@ -364,6 +365,7 @@ body{
     font-size: 18px;
     border: 1px solid #14522d;
     font-family: 'sour gummy', sans-serif;
+    transition: .2s;
 }
 .main-panel-food .table_cell.label{
     display: flex;
@@ -376,6 +378,11 @@ body{
     padding: 5px;
 }
 
+.main-panel-food .table_cell:hover{
+    background-color: white;
+    color: black;
+    font-weight: bold;
+}
 
 
 /*.table_cell:nth-child(8){animation-delay: 0.1s;opacity: 0;}
