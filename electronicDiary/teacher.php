@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <?php
 require_once "./../scripts/php/printArr.php";
-require_once __DIR__ . '/../models/User.php';
 require_once "./../scripts/php/weekDayFromDate.php";
 
+require_once __DIR__ . '/../models/User.php';
 use models\User;
 
 session_start();
@@ -165,6 +165,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                 unset($_SESSION['powodzenie']);
             }
             ?>
+            <?php print_r($_SESSION); ?>
         </div>
         <?php
         for ($i = 0; $i < count($resultGroups); $i++) {
