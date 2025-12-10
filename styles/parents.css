@@ -27,9 +27,9 @@ body{
 }
 
 .main-cell {
-    margin-bottom: 20px;
     width: 500px;
     color: white;
+    margin: 10px 10px 20px 10px;
     background: var(--green-vibrant);
     background: linear-gradient(to left bottom, rgba(50, 143, 59, 0.5), rgba(50, 143, 59, 0.7));
     border: var(--border1);
@@ -189,13 +189,26 @@ body{
     font-size: 28px;
     font-weight: bold;
 }
+.wychowawca-about{
+    max-height: 90px;
+    overflow: hidden;
+    position: relative;
+}
+.wychowawca-about > div{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    height: 20px;
+    background: linear-gradient(transparent, rgba(0,0,0,.15));
+}
 .wychowawca-img-container{
     background-image: url('../assets/user.svg');
     flex-grow: 1;
-    max-width: 7vw;
-    min-width: 7vw;
+    max-width: 100px;
+    min-width: 100px;
     margin: 10px;
-    height: 18vh;
+    height: 125px;
     background-size: 100% 100%;
     border-radius: 10px;
     border: 3px solid white;
@@ -312,6 +325,7 @@ body{
 }
 .teacherCards h3{
     font-size: 36px;
+    text-wrap: nowrap;
 }
 .teacherCards .email{
     font-size: 24px;
@@ -437,9 +451,49 @@ body{
 }
 .newsCards .date{
     color: lightgray;
+    text-wrap: nowrap;
+    text-align:right;
 }
 .newsCards .content{
     text-align: justify;
     font-size: 24px;
     margin-bottom: 5px;
+}
+@media (max-width:920px){
+    .email{
+        display: none;
+    }
+    .emailPlacedBelow{
+        display: block !important;
+    }
+}
+@media (max-width: 650px){
+    .teacherCards .imgContainer{
+        margin: 0;
+    }
+    .teacherCards .imgContainer1{
+        display: none;
+    }
+    .teacherCards .imgContainer2{
+        display: block !important;
+        min-width: 100%;
+        max-width: 100%;
+        height: 500px;
+    }
+    .teacherCards .opinia{
+        width: 100%;
+    }
+    .teacherCards h3,
+    .email{
+        text-align: center;
+    }
+    .labelVisibleFor1{
+        display: none;
+    }
+    .labelVisibleFor2{
+        display: inline-block !important;
+    }
+    .newsCards .date{
+        font-size: 20px;
+    }
 }

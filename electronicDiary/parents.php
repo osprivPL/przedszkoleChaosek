@@ -73,7 +73,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
     </div>
     <a href="../index.php" id="logo" class='logo'>
         <img src="./../assets/logo_tornado.svg" alt="logo">
-        <span class='logo-font-small'>Przedszkole Chaosek</span>
+        <span class='logo-font-small'><span class='labelPrzedszkole'>Przedszkole</span> Chaosek</span>
     </a>
     <!--Tymon zrobił by to lepiej-->
     <div class="header-ui">
@@ -325,7 +325,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                                 echo "<div class='wychowawca-name'>"
                                         . $result[$i][0] .' ' . $result[$i][1];
                                 echo "</div>";
-                                echo "<div class='wychowawca-about'>";
+                                echo "<div class='wychowawca-about'><div></div>";
                                     echo $result[$i][2];
                                 echo "</div>";
                             echo "</div>";
@@ -382,10 +382,12 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                         echo '<legend>' . $typ . '</legend>';
                         echo '<div class="teacherInfo">';
                         echo '<h3>' . $result[$i][0] . " " . $result[$i][1] . '<span class="email">' .$result[$i][2] . '</span></h3>';
+                        echo "<div class='imgContainer imgContainer2' style='background-image: url(./../assets/staff/".$result[$i][5].");display: none'></div>";
+                        echo '<p class="email emailPlacedBelow" style="display: none">'.$result[$i][2].'</p>';
                         echo '<p class="opinia"> ' . $result[$i][4] . "</p>";
                         echo '</div>';
                         echo '<div>';
-                        echo "<div class='imgContainer' style='background-image: url(./../assets/staff/".$result[$i][5].")'></div>";
+                        echo "<div class='imgContainer imgContainer1' style='background-image: url(./../assets/staff/".$result[$i][5].")'></div>";
                         echo '</div>';
                         $typ = "";
 
@@ -467,16 +469,24 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
                         echo "<div class='newsCards' style='animation-delay: ".$i*0.2 ."s'>
                                     <div class='header'>
                                         <span class='title'>" . $result[$i][0] . "</span>
-                                        <span class='date'>" . $result[$i][2] . "</span>
+                                        <span class='date'>" . $result[$i][2] . "
+                                        <br><span class='labelVisibleFor2' style='display:none'>";
+                                        if ($result[$i][3] == 0) {
+                                            echo "Wszyscy";
+                                        } else {
+                                            echo "Grupa " . $result[$i][3];
+                                        }
+                                    echo "</span></span>
                                     </div>
-                                    <div><span class='content'>" . $result[$i][1] . "</span></div>
-                                    <div><span>";
+                                    <div><span class='content'>" . $result[$i][1] . "</span>
+                                    <span class='labelVisibleFor1' style='float: right; color: lightgray;'><br>";
                                         if ($result[$i][3] == 0) {
                                             echo "Wszyscy";
                                         } else {
                                             echo "Grupa " . $result[$i][3];
                                         }
                                     echo "</span></div>
+                                    <div></div>
                                 </div>";
                     }
                     ?>

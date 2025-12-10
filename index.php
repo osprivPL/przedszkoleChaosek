@@ -198,7 +198,7 @@ if (!isset($_SESSION['error'])) {
     <div class="square"></div>
     <div class="nav">
         <div class="options" onclick='showSomething(3)'>
-            <span>☰ Sekcje</span>
+            <span>☰<span class='labelSections'> Sekcje</span></span>
             <div class="options_pop_up" id='somethingBeingShown3'>
                 <a href="#o_nas">O nas</a>
                 <a href="#aktualnosci">Aktualności</a>
@@ -231,7 +231,7 @@ if (!isset($_SESSION['error'])) {
                 $typ = "Dyrekcja";
             }
             echo '<div onclick="showSomething(4)" class="user">
-                    <div>' . $user->imie . ' ' . $user->nazwisko . '<br>' . $typ . '</div>
+                    <div class="labelUser">' . $user->imie . ' ' . $user->nazwisko . '<br>' . $typ . '</div>
                     <img src="./assets/user.svg" alt="user icon">
                     <div class="user_pop_up" id="somethingBeingShown4">
                         <a href="';
