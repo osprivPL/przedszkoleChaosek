@@ -76,6 +76,7 @@ $resultChildren = $connection->query($sqlChildren)->fetch_all(MYSQLI_ASSOC);
     <title>Przedszkole Chaosek - Panel rodzica</title>
     <script src="./../scripts/js/panels.js"></script>
     <script src="./../scripts/js/showUserPanel.js"></script>
+    <script src="./../scripts/js/childrens.js"></script>
 
     <script>
         function openChildPanel(pesel) {
@@ -186,8 +187,9 @@ $resultChildren = $connection->query($sqlChildren)->fetch_all(MYSQLI_ASSOC);
                         <?php
                         $dzienTygodnia = date('N');
 
-                        $uniqueGroups = array_unique(array_column($resultChildren, 'grupa'));
-                        $groups = array_values($uniqueGroups);
+                        $uq = array_unique(array_column($resultChildren, 'grupa'));
+                        $uniqueGroups = sort($uq);
+                        $groups = array_values($uq);
 
                         for ($i = 0; $i < count($groups); $i++) {
                             echo '<button class="plan-lekcji-buttons ';
