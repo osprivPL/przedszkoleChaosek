@@ -10,9 +10,6 @@ formatowanie css:
 		? gdy nic nie ma w rekrutacji powinien się pokazać jakiś obrazek i wiadomość zamiast niczego
 		! po dodaniu zdjęcia o długiej nazwy psuje się formatowanie artykułów( przesuwa się dodaj artykół na prawo + tworzy się owerflow-x
 		! bez wybrania dodaj zdięcie ani daty po kliknięciu dodaj artykół nie podświetlają się na czerwono tak jak tytuł i treść
-		! zarządaj artykułami ma rozjebane formatowanie
-		! zarządaj komunikatami też
-		! chuj wie co się dzieje w planie lekjci
 		? strasznie długo trwa aby zniknoł box danej rekrutacji po akceptacji
 		? po zaakcjeptowaniu dzieci nie pokazują się w danych grupach (pokazują się po odświerzeniu więc trzeba to zrobić po akceptacji zgłoszenia)		
 
@@ -26,9 +23,7 @@ funkcjonalność:
 
 		możliwosć zgłoszenia rekrutacji z stworzonego konta:
 			działa wszystko oprócz VVV
-			! warning w rektrutacjaCompleted po zalogowaniu się jako rodzic i złożeniu wniosku!!!!!!!!
 			? przydał by się też przycisk [wróć]
-			! pomimo nie podania kodu rodzica (wysłanego na mail) w rekrutacji u dyrektora pokazuje się zgłoszenie dziecka
 
 		wyświetlają się nowe artykuły dodane przez dyrektora +
 
