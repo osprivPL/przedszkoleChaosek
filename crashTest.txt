@@ -2,7 +2,6 @@ OSTATNI PUSH: dodanie nauczycieli ig
 
 formatowanie css:
 	formatowanie index +:
-		! usuń przyciski w sticky header w indexie
 		? dziwnie się czuje gdy ikonka z Imie i nazwisko się podświetla gdy masz myszkę pomiędy panel rodzica lub wyloguj się
 
 

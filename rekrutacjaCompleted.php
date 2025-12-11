@@ -11,21 +11,12 @@ if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
 }
 
-if ($_SESSION['registered']) {
-    //echo "g";
-}
-else{
-    //echo "nie g";
-}
-
 if (!isset($_SESSION['logged']) || !$_SESSION['logged']) {
     $_SESSION['logged'] = false;
 }
 else {
-
     $_SESSION['registered'] = true;
     if ($connection) {
-        printArr($_POST);
         $childName = htmlentities($_POST['frmChildImie'], ENT_QUOTES, 'UTF-8');
         $childSurname = htmlentities($_POST['frmChildNazwisko'], ENT_QUOTES, 'UTF-8');
         $childPesel = htmlentities($_POST['frmChildPesel'], ENT_QUOTES, 'UTF-8');

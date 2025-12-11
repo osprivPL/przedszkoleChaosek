@@ -97,18 +97,18 @@ if (isset($_SESSION['user'])) {
                             echo "<div class='smallerFrmChild'>";
                         } ?>
                         <div class="inputGroup"><input type="text" id="frmChildImie" name="frmChildImie"
-                                                       placeholder="Imię dziecka" ></div>
+                                                       placeholder="Imię dziecka"></div>
                         <div class="inputGroup"><input type="text" id="frmChildNazwisko" name="frmChildNazwisko"
                                                        placeholder="Nazwisko dziecka"
-                                                       ></div>
+                            ></div>
                         <?php if ($_SESSION['logged']) {
                             echo "</div><div class='smallerFrmChild'>";
                         } ?>
                         <div class="inputGroup"><input type="text" id="frmChildPesel" name="frmChildPesel"
-                                                       placeholder="Pesel dziecka" ></div>
+                                                       placeholder="Pesel dziecka"></div>
                         <div class="inputGroup"><input type="text" id="frmChildAdres" name="frmChildAdres"
                                                        placeholder="Adres zamieszkania dziecka"
-                                                       ></div>
+                            ></div>
                         <?php if ($_SESSION['logged']) {
                             echo "</div>";
                         } ?>
@@ -178,104 +178,82 @@ if (isset($_SESSION['user'])) {
                 const phoneRegex = /^[0-9]{9}$/;
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 let error = false;
-                if (childImie.value.length < 2){
+                if (childImie.value.length < 2) {
                     error = true;
                     childImie.classList.add('error');
-                }
-                else{
+                } else {
                     childImie.classList.remove('error');
                 }
-                if (childNazwisko.value.length < 2){
+                if (childNazwisko.value.length < 2) {
                     error = true;
                     childNazwisko.classList.add('error');
-                }
-                else{
+                } else {
                     childNazwisko.classList.remove('error');
                 }
-                if (childPesel.value.length !== 11){
+                if (childPesel.value.length !== 11) {
                     error = true;
                     childPesel.classList.add('error');
-                }
-                else{
+                } else {
                     childPesel.classList.remove('error');
                 }
-                if (childAdres.value.length < 5){
+                if (childAdres.value.length < 5) {
                     error = true;
                     childAdres.classList.add('error');
-                }
-                else{
+                } else {
                     childAdres.classList.remove('error');
                 }
-                if (parentImie.value.length <2){
+                if (parentImie.value.length < 2) {
                     error = true;
                     parentImie.classList.add('error');
-                }
-                else{
+                } else {
                     parentImie.classList.remove('error');
                 }
-                if (parentNazwisko.value.length <2){
+                if (parentNazwisko.value.length < 2) {
                     error = true;
                     parentNazwisko.classList.add('error');
-                }
-                else{
+                } else {
                     parentNazwisko.classList.remove('error');
                 }
 
-                if (!phoneRegex.test(parentTelefon.value)){
+                if (!phoneRegex.test(parentTelefon.value)) {
                     error = true;
                     parentTelefon.classList.add('error');
-                }
-                else{
+                } else {
                     parentTelefon.classList.remove('error');
                 }
-                if (!emailRegex.test(parentEmail.value)){
+                if (!emailRegex.test(parentEmail.value)) {
                     error = true;
                     parentEmail.classList.add('error');
-                }
-                else{
+                } else {
                     parentEmail.classList.remove('error');
                 }
-                if (error){
-                    return;
+                let weight = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
+                let sum = 0;
+                let controlNumber = parseInt(childPesel.value.substring(10, 11));
+
+
+                if (childPesel.value.length !== 11 || isNaN(childPesel.value)) {
+                    childPesel.classList.add('error')
+                    error = true;
                 }
+                else{
+                    childPesel.classList.remove('error')
+                }
+
+                for (let i = 0; i < weight.length; i++) {
+                    sum += (parseInt(childPesel.value.substring(i, i + 1)) * weight[i]);
+                }
+                sum = sum % 10;
+                if ((10 - sum) % 10 !== controlNumber) {
+                    childPesel.classList.add('error')
+                    error = true;
+                }
+                else{
+                    childPesel.classList.remove('error')
+                }
+                if (error) return;
                 form.submit();
             });
-            // document.getElementById("frmRekrtuacja").addEventListener("submit", (e)=>{
-            //     e.preventDefault();
-            //     const pesel = document.getElementById("frmChildPesel");
-            //     let weight = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
-            //     let sum = 0;
-            //     let controlNumber = parseInt(pesel.substring(10, 11));
-            //     let error = false;
-            //
-            //     if (document.getElementById("frmChildImie").length() < 1){
-            //         document.getElementById("frmChildImie").style.borderColor="red";
-            //         error = true;
-            //     }
-            //     if (document.getElementById("frmChildNazwisko").length() < 1){
-            //         document.getElementById("frmChildNazwisko").style.borderColor="red";
-            //         error = true;
-            //     }
-            //     if (document.getElementById("frmChildAdres").length < 1){
-            //         document.getElementById("frmChildAdres").style.borderColor="red";
-            //         error = true;
-            //     }
-            //     if (pesel.value.length !== 11 || isNaN(pesel.value)) {
-            //         pesel.style.borderColor = "red";
-            //         error = true;
-            //     }
-            //
-            //     for (let i = 0; i < weight.length; i++) {
-            //         sum += (parseInt(pesel.substring(i, i + 1)) * weight[i]);
-            //     }
-            //     sum = sum % 10;
-            //     if ((10-sum) % 10 !== controlNumber){
-            //         error = true;
-            //     }
-            //     if (error) return;
-            //
-            //     this.submit();
-            // });
         </script>
     </div>
 </main>
