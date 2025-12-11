@@ -16,15 +16,9 @@ formatowanie css:
 		? dyrekcja w main ma podpis dyrekcja w dyrektor.php ma dyrektor(ka) tak samo u nauczyciela	
 
 funkcjonalność:
-	index:
-		możliwosć zgłoszenia rekrutacji i stworzenia konta:
-			wszystko chyba działało ale nie chciał mi wysłać kod na mail (korzystałem z temp mail ale i tak)
-
-		możliwosć zgłoszenia rekrutacji z stworzonego konta:
+	możliwosć zgłoszenia rekrutacji z stworzonego konta:
 			działa wszystko oprócz VVV
 			? przydał by się też przycisk [wróć]
-
-		wyświetlają się nowe artykuły dodane przez dyrektora +
 
 	panel rodzica:
 		działa poczta -

@@ -108,21 +108,21 @@ if (!$_SESSION['logged']) {
     <!-- ============================= -->
     <nav id='somethingBeingShown1'>
         <!-- ZROBIC IKONKI DO TEGO, CZYT. ZMIENIC -->
-        <div class="nav_child" onclick="showContainer(0)">
+        <div class="nav_child" onclick="changeContent(0)">
             <img src="./../assets/mailbox.png" alt="">
             <span>Odebrane</span>
         </div>
-        <div class="nav_child " onclick=" showContainer(1)">
+        <div class="nav_child " onclick=" changeContent(1)">
             <img src="./../assets/send.png" alt="">
             <span>Wysłane</span>
         </div>
-        <div class="nav_child " onclick="showContainer(2)">
+        <div class="nav_child " onclick="changeContent(2)">
             <img src="./../assets/recycle-bin.png" alt="">
             <span>Usunięte</span>
         </div>
-        <div class="nav_child " onclick="showContainer(3)">
+        <div class="nav_child " onclick="changeContent(3)">
             <img src="./../assets/drafts.png" alt="">
-            <span>Kopie robocze</span>
+            <span class="toLong">Kopie robocze</span>
         </div>
     </nav>
 
@@ -130,8 +130,9 @@ if (!$_SESSION['logged']) {
     <!-- MAIN -->
     <!-- ============================= -->
     <main id="main">
-        <!--Ma otwierać "nakładke" do pisania wiadomości-->
-        <button id="btnWrite" onclick="showContainer(4)">Napisz wiadomość</button>
+                    <!--Ma otwierać "nakładke" do pisania wiadomości-->
+        <button id="btnWrite" onclick="showMailForm()">Napisz wiadomość</button>
+
         <table id="receivedContainer" class="messagesContainer">
             <tr class="messageCard headerCard">
                 <td><input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)"></td>
@@ -184,14 +185,8 @@ if (!$_SESSION['logged']) {
             <script>setIleWiadomosci(<?php echo count($result);?>);</script>
         </
         >
-        <div id="deletedContainer" class="messagesContainer">
-        </div>
-        <div id="draftsContainer" class="messagesContainer">
-
-        </div>
-        <div id="writeContainer" class="messagesContainer">
-
-        </div>
+                </div>
+            </div>
     </main>
 </div>
 <script src="./../scripts/js/showUserPanel.js"></script>

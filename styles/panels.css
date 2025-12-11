@@ -192,7 +192,7 @@ nav span {
 }
 
 .nav_child:hover:before {
-    transform: translateX(60%);
+    transform: translateX(70%);
     border-radius: 50px;
 }
 

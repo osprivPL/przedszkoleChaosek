@@ -30,3 +30,11 @@ function showContainer(n){
         document.getElementById(containers[i]).style.display = (i === n) ? 'flex' : 'none';
     }
 }
+
+function showMailForm(){
+//pokazuje overlay z form na napisanie maila (podobne jak to coś do logowania na index)    
+}
+function changeContent(){
+//mnienia jakie maile są pokazywane
+}
+
