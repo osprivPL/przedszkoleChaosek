@@ -57,3 +57,64 @@
 .styling-panel{
     justify-content: center;
 }
+.teacherCards{
+    height: fit-content;
+    padding: 20px;
+    font-size: 32px;
+
+    background-color:  rgba(0, 0, 0, 0.25);;
+    border: 5px solid var(--green-dark);
+    border-radius: 25px;
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    animation: slideInViewFromDown 2s ease-in-out forwards;
+    font-family: 'sour gummy', sans-serif;
+    margin-top: 30px;
+    display: flex;
+}
+.teacherCards legend{
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+    padding: 3px 20px;
+    line-height: 24px;
+    border: 3px solid rgba(0, 0, 0, 0.25);
+    background-color: var(--green-dark);
+    border-radius: 10px;
+}
+.teacherCards .teacherInfo{
+    flex-grow: 1;
+}
+.teacherCards .imgContainer{
+    background-image: url('../assets/user.svg');
+    max-width: 150px;
+    min-width: 150px;
+    margin: 10px;
+    min-height: 200px;
+    background-size: 100% 100%;
+    border-radius: 10px;
+    border: 5px solid var(--green-darker);
+    box-sizing: border-box;
+}
+.teacherCards h3{
+    font-size: 36px;
+    text-wrap: nowrap;
+}
+.teacherCards .email{
+    font-size: 24px;
+    color: lightgray;
+    margin-left: 15px;
+    font-weight: 600;
+}
+.teacherCards .opinia{
+    margin-top: 10px;
+    font-size: 24px;
+    border-radius: 15px;
+    max-height: 150px;
+    width: 90%;
+    overflow-y: auto;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: rgba(0,0,0,.15);
+    min-height: 150px;
+}
