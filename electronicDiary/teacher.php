@@ -551,6 +551,57 @@ if ($resP) {
                 </div>
             </div>
         </div>
+        <div class="main-panel bigContainers main-panel-add main-panel-add-komunikaty" id="editAnnoucements">
+            <div class="styling-panel">
+                <div class="formContainer">
+                    <hr>
+                    <h1 class="logo-font-small"><span>Edytuj komunikat</span></h1>
+                    <form method="post" action="./../scripts/php/editAnnoucement.php" id="frmEditKomunikat">
+                        <input type="hidden" name="editKomunikatIdHiddenInput" id="editKomunikatIdHiddenInput">
+                        <div class="article_header">
+                            <input type="text" id="editKomunikatHeader" name="editKomunikatHeader">
+                        </div>
+                        <textarea id="editKomunikatContent" name="editKomunikatContent" rows="10" cols="50"></textarea><br><br>
+                        <div class="details">
+                            <div class="choose-visibility">
+                                <label for="editKomunikatGrupa">Wybierz widoczność</label>
+                                <select id="editKomunikatGrupa" name="editKomunikatGrupa" class='submitButton'>
+                                    <option value="0">Wszyscy</option>
+                                    <option value="1">Grupa 1</option>
+                                    <option value="2">Grupa 2</option>
+                                    <option value="3">Grupa 3</option>
+                                    <option value="4">Grupa 4</option>
+                                </select>
+                            </div>
+                            <div><input type="submit" value="Zapisz" class='submitButton'></div>
+                        </div>
+                    </form>
+                    <script>
+                        document.getElementById('frmEditKomunikat').addEventListener('submit', (e) => {
+                            e.preventDefault();
+                            let form = e.target;
+                            let error = false;
+                            let header = document.getElementById('editKomunikatHeader');
+                            let content = document.getElementById('editKomunikatContent');
+                            if (header.value.length === 0) {
+                                header.classList.add('error');
+                                error = true;
+                            } else {
+                                header.classList.remove('error');
+                            }
+                            if (content.value.length === 0) {
+                                content.classList.add('error');
+                                error = true;
+                            } else {
+                                content.classList.remove('error');
+                            }
+                            if (error) return;
+                            form.submit();
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
     </main>
 </body>
 </html>

@@ -22,6 +22,23 @@ function showChildren(n){
         })
     }
 }
+function edytujKomunikat(id){
+    document.getElementById('annoucementManager').style.display = "none";
+    document.getElementById('editAnnoucements').style.display = "flex";
+    document.getElementById('editKomunikatHeader').value = document.getElementById('annoucementHeader'+id).innerHTML;
+    document.getElementById('editKomunikatContent').value=document.getElementById('annoucementContent'+id).innerHTML;
+    document.getElementById('editKomunikatIdHiddenInput').value = id;
+    let select = document.getElementById('editKomunikatGrupa');
+    let widocznosc = document.getElementById('annoucementVisibility'+id).innerHTML;
+    for (let i = 0; i < select.options.length; i++) {
+        console.log(select.options[i].text);
+        if (select.options[i].text ===widocznosc) {
+            select.options[i].selected = true;
+            break;
+        }
+    }
+}
+
 
 function showGroups(n){
     let children = ['.nav_child_grupa'];

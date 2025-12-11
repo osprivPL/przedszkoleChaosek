@@ -674,6 +674,7 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                     echo "</div></div>";
                 }
                 ?>
+
             </div>
             </div>  
         </div>
@@ -821,10 +822,10 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small"><span>Edytuj komunikat</span></h1>
-                    <form method="post" action="./../scripts/php/editAnnoucement.php">
+                    <form method="post" action="./../scripts/php/editAnnoucement.php" id="frmEditKomunikat">
                         <input type="hidden" name="editKomunikatIdHiddenInput" id="editKomunikatIdHiddenInput">
                         <div class="article_header">
-                            <input type="text" id="editKomunikatHeader" name="editKomunikatHeader" required>
+                            <input type="text" id="editKomunikatHeader" name="editKomunikatHeader" >
                         </div>
                         <textarea id="editKomunikatContent" name="editKomunikatContent" rows="10" cols="50"></textarea><br><br>
                         <div class="details">
@@ -841,6 +842,29 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                             <div><input type="submit" value="Zapisz" class='submitButton'></div>
                         </div>
                     </form>
+                    <script>
+                        document.getElementById('frmEditKomunikat').addEventListener('submit', (e) => {
+                            e.preventDefault();
+                            let form = e.target;
+                            let error = false;
+                            let header = document.getElementById('editKomunikatHeader');
+                            let content = document.getElementById('editKomunikatContent');
+                            if (header.value.length === 0) {
+                                header.classList.add('error');
+                                error = true;
+                            } else {
+                                header.classList.remove('error');
+                            }
+                            if (content.value.length === 0) {
+                                content.classList.add('error');
+                                error = true;
+                            } else {
+                                content.classList.remove('error');
+                            }
+                            if (error) return;
+                            form.submit();
+                        });
+                    </script>
                 </div>
             </div>
         </div>
@@ -869,6 +893,7 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                         <textarea id="editChildOpinion" name="editChildOpinion"></textarea>
                         <button id="saveChanges" onclick="editChildren()">Zapisz zmiany</button>
                     </form>
+
                 </div>
             </div>
         </div>
