@@ -237,8 +237,6 @@ if ($resP) {
             echo '<div class="main-panel bigContainers main-panel-groups" id="main-groups">';
             echo '<div class="styling-panel">';
             echo "<div class='formContainer'>";
-            print_r($resultGroups);
-            echo '<br><br>';
             echo '<hr>';
             echo '<h1 class="logo-font-small"><span>Grupa ' . $resultGroups[$i][1] . "</span></h1>";
             echo '<div class="groupInfo">';

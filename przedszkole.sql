@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2025 at 08:21 PM
+-- Generation Time: Dec 11, 2025 at 01:29 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -69,8 +69,8 @@ CREATE TABLE `dzieci` (
 --
 
 INSERT INTO `dzieci` (`ID`, `imie`, `nazwisko`, `pesel`, `adres`, `grupa`, `img`, `IDRodzica`, `opinia`) VALUES
-(1, 'Jonaszek', 'Kruk', '21241201290', 'Łódź, ul. Sienkiewicza 6, m. 7', 1, 'Jonaszek_Kruk.png', 1, 'Uczeń jest kulturalny, zaangażowany na lekcjach i chętnie współpracuje z rówieśnikami.'),
-(2, 'Aldona', 'Kruk', '20271912145', 'Łódź, ul. Sienkiewicza 6, m. 7', 2, 'Aldona_Kruk.png', 1, 'Dziecko systematycznie pracuje na zajęciach, sumiennie wywiązuje się z obowiązków i dąży do poprawy wyników.'),
+(1, 'Jonaszek', 'Kruk', '20271912141', 'Łódź, ul. Sienkiewicza 6, m. 7', 2, 'Jonaszek_Kruk.png', 1, 'chujoza'),
+(2, 'Aldona', 'Kruk', '20271912145', 'Łódź, ul. Sienkiewicza 6, m. 7', 1, 'Aldona_Kruk.png', 1, 'Dziecko systematycznie pracuje na zajęciach, sumiennie wywiązuje się z obowiązków i dąży do poprawy wyników.'),
 (3, 'Zosia', 'Kowalska', '21231501234', 'Łódź, ul. Kwiatowa 5/10', 1, 'brak', 4, 'Uczeń prezentuje wysoką kulturę osobistą, szanuje kolegów i nauczycieli oraz dba o dobrą atmosferę w klasie.'),
 (4, 'Jan', 'Kowalski', '18251209876', 'Łódź, ul. Kwiatowa 5/10', 4, 'brak', 4, 'Dziecko aktywnie uczestniczy w lekcjach, zadaje pytania i chętnie dzieli się swoimi spostrzeżeniami'),
 (5, 'Krzyś', 'Nowak', '20252005432', 'Łódź, ul. Słoneczna 12', 2, 'brak', 5, 'Uczeń potrafi pracować zarówno samodzielnie, jak i w grupie, przejmuje odpowiedzialność za powierzone zadania.'),
@@ -216,7 +216,7 @@ INSERT INTO `komunikaty` (`ID`, `tytul`, `tresc`, `data`, `przynaleznosc`, `auto
 (32, 'Jesienna pogoda', 'W związku z deszczową pogodą prosimy, aby każde dziecko miało w szafce kalosze i pelerynę.', '2025-10-15', 0, 3),
 (33, 'Zdrowie dzieci', 'Przypominamy: prosimy nie przyprowadzać do przedszkola dzieci przeziębionych i z gorączką.', '2025-11-30', 0, 3),
 (34, 'Przerwa techniczna', 'W najbliższy piątek placówka będzie nieczynna z powodu prac technicznych w sieci wodociągowej.', '2025-12-01', 0, 3),
-(35, 'Podpisanie rzeczy', 'Grupa 1: Prosimy o podpisanie wszystkich smoczków i przytulanek przyniesionych do leżakowania.', '2025-09-05', 1, 3),
+(35, 'Podpisanie rzeczy', 'Grupa 1: Prosimy o podpisanie wszystkich smoczków i przytulanek przyniesionych do leżakowania.', '2025-09-05', 1, 2),
 (36, 'Artykuły higieniczne', 'Do rodziców Grupy 1: Kończą się zapasy chusteczek nawilżanych, prosimy o dostarczenie nowych paczek.', '2025-11-25', 1, 3),
 (37, 'Wyjście do parku', 'Grupa 2: Jutro idziemy na dłuższy spacer do parku, prosimy o wygodne obuwie.', '2025-10-10', 2, 3),
 (38, 'Materiały plastyczne', 'Rodzice Grupy 2: Zbieramy rolki po ręcznikach papierowych i kartony na zajęcia plastyczne.', '2025-11-18', 2, 3),
@@ -271,7 +271,8 @@ CREATE TABLE `oczekujace` (
 --
 
 INSERT INTO `oczekujace` (`ID`, `imieRodzica`, `nazwiskoRodzica`, `numerTelefonu`, `email`, `imieDziecka`, `nazwiskoDziecka`, `pesel`, `adres`) VALUES
-(29, 'Ja', 'Nie', '903241678', 'tajny@email.com', 'Maciek', 'to samo', '11111111111', 'Łódź, Harcerska 6/7');
+(29, 'Ja', 'Nie', '903241678', 'tajny@email.com', 'Maciek', 'to samo', '11111111111', 'Łódź, Harcerska 6/7'),
+(30, 'Jeremiasz', 'Michorczyk', '666777888', 'jeremi@yahoo.com', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -446,6 +447,35 @@ INSERT INTO `pracedomowe` (`id`, `tresc`, `grupa`, `data`, `zrobione`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `uprawnienia`
+--
+
+CREATE TABLE `uprawnienia` (
+  `ID` int(11) NOT NULL,
+  `rodzic` int(11) NOT NULL,
+  `nauczyciel` int(11) NOT NULL,
+  `dyrektor` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `uprawnienia`
+--
+
+INSERT INTO `uprawnienia` (`ID`, `rodzic`, `nauczyciel`, `dyrektor`) VALUES
+(1, 1, 0, 0),
+(2, 0, 1, 0),
+(3, 0, 1, 1),
+(4, 1, 0, 0),
+(5, 1, 0, 0),
+(6, 1, 0, 0),
+(7, 1, 0, 0),
+(8, 1, 0, 0),
+(9, 1, 0, 0),
+(10, 1, 0, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `uzytkownicy`
 --
 
@@ -453,7 +483,7 @@ CREATE TABLE `uzytkownicy` (
   `ID` int(11) NOT NULL,
   `imie` varchar(50) NOT NULL,
   `nazwisko` varchar(50) NOT NULL,
-  `typ` int(11) NOT NULL COMMENT '0 - rodzic, 1- nauczyciel, 2-dyrekcja',
+  `typ` int(100) NOT NULL COMMENT '0 - rodzic, 1- nauczyciel, 2-dyrekcja',
   `numerTelefonu` varchar(15) NOT NULL,
   `login` varchar(100) NOT NULL,
   `haslo` varchar(257) NOT NULL,
@@ -467,16 +497,16 @@ CREATE TABLE `uzytkownicy` (
 --
 
 INSERT INTO `uzytkownicy` (`ID`, `imie`, `nazwisko`, `typ`, `numerTelefonu`, `login`, `haslo`, `firstLogin`, `opinia`, `zdjecie`) VALUES
-(1, 'Jan', 'Kruk', 0, '123456789', 'jKruk@gmail.com', '$2y$10$V5DNoqC33NA5fe9CJ/QTMu7SSHWuKcPZfgl6GIaPtlA4hwGrwQWfq', 0, NULL, NULL),
-(2, 'Stanisław', 'Odrowski', 1, '999999999', 'stasiu@outlook.com', '$2y$10$GklSuzP8xNagCDpk4IPUaOI2Aahwb9rFtCZoPiOOwv9u7wk0me8B6', 0, 'Bardzo fajny nauczyciel, ma świetne podejście do dzieci i potrafi stworzyć na lekcjach miłą atmosferę. Tłumaczy w sposób zrozumiały i zawsze stara się, żeby każdy wszystko dobrze zrozumiał. Widać, że lubi swoją pracę i zależy mu na uczniach.\n', 'stanislawOdrowski.jpg'),
-(3, 'Jeremiasz', 'Michorczyk', 2, '666777888', 'jeremi@yahoo.com', '$2y$10$ZFmNZui9uCZRAkrpCsYTdOzpAM2BiRn1gHEnaC5M45ItwDdC.yclu', 0, 'Nauczyciel z pasją, potrafi zainteresować tematem i widać, że zależy mu na uczniach. Zawsze cierpliwie wszystko tłumaczy i tworzy przyjazną atmosferę na lekcjach.\n', 'jeremiaszMichorczyk.jpg'),
-(4, 'Anna', 'Kowalska', 0, '501234567', 'anna.kowalska@poczta.pl', 'haslo123', 0, NULL, NULL),
-(5, 'Piotr', 'Nowak', 0, '602345678', 'piotr.nowak@gmail.com', 'tajnehaslo', 0, NULL, NULL),
-(6, 'Magdalena', 'Wiśniewska', 0, '793456789', 'magda.wisniewska@onet.pl', 'magda2024', 0, NULL, NULL),
-(7, 'Tomasz', 'Zieliński', 0, '511000111', 'tomek.zielinski@wp.pl', 'qwertyuiop', 0, NULL, NULL),
-(8, 'Katarzyna', 'Wójcik', 0, '698765432', 'kasia.wojcik@poczta.fm', 'rodzic1', 0, NULL, NULL),
-(15, 'Jakub', 'Juźwicki', 0, '666777678', 'juzwik@zhp.pl', '$2y$10$ziAoEp1XqJOOM/xrsN0G7O9W20qikbc7dmQG6fHFzQ9D6SkxBQ7la', 0, NULL, NULL),
-(21, 'Marcin', 'Symilak', 0, '191019101', 'mSymilak@pilka.pl', '$2y$10$xnKq49lr1AYi.5ws807NuuzJ2YSBdr8av9xXRDtYLG8PsZSKn.d9q', 0, NULL, NULL);
+(1, 'Jan', 'Kruk', 1, '123456789', 'jKruk@gmail.com', '$2y$10$V5DNoqC33NA5fe9CJ/QTMu7SSHWuKcPZfgl6GIaPtlA4hwGrwQWfq', 0, NULL, NULL),
+(2, 'Stanisław', 'Odrowski', 2, '999999999', 'stasiu@outlook.com', '$2y$10$GklSuzP8xNagCDpk4IPUaOI2Aahwb9rFtCZoPiOOwv9u7wk0me8B6', 0, 'Bardzo fajny nauczyciel, ma świetne podejście do dzieci i potrafi stworzyć na lekcjach miłą atmosferę. Tłumaczy w sposób zrozumiały i zawsze stara się, żeby każdy wszystko dobrze zrozumiał. Widać, że lubi swoją pracę i zależy mu na uczniach.\n', 'stanislawOdrowski.jpg'),
+(3, 'Jeremiasz', 'Michorczyk', 3, '666777888', 'jeremi@yahoo.com', '$2y$10$ZFmNZui9uCZRAkrpCsYTdOzpAM2BiRn1gHEnaC5M45ItwDdC.yclu', 0, 'Nauczyciel z pasją, potrafi zainteresować tematem i widać, że zależy mu na uczniach. Zawsze cierpliwie wszystko tłumaczy i tworzy przyjazną atmosferę na lekcjach.\n', 'jeremiaszMichorczyk.jpg'),
+(4, 'Anna', 'Kowalska', 4, '501234567', 'anna.kowalska@poczta.pl', 'haslo123', 0, NULL, NULL),
+(5, 'Piotr', 'Nowak', 5, '602345678', 'piotr.nowak@gmail.com', 'tajnehaslo', 0, NULL, NULL),
+(6, 'Magdalena', 'Wiśniewska', 6, '793456789', 'magda.wisniewska@onet.pl', 'magda2024', 0, NULL, NULL),
+(7, 'Tomasz', 'Zieliński', 7, '511000111', 'tomek.zielinski@wp.pl', 'qwertyuiop', 0, NULL, NULL),
+(8, 'Katarzyna', 'Wójcik', 8, '698765432', 'kasia.wojcik@poczta.fm', 'rodzic1', 0, NULL, NULL),
+(15, 'Jakub', 'Juźwicki', 9, '666777678', 'juzwik@zhp.pl', '$2y$10$ziAoEp1XqJOOM/xrsN0G7O9W20qikbc7dmQG6fHFzQ9D6SkxBQ7la', 0, NULL, NULL),
+(21, 'Marcin', 'Symilak', 10, '191019101', 'mSymilak@pilka.pl', '$2y$10$xnKq49lr1AYi.5ws807NuuzJ2YSBdr8av9xXRDtYLG8PsZSKn.d9q', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -577,12 +607,19 @@ ALTER TABLE `pracedomowe`
   ADD KEY `grupa` (`grupa`);
 
 --
+-- Indexes for table `uprawnienia`
+--
+ALTER TABLE `uprawnienia`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
   ADD PRIMARY KEY (`ID`),
   ADD UNIQUE KEY `login` (`login`),
-  ADD UNIQUE KEY `numerTelefonu` (`numerTelefonu`);
+  ADD UNIQUE KEY `numerTelefonu` (`numerTelefonu`),
+  ADD KEY `typ` (`typ`);
 
 --
 -- Indexes for table `wiadomosci`
@@ -630,13 +667,13 @@ ALTER TABLE `jadlospis`
 -- AUTO_INCREMENT for table `komunikaty`
 --
 ALTER TABLE `komunikaty`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `oczekujace`
 --
 ALTER TABLE `oczekujace`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `plan_lekcji`
@@ -649,6 +686,12 @@ ALTER TABLE `plan_lekcji`
 --
 ALTER TABLE `pracedomowe`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `uprawnienia`
+--
+ALTER TABLE `uprawnienia`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `uzytkownicy`
@@ -698,6 +741,12 @@ ALTER TABLE `plan_lekcji`
 --
 ALTER TABLE `pracedomowe`
   ADD CONSTRAINT `pracedomowe_ibfk_1` FOREIGN KEY (`grupa`) REFERENCES `grupy` (`id`);
+
+--
+-- Constraints for table `uzytkownicy`
+--
+ALTER TABLE `uzytkownicy`
+  ADD CONSTRAINT `uzytkownicy_ibfk_1` FOREIGN KEY (`typ`) REFERENCES `uprawnienia` (`ID`);
 
 --
 -- Constraints for table `wiadomosci`
