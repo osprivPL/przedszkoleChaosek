@@ -47,6 +47,7 @@ if (!isset($_SESSION['error'])) {
     <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
     <script src='./scripts/js/showUserPanel.js'></script>
+    <script src='./scripts/js/passwordReveal.js'></script>
 </head>
 <body id="body"> <!--- <333333 -->
 <div id="dark_bg"></div>
@@ -118,8 +119,8 @@ if (!isset($_SESSION['error'])) {
     </script>
 </div>
 
-<div class="wrapper" id="passwordWrapper">
-    <form class="panel" action="./scripts/php/changePassword.php" method="post" id="passwordChangePanel">
+<div class="wrapper" id="passwordWrapper" style='opacity: 1; pointer-events: auto'>
+    <form class="panel passwordPanel" action="./scripts/php/changePassword.php" method="post" id="passwordChangePanel">
         <div class='logo_dziennik'>
             <div>
                 <div class="square"></div>
@@ -138,6 +139,12 @@ if (!isset($_SESSION['error'])) {
                 <input type="password" name="tbxSecondHaslo" id="tbxSecondHaslo"><br>
             </div>
         </div>
+        <ul class='listOfRequirements'>
+            <li id='requirement1'>Hasło ma mieć conajmniej 8 znaków</li>
+            <li id='requirement2'>Haslo ma miec conajmniej jedną wielką literę</li>
+            <li id='requirement3'>Haslo ma miec conajmniej małą literę</li>
+            <li id='requirement4'>Hasło ma mieć conajmniej jeden znak specjalny</li>
+        </ul>
         <button id="btnChangePassword" class="submitButton">Zmień hasło</button>
         <span id="passwordChangeError" name="passwordChangeError" class="errorSpan">
             <?php
