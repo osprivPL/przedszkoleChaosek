@@ -158,12 +158,28 @@ html, body{
     border-radius: 10px;
     margin-left: 20px;
 }
+
 .listOfRequirements li{
     color: red;
     transition: .3s;
+    list-style-type: none;
+    position: relative;
+    line-height: 12px;
+    margin-bottom: 5px;
 }
+.listOfRequirements li::before{
+    content: "✖";
+    margin-right: 5px;
+    position: absolute;
+    left: -15px;
+    font-size: 12px;
+}
+
 .listOfRequirements li.marked{
     color: limegreen;
+}
+.listOfRequirements li.marked::before{
+    content: "✔";
 }
 .offButton {
     display: flex;

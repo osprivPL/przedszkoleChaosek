@@ -141,9 +141,9 @@ if (!isset($_SESSION['error'])) {
         </div>
         <ul class='listOfRequirements'>
             <li id='requirement1'>Hasło ma mieć conajmniej 8 znaków</li>
-            <li id='requirement2'>Haslo ma miec conajmniej jedną wielką literę</li>
+            <li id='requirement2' class='marked'>Haslo ma miec conajmniej jedną wielką literę</li>
             <li id='requirement3'>Haslo ma miec conajmniej małą literę</li>
-            <li id='requirement4'>Hasło ma mieć conajmniej jeden znak specjalny</li>
+            <li id='requirement4' class='marked'>Hasło ma mieć conajmniej jeden znak specjalny</li>
         </ul>
         <button id="btnChangePassword" class="submitButton">Zmień hasło</button>
         <span id="passwordChangeError" name="passwordChangeError" class="errorSpan">
