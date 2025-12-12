@@ -155,7 +155,7 @@ if (!isset($_SESSION['error'])) {
         </span>
     </form>
     <script>
-        document.getElementById('loginPanel').addEventListener('submit', (e) => {
+        /*document.getElementById('loginPanel').addEventListener('submit', (e) => {
             e.preventDefault();
             let form = e.target;
             let email = document.getElementById('tbxEmail');
@@ -180,7 +180,7 @@ if (!isset($_SESSION['error'])) {
             }
 
             form.submit();
-        });
+        });*/
     </script>
 </div>
 
