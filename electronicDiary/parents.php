@@ -394,27 +394,33 @@ $resultChildren = $connection->query($sqlChildren)->fetch_all(MYSQLI_ASSOC);
                     <hr>
                     <h1 class='logo-font-small'>Nauczyciele</h1>
                     <?php
-                    $sql = "SELECT uzytkownicy.imie, uzytkownicy.nazwisko, uzytkownicy.login , uzytkownicy.opinia, uzytkownicy.zdjecie, uprawnienia.nauczyciel, uprawnienia.dyrektor FROM uzytkownicy INNER JOIN uprawnienia ON uzytkownicy.typ = uprawnienia.ID WHERE uprawnienia.nauczyciel = 1 OR uprawnienia.nauczyciel = 2 ORDER BY typ DESC";
+                    $sql = "SELECT imie, nazwisko, login ,typ, opinia, zdjecie FROM uzytkownicy WHERE typ = 1 OR typ = 2 ORDER BY typ DESC";
                     $result = $connection->query($sql)->fetch_all();
+                    //                    print_r($result);
                     for ($i = 0; $i < count($result); $i++) {
-                        echo '<fieldset class="teacherCards" style="animation-delay: ' . $i * 0.2 . 's">';
-//                        printArr($result[$i]);
-                        if ($result[$i][6] == 1) {
-                            $typ = "Dyrektor";
-                        } else if ($result[$i][5] == 1) {
+                        echo '<fieldset class="teacherCards" style="animation-delay: '.$i*0.2 .'s">';
+                        if ($result[$i][3] == 1) {
                             $typ = "Nauczyciel";
+                        } else if ($result[$i][3] == 2) {
+                            $typ = "Dyrektor";
                         }
                         echo '<legend>' . $typ . '</legend>';
                         echo '<div class="teacherInfo">';
-                        echo '<h3>' . $result[$i][0] . " " . $result[$i][1] . '<span class="email">' . $result[$i][2] . '</span></h3>';
-                        echo '<p class="opinia"> ' . $result[$i][3] . "</p>";
+                        echo '<h3>' . $result[$i][0] . " " . $result[$i][1] . '<span class="email">' .$result[$i][2] . '</span></h3>';
+                        echo "<div class='imgContainer imgContainer2' style='background-image: url(./../assets/staff/".$result[$i][5].");display: none'></div>";
+                        echo '<p class="email emailPlacedBelow" style="display: none">'.$result[$i][2].'</p>';
+                        echo '<p class="opinia"> ' . $result[$i][4] . "</p>";
                         echo '</div>';
                         echo '<div>';
-                        echo "<div class='imgContainer' style='background-image: url(./../assets/staff/" . $result[$i][4] . ")'></div>";
+                        echo "<div class='imgContainer imgContainer1' style='background-image: url(./../assets/staff/".$result[$i][5].")'></div>";
                         echo '</div>';
                         $typ = "";
+
+
+
                         echo '</fieldset>';
                     }
+
                     ?>
                 </div>
             </div>

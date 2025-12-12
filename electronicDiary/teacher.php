@@ -282,27 +282,33 @@ if ($resP) {
                     <hr>
                     <h1 class='logo-font-small'>Nauczyciele</h1>
                     <?php
-                    $sql = "SELECT uzytkownicy.imie, uzytkownicy.nazwisko, uzytkownicy.login , uzytkownicy.opinia, uzytkownicy.zdjecie, uprawnienia.nauczyciel, uprawnienia.dyrektor FROM uzytkownicy INNER JOIN uprawnienia ON uzytkownicy.typ = uprawnienia.ID WHERE uprawnienia.nauczyciel = 1 OR uprawnienia.nauczyciel = 2 ORDER BY typ DESC";
+                    $sql = "SELECT imie, nazwisko, login ,typ, opinia, zdjecie, nauczyciel, dyrektor FROM uzytkownicy INNER JOIN uprawnienia ON typ = uprawnienia.ID WHERE nauczyciel = 1 OR dyrektor = 1 ORDER BY typ DESC";
                     $result = $connection->query($sql)->fetch_all();
+                    //                    print_r($result);
                     for ($i = 0; $i < count($result); $i++) {
-                        echo '<fieldset class="teacherCards" style="animation-delay: ' . $i * 0.2 . 's">';
-//                        printArr($result[$i]);
+                        echo '<fieldset class="teacherCards" style="animation-delay: '.$i*0.2 .'s">';
                         if ($result[$i][6] == 1) {
-                            $typ = "Dyrektor";
-                        } else if ($result[$i][5] == 1) {
                             $typ = "Nauczyciel";
+                        } if ($result[$i][7] == 1) {
+                            $typ = "Dyrektor";
                         }
                         echo '<legend>' . $typ . '</legend>';
                         echo '<div class="teacherInfo">';
-                        echo '<h3>' . $result[$i][0] . " " . $result[$i][1] . '<span class="email">' . $result[$i][2] . '</span></h3>';
-                        echo '<p class="opinia"> ' . $result[$i][3] . "</p>";
+                        echo '<h3>' . $result[$i][0] . " " . $result[$i][1] . '<span class="email">' .$result[$i][2] . '</span></h3>';
+                        echo "<div class='imgContainer imgContainer2' style='background-image: url(./../assets/staff/".$result[$i][5].");display: none'></div>";
+                        echo '<p class="email emailPlacedBelow" style="display: none">'.$result[$i][2].'</p>';
+                        echo '<p class="opinia"> ' . $result[$i][4] . "</p>";
                         echo '</div>';
                         echo '<div>';
-                        echo "<div class='imgContainer' style='background-image: url(./../assets/staff/" . $result[$i][4] . ")'></div>";
+                        echo "<div class='imgContainer imgContainer1' style='background-image: url(./../assets/staff/".$result[$i][5].")'></div>";
                         echo '</div>';
                         $typ = "";
+
+
+
                         echo '</fieldset>';
                     }
+
                     ?>
                 </div>
             </div>
@@ -358,7 +364,7 @@ if ($resP) {
             </div>
         </div>
 
-        <div class="main-panel bigContainers main-panel-add main-panel-add-komunikaty" id="addAnnoucement">
+        <div class="main-panel bigContainers main-panel-add-komunikaty" id="addAnnoucement">
             <div class="styling-panel">
                 <div class="formContainer">
                     <hr>
@@ -411,7 +417,7 @@ if ($resP) {
         </div>
 
 
-        <div class="main-panel bigContainers main-panel-news" id="main-news">
+        <div class="main-panel bigContainers main-panel-komunikaty" id="main-news">
             <div class="styling-panel">
                 <div class="formContainer">
                     <hr>
@@ -430,7 +436,7 @@ if ($resP) {
                                         <span class='date'>" . $result[$i][2] . "</span>
                                     </div>
                                     <div><span class='content'>" . $result[$i][1] . "</span></div>
-                                    <div><span>";
+                                    <div><span class='date' style='float:right'>";
                         if ($result[$i][3] == 0) {
                             echo "Wszyscy";
                         } else {
@@ -452,17 +458,34 @@ if ($resP) {
                     $sql = "SELECT tytul, tresc, data, przynaleznosc, id FROM komunikaty WHERE autor = " . $user->id . " ORDER BY data DESC";
                     $result = $connection->query($sql)->fetch_all();
                     for ($i = 0; $i < count($result); $i++) {
-                        echo "<div class='articleDetails' id='komunikat" . $result[$i][4] . "'><div class='header-info'>";
-                        echo "<h2 id='annoucementHeader" . $result[$i][4] . "'>" . $result[$i][0] . "</h2>";
-                        echo "<p class='date' id='annoucementDate" . $result[$i][4] . "'>" . $result[$i][2] . "</p>";
-                        echo "</div><p id='annoucementContent" . $result[$i][4] . "'>" . $result[$i][1] . "</p><div class='bottomContainer'><div>";
-                        echo "<button class='delete_article submitButton' onclick='edytujKomunikat(" . $result[$i][4] . ")'>Edytuj komunikat</button>";
-                        echo "<button class='delete_article submitButton' onclick='ukryjKomunikat(" . $result[$i][4] . ")'>Usuń komunikat</button></div>";
-                        echo "<p class='sentTo'><span id='annoucementVisibility" . $result[$i][4] . "'>";
-                        if ($result[$i][3] == 0) echo "Wszyscy";
-                        else echo "Grupa " . $result[$i][3];
-                        echo "</span></p>";
-                        echo "</div></div>";
+                        echo "<div class='newsCards' style='animation-delay: ".$i*0.2 ."s'>
+                                    <div class='header'>
+                                        <span class='title'>" . $result[$i][0] . "</span>
+                                        <span class='date'>" . $result[$i][2] . "
+                                        <br><span class='labelVisibleFor2' style='display:none'>";
+                                        if ($result[$i][3] == 0) {
+                                            echo "Wszyscy";
+                                        } else {
+                                            echo "Grupa " . $result[$i][3];
+                                        }
+                                    echo "</span></span>
+                                    </div>
+                                    <div><span class='content'>" . $result[$i][1] . "</span>
+                                    <div style='display: flex; justify-content: space-between'>
+                                    <div style='display: flex; align-items: flex-end'>
+                                    <button class='delete_article submitButton' onclick='edytujKomunikat(" . $result[$i][4] . ")'>Edytuj komunikat</button>
+                                    <button class='delete_article submitButton' onclick='ukryjKomunikat(" . $result[$i][4] . ")'>Usuń komunikat</button></div>
+                                    <span class='labelVisibleFor1' style='color: lightgray;'><br>";
+                                        if ($result[$i][3] == 0) {
+                                            echo "Wszyscy";
+                                        } else {
+                                            echo "Grupa " . $result[$i][3];
+                                        }
+                                    echo "</span>
+                                    </div>
+                                    </div>
+                                    <div></div>
+                                </div>";
                     }
                     ?>
                 </div>
@@ -474,7 +497,7 @@ if ($resP) {
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small">
-                        <span>Plan lekcji (Podgląd)</span>
+                        <span>Plan lekcji</span>
                     </h1>
 
                     <div id="planLekcjiContainer">

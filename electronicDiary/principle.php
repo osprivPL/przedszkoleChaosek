@@ -472,8 +472,8 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                 <?php
                 $sql = "SELECT naglowek, tresc, data, img, id FROM artykuly ORDER BY data DESC";
                 $result = $connection->query($sql)->fetch_all();
-                for ($i = 0; $i < count($result); $i++) {
-                    echo "<div class='articleDetails' id='article" . $result[$i][4] . "'><div class='header-info'>";
+                /*for ($i = 0; $i < count($result); $i++) {
+                    echo "<div class='articleDetails' style='animation-delay:". 0.2 * $i ."s' id='article" . $result[$i][4] . "'><div class='header-info'>";
                     echo "<h2 id='articleHeader".$result[$i][4]."'>" . $result[$i][0] . "</h2>";
                     echo "<p class='date' id='articleDate".$result[$i][4]."'>" . $result[$i][2] . "</p></div><div class='header-info'>";
                     echo "<p class='content' id='articleContent".$result[$i][4]."'>" . $result[$i][1] . "</p>";
@@ -482,8 +482,28 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                     }
                     echo "<button class='edit_article submitButton' id='btnEditArticle" . $result[$i][4] . "' onclick='edytujArtykul(" . $result[$i][4] . ")'>Edytuj artykuł</button>";
                     echo "<button class='delete_article submitButton' onclick='ukryjArtykul(" . $result[$i][4] . ")'>Usuń artykuł</button>";
-                    echo "<hr></div>";
-                }
+                    echo "</div>";
+                }*/
+                    for ($i = 0; $i < count($result); $i++) {
+                        echo "<div class='newsCards' style='animation-delay: ".$i*0.2 ."s'>
+                                    <div class='header'>
+                                        <span class='title'>" . $result[$i][0] . "</span>
+                                        <span class='date'>" . $result[$i][2] . "</span>
+                                    </div>
+                                    <div><div class='header-info'><span class='content'>" . $result[$i][1] . "</span>";
+                                    if (!empty($result[$i][3])) {
+                                        echo "<img id='articleImg".$result[$i][4]."' src='" . './.' . $result[$i][3] . "' alt='Article Image' style='max-width:200px;'></div>";
+                                    }
+                                    echo "
+                                    <div style='display: flex; justify-content: space-between'>
+                                    <div style='display: flex; align-items: flex-end'>
+                                    <button class='delete_article submitButton' onclick='edytujKomunikat(" . $result[$i][4] . ")'>Edytuj komunikat</button>
+                                    <button class='delete_article submitButton' onclick='ukryjKomunikat(" . $result[$i][4] . ")'>Usuń komunikat</button></div>
+                                    </div>
+                                    </div>
+                                    <div></div>
+                                </div>";
+                    }
                 ?>
                 </div>
             </div>
@@ -655,30 +675,45 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
         <div class="main-panel bigContainers main-panel-komunikaty" id="annoucementManager">
             <div class="styling-panel">
                 <div class="formContainer">
-                <hr>
-                <h1 class="logo-font-small"><span>Zarządzaj komunikatami</span></h1>
-                <?php
-                $sql = "SELECT tytul, tresc, data, przynaleznosc, id FROM komunikaty ORDER BY data DESC";
-                $result = $connection->query($sql)->fetch_all();
-                for ($i = 0; $i < count($result); $i++) {
-                    echo "<div class='articleDetails' id='komunikat" . $result[$i][4] . "'><div class='header-info'>";
-                    echo "<h2 id='annoucementHeader".$result[$i][4]."'>" . $result[$i][0] . "</h2>";
-                    echo "<p class='date' id='annoucementDate".$result[$i][4]."'>" . $result[$i][2] . "</p>";
-                    echo "</div><p id='annoucementContent".$result[$i][4]."'>" . $result[$i][1] . "</p><div class='bottomContainer'><div>";
-                    echo "<button class='delete_article submitButton' onclick='edytujKomunikat(" . $result[$i][4] . ")'>Edytuj komunikat</button>";
-                    echo "<button class='delete_article submitButton' onclick='ukryjKomunikat(" . $result[$i][4] . ")'>Usuń komunikat</button></div>";
-                    echo "<p class='sentTo'><span id='annoucementVisibility".$result[$i][4]."'>";
-                    if ($result[$i][3] == 0) echo "Wszyscy";
-                    else echo "Grupa " . $result[$i][3];
-                    echo "</span></p>";
-                    echo "</div></div>";
-                }
-                ?>
-
+                    <hr>
+                    <h1 class="logo-font-small"><span>Zarządzaj komunikatami</span></h1>
+                    <?php
+                    $sql = "SELECT tytul, tresc, data, przynaleznosc, id FROM komunikaty ORDER BY data DESC";
+                    $result = $connection->query($sql)->fetch_all();
+                    for ($i = 0; $i < count($result); $i++) {
+                        echo "<div class='newsCards' style='animation-delay: ".$i*0.2 ."s'>
+                                    <div class='header'>
+                                        <span class='title'>" . $result[$i][0] . "</span>
+                                        <span class='date'>" . $result[$i][2] . "
+                                        <br><span class='labelVisibleFor2' style='display:none'>";
+                                        if ($result[$i][3] == 0) {
+                                            echo "Wszyscy";
+                                        } else {
+                                            echo "Grupa " . $result[$i][3];
+                                        }
+                                    echo "</span></span>
+                                    </div>
+                                    <div><span class='content'>" . $result[$i][1] . "</span>
+                                    <div style='display: flex; justify-content: space-between'>
+                                    <div style='display: flex; align-items: flex-end'>
+                                    <button class='delete_article submitButton' onclick='edytujKomunikat(" . $result[$i][4] . ")'>Edytuj komunikat</button>
+                                    <button class='delete_article submitButton' onclick='ukryjKomunikat(" . $result[$i][4] . ")'>Usuń komunikat</button></div>
+                                    <span class='labelVisibleFor1' style='color: lightgray;'><br>";
+                                        if ($result[$i][3] == 0) {
+                                            echo "Wszyscy";
+                                        } else {
+                                            echo "Grupa " . $result[$i][3];
+                                        }
+                                    echo "</span>
+                                    </div>
+                                    </div>
+                                    <div></div>
+                                </div>";
+                    }
+                    ?>
+                </div>
             </div>
-            </div>  
         </div>
-
         <div class="main-panel bigContainers main-panel-plan">
             <div class="styling-panel">
                 <div class="formContainer">
