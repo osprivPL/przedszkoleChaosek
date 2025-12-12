@@ -24,7 +24,7 @@ if (!isset($_SESSION['error'])) {
     echo '<script>
     setTimeout(function() {
         loginOn();
-    }, 3000);
+    }, 300);
 
     loginOn();
 //       document.addEventListener("DOMContentLoaded", function() {
@@ -58,24 +58,88 @@ if (!isset($_SESSION['error'])) {
             <div>
                 <div class="square"></div>
                 <img src="./assets/logo_tornado.svg" alt="logo">
-                <span class='logo-font-small'>Dzienniczek Chaosu</span>
+                <span class='logo-font-smaller'>Dzienniczek Chaosu</span>
             </div>
         </div>
-        <h3 class='logo-font-small'>Logowanie</h3>
+        <h3 class='logo-font-smaller'>Logowanie</h3>
         <div class="Login">
             <div class='inputGroup'>
                 <label for="tbxEmail">Email</label><br>
                 <input type="email" name="tbxEmail" id="tbxEmail"><br>
-                <span class="errorSpan" id="emailError"></span>
             </div>
             <div class='inputGroup'>
                 <label for="tbxHaslo">Hasło</label><br>
                 <input type="password" name="tbxHaslo" id="tbxHaslo"><br>
-                <span class="errorSpan" id="passwordError"></span>
             </div>
         </div>
         <button id="btnLogin" class="submitButton">Zaloguj</button>
         <span id="loginError" name="loginError" class="errorSpan">
+            <?php
+            if ($_SESSION['error'] == 1) {
+                echo "Email nie istnieje w bazie danych";
+                unset($_SESSION['error']);
+            } else if ($_SESSION['error'] == 0) {
+                echo "Błąd serwera, spróbuj ponownie później";
+                unset($_SESSION['error']);
+            } else if ($_SESSION['error'] == 2) {
+                echo "Nieprawidłowe hasło";
+                unset($_SESSION['error']);
+            }
+            ?>
+        </span>
+    </form>
+    <script>
+        document.getElementById('loginPanel').addEventListener('submit', (e) => {
+            e.preventDefault();
+            let form = e.target;
+            let email = document.getElementById('tbxEmail');
+            let password = document.getElementById('tbxHaslo');
+            let error = false;
+            const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (email.value.length === 0 || !pattern.test(email.value)) {
+                email.classList.add('error');
+                error = true;
+            } else {
+                email.classList.remove('error');
+            }
+            if (password.value.length === 0) {
+                password.classList.add('error');
+                error = true;
+            } else {
+                password.classList.remove('error');
+            }
+            if (error) {
+                return;
+            }
+
+            form.submit();
+        });
+    </script>
+</div>
+
+<div class="wrapper" id="passwordWrapper">
+    <form class="panel" action="./scripts/php/changePassword.php" method="post" id="passwordChangePanel">
+        <div class='logo_dziennik'>
+            <div>
+                <div class="square"></div>
+                <img src="./assets/logo_tornado.svg" alt="logo">
+                <span class='logo-font-smaller'>Przedszkole Chaosu</span>
+            </div>
+        </div>
+        <h3 class='logo-font-smaller'>Zmiana hasła</h3>
+        <div class="Login">
+            <div class='inputGroup'>
+                <label for="tbxFirstPassword">Hasło</label><br>
+                <input type="password" name="tbxFirstPassword" id="tbxFirstPassword"><br>
+            </div>
+            <div class='inputGroup'>
+                <label for="tbxSecondHaslo">Potwierdź hasło</label><br>
+                <input type="password" name="tbxSecondHaslo" id="tbxSecondHaslo"><br>
+            </div>
+        </div>
+        <button id="btnChangePassword" class="submitButton">Zaloguj</button>
+        <span id="passwordChangeError" name="passwordChangeError" class="errorSpan">
             <?php
             if ($_SESSION['error'] == 1) {
                 echo "Email nie istnieje w bazie danych";

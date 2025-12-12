@@ -80,7 +80,7 @@ img {
     -moz-user-select: none;
     -ms-user-select: none;
 }
-.logo-font, .logo-font-small{
+.logo-font, .logo-font-small, .logo-font-smaller{
     color: white;
     font-family: 'Pacifico' !important;
     text-decoration: none;
@@ -106,6 +106,16 @@ img {
     -3px 0 0 var(--green-darker),
     0 3px 0 var(--green-darker),
     0 -3px 0 var(--green-darker);
+}
+.logo-font-smaller{
+    text-shadow: 2px 2px 0 var(--green-darker),
+    -2px 2px 0 var(--green-darker),
+    2px -2px 0 var(--green-darker),
+    -2px -2px 0 var(--green-darker),
+    2px 0 0 var(--green-darker),
+    -2px 0 0 var(--green-darker),
+    0 2px 0 var(--green-darker),
+    0 -2px 0 var(--green-darker);
 }
 .submitButton{
     border: var(--green-darker) solid 3px;

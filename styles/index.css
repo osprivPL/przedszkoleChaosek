@@ -1,8 +1,9 @@
 @import "root.css";
 @import "animations.css";
-body{
+html, body{
     background-color: black;
     color: white;
+    width: 100vw;
 }
 /*Sticky nav przed scrollem*/
 .sticky-banner {
@@ -120,7 +121,7 @@ body{
 
 .panel {
     position: relative;
-    width: 15vw;
+    width: 300px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -128,7 +129,7 @@ body{
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    height: 14vw;
+    height: 280px;
     text-align: center;
     background-image: url('../assets/login.png');
     background-size: 100% 100%;
@@ -815,23 +816,7 @@ h1 {
     .options_pop_up a{
         width: 200px;
     }
-}
-@media (max-width: 650px){
-    .sticky-banner .labelPrzedszkole{
-        display: none;
-    }
-    .header .labelSections{
-        display: none;
-    }
-    .header .labelUser{
-        display: none;
-    }
-    .header .user{
-        padding: 0;
-    }
-}
-/* HEADER ZMIANY NAVA*/
-@media (max-width: 1000px){
+
     .header .nav{
         align-items: flex-start;
     }
@@ -844,5 +829,33 @@ h1 {
     }
     .header .user{
         animation: showUser 1s;
-    } 
+    }
+    .header .loginButton{
+        display: block !important;
+        width: fit-content;
+        padding: 15px;
+        animation: showUser 1s;
+        font-size: 32px;
+    }
+}
+@media (max-width: 650px){
+    .sticky-banner .labelPrzedszkole{
+        display: none;
+    }
+    .sticky-banner .logo-font-small{
+        margin-left: -40px;
+    }
+    .header .labelSections{
+        display: none;
+    }
+    .header .labelUser{
+        display: none;
+    }
+    .header .user{
+        padding: 0;
+    }
+    .panel{
+        width: 250px;
+        height: 230px;
+    }
 }
