@@ -138,7 +138,7 @@ if (!isset($_SESSION['error'])) {
                 <input type="password" name="tbxSecondHaslo" id="tbxSecondHaslo"><br>
             </div>
         </div>
-        <button id="btnChangePassword" class="submitButton">Zaloguj</button>
+        <button id="btnChangePassword" class="submitButton">Zmień hasło</button>
         <span id="passwordChangeError" name="passwordChangeError" class="errorSpan">
             <?php
             if ($_SESSION['error'] == 1) {
