@@ -179,3 +179,50 @@
 .main-panel-plan .formContainer{
     width: 100%;
 }
+
+.main-panel-food .styling-panel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.main-panel-food .formContainer{
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 0 1.5vw;
+    background-color: var(--green-vibrant);
+    border: solid 5px var(--green-dark);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+    font-family: 'sour gummy', sans-serif;
+}
+.main-panel-food .border-box{
+    border: 4px solid #14522d;
+    display: grid;
+    grid-template-columns: .5fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 80px 1fr 1fr 1fr;
+    height: 80%;
+    border-radius: 15px;
+    overflow: hidden;
+}
+.main-panel-food .table_cell{
+    font-size: 24px;
+    border: 1px solid #14522d;
+    padding: .5em;
+    box-sizing: border-box;
+}
+.main-panel-food .table_cell.label{
+    background-color: var(--green-dark);
+    border: 1px solid #14522d;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

@@ -319,8 +319,7 @@ if ($resP) {
                 <div class="formContainer">
                     <hr>
                     <h1 class='logo-font-small'>Jadłospis</h1>
-                    <div>
-                        <div class="cafeteria-table">
+                        <div class="cafeteria-table border-box">
                             <div class="corner-cell" style='font-size: 24px'>
                                 <div class="corner-line"></div>
                                 <span class="corner-text-top">Dzień</span>
@@ -359,7 +358,6 @@ if ($resP) {
                             }
                             ?>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
