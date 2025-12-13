@@ -57,6 +57,9 @@
 .styling-panel{
     justify-content: center;
 }
+.main-panel-teachers .formContainer{
+    width: 80%;
+}
 .teacherCards{
     height: fit-content;
     padding: 20px;
