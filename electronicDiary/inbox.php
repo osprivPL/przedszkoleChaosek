@@ -108,19 +108,19 @@ if (!$_SESSION['logged']) {
     <!-- ============================= -->
     <nav id='somethingBeingShown1'>
         <!-- ZROBIC IKONKI DO TEGO, CZYT. ZMIENIC -->
-        <div class="nav_child" onclick="changeContent(0)">
+        <div class="nav_child" onclick="showContainer(0)">
             <img src="./../assets/mailbox.png" alt="">
             <span>Odebrane</span>
         </div>
-        <div class="nav_child " onclick=" changeContent(1)">
+        <div class="nav_child " onclick="showContainer(1)">
             <img src="./../assets/send.png" alt="">
             <span>Wysłane</span>
         </div>
-        <div class="nav_child " onclick="changeContent(2)">
+        <div class="nav_child " onclick="showContainer(2)">
             <img src="./../assets/recycle-bin.png" alt="">
             <span>Usunięte</span>
         </div>
-        <div class="nav_child " onclick="changeContent(3)">
+        <div class="nav_child " onclick="showContainer(3)">
             <img src="./../assets/drafts.png" alt="">
             <span class="toLong">Kopie robocze</span>
         </div>
@@ -133,7 +133,7 @@ if (!$_SESSION['logged']) {
                     <!--Ma otwierać "nakładke" do pisania wiadomości-->
         <button id="btnWrite" onclick="showMailForm()">Napisz wiadomość</button>
 
-        <table id="receivedContainer" class="messagesContainer">
+        <table id="receivedContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
                 <td><input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)"></td>
                 <td><span class="messageTitle">Tytuł</span></td>
@@ -147,19 +147,19 @@ if (!$_SESSION['logged']) {
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
-                echo '<tr class="messageCard">';
+                echo '<tr class="messageCard" onclick="OpenMessage()">';
                 echo '<td><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
-                echo '<td><span><img src="./../assets/trash.png"</span></td>';
+                echo '<td><span><img src="./../assets/lupa.png" alt="" class="mail_icons"><img src="./../assets/trash.png" class="mail_icons"></span></td>';
                 echo '</tr>';
             }
             ?>
             <script>setIleWiadomosci(<?php echo count($result);?>);</script>
         </
         >
-        <table id="sentContainer" class="messagesContainer">
+        <table id="sentContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
                 <td><input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)"></td>
                 <td><span class="messageTitle">Tytuł</span></td>
