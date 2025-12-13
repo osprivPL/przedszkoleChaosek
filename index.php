@@ -464,7 +464,7 @@ if (!isset($_SESSION['error'])) {
         <a href="#header">Przedszkole Chaosek</a>
         <a>Data założenia 25.11.2025</a>
         <a href="https://pl.wikipedia.org/wiki/Sp%C3%B3%C5%82ka_z_ograniczon%C4%85_odpowiedzialno%C5%9Bci%C4%85"
-           target="_blank">Spółka z ogarniczoną odpowiedzialnością</a>
+           target="_blank">Sp. z. o. o.</a>
     </div>
     <div class="sub_container">
         <div class="title logo-font-small">Kontakt</div>

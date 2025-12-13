@@ -117,16 +117,15 @@
 @keyframes dojazd_border_animation{
     0%{
         width: 0;
-        height: 5%;
+        height: 20px;
         box-shadow: none;
     }
     50%{
-        width: 108%;
-        height: 5%;
+        width: calc(100% + 40px);
+        height: 20px;
     }
     100%{
-        width: 108%;
-        height: 110%;
+        height: calc(100% + 40px);
         box-shadow: none;
     }
 }

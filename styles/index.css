@@ -468,10 +468,10 @@ html, body{
 }
 
 .slide {
-    scroll-margin-top: 155px;
-    min-height: 80vh;
-    height: 80vh;
-    max-height: 80vh;
+    scroll-margin-top: 125px;
+    min-height: 85vh;
+    height: 85vh;
+    max-height: 85vh;
     width: 100vw;
     border: 3px var(--green-dark) solid;
     box-sizing: border-box;
@@ -521,7 +521,6 @@ h1 {
 }
 .o_nas .text {
     font-size: 36px;
-    text-align: justify;
     width: 60%;
     font-family: "Sour Gummy", sans-serif;
     font-weight: 400;
@@ -575,7 +574,6 @@ h1 {
 
 .aktualnosci .text {
     font-size: 36px;
-    text-align: justify;
     font-family: "Sour Gummy", sans-serif;
     font-weight: 400;
     border-top: 25px var(--green-dark) solid;
@@ -697,12 +695,11 @@ h1 {
 }
 .dojazd .text{
     box-sizing: border-box;
-    border-radius: 25px;
+    border-radius: 25px 0 0 25px;
     background-color: var(--green-dark);
     max-height: 60%;
     margin: 1em;
     padding: 2vw;
-    text-align: justify;
     overflow-y: auto;
     color: white;
     font-family: "Sour Gummy", sans-serif;
@@ -714,7 +711,7 @@ h1 {
     animation-delay: 1.5s;
 }
 .dojazd .container_google_map{
-    padding: 5%;
+    padding: 100px;
     width: 50%;
     max-height: 100%;
     box-sizing: border-box;
@@ -724,19 +721,19 @@ h1 {
     position: relative;
 }
 .border_part{
-    width: 108%;
-    height: 110%;
+    width: calc(100% + 40px);
+    height: calc(100% + 40px);
     position: absolute; 
     background-color: var(--green-dark);
     z-index: 1;
 }
 .border_part:nth-child(1){
-    top: -5%;
-    left: -4%;
+    top: -20px;
+    left: -20px;
 }
 .border_part:nth-child(2){
-    bottom: -5%;
-    right: -4%;
+    bottom: -20px;
+    right: -20px;
 }
 .border_part.in-view{
     animation: dojazd_border_animation ease 3s;
@@ -883,7 +880,7 @@ h1 {
     }
 
     h1.logo-font{
-        font-size: 70px;
+        font-size: 70px !important;
         line-height: 70px;
         max-width: 100%;
         width: 100%;
@@ -892,12 +889,14 @@ h1 {
     .o_nas .text_container{
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
         height: 100%;
     }
     .o_nas .text{
+        height: 100% !important;
         width: 100% !important;
         box-sizing: border-box;
+        max-height: 100%;
+        margin-top: 35px;
     }
     
     .aktualnosci{
@@ -933,6 +932,10 @@ h1 {
     .dojazd .container_google_map{
         width: 100%;
         height: 100%;
+        padding: 50px;
+    }
+    .kontakt .title{
+        font-size: 24px;
     }
     .kontakt a{
         font-size: 15px;
