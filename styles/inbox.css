@@ -1,5 +1,6 @@
 @import 'root.css';
 
+
 .nav_exeption{
     justify-self: center;
     width: 80%;
@@ -36,8 +37,8 @@
 }
 
 main{
-    display: flex;
     font-size: x-large;
+    font-family: 'Courier New', Courier, monospace;
 }
 .messagesContainer{
     color: black;
@@ -75,17 +76,82 @@ td img{
 }
 
 #writeContainer{
+    font-family: 'Courier New', Courier, monospace;
     position: absolute;
-    left: 0;
     top: 0;
-    width: 100vh;
+    left: 0;
+    width: 100vw;
     height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: var(--green-vibrant);
+    z-index: 99999;
+    animation: slideInViewFromRight 0.2s ease-out;
 }
 #writeContainer>form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 90%;
     height: 90%;
+    border-radius: 10px;
+    padding: 0 1.5vw;
+    background-color: var(--green-vibrant);
+    border: solid 5px var(--green-dark);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow-x: auto;
+
 }
+.offButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: linear-gradient(to right top, #FF6B6B, #E63946);
+    border-radius: 6px;
+    font-size: 48px;
+    height: 48px;
+    width: 48px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    font-weight: bold;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 999;
+}
+.offButton:hover {
+    background: #D22E2E;
+}
+h1{
+    color: white;
+    margin-top: 0.2em;
+    order: -1;
+    font-size: 72px;
+    z-index: 1;
+    background-color: var(--green-vibrant);
+    padding: 0 2rem;
+}
+.inputContainer{
+    width: 90%;
+    margin: 0.5em 0;
+    text-align: left;
+    border-left: 5px solid var(--green-dark);
+    padding: 0.2em;
+}
+.inputContainer input{
+    border: var(--green-darker) solid 2px;
+    border-radius: 6px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    width: 100%;
+    font-size: 20px;
+    margin: auto;
+    box-sizing: border-box;
+}
+
 
 #sentContainer, #deletedContainer, #draftsContainer, #writeContainer{
     display: none;

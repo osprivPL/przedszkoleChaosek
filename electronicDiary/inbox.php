@@ -238,14 +238,30 @@ if (!$_SESSION['logged']) {
             }
             ?>
         </table>
-        <div id="writeContainer bigContainers">
-            <form action="./../scripts/php/NewMessage.php" method="post"></form>
-        </div>
+
               </div>
             </div>
     </main>
 </div>
+<div id="writeContainer" class="bigContainers">
+    <form action="./../scripts/php/NewMessage.php" method="post">
+        <div class="offButton" onclick="showContainer(0)">
+            <p>X</p>
+        </div>
+        <h1 class="logo-font">Nowa wiadomość</h1>
+        <!--        logo font mail to ma być taki sam font tylko jakaś bardziej poważna wersja-->
+        <div class="inputContainer">
+            <input type="text" placeholder="Adresaci">
+        </div>
+        <div class="inputContainer">
+            <input type="text" placeholder="Temat">
+        </div>
+        <div class="inputContainer">
+            <input type="text" placeholder="Treść">
+        </div>
 
+    </form>
+</div>
 
 
 <script src="./../scripts/js/showUserPanel.js"></script>
