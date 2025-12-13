@@ -251,15 +251,20 @@ if (!$_SESSION['logged']) {
         <h1 class="logo-font">Nowa wiadomość</h1>
         <!--        logo font mail to ma być taki sam font tylko jakaś bardziej poważna wersja-->
         <div class="inputContainer">
-            <input type="text" placeholder="Adresaci">
+            <input id="newMesOdbiorcy" type="text" placeholder="Odbiorcy">
         </div>
         <div class="inputContainer">
-            <input type="text" placeholder="Temat">
+            <input id="newMesTytul" type="text" placeholder="Tytuł">
         </div>
-        <div class="inputContainer">
-            <input type="text" placeholder="Treść">
+        <div class="inputContainer inputTextarea">
+            <textarea id="newMesTresc" placeholder="Treść"></textarea>
         </div>
+        <div class="inputContainer inputButtons">
+            <button onclick="showContainer(0); SaveDraft()" class="buttonDraft">Zapisz Kopie roboczą</button>
+            <button onclick="showContainer(0); Delete()" class="buttonDelete">Usuń</button>
+            <button onclick="showContainer(0); Sent()" class="buttonSent">Wyślij</button>
 
+        </div>
     </form>
 </div>
 
