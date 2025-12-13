@@ -119,7 +119,7 @@ if (!isset($_SESSION['error'])) {
     </script>
 </div>
 
-<div class="wrapper" id="passwordWrapper" style='opacity: 1; pointer-events: auto'>
+<div class="wrapper" id="passwordWrapper">
     <form class="panel passwordPanel" action="./scripts/php/changePassword.php" method="post" id="passwordChangePanel">
         <div class='logo_dziennik'>
             <div>

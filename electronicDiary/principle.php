@@ -485,20 +485,20 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                     echo "</div>";
                 }*/
                     for ($i = 0; $i < count($result); $i++) {
-                        echo "<div class='newsCards' style='animation-delay: ".$i*0.2 ."s'>
+                        echo "<div class='newsCards' id='article" . $result[$i][4] . "' style='animation-delay: ".$i*0.2 ."s'>
                                     <div class='header'>
-                                        <span class='title'>" . $result[$i][0] . "</span>
-                                        <span class='date'>" . $result[$i][2] . "</span>
+                                        <span class='title' id='articleHeader".$result[$i][4]."'>" . $result[$i][0] . "</span>
+                                        <span class='date' id='articleDate".$result[$i][4]."'>" . $result[$i][2] . "</span>
                                     </div>
-                                    <div><div class='header-info'><span class='content'>" . $result[$i][1] . "</span>";
+                                    <div><div class='header-info'><span class='content' id='articleContent".$result[$i][4]."'>" . $result[$i][1] . "</span>";
                                     if (!empty($result[$i][3])) {
                                         echo "<img id='articleImg".$result[$i][4]."' src='" . './.' . $result[$i][3] . "' alt='Article Image' style='max-width:200px;'></div>";
                                     }
                                     echo "
                                     <div style='display: flex; justify-content: space-between'>
                                     <div style='display: flex; align-items: flex-end'>
-                                    <button class='delete_article submitButton' onclick='edytujKomunikat(" . $result[$i][4] . ")'>Edytuj komunikat</button>
-                                    <button class='delete_article submitButton' onclick='ukryjKomunikat(" . $result[$i][4] . ")'>Usuń komunikat</button></div>
+                                    <button class='edit_article submitButton' id='btnEditArticle" . $result[$i][4] . "' onclick='edytujArtykul(" . $result[$i][4] . ")'>Edytuj artykuł</button>
+                                    <button class='delete_article submitButton' onclick='ukryjArtykul(" . $result[$i][4] . ")'>Usuń artykuł</button></div>
                                     </div>
                                     </div>
                                     <div></div>
@@ -681,10 +681,10 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                     $sql = "SELECT tytul, tresc, data, przynaleznosc, id FROM komunikaty ORDER BY data DESC";
                     $result = $connection->query($sql)->fetch_all();
                     for ($i = 0; $i < count($result); $i++) {
-                        echo "<div class='newsCards' style='animation-delay: ".$i*0.2 ."s'>
+                        echo "<div class='newsCards' id='komunikat" . $result[$i][4] . "' style='animation-delay: ".$i*0.2 ."s'>
                                     <div class='header'>
-                                        <span class='title'>" . $result[$i][0] . "</span>
-                                        <span class='date'>" . $result[$i][2] . "
+                                        <span class='title' id='annoucementHeader".$result[$i][4]."'>" . $result[$i][0] . "</span>
+                                        <span class='date' id='annoucementDate".$result[$i][4]."'>" . $result[$i][2] . "
                                         <br><span class='labelVisibleFor2' style='display:none'>";
                                         if ($result[$i][3] == 0) {
                                             echo "Wszyscy";
@@ -693,12 +693,12 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                                         }
                                     echo "</span></span>
                                     </div>
-                                    <div><span class='content'>" . $result[$i][1] . "</span>
-                                    <div style='display: flex; justify-content: space-between'>
+                                    <div><span class='content' id='annoucementContent".$result[$i][4]."'>" . $result[$i][1] . "</span>
+                                    <div style='display: flex; justify-content: space-between; margin-top: 15px'>
                                     <div style='display: flex; align-items: flex-end'>
                                     <button class='delete_article submitButton' onclick='edytujKomunikat(" . $result[$i][4] . ")'>Edytuj komunikat</button>
                                     <button class='delete_article submitButton' onclick='ukryjKomunikat(" . $result[$i][4] . ")'>Usuń komunikat</button></div>
-                                    <span class='labelVisibleFor1' style='color: lightgray;'><br>";
+                                    <span class='labelVisibleFor1' style='color: lightgray;' id='annoucementVisibility".$result[$i][4]."'>";
                                         if ($result[$i][3] == 0) {
                                             echo "Wszyscy";
                                         } else {

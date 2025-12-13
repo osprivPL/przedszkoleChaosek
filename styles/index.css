@@ -207,7 +207,7 @@ html, body{
 .logo_dziennik {
     width: 95%;
     padding: 0 2.5%;
-    height: 4vh;
+    height: 35px;
     font-size: 16px;
     position: absolute;
     top: 0;
@@ -223,7 +223,7 @@ html, body{
     z-index: -1;
 }
 .logo_dziennik img {
-    height: 4vh;
+    height: 35px;
 }
 
 .logo_dziennik > div {
@@ -896,5 +896,8 @@ h1 {
     .panel{
         width: 250px;
         height: 230px;
+    }
+    .passwordPanel{
+        height: 270px;
     }
 }
