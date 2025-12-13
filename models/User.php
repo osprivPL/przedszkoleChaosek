@@ -10,8 +10,9 @@ class User
     public $typ; // 0 - rodzic, 1 - nauczyciel, 2 - dyrekcja
     public $telefon;
     public $email;
+    public $firstLogin;
 
-    function __construct($id = -1, $imie="", $nazwisko="", $typ=[], $telefon="", $email="")
+    function __construct($id = -1, $imie="", $nazwisko="", $typ=[], $telefon="", $email="", $firstLogin=false)
     {
         $this->id = $id;
         $this->imie = $imie;
@@ -19,6 +20,7 @@ class User
         $this->typ = $typ;
         $this->telefon = $telefon;
         $this->email = $email;
+        $this->firstLogin = $firstLogin;
     }
 //    public function setImie($imie)
 //    {

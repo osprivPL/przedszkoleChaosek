@@ -47,7 +47,7 @@ if (!isset($_SESSION['error'])) {
     <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
     <script src='./scripts/js/showUserPanel.js'></script>
-    <script src='./scripts/js/passwordReveal.js'></script>
+    <!--    <script src='./scripts/js/passwordReveal.js'></script>-->
 </head>
 <body id="body"> <!--- <333333 -->
 <div id="dark_bg"></div>
@@ -119,7 +119,11 @@ if (!isset($_SESSION['error'])) {
     </script>
 </div>
 
-<div class="wrapper" id="passwordWrapper">
+<div class="wrapper <?php
+if ($user->firstLogin) {
+    echo "visible";
+}
+?>" id="passwordWrapper">
     <form class="panel passwordPanel" action="./scripts/php/changePassword.php" method="post" id="passwordChangePanel">
         <div class='logo_dziennik'>
             <div>
@@ -129,6 +133,7 @@ if (!isset($_SESSION['error'])) {
             </div>
         </div>
         <h3 class='logo-font-smaller'>Zmiana hasła</h3>
+        <h6>Po zmianie hasła musisz zalogować się ponownie</h6>
         <div class="Login">
             <div class='inputGroup'>
                 <label for="tbxFirstPassword">Hasło</label><br>
@@ -141,27 +146,81 @@ if (!isset($_SESSION['error'])) {
         </div>
         <ul class='listOfRequirements'>
             <li id='requirement1'>Hasło ma mieć conajmniej 8 znaków</li>
-            <li id='requirement2' class='marked'>Haslo ma miec conajmniej jedną wielką literę</li>
-            <li id='requirement3'>Haslo ma miec conajmniej małą literę</li>
-            <li id='requirement4' class='marked'>Hasło ma mieć conajmniej jeden znak specjalny</li>
+            <li id='requirement2'>Haslo ma miec conajmniej jedną wielką literę</li>
+            <li id='requirement3'>Haslo ma miec conajmniej jedną małą literę</li>
+            <li id='requirement4'>Hasło ma mieć conajmniej jeden znak specjalny
+            <li id="requirement5">Hasło ma mieć conajmniej jedną cyfrę</li>
+            <li id="requirement6">Hasła muszą być takie same</li>
         </ul>
         <button id="btnChangePassword" class="submitButton">Zmień hasło</button>
         <span id="passwordChangeError" name="passwordChangeError" class="errorSpan">
             <?php
-            if ($_SESSION['error'] == 1) {
-                echo "Email nie istnieje w bazie danych";
-                unset($_SESSION['error']);
-            } else if ($_SESSION['error'] == 0) {
+            if (isset($_SESSION['error']) && $_SESSION['error'] == 10) {
                 echo "Błąd serwera, spróbuj ponownie później";
-                unset($_SESSION['error']);
-            } else if ($_SESSION['error'] == 2) {
-                echo "Nieprawidłowe hasło";
                 unset($_SESSION['error']);
             }
             ?>
         </span>
     </form>
     <script>
+        document.getElementById('tbxFirstPassword').addEventListener('input', (e) => {
+            let tbx = e.target;
+            let pass = tbx.value;
+            let upperCase = /[A-Z]/;
+            let lowerCase = /[a-z]/;
+            let digit = /[0-9]/;
+            let specialChar = /[^A-Za-z0-9]/;
+            if (pass.length >= 8) {
+                document.getElementById('requirement1').classList.add('marked');
+            } else {
+                document.getElementById('requirement1').classList.remove('marked');
+            }
+            if (upperCase.test(tbx.value)) {
+                document.getElementById('requirement2').classList.add('marked');
+            } else {
+                document.getElementById('requirement2').classList.remove('marked');
+            }
+            if (lowerCase.test(tbx.value)) {
+                document.getElementById('requirement3').classList.add('marked');
+            } else {
+                document.getElementById('requirement3').classList.remove('marked');
+            }
+            if (specialChar.test(tbx.value)) {
+                document.getElementById('requirement4').classList.add('marked');
+            } else {
+                document.getElementById('requirement4').classList.remove('marked');
+            }
+            if (digit.test(tbx.value)) {
+                document.getElementById('requirement5').classList.add('marked');
+            } else {
+                document.getElementById('requirement5').classList.remove('marked');
+            }
+            if (tbx.value == document.getElementById('tbxSecondHaslo').value && tbx.value.length > 0) {
+                document.getElementById('requirement6').classList.add('marked');
+            } else {
+                document.getElementById('requirement6').classList.remove('marked');
+            }
+        });
+        document.getElementById('tbxSecondHaslo').addEventListener('input', (e) => {
+            let tbx = e.target;
+            if (tbx.value == document.getElementById('tbxFirstPassword').value && tbx.value.length > 0) {
+                document.getElementById('requirement6').classList.add('marked');
+            } else {
+                document.getElementById('requirement6').classList.remove('marked');
+            }
+        });
+        document.getElementById('passwordChangePanel').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const frm = e.target;
+            if (document.getElementById('requirement1').classList.contains('marked') &&
+                document.getElementById('requirement2').classList.contains('marked') &&
+                document.getElementById('requirement3').classList.contains('marked') &&
+                document.getElementById('requirement4').classList.contains('marked') &&
+                document.getElementById('requirement5').classList.contains('marked') &&
+                document.getElementById('requirement6').classList.contains('marked')) {
+                    frm.submit();
+            }
+        });
         /*document.getElementById('loginPanel').addEventListener('submit', (e) => {
             e.preventDefault();
             let form = e.target;
@@ -253,16 +312,16 @@ if (!isset($_SESSION['error'])) {
             echo '</div>
                     <img src="./assets/user.svg" alt="user icon">
                     <div class="user_pop_up" id="somethingBeingShown2">';
-                if ($user->typ[2] == 1) {
-                    echo '<a href="./electronicDiary/principle.php">Panel Dyrekcji</a>';
-                }
-                if ($user->typ[1] == 1) {
-                    echo '<a href="./electronicDiary/teacher.php">Panel Nauczyciela</a>';
-                }
-                if ($user->typ[0] == 1) {
-                    echo '<a href="./electronicDiary/parents.php">Panel Rodzica</a>';
-                }   
-                
+            if ($user->typ[2] == 1) {
+                echo '<a href="./electronicDiary/principle.php">Panel Dyrekcji</a>';
+            }
+            if ($user->typ[1] == 1) {
+                echo '<a href="./electronicDiary/teacher.php">Panel Nauczyciela</a>';
+            }
+            if ($user->typ[0] == 1) {
+                echo '<a href="./electronicDiary/parents.php">Panel Rodzica</a>';
+            }
+
             echo '<a href="./scripts/php/logout.php">Wyloguj Się</a>
                     </div>
                 </div>';
@@ -329,7 +388,7 @@ if (!isset($_SESSION['error'])) {
             }
             if ($user->typ[0] == 1) {
                 echo '<a href="./electronicDiary/parents.php">Panel Rodzica</a>';
-            }   
+            }
             echo '<a href="./scripts/php/logout.php">Wyloguj Się</a>
                     </div>
                 </div>';
