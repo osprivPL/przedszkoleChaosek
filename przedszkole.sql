@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2025 at 01:29 PM
+-- Generation Time: Dec 13, 2025 at 09:16 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -497,7 +497,7 @@ CREATE TABLE `uzytkownicy` (
 --
 
 INSERT INTO `uzytkownicy` (`ID`, `imie`, `nazwisko`, `typ`, `numerTelefonu`, `login`, `haslo`, `firstLogin`, `opinia`, `zdjecie`) VALUES
-(1, 'Jan', 'Kruk', 1, '123456789', 'jKruk@gmail.com', '$2y$10$V5DNoqC33NA5fe9CJ/QTMu7SSHWuKcPZfgl6GIaPtlA4hwGrwQWfq', 0, NULL, NULL),
+(1, 'Jan', 'Kruk', 1, '123456789', 'jKruk@gmail.com', '$2y$10$V5DNoqC33NA5fe9CJ/QTMu7SSHWuKcPZfgl6GIaPtlA4hwGrwQWfq', 1, NULL, NULL),
 (2, 'Stanisław', 'Odrowski', 2, '999999999', 'stasiu@outlook.com', '$2y$10$GklSuzP8xNagCDpk4IPUaOI2Aahwb9rFtCZoPiOOwv9u7wk0me8B6', 0, 'Bardzo fajny nauczyciel, ma świetne podejście do dzieci i potrafi stworzyć na lekcjach miłą atmosferę. Tłumaczy w sposób zrozumiały i zawsze stara się, żeby każdy wszystko dobrze zrozumiał. Widać, że lubi swoją pracę i zależy mu na uczniach.\n', 'stanislawOdrowski.jpg'),
 (3, 'Jeremiasz', 'Michorczyk', 3, '666777888', 'jeremi@yahoo.com', '$2y$10$ZFmNZui9uCZRAkrpCsYTdOzpAM2BiRn1gHEnaC5M45ItwDdC.yclu', 0, 'Nauczyciel z pasją, potrafi zainteresować tematem i widać, że zależy mu na uczniach. Zawsze cierpliwie wszystko tłumaczy i tworzy przyjazną atmosferę na lekcjach.\n', 'jeremiaszMichorczyk.jpg'),
 (4, 'Anna', 'Kowalska', 4, '501234567', 'anna.kowalska@poczta.pl', 'haslo123', 0, NULL, NULL),
@@ -521,7 +521,7 @@ CREATE TABLE `wiadomosci` (
   `dataWyslania` date NOT NULL,
   `nadawcaID` int(11) NOT NULL,
   `odbiorcaID` int(11) NOT NULL,
-  `odczytane` int(11) NOT NULL COMMENT '0 - nie, 1 - tak',
+  `robocze` int(11) NOT NULL COMMENT '0 - nie, 1 - tak',
   `Usunięte` int(11) NOT NULL COMMENT '0 - nie, 1 - tak'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
@@ -529,7 +529,7 @@ CREATE TABLE `wiadomosci` (
 -- Dumping data for table `wiadomosci`
 --
 
-INSERT INTO `wiadomosci` (`id`, `tytul`, `tresc`, `dataWyslania`, `nadawcaID`, `odbiorcaID`, `odczytane`, `Usunięte`) VALUES
+INSERT INTO `wiadomosci` (`id`, `tytul`, `tresc`, `dataWyslania`, `nadawcaID`, `odbiorcaID`, `robocze`, `Usunięte`) VALUES
 (1, 'Pana syn to chuj', 'Pana syn to chuj', '0000-00-00', 2, 1, 0, 0),
 (3, 'pana tez', 'pana tez', '2025-11-27', 1, 2, 0, 0);
 
