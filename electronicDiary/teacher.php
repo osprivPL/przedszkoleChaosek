@@ -30,11 +30,10 @@ if ($user->typ[1] != 1 || !$_SESSION['logged']) {
 }
 
 $conteiner = 1;
-$groups = [];
 
 $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
-
+$groups = [];
 $dniTygodniaPlan = [
         1 => 'Poniedziałek',
         2 => 'Wtorek',
