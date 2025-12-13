@@ -22,6 +22,17 @@
     border: none;
     border-radius: 30px;
     cursor: pointer;
+    transition: all 0.2s;
+}
+
+.nav_exeption>button:hover{
+    filter: brightness(120%);
+    transition: all 0.2s;
+    animation-delay: 0.2s;
+}
+.nav_exeption>button:active{
+    filter: brightness(75%);
+    transition: all 0s;
 }
 
 main{
@@ -63,8 +74,17 @@ td img{
 
 }
 
-#newMessage{
-
+#writeContainer{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vh;
+    height: 100vh;
+    background: var(--green-vibrant);
+}
+#writeContainer>form{
+    width: 90%;
+    height: 90%;
 }
 
 #sentContainer, #deletedContainer, #draftsContainer, #writeContainer{

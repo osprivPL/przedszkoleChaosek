@@ -31,10 +31,6 @@ function showContainer(n){
     }
 }
 
-function showMailForm(){
-    document.getElementById("writeContainer").display = "flex";
-}
-
 function OpenMessage(){
 
 }

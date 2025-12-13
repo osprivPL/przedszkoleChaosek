@@ -125,7 +125,7 @@ if (!$_SESSION['logged']) {
             <span class="toLong">Kopie robocze</span>
         </div>
         <div class="nav_exeption">
-            <button onclick="showMailForm()">Nowa wiadomość</button>
+            <button onclick="showContainer(4)">Nowa wiadomość</button>
         </div>
     </nav>
 
@@ -146,7 +146,7 @@ if (!$_SESSION['logged']) {
             </tr>
             <?php
             $connection = new mysqli("localhost", "root", "", "przedszkole");
-            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE odbiorcaID = " . $user->id . ";")->fetch_all();
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE odbiorcaID = " . $user->id . " AND Usunięte = 0 AND robocze = 0;")->fetch_all();
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
@@ -172,7 +172,7 @@ if (!$_SESSION['logged']) {
             </tr>
             <?php
             $connection = new mysqli("localhost", "root", "", "przedszkole");
-            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE nadawcaID = " . $user->id . ";")->fetch_all();
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE nadawcaID = " . $user->id . " AND Usunięte = 0 AND robocze = 0;" )->fetch_all();
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
@@ -181,7 +181,7 @@ if (!$_SESSION['logged']) {
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
-                echo '<td><span><img src="./../assets/trash.png"</span></td>';
+                echo '<td><span><img src="./../assets/lupa.png" alt="" class="mail_icons"><img src="./../assets/trash.png"</span></td>';
                 echo '</tr>';
             }
             ?>
@@ -189,7 +189,29 @@ if (!$_SESSION['logged']) {
         </
         >
         <table id="deletedContainer" class="messagesContainer bigContainers">
-
+            <tr class="messageCard headerCard">
+                <td><input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)"></td>
+                <td><span class="messageTitle">Tytuł</span></td>
+                <td><span class="messageSender">Nadawca</span></td>
+                <td><span class="messageDate">Data wysłania</span></td>
+                <td></td>
+            </tr>
+            <?php
+            $connection = new mysqli("localhost", "root", "", "przedszkole");
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE Usunięte = 1;" )->fetch_all();
+            for ($i = 0; $i < count($result); $i++) {
+                $message = $result[$i];
+                $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
+                echo '<tr class="messageCard">';
+                echo '<td><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></td>';
+                echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
+                echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
+                echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
+                echo '<td><span><img src="./../assets/lupa.png" alt="" class="mail_icons"><img src="./../assets/trash.png"</span></td>';
+                echo '</tr>';
+            }
+            ?>
+            <script>setIleWiadomosci(<?php echo count($result);?>);</script>
         </table>
 
         <table id="draftsContainer" class="messagesContainer bigContainers">
@@ -200,15 +222,31 @@ if (!$_SESSION['logged']) {
                 <td><span class="messageDate">Data wysłania</span></td>
                 <td></td>
             </tr>
+            <?php
+            $connection = new mysqli("localhost", "root", "", "przedszkole");
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE robocze = 1;" )->fetch_all();
+            for ($i = 0; $i < count($result); $i++) {
+                $message = $result[$i];
+                $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
+                echo '<tr class="messageCard">';
+                echo '<td><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></td>';
+                echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
+                echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
+                echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
+                echo '<td><span><img src="./../assets/lupa.png" alt="" class="mail_icons"><img src="./../assets/trash.png"</span></td>';
+                echo '</tr>';
+            }
+            ?>
         </table>
+        <div id="writeContainer bigContainers">
+            <form action="./../scripts/php/NewMessage.php" method="post"></form>
+        </div>
               </div>
             </div>
     </main>
 </div>
 
-<div id="writeContainer">
-    <form action="./../scripts/php/NewMessage.php" method="post"></form>
-</div>
+
 
 <script src="./../scripts/js/showUserPanel.js"></script>
 </body>
