@@ -30,16 +30,17 @@ if (!$connection) {
             $result=$result->fetch_assoc();
             $sql = "SELECT rodzic,nauczyciel,dyrektor FROM uprawnienia WHERE id=".$result['typ'].";";
             $permResult = $connection->query($sql);
-            $permResult = $permResult->fetch_assoc();
+            $permResult = $permResult->fetch_all();
             echo password_hash("haslo", PASSWORD_DEFAULT);
             if (password_verify($password, $result['haslo'])) {
                 $user = new User(
                     $result['ID'],
                     $result['imie'],
                     $result['nazwisko'],
-                    $permResult,
+                    $permResult[0],
                     $result['numerTelefonu'],
-                    $result['login']
+                    $result['login'],
+                    $result['firstLogin']
                 );
                 $_SESSION['user'] = $user;
                 $_SESSION['logged'] = true;

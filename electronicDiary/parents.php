@@ -29,7 +29,47 @@ if ($user->typ[0] != 1 || !$_SESSION['logged']) {
 $conteiner = 0;
 $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
-// --- FUNKCJE POMOCNICZE PHP ---
+$groups = [];
+$dniTygodniaPlan = [
+        1 => 'Poniedziałek',
+        2 => 'Wtorek',
+        3 => 'Środa',
+        4 => 'Czwartek',
+        5 => 'Piątek'
+];
+
+$godzinyList = [];
+$sqlG = "SELECT id, start_time, end_time FROM godzinylekcyjne ORDER BY start_time ASC";
+$resG = $connection->query($sqlG);
+if ($resG) {
+    while ($row = $resG->fetch_assoc()) {
+        $godzinyList[] = $row;
+    }
+}
+
+$lekcjeDict = [];
+$sqlL = "SELECT id, nazwa FROM lekcje";
+$resL = $connection->query($sqlL);
+if ($resL) {
+    while ($row = $resL->fetch_assoc()) {
+        $lekcjeDict[$row['id']] = $row['nazwa'];
+    }
+}
+if (empty($lekcjeDict)) {
+    $lekcjeDict = [
+            1 => 'Matematyka', 2 => 'J. Polski', 3 => 'Angielski',
+            4 => 'WF', 5 => 'Plastyka', 6 => 'Muzyka'
+    ];
+}
+
+$matrixPlan = [];
+$sqlP = "SELECT grupaID AS id_grupy, day_of_week AS dzien_tygodnia, godzinaLekcyjna AS id_godziny, lekcjaID AS id_przedmiotu FROM plan_lekcji";
+$resP = $connection->query($sqlP);
+if ($resP) {
+    while ($row = $resP->fetch_assoc()) {
+        $matrixPlan[$row['id_grupy']][$row['dzien_tygodnia']][$row['id_godziny']] = $row['id_przedmiotu'];
+    }
+}
 
 function dateFromPesel($pesel)
 {
@@ -173,9 +213,13 @@ $resultChildren = $connection->query($sqlChildren)->fetch_all(MYSQLI_ASSOC);
             <img src="./../assets/restaurant.png" alt="">
             <span>Stołówka</span>
         </div>
-        <div class="nav_child" onclick="showContainer(<?php echo $conteiner; ?>)">
+        <div class="nav_child" onclick="showContainer(<?php echo $conteiner; $conteiner++?>)">
             <img src="./../assets/speaker.png" alt="">
             <span>Komunikaty</span>
+        </div>
+        <div class="nav_child" onclick="showContainer(<?php echo $conteiner; $conteiner++?>)">
+            <img src="./../assets/lesson_plan.png" alt="">
+            <span>Plan lekcji</span>
         </div>
     </nav>
     <script>
@@ -523,6 +567,87 @@ $resultChildren = $connection->query($sqlChildren)->fetch_all(MYSQLI_ASSOC);
                                 </div>";
                     }
                     ?>
+                </div>
+            </div>
+        </div>
+        <div class="main-panel bigContainers main-panel-plan">
+            <div class="styling-panel">
+                <div class="formContainer">
+                    <hr>
+                    <h1 class="logo-font-small">
+                        <span>Plan lekcji</span>
+                    </h1>
+
+                    <div id="planLekcjiContainer">
+
+                        <?php
+                        if (empty($groups)) {
+                            echo "<div style='text-align:center; padding: 20px;'>Brak przypisanych grup.</div>";
+                        }
+                        foreach ($groups as $index => $groupID):
+                            ?>
+                            <div id="group-plan-container-<?php echo $groupID; ?>"
+                                 class="group-plan-container"
+                                 style="<?php echo ($index === 0) ? 'display: block;' : 'display: none;'; ?>">
+
+                                <div class="plan-grid-container">
+
+                                    <div class="corner-cell">
+                                        <div class="corner-line"></div>
+                                        <span class="corner-text-top">Dzień</span>
+                                        <span class="corner-text-bottom">Godz.</span>
+                                    </div>
+
+                                    <?php foreach ($dniTygodniaPlan as $dayNum => $dayName): ?>
+                                        <div class="plan-header">
+                                            <?php echo $dayName; ?>
+                                        </div>
+                                    <?php endforeach; ?>
+
+                                    <?php foreach ($godzinyList as $godzina): ?>
+
+                                        <div class="time-cell">
+                                            <span><?php echo substr($godzina['start_time'], 0, 5); ?></span>
+                                            <span style="font-size:0.8em; opacity:0.7;">-</span>
+                                            <span><?php echo substr($godzina['end_time'], 0, 5); ?></span>
+                                        </div>
+
+                                        <?php foreach ($dniTygodniaPlan as $dayNum => $dayName): ?>
+                                            <div class="plan-cell">
+                                                <?php
+                                                $selectedLessonID = $matrixPlan[$groupID][$dayNum][$godzina['id']] ?? 0;
+                                                $lessonName = $lekcjeDict[$selectedLessonID] ?? '';
+
+                                                if ($lessonName !== '') {
+                                                    echo '<span class="lesson-name">' . htmlspecialchars($lessonName) . '</span>';
+                                                } else {
+                                                    echo '<span class="lesson-empty" style="color: #ccc;">-</span>';
+                                                }
+                                                ?>
+                                            </div>
+                                        <?php endforeach; ?>
+
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+
+                        <div class="button-container">
+                            <div class='group-switcher'>
+                                <?php
+                                foreach ($groups as $index => $groupID):
+                                    ?>
+                                    <button type="button"
+                                            id="btn-group-<?php echo $groupID; ?>"
+                                            class="plan-group-btn submitButton <?php echo ($index === 0) ? 'active' : ''; ?>"
+                                            onclick="showGroupPlan(<?php echo $groupID; ?>)"
+                                            style="min-width: 100px;">
+                                        Grupa <?php echo $groupID; ?>
+                                    </button>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

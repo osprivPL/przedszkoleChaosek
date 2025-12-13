@@ -79,3 +79,11 @@ function ukryjKomunikat(idRekordu) {
             console.error('Błąd sieci:', error);
         });
 }
+function showGroupPlan(groupId) {
+    const containers = document.querySelectorAll('.group-plan-container');
+    containers.forEach(div => div.style.display = 'none');
+    const target = document.getElementById('group-plan-container-' + groupId);
+    if (target) target.style.display = 'block';
+    document.querySelectorAll('.plan-group-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById('btn-group-' + groupId).classList.add('active');
+}
