@@ -253,15 +253,16 @@ if (!isset($_SESSION['error'])) {
             echo '</div>
                     <img src="./assets/user.svg" alt="user icon">
                     <div class="user_pop_up" id="somethingBeingShown2">';
-            if ($user->typ[0] == 1) {
-                echo '<a href="./electronicDiary/parents.php">Panel Rodzica</a>';
-            }
-            if ($user->typ[1] == 1) {
-                echo '<a href="./electronicDiary/teacher.php">Panel Nauczyciela</a>';
-            }
-            if ($user->typ[2] == 1) {
-                echo '<a href="./electronicDiary/principle.php">Panel Dyrekcji</a>';
-            }
+                if ($user->typ[2] == 1) {
+                    echo '<a href="./electronicDiary/principle.php">Panel Dyrekcji</a>';
+                }
+                if ($user->typ[1] == 1) {
+                    echo '<a href="./electronicDiary/teacher.php">Panel Nauczyciela</a>';
+                }
+                if ($user->typ[0] == 1) {
+                    echo '<a href="./electronicDiary/parents.php">Panel Rodzica</a>';
+                }   
+                
             echo '<a href="./scripts/php/logout.php">Wyloguj Się</a>
                     </div>
                 </div>';
@@ -320,15 +321,15 @@ if (!isset($_SESSION['error'])) {
                     <img src="./assets/user.svg" alt="user icon">
                     <div class="user_pop_up" id="somethingBeingShown4">';
 
-            if ($user->typ[0] == 1) {
-                echo '<a href="./electronicDiary/parents.php">Panel Rodzica</a>';
+            if ($user->typ[2] == 1) {
+                echo '<a href="./electronicDiary/principle.php">Panel Dyrekcji</a>';
             }
             if ($user->typ[1] == 1) {
                 echo '<a href="./electronicDiary/teacher.php">Panel Nauczyciela</a>';
             }
-            if ($user->typ[2] == 1) {
-                echo '<a href="./electronicDiary/principle.php">Panel Dyrekcji</a>';
-            }
+            if ($user->typ[0] == 1) {
+                echo '<a href="./electronicDiary/parents.php">Panel Rodzica</a>';
+            }   
             echo '<a href="./scripts/php/logout.php">Wyloguj Się</a>
                     </div>
                 </div>';

@@ -210,10 +210,11 @@
     overflow: hidden;
 }
 .main-panel-food .table_cell{
-    font-size: 24px;
+    font-size: 18px;
     border: 1px solid #14522d;
     padding: .5em;
     box-sizing: border-box;
+    transition: .2s;
 }
 .main-panel-food .table_cell.label{
     background-color: var(--green-dark);
@@ -225,4 +226,9 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+.main-panel-food .table_cell:hover{
+    background-color: white;
+    color: black;
+    font-weight: bold;
 }

@@ -306,6 +306,7 @@ html, body{
     animation: header_nav_animation 1.5s ease-out forwards;
     animation-delay: 0.5s;
     opacity: 0;
+    z-index: 10000;
 }
 
 .nav .loginButton{
@@ -357,6 +358,7 @@ html, body{
     font-weight: bold;
     font-size: 24px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    z-index: 10001;
 }
 .nav .user:hover,
 .options:hover{
@@ -384,6 +386,7 @@ html, body{
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.2s ease, visibility 0.2s ease;
+    z-index: 10002;
 }
 .visible{
     visibility: visible;
@@ -400,6 +403,8 @@ html, body{
     padding: 0.25em 0;
     text-align: center;
     border-radius: 6px;
+    position: relative;
+    z-index: 10002;
 }
 .nav > a{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -427,7 +432,7 @@ html, body{
     display: flex;
     height: 70vh;
     width: 80vw;
-    z-index: 999;
+    z-index: 1;
     animation: header_title_animation 1.5s ease;
     pointer-events: none;
 }

@@ -118,7 +118,16 @@ $resultChildren = $connection->query($sqlChildren)->fetch_all(MYSQLI_ASSOC);
             <div class='userLabel'><?php echo $user->imie . ' ' . $user->nazwisko; ?><br>Rodzic</div>
             <img src="../assets/user.svg" alt="user icon">
             <div class="user_pop_up" id="somethingBeingShown2">
-                <a href="../index.php">Strona Główna</a>
+                <?php
+                    if ($user->typ[2] == 1) {
+                        echo '<a href="./principle.php">Panel Dyrekcji</a>';
+                    }
+                    if ($user->typ[1] == 1) {
+                        echo '<a href="./teacher.php">Panel Nauczyciela</a>';
+                    }
+                    
+                ?>
+                <a href="inbox.php">Poczta</a>
                 <a href="../scripts/php/logout.php">Wyloguj Się</a>
             </div>
         </div>
@@ -394,14 +403,14 @@ $resultChildren = $connection->query($sqlChildren)->fetch_all(MYSQLI_ASSOC);
                     <hr>
                     <h1 class='logo-font-small'>Nauczyciele</h1>
                     <?php
-                    $sql = "SELECT imie, nazwisko, login ,typ, opinia, zdjecie FROM uzytkownicy WHERE typ = 1 OR typ = 2 ORDER BY typ DESC";
+                    $sql = "SELECT imie, nazwisko, login ,typ, opinia, zdjecie, nauczyciel, dyrektor FROM uzytkownicy INNER JOIN uprawnienia ON typ = uprawnienia.ID WHERE nauczyciel = 1 OR dyrektor = 1 ORDER BY typ DESC";
                     $result = $connection->query($sql)->fetch_all();
                     //                    print_r($result);
                     for ($i = 0; $i < count($result); $i++) {
                         echo '<fieldset class="teacherCards" style="animation-delay: '.$i*0.2 .'s">';
-                        if ($result[$i][3] == 1) {
+                        if ($result[$i][6] == 1) {
                             $typ = "Nauczyciel";
-                        } else if ($result[$i][3] == 2) {
+                        } if ($result[$i][7] == 1) {
                             $typ = "Dyrektor";
                         }
                         echo '<legend>' . $typ . '</legend>';

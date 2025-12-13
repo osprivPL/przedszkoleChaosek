@@ -492,8 +492,8 @@ aside, main {
     }
     .teacherCards .imgContainer2{
         display: block !important;
-        min-width: 100%;
-        max-width: 100%;
+        min-width: 100% !important;
+        max-width: 100% !important;
         height: 500px;
     }
     .teacherCards .opinia{

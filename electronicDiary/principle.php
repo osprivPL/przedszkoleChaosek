@@ -154,7 +154,15 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
             <div class='userLabel'><?php echo $user->imie . ' ' . $user->nazwisko; ?><br>Dyrektor(ka)</div>
             <img src="../assets/user.svg" alt="user icon">
             <div class="user_pop_up" id="somethingBeingShown2">
-                <a href="../index.php">Strona Główna</a>
+                <?php
+                    if ($user->typ[1] == 1) {
+                        echo '<a href="./teacher.php">Panel Nauczyciela</a>';
+                    }
+                    if ($user->typ[0] == 1) {
+                        echo '<a href="./parents.php">Panel Rodzica</a>';
+                    }   
+                    
+                ?>
                 <a href="inbox.php">Poczta</a>
                 <a href="../scripts/php/logout.php">Wyloguj Się</a>
             </div>
