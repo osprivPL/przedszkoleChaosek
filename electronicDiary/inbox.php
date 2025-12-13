@@ -124,6 +124,9 @@ if (!$_SESSION['logged']) {
             <img src="./../assets/drafts.png" alt="">
             <span class="toLong">Kopie robocze</span>
         </div>
+        <div class="nav_exeption">
+            <button onclick="showMailForm()">Nowa wiadomość</button>
+        </div>
     </nav>
 
     <!-- ============================= -->
@@ -131,7 +134,7 @@ if (!$_SESSION['logged']) {
     <!-- ============================= -->
     <main id="main">
                     <!--Ma otwierać "nakładke" do pisania wiadomości-->
-        <button id="btnWrite" onclick="showMailForm()">Napisz wiadomość</button>
+
 
         <table id="receivedContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
@@ -185,10 +188,28 @@ if (!$_SESSION['logged']) {
             <script>setIleWiadomosci(<?php echo count($result);?>);</script>
         </
         >
-                </div>
+        <table id="deletedContainer" class="messagesContainer bigContainers">
+
+        </table>
+
+        <table id="draftsContainer" class="messagesContainer bigContainers">
+            <tr class="messageCard headerCard">
+                <td><input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)"></td>
+                <td><span class="messageTitle">Tytuł</span></td>
+                <td><span class="messageSender">Nadawca</span></td>
+                <td><span class="messageDate">Data wysłania</span></td>
+                <td></td>
+            </tr>
+        </table>
+              </div>
             </div>
     </main>
 </div>
+
+<div id="writeContainer">
+    <form action="./../scripts/php/NewMessage.php" method="post"></form>
+</div>
+
 <script src="./../scripts/js/showUserPanel.js"></script>
 </body>
 </html>
