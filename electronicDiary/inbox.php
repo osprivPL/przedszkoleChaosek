@@ -138,7 +138,7 @@ if (!$_SESSION['logged']) {
 
         <table id="receivedContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
-                <td><input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)"></td>
+                <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)"></label></td>
                 <td><span class="messageTitle">Tytuł</span></td>
                 <td><span class="messageSender">Nadawca</span></td>
                 <td><span class="messageDate">Data wysłania</span></td>
@@ -151,7 +151,7 @@ if (!$_SESSION['logged']) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
                 echo '<tr class="messageCard" onclick="OpenMessage()">';
-                echo '<td><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></td>';
+                echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
@@ -164,7 +164,7 @@ if (!$_SESSION['logged']) {
         >
         <table id="sentContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
-                <td><input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)"></td>
+                <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)"></label></td>
                 <td><span class="messageTitle">Tytuł</span></td>
                 <td><span class="messageSender">Nadawca</span></td>
                 <td><span class="messageDate">Data wysłania</span></td>
@@ -177,7 +177,7 @@ if (!$_SESSION['logged']) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
                 echo '<tr class="messageCard">';
-                echo '<td><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></td>';
+                echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
@@ -190,7 +190,7 @@ if (!$_SESSION['logged']) {
         >
         <table id="deletedContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
-                <td><input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)"></td>
+                <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)"></label></td>
                 <td><span class="messageTitle">Tytuł</span></td>
                 <td><span class="messageSender">Nadawca</span></td>
                 <td><span class="messageDate">Data wysłania</span></td>
@@ -203,7 +203,7 @@ if (!$_SESSION['logged']) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
                 echo '<tr class="messageCard">';
-                echo '<td><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></td>';
+                echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
@@ -216,7 +216,7 @@ if (!$_SESSION['logged']) {
 
         <table id="draftsContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
-                <td><input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)"></td>
+                <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)"></label></td>
                 <td><span class="messageTitle">Tytuł</span></td>
                 <td><span class="messageSender">Nadawca</span></td>
                 <td><span class="messageDate">Data wysłania</span></td>
@@ -229,7 +229,7 @@ if (!$_SESSION['logged']) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
                 echo '<tr class="messageCard">';
-                echo '<td><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></td>';
+                echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';

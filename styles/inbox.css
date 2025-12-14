@@ -39,9 +39,51 @@
 main{
     font-size: x-large;
     font-family: 'Courier New', Courier, monospace;
+    background: var(--green-vibrant);
 }
+.checkboxLabel{
+    font-family: system-ui, sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 1.1;
+    display: grid;
+    grid-template-columns: 1em auto;
+    gap: 0.5em;
+
+}
+input[type="checkbox"]{
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: var(--green-darker);
+    color: var(--green-darker);
+    margin: 0;
+    font: inherit;
+    width: 1.15em;
+    height: 1.15em;
+    border-radius: 10px ;
+    transform: translateY(-0.075em);
+
+    display: grid;
+    place-content: center;
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transform-origin: bottom left;
+    transition: 120ms transform ease-in-out;
+    background: var(--green-vibranter);
+}
+
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
+
 .messagesContainer{
-    color: black;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -51,9 +93,11 @@ main{
     width: 100%;
     display: flex;
 }
+table, tr, td, td>span{
+    color: white;
+}
 table{
     width: 100%;
-    border-bottom: 1px solid black;
 }
 tr{
     border-bottom: 1px solid black;
@@ -72,7 +116,7 @@ td > span{
 td img{
     width: 50px;
     height: 50px;
-
+    margin: 5px;
 }
 
 #writeContainer{
@@ -196,3 +240,6 @@ h1{
 #sentContainer, #deletedContainer, #draftsContainer, #writeContainer{
     display: none;
 }
+
+
+
