@@ -111,6 +111,19 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
     $matrixPlan[$row['grupaID']][$row['day_of_week']][$row['godzinaLekcyjna']] = $row['lekcjaID'];
 }
 
+$teachers = [];
+$sqlTeachers = "SELECT uzytkownicy.id, uzytkownicy.imie, uzytkownicy.nazwisko FROM uzytkownicy INNER JOIN uprawnienia ON uzytkownicy.typ = uprawnienia.id WHERE uprawnienia.nauczyciel = 1 OR uprawnienia.dyrektor = 1 ORDER BY uzytkownicy.nazwisko, uzytkownicy.imie;";
+$resultTeachers = $connection->query($sqlTeachers)->fetch_all();
+for ($i = 0; $i < count($resultTeachers); $i++) {
+    $teachers[] = [
+            'id' => $resultTeachers[$i][0],
+            'full_name' => $resultTeachers[$i][1] . ' ' . $resultTeachers[$i][2]
+    ];
+}
+
+$sql = "SELECT id, nazwa FROM grupy ORDER BY id";
+$resultGroups = $connection->query($sql)->fetch_all();
+
 ?>
 <html lang="pl">
 <head>
@@ -135,6 +148,7 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
     <script src="./../scripts/js/panels.js"></script>
     <script src="./../scripts/js/showUserPanel.js"></script>
     <script src="./../scripts/js/principle.js"></script>
+    <script src="./../scripts/js/editGroups.js"></script>
 
 </head>
 <body>
@@ -155,13 +169,13 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
             <img src="../assets/user.svg" alt="user icon">
             <div class="user_pop_up" id="somethingBeingShown2">
                 <?php
-                    if ($user->typ[1] == 1) {
-                        echo '<a href="./teacher.php">Panel Nauczyciela</a>';
-                    }
-                    if ($user->typ[0] == 1) {
-                        echo '<a href="./parents.php">Panel Rodzica</a>';
-                    }   
-                    
+                if ($user->typ[1] == 1) {
+                    echo '<a href="./teacher.php">Panel Nauczyciela</a>';
+                }
+                if ($user->typ[0] == 1) {
+                    echo '<a href="./parents.php">Panel Rodzica</a>';
+                }
+
                 ?>
                 <a href="inbox.php">Poczta</a>
                 <a href="../scripts/php/logout.php">Wyloguj Się</a>
@@ -199,26 +213,19 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
             <span>Grupy</span>
             <span class="nav_arrow">▽</span>
         </div>
-        <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner;
-        $conteiner++; ?>)">
-            <img src="./../assets/little-kid.png" alt="">
-            <span>Grupa 1</span>
+        <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner; $conteiner++ ?>)">
+            <img src="./../assets/plus.png" alt="">
+            <span>Dodaj grupe</span>
         </div>
-        <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner;
-        $conteiner++; ?>)">
-            <img src="./../assets/little-kid.png" alt="">
-            <span>Grupa 2</span>
-        </div>
-        <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner;
-        $conteiner++; ?>)">
-            <img src="./../assets/little-kid.png" alt="">
-            <span>Grupa 3</span>
-        </div>
-        <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner;
-        $conteiner++; ?>)">
-            <img src="./../assets/little-kid.png" alt="">
-            <span>Grupa 4</span>
-        </div>
+        <?php
+            for ($i = 0; $i < count($resultGroups); $i++){
+                echo "<div class='nav_child nav_child_child nav_child_group' onclick='showContainer(" . $conteiner . ")'>
+                        <img src='./../assets/little-kid.png' alt=''>
+                        <span>Grupa " . $resultGroups[$i][0] . "</span>
+                      </div>";
+                $conteiner++;
+            }
+        ?>
         <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
             <img src="./../assets/restaurant.png" alt="">
@@ -248,7 +255,7 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
     <script>
         const nav = document.getElementById('somethingBeingShown1');
         nav.addEventListener('mouseleave', () => {
-        nav.classList.remove('visible');
+            nav.classList.remove('visible');
         });
     </script>
     <main id="main">
@@ -278,16 +285,15 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                             echo "<span>" . $result[$i][5] . " " . $result[$i][6] . "</span>";
                             echo "</div>";
                             echo "<div class='buttons'>";
-                            echo "<select class='submitButton' id='wniosek".$result[$i][0]."select'>";
-                            echo "<option value=1>Grupa 1 </option>";
-                            echo "<option value=2>Grupa 2 </option>";
-                            echo "<option value=3>Grupa 3 </option>";
-                            echo "<option value=4>Grupa 4 </option>";
+                            echo "<select class='submitButton' id='wniosek" . $result[$i][0] . "select'>";
+                            for ($j = 0; $j < count($resultGroups); $j++) {
+                                echo "<option value='" . $resultGroups[$j][0] . "'>Grupa " . $resultGroups[$j][0] . " </option>";
+                            }
                             echo "</select>";
 
-                            echo "<div><button class='more-info' onclick='rozpatrzWniosek(".json_encode($result[$i], 1).")'>🔍︎​</button></div>";
-                            echo "<div><button class='accept' onclick='przyjmijWniosek(".$result[$i][0].")'>✔</button></div>";
-                            echo "<div><button class='deny' onclick='odrzucWniosek(".$result[$i][0].")'>✖</button></div>";
+                            echo "<div><button class='more-info' onclick='rozpatrzWniosek(" . json_encode($result[$i], 1) . ")'>🔍︎​</button></div>";
+                            echo "<div><button class='accept' onclick='przyjmijWniosek(" . $result[$i][0] . ")'>✔</button></div>";
+                            echo "<div><button class='deny' onclick='odrzucWniosek(" . $result[$i][0] . ")'>✖</button></div>";
                             echo "</div>";
                             echo "</div>";
                         }
@@ -316,16 +322,16 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                             <div>Adres Zamieszkania: <span class='information' id='adres'></span></div>
                         </div>
                         <script>
-                            function changeInfo(n){
+                            function changeInfo(n) {
                                 let infoContainers = document.getElementsByClassName("info");
                                 let buttons = document.getElementsByClassName("applicationButton");
-                                for (let i = 0; i < 2; i++){
-                                    if (i===n-1){
-                                        infoContainers[i].style.display="flex";
+                                for (let i = 0; i < 2; i++) {
+                                    if (i === n - 1) {
+                                        infoContainers[i].style.display = "flex";
                                         buttons[i].classList.add('activeButton');
                                         continue;
                                     }
-                                    infoContainers[i].style.display="none";
+                                    infoContainers[i].style.display = "none";
                                     buttons[i].classList.remove('activeButton');
                                 }
                             }
@@ -349,22 +355,24 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                     miesiac = miesiac.toString().padStart(2, '0');
                     return `${pelnyRok}-${miesiac}-${dzien}`;
                 }
-                function rozpatrzWniosek(rekord){
-                    if(rekord === ""){
+
+                function rozpatrzWniosek(rekord) {
+                    if (rekord === "") {
                         document.getElementById('Application').style.display = "none";
                         document.getElementById('listOfApplications').style.display = "block";
-                    }else{
+                    } else {
                         document.getElementById('wniosekNumber').innerHTML = "Wniosek #" + rekord[0];
                         document.getElementById('Application').style.display = "block";
                         document.getElementById('listOfApplications').style.display = "none";
                         rekordy = [rekord[5], rekord[6], rekord[7], rekord[8], rekord[1], rekord[2], rekord[4], rekord[3], rekord[8]];
                         informations = document.getElementsByClassName('information');
-                        for(i = 0; i < informations.length; i++){
+                        for (i = 0; i < informations.length; i++) {
                             informations[i].innerHTML = rekordy[i];
                         }
                         document.getElementById('dataur').innerHTML = dateFromPesel(rekord[7]);
                     }
                 }
+
                 function odrzucWniosek(idRekordu) {
                     fetch('./../scripts/php/deleteApplication.php', {
                         method: 'POST',
@@ -386,11 +394,15 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                         })
                         .catch(error => console.error('Błąd sieci:', error));
                 }
+
                 function przyjmijWniosek(idRekordu) {
                     fetch('./../scripts/php/confirmChild.php', {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({id: idRekordu, group: document.getElementById("wniosek"+idRekordu+"select").value})
+                        body: JSON.stringify({
+                            id: idRekordu,
+                            group: document.getElementById("wniosek" + idRekordu + "select").value
+                        })
                     })
                         .then(response => response.text())
                         .then(data => {
@@ -415,7 +427,8 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small">Dodaj artykuł</h1>
-                    <form method="post" action="../scripts/php/addArticle.php" enctype="multipart/form-data" id="addArticleForm">
+                    <form method="post" action="../scripts/php/addArticle.php" enctype="multipart/form-data"
+                          id="addArticleForm">
                         <div class="article">
                             <div class="article_header">
                                 <input type="text" id="articleTitle" name="articleTitle">
@@ -426,10 +439,11 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                         <div class="details">
                             <div class='choose-image'>
                                 <label for="articleImg" class='file-button submitButton'>Wybierz Zdjęcie</label>
-                                <input type="file" id="articleImg" name="articleImg" accept="image/*" style="display: none">
+                                <input type="file" id="articleImg" name="articleImg" accept="image/*"
+                                       style="display: none">
                                 <span id='fileName'>Nie wybrano</span>
                                 <script>
-                                    document.getElementById('articleImg').addEventListener('change', function(e){
+                                    document.getElementById('articleImg').addEventListener('change', function (e) {
                                         const fileName = e.target.files[0]?.name || '';
                                         document.getElementById('fileName').textContent = fileName ? fileName : 'Nie wybrano';
                                     });
@@ -450,20 +464,47 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                             let articleContent = document.getElementById('articleContent');
                             let fileName = document.getElementById('fileName');
 
-                            if (title.value.length === 0) { title.classList.add('error'); error = true; } else { title.classList.remove('error'); }
-                            if (!val) { articleData.classList.add('error'); error = true; } else { articleData.classList.remove('error'); }
+                            if (title.value.length === 0) {
+                                title.classList.add('error');
+                                error = true;
+                            } else {
+                                title.classList.remove('error');
+                            }
+                            if (!val) {
+                                articleData.classList.add('error');
+                                error = true;
+                            } else {
+                                articleData.classList.remove('error');
+                            }
 
                             const parts = val.split('-').map(Number);
-                            if (parts.length !== 3 || parts.some(isNaN)) { articleData.classList.add('error'); error = true; }
-                            else {
+                            if (parts.length !== 3 || parts.some(isNaN)) {
+                                articleData.classList.add('error');
+                                error = true;
+                            } else {
                                 const d1 = new Date(parts[0], parts[1] - 1, parts[2]);
                                 const today = new Date();
                                 today.setHours(0, 0, 0, 0);
-                                if (d1 > today) { articleData.classList.add('error'); error = true; } else { articleData.classList.remove('error'); }
+                                if (d1 > today) {
+                                    articleData.classList.add('error');
+                                    error = true;
+                                } else {
+                                    articleData.classList.remove('error');
+                                }
                             }
 
-                            if (articleContent.value.length === 0) { articleContent.classList.add('error'); error = true; } else { articleContent.classList.remove('error'); }
-                            if (fileName.innerHTML === 'Nie wybrano'){ document.getElementById('articleImg').classList.add('error'); error = true; } else { document.getElementById('articleImg').classList.remove('error'); }
+                            if (articleContent.value.length === 0) {
+                                articleContent.classList.add('error');
+                                error = true;
+                            } else {
+                                articleContent.classList.remove('error');
+                            }
+                            if (fileName.innerHTML === 'Nie wybrano') {
+                                document.getElementById('articleImg').classList.add('error');
+                                error = true;
+                            } else {
+                                document.getElementById('articleImg').classList.remove('error');
+                            }
 
                             if (!error) form.submit();
                         });
@@ -475,34 +516,22 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
         <div class="main-panel bigContainers main-panel-articles" id="main-panel-articles">
             <div class="styling-panel">
                 <div class="formContainer">
-                <hr>
-                <h1 class='logo-font-small'><span>Zarządzanie artykułami</span></h1>
-                <?php
-                $sql = "SELECT naglowek, tresc, data, img, id FROM artykuly ORDER BY data DESC";
-                $result = $connection->query($sql)->fetch_all();
-                /*for ($i = 0; $i < count($result); $i++) {
-                    echo "<div class='articleDetails' style='animation-delay:". 0.2 * $i ."s' id='article" . $result[$i][4] . "'><div class='header-info'>";
-                    echo "<h2 id='articleHeader".$result[$i][4]."'>" . $result[$i][0] . "</h2>";
-                    echo "<p class='date' id='articleDate".$result[$i][4]."'>" . $result[$i][2] . "</p></div><div class='header-info'>";
-                    echo "<p class='content' id='articleContent".$result[$i][4]."'>" . $result[$i][1] . "</p>";
-                    if (!empty($result[$i][3])) {
-                        echo "<img id='articleImg".$result[$i][4]."' src='" . './.' . $result[$i][3] . "' alt='Article Image' style='max-width:200px;'></div>";
-                    }
-                    echo "<button class='edit_article submitButton' id='btnEditArticle" . $result[$i][4] . "' onclick='edytujArtykul(" . $result[$i][4] . ")'>Edytuj artykuł</button>";
-                    echo "<button class='delete_article submitButton' onclick='ukryjArtykul(" . $result[$i][4] . ")'>Usuń artykuł</button>";
-                    echo "</div>";
-                }*/
+                    <hr>
+                    <h1 class='logo-font-small'><span>Zarządzanie artykułami</span></h1>
+                    <?php
+                    $sql = "SELECT naglowek, tresc, data, img, id FROM artykuly ORDER BY data DESC";
+                    $result = $connection->query($sql)->fetch_all();
                     for ($i = 0; $i < count($result); $i++) {
-                        echo "<div class='newsCards' id='article" . $result[$i][4] . "' style='animation-delay: ".$i*0.2 ."s'>
+                        echo "<div class='newsCards' id='article" . $result[$i][4] . "' style='animation-delay: " . $i * 0.2 . "s'>
                                     <div class='header'>
-                                        <span class='title' id='articleHeader".$result[$i][4]."'>" . $result[$i][0] . "</span>
-                                        <span class='date' id='articleDate".$result[$i][4]."'>" . $result[$i][2] . "</span>
+                                        <span class='title' id='articleHeader" . $result[$i][4] . "'>" . $result[$i][0] . "</span>
+                                        <span class='date' id='articleDate" . $result[$i][4] . "'>" . $result[$i][2] . "</span>
                                     </div>
-                                    <div><div class='header-info'><span class='content' id='articleContent".$result[$i][4]."'>" . $result[$i][1] . "</span>";
-                                    if (!empty($result[$i][3])) {
-                                        echo "<img id='articleImg".$result[$i][4]."' src='" . './.' . $result[$i][3] . "' alt='Article Image' style='max-width:200px;'></div>";
-                                    }
-                                    echo "
+                                    <div><div class='header-info'><span class='content' id='articleContent" . $result[$i][4] . "'>" . $result[$i][1] . "</span>";
+                        if (!empty($result[$i][3])) {
+                            echo "<img id='articleImg" . $result[$i][4] . "' src='" . './.' . $result[$i][3] . "' alt='Article Image' style='max-width:200px;'></div>";
+                        }
+                        echo "
                                     <div style='display: flex; justify-content: space-between'>
                                     <div style='display: flex; align-items: flex-end'>
                                     <button class='edit_article submitButton' id='btnEditArticle" . $result[$i][4] . "' onclick='edytujArtykul(" . $result[$i][4] . ")'>Edytuj artykuł</button>
@@ -512,23 +541,64 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                                     <div></div>
                                 </div>";
                     }
-                ?>
+                    ?>
                 </div>
             </div>
         </div>
 
-        <?php for($g=1; $g<=4; $g++): ?>
+        <div class="main-panel bigContainers main-panel-add main-panel-add-group">
+            <div class="styling-panel">
+                <div class="formContainer">
+                    <hr>
+                    <h1 class="logo-font-small">Dodaj grupę</h1>
+                    <form method="post" action="../scripts/php/addGroup.php" id="addGroupForm">
+                        <div class="groupForm">
+                            <label for="groupName">Nazwa grupy:</label>
+                            <input type="text" id="groupName" name="newGroupName" required>
+
+                            <label for="groupSupervisor">Wychowawca grupy:</label>
+                            <select id="groupSupervisor" name="newGroupSupervisor" required>
+                                <?php
+                                for ($i = 0; $i < count($teachers); $i++) {
+                                    echo "<option value='" . $teachers[$i]['id'] . "'>" . $teachers[$i]['full_name'] . "</option>";
+                                }
+                                ?>
+                            </select>
+
+                            <input type="submit" value="Dodaj grupę" class='submitButton'>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <?php for ($g = 1; $g <= 4; $g++): ?>
             <div class="main-panel bigContainers main-panel-groups" id="group<?php echo $g ?>Management">
                 <div class="styling-panel">
                     <div class='formContainer'>
                         <hr>
                         <h1 class='logo-font-small'><span>Grupa <?php echo $g; ?></span></h1>
+                        <img src="./../assets/edit.png" style="width: 200px" onclick="editGroup(<?php echo $g; ?>)">
                         <div class='groupInfo'>
                             <?php
                             $sql = "SELECT grupy.nazwa, uzytkownicy.imie, uzytkownicy.nazwisko FROM grupy JOIN uzytkownicy ON grupy.Wychowawca = uzytkownicy.ID WHERE grupy.id = $g";
                             $result = $connection->query($sql)->fetch_assoc();
-                            echo "<div>Nazwa grupy: " . $result['nazwa'] . "</div>";
-                            echo "<div>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</div>";
+                            echo "<div id='divGroupName" . $g . "'>Nazwa grupy: " . $result['nazwa'] . "</div>";
+                            echo "<div id='divGroupSupervisor" . $g . "'>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</div>";
+                            echo "<form action='./../scripts/php/updateGroup.php' method='POST' id='frmUpdateGroup" . $g . "' style='display: none'>";
+                                echo "<input type='hidden' name='groupID' value='" . $g . "'>";
+                                echo "<label for='inputGroupName" . $g . "' id='labelGroupName" . $g . "'>Nazwa grupy: </label>";
+                                echo "<input type='text' id='inputGroupName" . $g . "' name='inputGroupName".$g."'>";
+                                echo "<label for='inputGroupSupervisor" . $g . "'  id='labelGroupSupervisor" . $g . "'>Wychowawca: </label>";
+                                echo "<select id='inputGroupSupervisor" . $g . "' name='inputGroupSupervisor".$g."'>";
+                                for ($i = 0; $i < count($teachers); $i++) {
+                                    echo "<option value='" . $teachers[$i]['id'] . "'>" . $teachers[$i]['full_name'] . "</option>";
+                                }
+                                echo "</select>";
+                                echo "<button>Zapisz zmiany</button>";
+                            echo "</form>";
+
+
                             ?>
                         </div>
                         <div class="groupMembers">
@@ -553,7 +623,7 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                                     echo "<div class='grid-cell'>" . $result[$i][2] . "</div>";
                                     echo "<div class='grid-cell'>" . $result[$i][3] . "</div>";
                                     echo "<div class='grid-cell'>" . $result[$i][4] . " " . $result[$i][5] . "</div>";
-                                    echo "<div class='grid-cell'><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button><button class='edit_child' onclick='edytujDziecko(\"".$arr."\", ". $g .")'>Edytuj informacje".$g."</button></div>";
+                                    echo "<div class='grid-cell'><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button><button class='edit_child' onclick='edytujDziecko(\"" . $arr . "\", " . $g . ")'>Edytuj informacje" . $g . "</button></div>";
                                     echo "</div>";
                                 }
                                 ?>
@@ -573,10 +643,10 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                     <form method="POST" class='form' id="jadlospisFRM">
                         <div class="border-box">
                             <div class="corner-cell" style='font-size: 24px'>
-                                        <div class="corner-line"></div>
-                                        <span class="corner-text-top">Dzień</span>
-                                        <span class="corner-text-bottom">Danie</span>
-                                    </div>
+                                <div class="corner-line"></div>
+                                <span class="corner-text-top">Dzień</span>
+                                <span class="corner-text-bottom">Danie</span>
+                            </div>
                             <?php
                             foreach ($weekDates as $date) {
                                 echo '<span class="table_cell label">';
@@ -615,7 +685,9 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                             }
                             ?>
                         </div>
-                        <div class='button-container'><button type="submit" class="submitButton">Zapisz tydzień</button></div>
+                        <div class='button-container'>
+                            <button type="submit" class="submitButton">Zapisz tydzień</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -627,13 +699,14 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                     let error = false;
                     for (let i = 0; i < meals.length; i++) {
                         let elem = meals[i];
-                        if (elem.value.length === 0){
-                            elem.classList.add('error'); error = true;
+                        if (elem.value.length === 0) {
+                            elem.classList.add('error');
+                            error = true;
                         } else {
                             elem.classList.remove('error');
                         }
                     }
-                    if(error) return;
+                    if (error) return;
                     form.submit();
                 });
             </script>
@@ -646,7 +719,7 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                     <h1 class="logo-font-small"><span>Dodaj komunikat</span></h1>
                     <form method="post" action="../scripts/php/addAnnoucement.php" id="frmAddKomunikat">
                         <div class="article_header">
-                            <input type="text" id="komunikatHeader"name="komunikatHeader">
+                            <input type="text" id="komunikatHeader" name="komunikatHeader">
                         </div>
                         <textarea id="komunikatContent" name="komunikatContent" rows="10" cols="50"></textarea><br><br>
                         <div class="details">
@@ -654,10 +727,11 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                                 <label for="komunikatGrupa">Wybierz widoczność</label>
                                 <select id="komunikatGrupa" name="komunikatGrupa" class='submitButton'>
                                     <option value="0">Wszyscy</option>
-                                    <option value="1">Grupa 1</option>
-                                    <option value="2">Grupa 2</option>
-                                    <option value="3">Grupa 3</option>
-                                    <option value="4">Grupa 4</option>
+                                    <?php
+                                    for ($j = 0; $j < count($resultGroups); $j++) {
+                                        echo "<option value='" . $resultGroups[$j][0] . "'>Grupa " . $resultGroups[$j][0] . " </option>";
+                                    }
+                                    ?>
                                 </select>
                             </div>
                             <div><input type="submit" value="Dodaj komunikat" class='submitButton'></div>
@@ -670,9 +744,19 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                             let error = false;
                             let header = document.getElementById('komunikatHeader');
                             let content = document.getElementById('komunikatContent');
-                            if (header.value.length === 0) { header.classList.add('error'); error = true; } else { header.classList.remove('error'); }
-                            if (content.value.length === 0) { content.classList.add('error'); error = true; } else { content.classList.remove('error'); }
-                            if(error) return;
+                            if (header.value.length === 0) {
+                                header.classList.add('error');
+                                error = true;
+                            } else {
+                                header.classList.remove('error');
+                            }
+                            if (content.value.length === 0) {
+                                content.classList.add('error');
+                                error = true;
+                            } else {
+                                content.classList.remove('error');
+                            }
+                            if (error) return;
                             form.submit();
                         });
                     </script>
@@ -689,30 +773,30 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                     $sql = "SELECT tytul, tresc, data, przynaleznosc, id FROM komunikaty ORDER BY data DESC";
                     $result = $connection->query($sql)->fetch_all();
                     for ($i = 0; $i < count($result); $i++) {
-                        echo "<div class='newsCards' id='komunikat" . $result[$i][4] . "' style='animation-delay: ".$i*0.2 ."s'>
+                        echo "<div class='newsCards' id='komunikat" . $result[$i][4] . "' style='animation-delay: " . $i * 0.2 . "s'>
                                     <div class='header'>
-                                        <span class='title' id='annoucementHeader".$result[$i][4]."'>" . $result[$i][0] . "</span>
-                                        <span class='date' id='annoucementDate".$result[$i][4]."'>" . $result[$i][2] . "
+                                        <span class='title' id='annoucementHeader" . $result[$i][4] . "'>" . $result[$i][0] . "</span>
+                                        <span class='date' id='annoucementDate" . $result[$i][4] . "'>" . $result[$i][2] . "
                                         <br><span class='labelVisibleFor2' style='display:none'>";
-                                        if ($result[$i][3] == 0) {
-                                            echo "Wszyscy";
-                                        } else {
-                                            echo "Grupa " . $result[$i][3];
-                                        }
-                                    echo "</span></span>
+                        if ($result[$i][3] == 0) {
+                            echo "Wszyscy";
+                        } else {
+                            echo "Grupa " . $result[$i][3];
+                        }
+                        echo "</span></span>
                                     </div>
-                                    <div><span class='content' id='annoucementContent".$result[$i][4]."'>" . $result[$i][1] . "</span>
+                                    <div><span class='content' id='annoucementContent" . $result[$i][4] . "'>" . $result[$i][1] . "</span>
                                     <div style='display: flex; justify-content: space-between; margin-top: 15px'>
                                     <div style='display: flex; align-items: flex-end'>
                                     <button class='delete_article submitButton' onclick='edytujKomunikat(" . $result[$i][4] . ")'>Edytuj komunikat</button>
                                     <button class='delete_article submitButton' onclick='ukryjKomunikat(" . $result[$i][4] . ")'>Usuń komunikat</button></div>
-                                    <span class='labelVisibleFor1' style='color: lightgray;' id='annoucementVisibility".$result[$i][4]."'>";
-                                        if ($result[$i][3] == 0) {
-                                            echo "Wszyscy";
-                                        } else {
-                                            echo "Grupa " . $result[$i][3];
-                                        }
-                                    echo "</span>
+                                    <span class='labelVisibleFor1' style='color: lightgray;' id='annoucementVisibility" . $result[$i][4] . "'>";
+                        if ($result[$i][3] == 0) {
+                            echo "Wszyscy";
+                        } else {
+                            echo "Grupa " . $result[$i][3];
+                        }
+                        echo "</span>
                                     </div>
                                     </div>
                                     <div></div>
@@ -734,7 +818,8 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                         <input type="hidden" name="update_plan_matrix" value="1">
 
                         <?php for ($g = 1; $g <= 4; $g++): ?>
-                            <div id="group-plan-container-<?php echo $g; ?>" class="group-plan-container" style="<?php echo ($g === 1) ? 'display: block;' : 'display: none;'; ?>">
+                            <div id="group-plan-container-<?php echo $g; ?>" class="group-plan-container"
+                                 style="<?php echo ($g === 1) ? 'display: block;' : 'display: none;'; ?>">
 
                                 <div class="plan-grid-container">
 
@@ -764,7 +849,8 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                                                 $selectedLessonID = $matrixPlan[$g][$dayNum][$godzina['id']] ?? 0;
                                                 ?>
 
-                                                <select class="lesson-select" name="plan[<?php echo $g; ?>][<?php echo $dayNum; ?>][<?php echo $godzina['id']; ?>]">
+                                                <select class="lesson-select"
+                                                        name="plan[<?php echo $g; ?>][<?php echo $dayNum; ?>][<?php echo $godzina['id']; ?>]">
                                                     <option value=""></option>
                                                     <?php foreach ($lekcjeDict as $lID => $lName): ?>
                                                         <option value="<?php echo $lID; ?>" <?php echo ($selectedLessonID == $lID) ? 'selected' : ''; ?>>
@@ -775,22 +861,22 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                                             </div>
                                         <?php endforeach; ?>
 
-                                    <?php endforeach;?>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
                         <?php endfor; ?>
                         <div class="button-container">
-                        <div class='group-switcher'>
-                        <?php for ($g = 1; $g <= 4; $g++): ?>
-                            <button type="button"
-                                    id="btn-group-<?php echo $g; ?>"
-                                    class="plan-group-btn submitButton <?php echo ($g === 1) ? 'active' : ''; ?>"
-                                    onclick="showGroupPlan(<?php echo $g; ?>)"
-                                    style="min-width: 100px;">
-                                Grupa <?php echo $g; ?>
-                            </button>
-                        <?php endfor; ?>
-                        </div>
+                            <div class='group-switcher'>
+                                <?php for ($g = 1; $g <= 4; $g++): ?>
+                                    <button type="button"
+                                            id="btn-group-<?php echo $g; ?>"
+                                            class="plan-group-btn submitButton <?php echo ($g === 1) ? 'active' : ''; ?>"
+                                            onclick="showGroupPlan(<?php echo $g; ?>)"
+                                            style="min-width: 100px;">
+                                        Grupa <?php echo $g; ?>
+                                    </button>
+                                <?php endfor; ?>
+                            </div>
                             <button type="submit" class="submitButton" style="font-size: 1.6em;">Zapisz plan</button>
                         </div>
                     </form>
@@ -804,22 +890,25 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small"><span>Edytuj artykuł</span></h1>
-                    <form method="post" action="../scripts/php/editArticle.php" enctype="multipart/form-data" id="editArticleForm">
+                    <form method="post" action="../scripts/php/editArticle.php" enctype="multipart/form-data"
+                          id="editArticleForm">
                         <input type="hidden" name="articleId" id="articleIdHiddenInput">
                         <div class="article">
                             <div class="article_header">
                                 <input type="text" id="editArticleHeader" name="editArticleHeader" required>
                                 <input type="date" id="editArticleData" name="editArticleData">
                             </div>
-                            <textarea id="editArticleContent" name="editArticleContent" rows="10" cols="50" required></textarea><br><br>
+                            <textarea id="editArticleContent" name="editArticleContent" rows="10" cols="50"
+                                      required></textarea><br><br>
                         </div>
                         <div class="details">
                             <div class='choose-image'>
                                 <label for="editArticleImg" class='file-button submitButton'>Wybierz Zdjęcie</label>
-                                <input type="file" id="editArticleImg" name="editArticleImg" accept="image/*" style="display: none">
+                                <input type="file" id="editArticleImg" name="editArticleImg" accept="image/*"
+                                       style="display: none">
                                 <span id='editFileName'>Nie wybrano</span>
                                 <script>
-                                    document.getElementById('editArticleImg').addEventListener('change', function(e){
+                                    document.getElementById('editArticleImg').addEventListener('change', function (e) {
                                         const fileName = e.target.files[0]?.name || '';
                                         document.getElementById('editFileName').textContent = fileName ? fileName : 'Nie wybrano';
                                     });
@@ -842,20 +931,47 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                 let articleContent = document.getElementById('editArticleContent');
                 let fileName = document.getElementById('editFileName');
 
-                if (title.value.length === 0) { title.classList.add('error'); error = true; } else { title.classList.remove('error'); }
-                if (!val) { articleData.classList.add('error'); error = true; } else { articleData.classList.remove('error'); }
+                if (title.value.length === 0) {
+                    title.classList.add('error');
+                    error = true;
+                } else {
+                    title.classList.remove('error');
+                }
+                if (!val) {
+                    articleData.classList.add('error');
+                    error = true;
+                } else {
+                    articleData.classList.remove('error');
+                }
 
                 const parts = val.split('-').map(Number);
-                if (parts.length !== 3 || parts.some(isNaN)) { articleData.classList.add('error'); error = true; }
-                else {
+                if (parts.length !== 3 || parts.some(isNaN)) {
+                    articleData.classList.add('error');
+                    error = true;
+                } else {
                     const d1 = new Date(parts[0], parts[1] - 1, parts[2]);
                     const today = new Date();
                     today.setHours(0, 0, 0, 0);
-                    if (d1 > today) { articleData.classList.add('error'); error = true; } else { articleData.classList.remove('error'); }
+                    if (d1 > today) {
+                        articleData.classList.add('error');
+                        error = true;
+                    } else {
+                        articleData.classList.remove('error');
+                    }
                 }
 
-                if (articleContent.value.length === 0) { articleContent.classList.add('error'); error = true; } else { articleContent.classList.remove('error'); }
-                if (fileName.innerHTML === 'Nie wybrano'){ fileName.classList.add('error'); error = true; } else { fileName.classList.remove('error'); }
+                if (articleContent.value.length === 0) {
+                    articleContent.classList.add('error');
+                    error = true;
+                } else {
+                    articleContent.classList.remove('error');
+                }
+                if (fileName.innerHTML === 'Nie wybrano') {
+                    fileName.classList.add('error');
+                    error = true;
+                } else {
+                    fileName.classList.remove('error');
+                }
                 if (!error) form.submit();
             });
         </script>
@@ -868,18 +984,20 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                     <form method="post" action="./../scripts/php/editAnnoucement.php" id="frmEditKomunikat">
                         <input type="hidden" name="editKomunikatIdHiddenInput" id="editKomunikatIdHiddenInput">
                         <div class="article_header">
-                            <input type="text" id="editKomunikatHeader" name="editKomunikatHeader" >
+                            <input type="text" id="editKomunikatHeader" name="editKomunikatHeader">
                         </div>
-                        <textarea id="editKomunikatContent" name="editKomunikatContent" rows="10" cols="50"></textarea><br><br>
+                        <textarea id="editKomunikatContent" name="editKomunikatContent" rows="10"
+                                  cols="50"></textarea><br><br>
                         <div class="details">
                             <div class="choose-visibility">
                                 <label for="editKomunikatGrupa">Wybierz widoczność</label>
                                 <select id="editKomunikatGrupa" name="editKomunikatGrupa" class='submitButton'>
                                     <option value="0">Wszyscy</option>
-                                    <option value="1">Grupa 1</option>
-                                    <option value="2">Grupa 2</option>
-                                    <option value="3">Grupa 3</option>
-                                    <option value="4">Grupa 4</option>
+                                    <?php
+                                    for ($j = 0; $j < count($resultGroups); $j++) {
+                                        echo "<option value='" . $resultGroups[$j][0] . "'>Grupa " . $resultGroups[$j][0] . " </option>";
+                                    }
+                                    ?>
                                 </select>
                             </div>
                             <div><input type="submit" value="Zapisz" class='submitButton'></div>
@@ -928,10 +1046,11 @@ while ($row = $resCurrentPlan->fetch_assoc()) {
                         <input type="text" name="editChildAddress" id="editChildAddress" required>
                         <label for="editChildGrupa">Grupa:</label>
                         <select id="editChildGrupa" name="editChildGrupa" class="submitButton">
-                            <option value="1">Grupa 1</option>
-                            <option value="2">Grupa 2</option>
-                            <option value="3">Grupa 3</option>
-                            <option value="4">Grupa 4</option>
+                            <?php
+                            for ($j = 0; $j < count($resultGroups); $j++) {
+                                echo "<option value='" . $resultGroups[$j][0] . "'>Grupa " . $resultGroups[$j][0] . " </option>";
+                            }
+                            ?>
                         </select>
                         <textarea id="editChildOpinion" name="editChildOpinion"></textarea>
                         <button id="saveChanges" onclick="editChildren()">Zapisz zmiany</button>

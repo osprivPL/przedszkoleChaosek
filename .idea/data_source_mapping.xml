@@ -7,6 +7,7 @@
     <file url="file://$PROJECT_DIR$/electronicDiary/teacher.php" value="c719575a-d3a3-447f-b7c9-8673594854b1" />
     <file url="file://$PROJECT_DIR$/index.php" value="c719575a-d3a3-447f-b7c9-8673594854b1" />
     <file url="file://$PROJECT_DIR$/rekrutacjaCompleted.php" value="c719575a-d3a3-447f-b7c9-8673594854b1" />
+    <file url="file://$PROJECT_DIR$/scripts/php/addGroup.php" value="c719575a-d3a3-447f-b7c9-8673594854b1" />
     <file url="file://$PROJECT_DIR$/scripts/php/changePassword.php" value="c719575a-d3a3-447f-b7c9-8673594854b1" />
     <file url="file://$PROJECT_DIR$/scripts/php/confirmChild.php" value="c719575a-d3a3-447f-b7c9-8673594854b1" />
     <file url="file://$PROJECT_DIR$/scripts/php/deleteAnnoucement.php" value="c719575a-d3a3-447f-b7c9-8673594854b1" />
@@ -14,5 +15,6 @@
     <file url="file://$PROJECT_DIR$/scripts/php/deleteArticle.php" value="c719575a-d3a3-447f-b7c9-8673594854b1" />
     <file url="file://$PROJECT_DIR$/scripts/php/deleteChild.php" value="c719575a-d3a3-447f-b7c9-8673594854b1" />
     <file url="file://$PROJECT_DIR$/scripts/php/markHomeworkAsDone.php" value="c719575a-d3a3-447f-b7c9-8673594854b1" />
+    <file url="file://$PROJECT_DIR$/scripts/php/updateGroup.php" value="c719575a-d3a3-447f-b7c9-8673594854b1" />
   </component>
 </project>
