@@ -677,20 +677,24 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small">Dodaj grupę</h1>
-                    <form method="post" action="../scripts/php/addGroup.php" id="addGroupForm">
-                        <div class="groupForm">
-                            <label for="groupName">Nazwa grupy:</label>
-                            <input type="text" id="groupName" name="newGroupName" required>
-
-                            <label for="groupSupervisor">Wychowawca grupy:</label>
-                            <select id="groupSupervisor" name="newGroupSupervisor" required>
-                                <?php
-                                for ($i = 0; $i < count($teachers); $i++) {
-                                    echo "<option value='" . $teachers[$i]['id'] . "'>" . $teachers[$i]['full_name'] . "</option>";
-                                }
-                                ?>
-                            </select>
-
+                    <form method="post" action="../scripts/php/addGroup.php" id="addGroupForm" class="groupForm">
+                        <div>
+                            <div class="inputGroup">
+                                <label for="groupName">Nazwa grupy:</label>
+                                <input type="text" id="groupName" name="newGroupName" required>
+                            </div>
+                            <div class="inputGroup">
+                                <label for="groupSupervisor">Wychowawca grupy:</label>
+                                <select id="groupSupervisor" name="newGroupSupervisor" required>
+                                    <?php
+                                    for ($i = 0; $i < count($teachers); $i++) {
+                                        echo "<option value='" . $teachers[$i]['id'] . "'>" . $teachers[$i]['full_name'] . "</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div style='display: flex; justify-content: center;'>
                             <input type="submit" value="Dodaj grupę" class='submitButton'>
                         </div>
                     </form>
