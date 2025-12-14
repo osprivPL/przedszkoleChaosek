@@ -564,7 +564,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small">Dodaj nauczyciela</h1>
-                    <form method="post" action="../scripts/php/addGroup.php" id="frmAddTeacher">
+                    <form method="post" action="../scripts/php/addTeacher.php" id="frmAddTeacher">
                         <div class="teacherForm">
                             <label for="teacherFirstName">Imię:</label>
                             <input type="text" id="teacherFirstName" name="teacherFirstName" required>
@@ -575,11 +575,28 @@ $resultGroups = $connection->query($sql)->fetch_all();
                             <label for="teacherEmail">Email:</label>
                             <input type="email" id="teacherEmail" name="teacherEmail" required>
 
+                            <label for="teacherPhone">Numer telefonu:</label>
+                            <input type="tel" id="teacherPhone" name="teacherPhone" required>
+
+
+
                             <label for="teacherRole">Rola:</label>
                             <select id="teacherRole" name="teacherRole" required>
                                 <option value="1">Nauczyciel</option>
                                 <option value="2">Dyrektor</option>
                             </select>
+                            <div class='choose-image'>
+                                <label for="teacherImg" class='file-button submitButton'>Wybierz Zdjęcie</label>
+                                <input type="file" id="teacherImg" name="teacherImg" accept="image/*"
+                                       style="display: none">
+                                <span id='teacherImgFileName'>Nie wybrano</span>
+                                <script>
+                                    document.getElementById('articleImg').addEventListener('change', function (e) {
+                                        const fileName = e.target.files[0]?.name || '';
+                                        document.getElementById('teacherImgFileName').textContent = fileName ? fileName : 'Nie wybrano';
+                                    });
+                                </script>
+                            </div>
 
                             <input type="submit" value="Dodaj nauczyciela" class='submitButton'>
                         </div>
