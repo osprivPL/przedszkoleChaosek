@@ -121,6 +121,9 @@ for ($i = 0; $i < count($resultTeachers); $i++) {
     ];
 }
 
+$sql = "SELECT id, nazwa FROM grupy ORDER BY id";
+$resultGroups = $connection->query($sql)->fetch_all();
+
 ?>
 <html lang="pl">
 <head>
@@ -210,26 +213,19 @@ for ($i = 0; $i < count($resultTeachers); $i++) {
             <span>Grupy</span>
             <span class="nav_arrow">▽</span>
         </div>
-        <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner;
-        $conteiner++; ?>)">
-            <img src="./../assets/little-kid.png" alt="">
-            <span>Grupa 1</span>
+        <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner; $conteiner++ ?>)">
+            <img src="./../assets/plus.png" alt="">
+            <span>Dodaj grupe</span>
         </div>
-        <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner;
-        $conteiner++; ?>)">
-            <img src="./../assets/little-kid.png" alt="">
-            <span>Grupa 2</span>
-        </div>
-        <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner;
-        $conteiner++; ?>)">
-            <img src="./../assets/little-kid.png" alt="">
-            <span>Grupa 3</span>
-        </div>
-        <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner;
-        $conteiner++; ?>)">
-            <img src="./../assets/little-kid.png" alt="">
-            <span>Grupa 4</span>
-        </div>
+        <?php
+            for ($i = 0; $i < count($resultGroups); $i++){
+                echo "<div class='nav_child nav_child_child nav_child_group' onclick='showContainer(" . $conteiner . ")'>
+                        <img src='./../assets/little-kid.png' alt=''>
+                        <span>Grupa " . $resultGroups[$i][0] . "</span>
+                      </div>";
+                $conteiner++;
+            }
+        ?>
         <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
             <img src="./../assets/restaurant.png" alt="">
@@ -290,10 +286,9 @@ for ($i = 0; $i < count($resultTeachers); $i++) {
                             echo "</div>";
                             echo "<div class='buttons'>";
                             echo "<select class='submitButton' id='wniosek" . $result[$i][0] . "select'>";
-                            echo "<option value=1>Grupa 1 </option>";
-                            echo "<option value=2>Grupa 2 </option>";
-                            echo "<option value=3>Grupa 3 </option>";
-                            echo "<option value=4>Grupa 4 </option>";
+                            for ($j = 0; $j < count($resultGroups); $j++) {
+                                echo "<option value='" . $resultGroups[$j][0] . "'>Grupa " . $resultGroups[$j][0] . " </option>";
+                            }
                             echo "</select>";
 
                             echo "<div><button class='more-info' onclick='rozpatrzWniosek(" . json_encode($result[$i], 1) . ")'>🔍︎​</button></div>";
@@ -526,18 +521,6 @@ for ($i = 0; $i < count($resultTeachers); $i++) {
                     <?php
                     $sql = "SELECT naglowek, tresc, data, img, id FROM artykuly ORDER BY data DESC";
                     $result = $connection->query($sql)->fetch_all();
-                    /*for ($i = 0; $i < count($result); $i++) {
-                        echo "<div class='articleDetails' style='animation-delay:". 0.2 * $i ."s' id='article" . $result[$i][4] . "'><div class='header-info'>";
-                        echo "<h2 id='articleHeader".$result[$i][4]."'>" . $result[$i][0] . "</h2>";
-                        echo "<p class='date' id='articleDate".$result[$i][4]."'>" . $result[$i][2] . "</p></div><div class='header-info'>";
-                        echo "<p class='content' id='articleContent".$result[$i][4]."'>" . $result[$i][1] . "</p>";
-                        if (!empty($result[$i][3])) {
-                            echo "<img id='articleImg".$result[$i][4]."' src='" . './.' . $result[$i][3] . "' alt='Article Image' style='max-width:200px;'></div>";
-                        }
-                        echo "<button class='edit_article submitButton' id='btnEditArticle" . $result[$i][4] . "' onclick='edytujArtykul(" . $result[$i][4] . ")'>Edytuj artykuł</button>";
-                        echo "<button class='delete_article submitButton' onclick='ukryjArtykul(" . $result[$i][4] . ")'>Usuń artykuł</button>";
-                        echo "</div>";
-                    }*/
                     for ($i = 0; $i < count($result); $i++) {
                         echo "<div class='newsCards' id='article" . $result[$i][4] . "' style='animation-delay: " . $i * 0.2 . "s'>
                                     <div class='header'>
@@ -559,6 +542,32 @@ for ($i = 0; $i < count($resultTeachers); $i++) {
                                 </div>";
                     }
                     ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-panel bigContainers main-panel-add main-panel-add-group">
+            <div class="styling-panel">
+                <div class="formContainer">
+                    <hr>
+                    <h1 class="logo-font-small">Dodaj grupę</h1>
+                    <form method="post" action="../scripts/php/addGroup.php" id="addGroupForm">
+                        <div class="groupForm">
+                            <label for="groupName">Nazwa grupy:</label>
+                            <input type="text" id="groupName" name="newGroupName" required>
+
+                            <label for="groupSupervisor">Wychowawca grupy:</label>
+                            <select id="groupSupervisor" name="newGroupSupervisor" required>
+                                <?php
+                                for ($i = 0; $i < count($teachers); $i++) {
+                                    echo "<option value='" . $teachers[$i]['id'] . "'>" . $teachers[$i]['full_name'] . "</option>";
+                                }
+                                ?>
+                            </select>
+
+                            <input type="submit" value="Dodaj grupę" class='submitButton'>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -718,10 +727,11 @@ for ($i = 0; $i < count($resultTeachers); $i++) {
                                 <label for="komunikatGrupa">Wybierz widoczność</label>
                                 <select id="komunikatGrupa" name="komunikatGrupa" class='submitButton'>
                                     <option value="0">Wszyscy</option>
-                                    <option value="1">Grupa 1</option>
-                                    <option value="2">Grupa 2</option>
-                                    <option value="3">Grupa 3</option>
-                                    <option value="4">Grupa 4</option>
+                                    <?php
+                                    for ($j = 0; $j < count($resultGroups); $j++) {
+                                        echo "<option value='" . $resultGroups[$j][0] . "'>Grupa " . $resultGroups[$j][0] . " </option>";
+                                    }
+                                    ?>
                                 </select>
                             </div>
                             <div><input type="submit" value="Dodaj komunikat" class='submitButton'></div>
@@ -983,10 +993,11 @@ for ($i = 0; $i < count($resultTeachers); $i++) {
                                 <label for="editKomunikatGrupa">Wybierz widoczność</label>
                                 <select id="editKomunikatGrupa" name="editKomunikatGrupa" class='submitButton'>
                                     <option value="0">Wszyscy</option>
-                                    <option value="1">Grupa 1</option>
-                                    <option value="2">Grupa 2</option>
-                                    <option value="3">Grupa 3</option>
-                                    <option value="4">Grupa 4</option>
+                                    <?php
+                                    for ($j = 0; $j < count($resultGroups); $j++) {
+                                        echo "<option value='" . $resultGroups[$j][0] . "'>Grupa " . $resultGroups[$j][0] . " </option>";
+                                    }
+                                    ?>
                                 </select>
                             </div>
                             <div><input type="submit" value="Zapisz" class='submitButton'></div>
@@ -1035,10 +1046,11 @@ for ($i = 0; $i < count($resultTeachers); $i++) {
                         <input type="text" name="editChildAddress" id="editChildAddress" required>
                         <label for="editChildGrupa">Grupa:</label>
                         <select id="editChildGrupa" name="editChildGrupa" class="submitButton">
-                            <option value="1">Grupa 1</option>
-                            <option value="2">Grupa 2</option>
-                            <option value="3">Grupa 3</option>
-                            <option value="4">Grupa 4</option>
+                            <?php
+                            for ($j = 0; $j < count($resultGroups); $j++) {
+                                echo "<option value='" . $resultGroups[$j][0] . "'>Grupa " . $resultGroups[$j][0] . " </option>";
+                            }
+                            ?>
                         </select>
                         <textarea id="editChildOpinion" name="editChildOpinion"></textarea>
                         <button id="saveChanges" onclick="editChildren()">Zapisz zmiany</button>
