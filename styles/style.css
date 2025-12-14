@@ -136,3 +136,6 @@ img {
 .error{
     border-color: red !important;
 }
+textarea{
+    resize: none;
+}

@@ -7,8 +7,10 @@ function editGroup(g) {
 
     divGroupName.style.display = "none";
     divSupervisor.style.display = "none";
+    document.getElementById('olowek' + g).style.display = "none";
+    document.getElementById('goBackGroup' + g).style.display = "block";
 
-    document.getElementById('frmUpdateGroup'+g).style.display = "block";
+    document.getElementById('frmUpdateGroup'+g).style.display = "flex";
 
     inputGroupName.value = divGroupName.innerHTML.substring(divGroupName.innerHTML.indexOf(':')+2) ;
     inputGroupSupervisor.value = divSupervisor.innerText;

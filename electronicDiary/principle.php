@@ -409,16 +409,22 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 }
 
                 function przyjmijWniosek(idRekordu) {
+                    const selectElement = document.getElementById("wniosek" + idRekordu + "select");
+                    const selectedGroup = selectElement ? selectElement.value : "BRAK ELEMENTU";
+                    console.log("Wysyłanie ID:", idRekordu, "Grupa:", selectedGroup);
+
                     fetch('./../scripts/php/confirmChild.php', {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify({
                             id: idRekordu,
-                            group: document.getElementById("wniosek" + idRekordu + "select").value
+                            group: selectedGroup
                         })
                     })
                         .then(response => response.text())
                         .then(data => {
+                            console.log("Odpowiedź PHP:", data);
+
                             if (data.trim() === 'OK') {
                                 const element = document.getElementById('Wniosek#' + idRekordu);
                                 if (element) {
@@ -427,7 +433,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                     setTimeout(() => element.remove(), 500);
                                 }
                             } else {
-                                alert('Wystąpił błąd podczas zapisu.');
+                                alert('Serwer zwrócił błąd: ' + data);
                             }
                         })
                         .catch(error => console.error('Błąd sieci:', error));
@@ -559,29 +565,69 @@ $resultGroups = $connection->query($sql)->fetch_all();
             </div>
         </div>
 
-        <div class="main-panel bigContainers main-panel-add main-panel-add-teacher">
+        <div class="main-panel bigContainers main-panel-add-teacher">
             <div class="styling-panel">
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small">Dodaj nauczyciela</h1>
-                    <form method="post" action="../scripts/php/addGroup.php" id="frmAddTeacher">
+                    <form method="post" action="../scripts/php/addTeacher.php" id="frmAddTeacher">
                         <div class="teacherForm">
-                            <label for="teacherFirstName">Imię:</label>
-                            <input type="text" id="teacherFirstName" name="teacherFirstName" required>
-
-                            <label for="teacherLastName">Nazwisko:</label>
-                            <input type="text" id="teacherLastName" name="teacherLastName" required>
-
-                            <label for="teacherEmail">Email:</label>
-                            <input type="email" id="teacherEmail" name="teacherEmail" required>
-
-                            <label for="teacherRole">Rola:</label>
-                            <select id="teacherRole" name="teacherRole" required>
-                                <option value="1">Nauczyciel</option>
-                                <option value="2">Dyrektor</option>
-                            </select>
-
-                            <input type="submit" value="Dodaj nauczyciela" class='submitButton'>
+                            <div class='container'>
+                                <div>
+                                    <div class="inputGroup">
+                                        <label for="teacherFirstName">Imię:</label><br>
+                                        <input type="text" id="teacherFirstName" name="teacherFirstName" required>
+                                    </div>
+                                    <div class="inputGroup">
+                                        <label for="teacherLastName">Nazwisko:</label><br>
+                                        <input type="text" id="teacherLastName" name="teacherLastName" required>
+                                    </div>
+                                    <div class="inputGroup">
+                                        <label for="teacherEmail">Email:</label><br>
+                                        <input type="email" id="teacherEmail" name="teacherEmail" required>
+                                    </div>
+                                    <div class="inputGroup">
+                                        <label for="teacherRole">Rola:</label><br>
+                                        <select id="teacherRole" name="teacherRole" required>
+                                            <option value="1">Nauczyciel</option>
+                                            <option value="2">Dyrektor</option>
+                                        </select>
+                                    </div>
+                                    <div class="inputGroup">
+                                        <label for="teacherPhone">Numer telefonu</label>
+                                        <input type="tel" name="teacherPhone" id="teacherPhone">
+                                    </div>
+                                    <!--<div class='choose-image'>
+                                        <span id='teacherImgFileName' style='display:none'>Nie wybrano</span>
+                                    <script>
+                                        document.getElementById('articleImg').addEventListener('change', function (e) {
+                                            const fileName = e.target.files[0]?.name || '';
+                                            document.getElementById('teacherImgFileName').textContent = fileName ? fileName : 'Nie wybrano';
+                                        });
+                                    </script>
+                                    </div>-->
+                                </div>
+                                <fieldset class="teacherCards" style="animation-delay: 0s">
+                                    <legend>Dyrektor</legend>
+                                    <div class="teacherInfo">
+                                        <h3>
+                                            <span id='teacherImie'>Imię</span> <span id='teacherNazwisko'>Nazwisko</span>
+                                        </h3>
+                                        <div class="imgContainer imgContainer2" id="teacherPhoto">
+                                            <label for="teacherImg" class='file-button submitButton'><span>Dodaj zdjęcie<span></label>
+                                            <input type="file" id="teacherImg" name="teacherImg" accept="image/*" style="display: none">
+                                        </div>
+                                        <p id='teacherEmail' class="email emailPlacedBelow">
+                                            email
+                                        </p>
+                                        <textarea id='teacherDesc' class="opinia" placeholder='Tutaj wpisz opis'></textarea>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            
+                            <div style='width:100%; display: flex; justify-content:center; margin: 1em'>
+                                <input type="submit" value="Dodaj nauczyciela" class='submitButton'>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -631,20 +677,24 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small">Dodaj grupę</h1>
-                    <form method="post" action="../scripts/php/addGroup.php" id="addGroupForm">
-                        <div class="groupForm">
-                            <label for="groupName">Nazwa grupy:</label>
-                            <input type="text" id="groupName" name="newGroupName" required>
-
-                            <label for="groupSupervisor">Wychowawca grupy:</label>
-                            <select id="groupSupervisor" name="newGroupSupervisor" required>
-                                <?php
-                                for ($i = 0; $i < count($teachers); $i++) {
-                                    echo "<option value='" . $teachers[$i]['id'] . "'>" . $teachers[$i]['full_name'] . "</option>";
-                                }
-                                ?>
-                            </select>
-
+                    <form method="post" action="../scripts/php/addGroup.php" id="addGroupForm" class="groupForm">
+                        <div>
+                            <div class="inputGroup">
+                                <label for="groupName">Nazwa grupy:</label>
+                                <input type="text" id="groupName" name="newGroupName" required>
+                            </div>
+                            <div class="inputGroup">
+                                <label for="groupSupervisor">Wychowawca grupy:</label>
+                                <select id="groupSupervisor" name="newGroupSupervisor" required>
+                                    <?php
+                                    for ($i = 0; $i < count($teachers); $i++) {
+                                        echo "<option value='" . $teachers[$i]['id'] . "'>" . $teachers[$i]['full_name'] . "</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div style='display: flex; justify-content: center;'>
                             <input type="submit" value="Dodaj grupę" class='submitButton'>
                         </div>
                     </form>
@@ -660,24 +710,25 @@ $resultGroups = $connection->query($sql)->fetch_all();
                     <div class='formContainer'>
                         <hr>
                         <h1 class='logo-font-small'><span>Grupa <?php echo $g; ?></span></h1>
-                        <img src="./../assets/edit.png" style="width: 200px" onclick="editGroup(<?php echo $g; ?>)">
+                        <img id='olowek<?php echo $g; ?>' src="./../assets/edit.png" style="width: 60px; left: 20px;" onclick="editGroup(<?php echo $g; ?>)" class='go-back'>
+                        <div id='goBackGroup<?php echo $g; ?>' onclick='' class='go-back logo-font-small' style='display: none; left: 20px;'>↩</div>
                         <div class='groupInfo'>
                             <?php
                             $sql = "SELECT grupy.nazwa, uzytkownicy.imie, uzytkownicy.nazwisko FROM grupy JOIN uzytkownicy ON grupy.Wychowawca = uzytkownicy.ID WHERE grupy.id = $g";
                             $result = $connection->query($sql)->fetch_assoc();
                             echo "<div id='divGroupName" . $g . "'>Nazwa grupy: " . $result['nazwa'] . "</div>";
                             echo "<div id='divGroupSupervisor" . $g . "'>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</div>";
-                            echo "<form action='./../scripts/php/updateGroup.php' method='POST' id='frmUpdateGroup" . $g . "' style='display: none'>";
+                            echo "<form action='./../scripts/php/updateGroup.php' method='POST' id='frmUpdateGroup" . $g . "' style='display: none; width:100%; gap: 20px'>";
                                 echo "<input type='hidden' name='groupID' value='" . $g . "'>";
-                                echo "<label for='inputGroupName" . $g . "' id='labelGroupName" . $g . "'>Nazwa grupy: </label>";
-                                echo "<input type='text' id='inputGroupName" . $g . "' name='inputGroupName".$g."'>";
-                                echo "<label for='inputGroupSupervisor" . $g . "'  id='labelGroupSupervisor" . $g . "'>Wychowawca: </label>";
+                                echo "<div class='inputGroup'><label for='inputGroupName" . $g . "' id='labelGroupName" . $g . "'>Nazwa grupy: </label>";
+                                echo "<input type='text' id='inputGroupName" . $g . "' name='inputGroupName".$g."'></div>";
+                                echo "<div class='inputGroup'><label for='inputGroupSupervisor" . $g . "'  id='labelGroupSupervisor" . $g . "'>Wychowawca: </label>";
                                 echo "<select id='inputGroupSupervisor" . $g . "' name='inputGroupSupervisor".$g."'>";
                                 for ($i = 0; $i < count($teachers); $i++) {
                                     echo "<option value='" . $teachers[$i]['id'] . "'>" . $teachers[$i]['full_name'] . "</option>";
                                 }
-                                echo "</select>";
-                                echo "<button>Zapisz zmiany</button>";
+                                echo "</select></div>";
+                                echo "<button class='go-back logo-font-small' style='right: 20px; left: auto; width:80px; border: none'>✔</button>";
                             echo "</form>";
 
 
@@ -705,7 +756,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                     echo "<div class='grid-cell'>" . $result[$i][2] . "</div>";
                                     echo "<div class='grid-cell'>" . $result[$i][3] . "</div>";
                                     echo "<div class='grid-cell'>" . $result[$i][4] . " " . $result[$i][5] . "</div>";
-                                    echo "<div class='grid-cell'><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button><button class='edit_child' onclick='edytujDziecko(\"" . $arr . "\", " . $g . ")'>Edytuj informacje" . $g . "</button></div>";
+                                    echo "<div class='grid-cell'><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button><button class='edit_child' onclick='edytujDziecko(\"" . $arr . "\", " . $g . ")'>Edytuj informacje</button></div>";
                                     echo "</div>";
                                 }
                                 ?>
