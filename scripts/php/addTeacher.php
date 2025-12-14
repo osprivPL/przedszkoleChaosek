@@ -26,8 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 }
 
 require_once "sanitizeName.php";
+require_once "MAIL.php";
 
-$uploadDir = "./../../assets/articles/";
+$uploadDir = "./../../assets/staff/";
 
 if (!isset($_FILES["teacherImg"]) || $_FILES["teacherImg"]["error"] != 0) {
     $_SESSION['blad'] = "<span style='color:red'>Nie wybrano zdjęcia lub wystąpił błąd.</span>";
@@ -43,11 +44,8 @@ if (!in_array($fileType, $extensions)) {
 }
 
 
-$rawTitle = $_POST['teacherImg'];
-
-
+$rawTitle = pathinfo($originalName, PATHINFO_FILENAME);
 $safeTitle = sanitizeFileName($rawTitle);
-
 $newFileName = $safeTitle . "_" . uniqid() . "." . $fileType;
 
 $targetFile = $uploadDir . $newFileName;
@@ -71,6 +69,7 @@ if (move_uploaded_file($_FILES["teacherImg"]["tmp_name"], $targetFile)) {
         $nauczyciel = 1;
         $dyrektor = 0;
         $firstLogin = 1;
+        $desc = htmlentities($_POST['teacherDesc'], ENT_QUOTES, 'UTF-8');
 
         if ($role == 2) {
             $dyrektor = 1;
@@ -81,11 +80,12 @@ if (move_uploaded_file($_FILES["teacherImg"]["tmp_name"], $targetFile)) {
         $stmt->execute();
         $permissionId = $stmt->insert_id;
 
-        $stmt = $connection->prepare('INSERT INTO uzytkownicy (imie, nazwisko, login, typ, numerTelefonu, haslo, firstLogin, zdjecie) VALUES(?, ?, ?, ?, ?, ?, ?, ?)');
-        $stmt->bind_param("sssissis", $name, $lastname, $email, $permissionId, $phone, $hashedPassword, $firstLogin, $imgNameDB);
+        $stmt = $connection->prepare('INSERT INTO uzytkownicy (imie, nazwisko, login, typ, numerTelefonu, haslo, firstLogin, zdjecie, opinia) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt->bind_param("sssississ", $name, $lastname, $email, $permissionId, $phone, $hashedPassword, $firstLogin, $imgNameDB, $desc);
 
     if ($stmt->execute()) {
         $_SESSION['powodzenie'] = "Nauczyciel został dodany pomyślnie.";
+        sendTempPasswordTeacher($password);
         if ($user->typ[2] == 1) {
             header("Location: ./../../electronicDiary/principle.php");
         } else {

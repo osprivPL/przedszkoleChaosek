@@ -2,7 +2,6 @@
 session_start();
 $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
-// 2. Odbierz dane (ID) wysłane przez JavaScript
 $input = json_decode(file_get_contents('php://input'), true);
 $id = isset($input['id']) ? (int)$input['id'] : 0;
 

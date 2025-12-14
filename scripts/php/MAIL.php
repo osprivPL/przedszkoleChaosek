@@ -14,7 +14,7 @@ require_once("./../../vendor/phpmailer/phpmailer/src/Exception.php");
 require_once './../../vendor/autoload.php';
 
 
-function sendTempPasswordTeacher($tempPass, $imie, $nazwisko){
+function sendTempPasswordTeacher($tempPass){
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();

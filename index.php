@@ -221,32 +221,7 @@ if ($user->firstLogin) {
                     frm.submit();
             }
         });
-        /*document.getElementById('loginPanel').addEventListener('submit', (e) => {
-            e.preventDefault();
-            let form = e.target;
-            let email = document.getElementById('tbxEmail');
-            let password = document.getElementById('tbxHaslo');
-            let error = false;
-            const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            if (email.value.length === 0 || !pattern.test(email.value)) {
-                email.classList.add('error');
-                error = true;
-            } else {
-                email.classList.remove('error');
-            }
-            if (password.value.length === 0) {
-                password.classList.add('error');
-                error = true;
-            } else {
-                password.classList.remove('error');
-            }
-            if (error) {
-                return;
-            }
-
-            form.submit();
-        });*/
     </script>
 </div>
 

@@ -570,57 +570,55 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small">Dodaj nauczyciela</h1>
-                    <form method="post" action="../scripts/php/addTeacher.php" id="frmAddTeacher">
+                    <form method="post" action="../scripts/php/addTeacher.php" id="frmAddTeacher" enctype="multipart/form-data">
                         <div class="teacherForm">
                             <div class='container'>
                                 <div>
                                     <div class="inputGroup">
                                         <label for="teacherFirstName">Imię:</label><br>
-                                        <input type="text" id="teacherFirstName" name="teacherFirstName" required>
+                                        <input type="text" id="teacherFirstName" name="teacherFirstName">
                                     </div>
                                     <div class="inputGroup">
                                         <label for="teacherLastName">Nazwisko:</label><br>
-                                        <input type="text" id="teacherLastName" name="teacherLastName" required>
+                                        <input type="text" id="teacherLastName" name="teacherLastName">
                                     </div>
                                     <div class="inputGroup">
                                         <label for="teacherEmail">Email:</label><br>
-                                        <input type="email" id="teacherEmail" name="teacherEmail" required>
+                                        <input type="email" id="teacherEmail" name="teacherEmail">
                                     </div>
                                     <div class="inputGroup">
                                         <label for="teacherRole">Rola:</label><br>
-                                        <select id="teacherRole" name="teacherRole" required>
-                                            <option value="1">Nauczyciel</option>
+                                        <select id="teacherRole" name="teacherRole">
                                             <option value="2">Dyrektor</option>
+                                            <option value="1">Nauczyciel</option>
                                         </select>
                                     </div>
                                     <div class="inputGroup">
                                         <label for="teacherPhone">Numer telefonu</label>
                                         <input type="tel" name="teacherPhone" id="teacherPhone">
                                     </div>
-                                    <!--<div class='choose-image'>
-                                        <span id='teacherImgFileName' style='display:none'>Nie wybrano</span>
-                                    <script>
-                                        document.getElementById('articleImg').addEventListener('change', function (e) {
-                                            const fileName = e.target.files[0]?.name || '';
-                                            document.getElementById('teacherImgFileName').textContent = fileName ? fileName : 'Nie wybrano';
-                                        });
-                                    </script>
-                                    </div>-->
                                 </div>
                                 <fieldset class="teacherCards" style="animation-delay: 0s">
-                                    <legend>Dyrektor</legend>
+                                    <legend id="teacherType">Dyrektor</legend>
                                     <div class="teacherInfo">
                                         <h3>
                                             <span id='teacherImie'>Imię</span> <span id='teacherNazwisko'>Nazwisko</span>
                                         </h3>
                                         <div class="imgContainer imgContainer2" id="teacherPhoto">
                                             <label for="teacherImg" class='file-button submitButton'><span>Dodaj zdjęcie<span></label>
-                                            <input type="file" id="teacherImg" name="teacherImg" accept="image/*" style="display: none">
+                                            <input type="file" id="teacherImg" name="teacherImg" accept="image/*" style="display: none" >
                                         </div>
-                                        <p id='teacherEmail' class="email emailPlacedBelow">
+                                        <script>
+                                            document.getElementById('teacherPhoto').addEventListener('change', function (e) {
+                                                let img = e.target;
+                                                const fileName = img.files[0]?.name || '';
+
+                                            });
+                                        </script>
+                                        <p id='teacherEmail2' class="email emailPlacedBelow">
                                             email
                                         </p>
-                                        <textarea id='teacherDesc' class="opinia" placeholder='Tutaj wpisz opis'></textarea>
+                                        <textarea id='teacherDesc' name="teacherDesc" class="opinia" placeholder='Tutaj wpisz opis'></textarea>
                                     </div>
                                 </fieldset>
                             </div>
@@ -633,6 +631,106 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 </div>
             </div>
         </div>
+        <script>
+            document.getElementById('frmAddTeacher').addEventListener('submit', (e) => {
+                let error = false;
+                let firstName = document.getElementById('teacherFirstName');
+                let lastName = document.getElementById('teacherLastName');
+                let email = document.getElementById('teacherEmail');
+                let phone = document.getElementById('teacherPhone');
+                let desc = document.getElementById('teacherDesc');
+
+                let fileInput = document.getElementById('teacherImg');
+                let imgDiv = document.getElementById('teacherPhoto');
+
+                if (firstName.value.length === 0) {
+                    firstName.classList.add('error');
+                    error = true;
+                } else {
+                    firstName.classList.remove('error');
+                }
+                if (lastName.value.length === 0) {
+                    lastName.classList.add('error');
+                    error = true;
+                } else {
+                    lastName.classList.remove('error');
+                }
+                if (phone.value.length === 0) {
+                    phone.classList.add('error');
+                    error = true;
+                } else {
+                    phone.classList.remove('error');
+                }
+                if (desc.value.length === 0) {
+                    desc.classList.add('error');
+                    error = true;
+                } else {
+                    desc.classList.remove('error');
+                }
+
+                if (email.value.length === 0 || (!email.value.includes('@') && !email.value.includes('.'))) {
+                    email.classList.add('error');
+                    error = true;
+                } else {
+                    email.classList.remove('error');
+                }
+
+                if (fileInput.files.length === 0) {
+                    imgDiv.classList.add('error');
+                    error = true;
+                } else {
+                    imgDiv.classList.remove('error');
+                }
+
+                if (error) {
+                    e.preventDefault();
+                }
+            })
+
+            document.getElementById('teacherFirstName').addEventListener('input', (e) => {
+                if (e.target.value === '') {
+                    document.getElementById('teacherImie').innerHTML = 'Imię';
+                } else {
+                    document.getElementById('teacherImie').innerHTML = e.target.value;
+                }
+            });
+
+            document.getElementById('teacherLastName').addEventListener('input', (e) => {
+                if (e.target.value === '') {
+                    document.getElementById('teacherNazwisko').innerHTML = 'Nazwisko';
+                } else {
+                    document.getElementById('teacherNazwisko').innerHTML = e.target.value;
+                }
+            });
+
+            document.getElementById('teacherEmail').addEventListener('input', (e) => {
+                if (e.target.value === '') {
+                    document.getElementById('teacherEmail2').innerHTML = 'email';
+                } else {
+                    document.getElementById('teacherEmail2').innerHTML = e.target.value;
+                }
+            });
+
+            document.getElementById('teacherRole').addEventListener('change', (e) => {
+                if (e.target.value === '2') {
+                    document.getElementById('teacherType').innerHTML = 'Dyrektor';
+                } else {
+                    document.getElementById('teacherType').innerHTML = 'Nauczyciel';
+                }
+            });
+
+            document.getElementById('teacherImg').addEventListener('change', (e) => {
+                let img = e.target;
+                if (img.files && img.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        document.getElementById('teacherPhoto').style.backgroundImage = `url(${event.target.result})`;
+                        document.getElementById('teacherPhoto').classList.remove('error');
+                    };
+                    reader.readAsDataURL(img.files[0]);
+                }
+            });
+        </script>
 
         <div class="main-panel bigContainers main-panel-teachers" id="main-teachers">
             <div class="styling-panel">
@@ -640,11 +738,11 @@ $resultGroups = $connection->query($sql)->fetch_all();
                     <hr>
                     <h1 class='logo-font-small'>Nauczyciele</h1>
                     <?php
-                    $sql = "SELECT imie, nazwisko, login ,typ, opinia, zdjecie, nauczyciel, dyrektor FROM uzytkownicy INNER JOIN uprawnienia ON typ = uprawnienia.ID WHERE nauczyciel = 1 OR dyrektor = 1 ORDER BY typ DESC";
+                    $sql = "SELECT imie, nazwisko, login ,typ, opinia, zdjecie, nauczyciel, dyrektor, uzytkownicy.id FROM uzytkownicy INNER JOIN uprawnienia ON typ = uprawnienia.ID WHERE nauczyciel = 1 OR dyrektor = 1 ORDER BY typ DESC";
                     $result = $connection->query($sql)->fetch_all();
                     //                    print_r($result);
                     for ($i = 0; $i < count($result); $i++) {
-                        echo '<fieldset class="teacherCards" style="animation-delay: '.$i*0.2 .'s">';
+                        echo '<fieldset class="teacherCards" style="animation-delay: '.$i*0.2 .'s" id="teacherCard'.$result[$i][8].'">';
                         if ($result[$i][6] == 1) {
                             $typ = "Nauczyciel";
                         } if ($result[$i][7] == 1) {
@@ -659,11 +757,10 @@ $resultGroups = $connection->query($sql)->fetch_all();
                         echo '</div>';
                         echo '<div>';
                         echo "<div class='imgContainer imgContainer1' style='background-image: url(./../assets/staff/".$result[$i][5].")'></div>";
+                        echo "<button>Edytuj informacje o nauczycielu</button>";
+                        echo "<button onclick='usunNauczyciela(".$result[$i][8].")'>Usuń nauczyciela</button>";
                         echo '</div>';
                         $typ = "";
-
-
-
                         echo '</fieldset>';
                     }
 
@@ -704,7 +801,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
 
 
 
-        <?php for ($g = 1; $g <= 4; $g++): ?>
+        <?php for ($g = 1; $g <= count($resultGroups); $g++): ?>
             <div class="main-panel bigContainers main-panel-groups" id="group<?php echo $g ?>Management">
                 <div class="styling-panel">
                     <div class='formContainer'>
