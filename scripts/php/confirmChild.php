@@ -33,7 +33,7 @@ $id = isset($input['id']) ? (int)$input['id'] : 0;
 $group = isset($input['group']) ? (int)$input['group'] : 0;
 $haslo = generateRandomString();
 
-if ($id > 0 && $connection && $group > 0 && $group <= 4) {
+if ($id > 0 && $connection && $group > 0) {
     $stmt = $connection->prepare("SELECT * FROM oczekujace WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
@@ -43,25 +43,24 @@ if ($id > 0 && $connection && $group > 0 && $group <= 4) {
     if ($result) {
         $idRodzica = 0;
 
-        $cryptedPassword = password_hash($haslo, PASSWORD_BCRYPT);
-        $stmtParent = $connection->prepare("INSERT IGNORE INTO uzytkownicy (imie, nazwisko, typ, numerTelefonu, login, haslo) VALUES (?, ?, 0, ?, ?, ?)");
-        $stmtParent->bind_param("sssss", $result['imieRodzica'], $result['nazwiskoRodzica'], $result['numerTelefonu'], $result['email'], $cryptedPassword);
-        $stmtParent->execute();
+        $sqlCzyIstnieje = "SELECT ID FROM uzytkownicy WHERE login = '" . $connection->real_escape_string($result['email']) . "'";
+        $queryCheck = $connection->query($sqlCzyIstnieje);
 
-        if ($stmtParent->affected_rows > 0) {
-            $idRodzica = $connection->insert_id;
+        if ($queryCheck->num_rows > 0) {
+            $row = $queryCheck->fetch_assoc();
+            $idRodzica = (int)$row['ID'];
         } else {
-            $stmtCheck = $connection->prepare("SELECT ID FROM uzytkownicy WHERE login = ?");
-            $stmtCheck->bind_param("s", $result['email']);
-            $stmtCheck->execute();
-            $resCheck = $stmtCheck->get_result()->fetch_assoc();
+            if ($connection->query("INSERT INTO uprawnienia(rodzic, nauczyciel, dyrektor) VALUES(1,0,0)")) {
+                $permissionId = $connection->insert_id;
+                $cryptedPassword = password_hash($haslo, PASSWORD_BCRYPT);
+                $stmtParent = $connection->prepare("INSERT IGNORE INTO uzytkownicy (imie, nazwisko, typ, numerTelefonu, login, haslo, firstLogin) VALUES (?, ?, ?, ?, ?, ?, 1)");
+                $stmtParent->bind_param("ssisss", $result['imieRodzica'], $result['nazwiskoRodzica'],$permissionId, $result['numerTelefonu'], $result['email'], $cryptedPassword);
+                $stmtParent->execute();
 
-            if ($resCheck) {
-                $idRodzica = $resCheck['ID'];
+                $idRodzica = $connection->insert_id;
+                $stmtParent->close();
             }
-            $stmtCheck->close();
         }
-        $stmtParent->close();
 
         if ($idRodzica > 0) {
             $stmtChild = $connection->prepare("INSERT INTO dzieci (imie, nazwisko, pesel, adres, grupa, img, IDRodzica) VALUES (?, ?, ?, ?, ?, 'brak', ?)");
@@ -82,7 +81,6 @@ if ($id > 0 && $connection && $group > 0 && $group <= 4) {
                 responseAndExit("OK");
             }
             $stmtDel->close();
-
         } else {
             responseAndExit("Błąd: Nie udało się ustalić ID rodzica.");
         }

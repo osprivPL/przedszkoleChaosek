@@ -409,16 +409,22 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 }
 
                 function przyjmijWniosek(idRekordu) {
+                    const selectElement = document.getElementById("wniosek" + idRekordu + "select");
+                    const selectedGroup = selectElement ? selectElement.value : "BRAK ELEMENTU";
+                    console.log("Wysyłanie ID:", idRekordu, "Grupa:", selectedGroup);
+
                     fetch('./../scripts/php/confirmChild.php', {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify({
                             id: idRekordu,
-                            group: document.getElementById("wniosek" + idRekordu + "select").value
+                            group: selectedGroup
                         })
                     })
                         .then(response => response.text())
                         .then(data => {
+                            console.log("Odpowiedź PHP:", data);
+
                             if (data.trim() === 'OK') {
                                 const element = document.getElementById('Wniosek#' + idRekordu);
                                 if (element) {
@@ -427,7 +433,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                     setTimeout(() => element.remove(), 500);
                                 }
                             } else {
-                                alert('Wystąpił błąd podczas zapisu.');
+                                alert('Serwer zwrócił błąd: ' + data);
                             }
                         })
                         .catch(error => console.error('Błąd sieci:', error));
