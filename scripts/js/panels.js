@@ -10,7 +10,7 @@ function showContainer(n){
 
 function showChildren(n){
     // n - what children to show
-    let children = ['.nav_child_dziecko', '.nav_child_oSzkole', '.nav_child_article','.nav_child_annoucement', '.nav_child_group'];
+    let children = ['.nav_child_dziecko', '.nav_child_oSzkole', '.nav_child_article','.nav_child_annoucement', '.nav_child_group', '.nav_child_teacher'];
     let isVisible = document.querySelectorAll(children[n])[0].classList.contains('visible');
     if(isVisible){
         document.querySelectorAll(children[n]).forEach(item => {

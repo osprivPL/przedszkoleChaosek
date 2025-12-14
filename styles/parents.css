@@ -275,13 +275,7 @@ body{
     align-self: stretch;
     margin-bottom: 0;
 }
-.main-panel-teachers .styling-panel{
-    display: flex;
-    justify-content: center;
-}
-.main-panel-teachers .formContainer{
-    width: 80%;
-}
+
 
 
 .teacherCards{

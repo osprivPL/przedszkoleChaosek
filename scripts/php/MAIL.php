@@ -14,6 +14,43 @@ require_once("./../../vendor/phpmailer/phpmailer/src/Exception.php");
 require_once './../../vendor/autoload.php';
 
 
+function sendTempPasswordTeacher($tempPass, $imie, $nazwisko){
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.office365.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'm.ozdzynski@zsp10.elodz.edu.pl';
+        $mail->Password = 'Mic1mic!';
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+
+        $logoPath = __DIR__ . '/../../assets/logo_tornado.png';
+        if(file_exists($logoPath)) {
+            $mail->addEmbeddedImage($logoPath, 'logoPrzedszkola', 'logo_tornado.png', 'base64', 'image/svg+xml');
+        }
+
+        $mail->CharSet = 'UTF-8';
+        $mail->setFrom('m.ozdzynski@zsp10.elodz.edu.pl', 'Przedszkole Chaosek');
+        $mail->addAddress('snapmic@gmail.com');
+        $mail->addReplyTo('m.ozdzynski@zsp10.elodz.edu.pl', 'Przedszkole Chaosek');
+
+        $mail->isHTML(true);
+        $mail->Subject = 'Hasło do konta';
+        $mail->Body = '<h1>Hasło do konta dla nowego nauczyciela</h1>
+        <p>Szanowna Panie, Szanowna Pani<br>
+        Gratulujemy przyjęcia do zespołu Przedszkola Chaosek!
+        Poniżej przesyłamy jednorazowe hasło do zalogowania do panelu nauczyciela.<br>
+        <strong>Hasło: ' . $tempPass . '</strong><br><br>
+        Pozdrawiamy, Przedszkole Chaosek</p> 
+        <img src="cid:logoPrzedszkola" alt="Logo Przedszkola" style="width:120px;"><br>';
+
+        $mail->send();
+    } catch (Exception $e) {
+        error_log("Błąd wysyłania hasła: " . $mail->ErrorInfo);
+    }
+}
+
 function sendTempPassword($tempPass, $imie, $nazwisko){
     $mail = new PHPMailer(true);
     try {
