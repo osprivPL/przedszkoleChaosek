@@ -710,24 +710,25 @@ $resultGroups = $connection->query($sql)->fetch_all();
                     <div class='formContainer'>
                         <hr>
                         <h1 class='logo-font-small'><span>Grupa <?php echo $g; ?></span></h1>
-                        <img src="./../assets/edit.png" style="width: 200px" onclick="editGroup(<?php echo $g; ?>)">
+                        <img id='olowek<?php echo $g; ?>' src="./../assets/edit.png" style="width: 60px; left: 20px;" onclick="editGroup(<?php echo $g; ?>)" class='go-back'>
+                        <div id='goBackGroup<?php echo $g; ?>' onclick='' class='go-back logo-font-small' style='display: none; left: 20px;'>↩</div>
                         <div class='groupInfo'>
                             <?php
                             $sql = "SELECT grupy.nazwa, uzytkownicy.imie, uzytkownicy.nazwisko FROM grupy JOIN uzytkownicy ON grupy.Wychowawca = uzytkownicy.ID WHERE grupy.id = $g";
                             $result = $connection->query($sql)->fetch_assoc();
                             echo "<div id='divGroupName" . $g . "'>Nazwa grupy: " . $result['nazwa'] . "</div>";
                             echo "<div id='divGroupSupervisor" . $g . "'>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</div>";
-                            echo "<form action='./../scripts/php/updateGroup.php' method='POST' id='frmUpdateGroup" . $g . "' style='display: none'>";
+                            echo "<form action='./../scripts/php/updateGroup.php' method='POST' id='frmUpdateGroup" . $g . "' style='display: none; width:100%; gap: 20px'>";
                                 echo "<input type='hidden' name='groupID' value='" . $g . "'>";
-                                echo "<label for='inputGroupName" . $g . "' id='labelGroupName" . $g . "'>Nazwa grupy: </label>";
-                                echo "<input type='text' id='inputGroupName" . $g . "' name='inputGroupName".$g."'>";
-                                echo "<label for='inputGroupSupervisor" . $g . "'  id='labelGroupSupervisor" . $g . "'>Wychowawca: </label>";
+                                echo "<div class='inputGroup'><label for='inputGroupName" . $g . "' id='labelGroupName" . $g . "'>Nazwa grupy: </label>";
+                                echo "<input type='text' id='inputGroupName" . $g . "' name='inputGroupName".$g."'></div>";
+                                echo "<div class='inputGroup'><label for='inputGroupSupervisor" . $g . "'  id='labelGroupSupervisor" . $g . "'>Wychowawca: </label>";
                                 echo "<select id='inputGroupSupervisor" . $g . "' name='inputGroupSupervisor".$g."'>";
                                 for ($i = 0; $i < count($teachers); $i++) {
                                     echo "<option value='" . $teachers[$i]['id'] . "'>" . $teachers[$i]['full_name'] . "</option>";
                                 }
-                                echo "</select>";
-                                echo "<button>Zapisz zmiany</button>";
+                                echo "</select></div>";
+                                echo "<button class='go-back logo-font-small' style='right: 20px; left: auto; width:80px; border: none'>✔</button>";
                             echo "</form>";
 
 
@@ -755,7 +756,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                     echo "<div class='grid-cell'>" . $result[$i][2] . "</div>";
                                     echo "<div class='grid-cell'>" . $result[$i][3] . "</div>";
                                     echo "<div class='grid-cell'>" . $result[$i][4] . " " . $result[$i][5] . "</div>";
-                                    echo "<div class='grid-cell'><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button><button class='edit_child' onclick='edytujDziecko(\"" . $arr . "\", " . $g . ")'>Edytuj informacje" . $g . "</button></div>";
+                                    echo "<div class='grid-cell'><button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń dziecko</button><button class='edit_child' onclick='edytujDziecko(\"" . $arr . "\", " . $g . ")'>Edytuj informacje</button></div>";
                                     echo "</div>";
                                 }
                                 ?>
