@@ -208,6 +208,19 @@ $resultGroups = $connection->query($sql)->fetch_all();
             <img src="./../assets/zarzadaj_artykul.png" alt="">
             <span>Zarządzaj artykułami</span>
         </div>
+        <div class="nav_child" onclick="showChildren(5)">
+            <img src="./../assets/teacher.png" alt="">
+            <span>Nauczyciele</span>
+            <span class="nav_arrow">▽</span>
+        </div>
+        <div class="nav_child nav_child_child nav_child_teacher" onclick="showContainer(<?php echo $conteiner; $conteiner++; ?>)">
+            <img src="./../assets/plus.png" alt="">
+            <span>Dodaj nauczyciela</span>
+        </div>
+        <div class="nav_child nav_child_child nav_child_teacher" onclick="showContainer(<?php echo $conteiner; $conteiner++; ?>)">
+            <img src="./../assets/teacher.png" alt="">
+            <span>Zarządzaj nauczycielami</span>
+        </div>
         <div class="nav_child" onclick="showChildren(4)">
             <img src="./../assets/group.png" alt="">
             <span>Grupy</span>
@@ -546,6 +559,73 @@ $resultGroups = $connection->query($sql)->fetch_all();
             </div>
         </div>
 
+        <div class="main-panel bigContainers main-panel-add main-panel-add-teacher">
+            <div class="styling-panel">
+                <div class="formContainer">
+                    <hr>
+                    <h1 class="logo-font-small">Dodaj nauczyciela</h1>
+                    <form method="post" action="../scripts/php/addGroup.php" id="frmAddTeacher">
+                        <div class="teacherForm">
+                            <label for="teacherFirstName">Imię:</label>
+                            <input type="text" id="teacherFirstName" name="teacherFirstName" required>
+
+                            <label for="teacherLastName">Nazwisko:</label>
+                            <input type="text" id="teacherLastName" name="teacherLastName" required>
+
+                            <label for="teacherEmail">Email:</label>
+                            <input type="email" id="teacherEmail" name="teacherEmail" required>
+
+                            <label for="teacherRole">Rola:</label>
+                            <select id="teacherRole" name="teacherRole" required>
+                                <option value="1">Nauczyciel</option>
+                                <option value="2">Dyrektor</option>
+                            </select>
+
+                            <input type="submit" value="Dodaj nauczyciela" class='submitButton'>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-panel bigContainers main-panel-teachers" id="main-teachers">
+            <div class="styling-panel">
+                <div class="formContainer">
+                    <hr>
+                    <h1 class='logo-font-small'>Nauczyciele</h1>
+                    <?php
+                    $sql = "SELECT imie, nazwisko, login ,typ, opinia, zdjecie, nauczyciel, dyrektor FROM uzytkownicy INNER JOIN uprawnienia ON typ = uprawnienia.ID WHERE nauczyciel = 1 OR dyrektor = 1 ORDER BY typ DESC";
+                    $result = $connection->query($sql)->fetch_all();
+                    //                    print_r($result);
+                    for ($i = 0; $i < count($result); $i++) {
+                        echo '<fieldset class="teacherCards" style="animation-delay: '.$i*0.2 .'s">';
+                        if ($result[$i][6] == 1) {
+                            $typ = "Nauczyciel";
+                        } if ($result[$i][7] == 1) {
+                            $typ = "Dyrektor";
+                        }
+                        echo '<legend>' . $typ . '</legend>';
+                        echo '<div class="teacherInfo">';
+                        echo '<h3>' . $result[$i][0] . " " . $result[$i][1] . '<span class="email">' .$result[$i][2] . '</span></h3>';
+                        echo "<div class='imgContainer imgContainer2' style='background-image: url(./../assets/staff/".$result[$i][5].");display: none'></div>";
+                        echo '<p class="email emailPlacedBelow" style="display: none">'.$result[$i][2].'</p>';
+                        echo '<p class="opinia"> ' . $result[$i][4] . "</p>";
+                        echo '</div>';
+                        echo '<div>';
+                        echo "<div class='imgContainer imgContainer1' style='background-image: url(./../assets/staff/".$result[$i][5].")'></div>";
+                        echo '</div>';
+                        $typ = "";
+
+
+
+                        echo '</fieldset>';
+                    }
+
+                    ?>
+                </div>
+            </div>
+        </div>
+
         <div class="main-panel bigContainers main-panel-add main-panel-add-group">
             <div class="styling-panel">
                 <div class="formContainer">
@@ -571,6 +651,8 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 </div>
             </div>
         </div>
+
+
 
         <?php for ($g = 1; $g <= 4; $g++): ?>
             <div class="main-panel bigContainers main-panel-groups" id="group<?php echo $g ?>Management">
