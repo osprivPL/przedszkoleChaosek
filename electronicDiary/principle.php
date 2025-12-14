@@ -608,20 +608,20 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                         </p>
                                     </div>
                                 </fieldset>
-                                <label for="teacherPhone">Numer telefonu</label>
-                                <input type="tel" name="teacherPhone" id="teacherPhone" placeholder="Numer telefonu">
-                                <div class='choose-image'>
-                                    <label for="teacherImg" class='file-button submitButton'>Wybierz Zdjęcie</label>
-                                    <input type="file" id="teacherImg" name="teacherImg" accept="image/*"
-                                           style="display: none">
-                                    <span id='teacherImgFileName'>Nie wybrano</span>
-                                    <script>
-                                        document.getElementById('articleImg').addEventListener('change', function (e) {
-                                            const fileName = e.target.files[0]?.name || '';
-                                            document.getElementById('teacherImgFileName').textContent = fileName ? fileName : 'Nie wybrano';
-                                        });
-                                    </script>
-                                </div>
+                            </div>
+                            <label for="teacherPhone">Numer telefonu</label>
+                            <input type="tel" name="teacherPhone" id="teacherPhone" placeholder="Numer telefonu">
+                            <div class='choose-image'>
+                                <label for="teacherImg" class='file-button submitButton'>Wybierz Zdjęcie</label>
+                                <input type="file" id="teacherImg" name="teacherImg" accept="image/*"
+                                       style="display: none">
+                                <span id='teacherImgFileName'>Nie wybrano</span>
+                                <script>
+                                    document.getElementById('articleImg').addEventListener('change', function (e) {
+                                        const fileName = e.target.files[0]?.name || '';
+                                        document.getElementById('teacherImgFileName').textContent = fileName ? fileName : 'Nie wybrano';
+                                    });
+                                </script>
                             </div>
                             <div style='width:100%; display: flex; justify-content:center'>
                                 <input type="submit" value="Dodaj nauczyciela" class='submitButton'>
