@@ -587,6 +587,19 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                             <option value="2">Dyrektor</option>
                                         </select>
                                     </div>
+                                    <div class="inputGroup">
+                                        <label for="teacherPhone">Numer telefonu</label>
+                                        <input type="tel" name="teacherPhone" id="teacherPhone">
+                                    </div>
+                                    <!--<div class='choose-image'>
+                                        <span id='teacherImgFileName' style='display:none'>Nie wybrano</span>
+                                    <script>
+                                        document.getElementById('articleImg').addEventListener('change', function (e) {
+                                            const fileName = e.target.files[0]?.name || '';
+                                            document.getElementById('teacherImgFileName').textContent = fileName ? fileName : 'Nie wybrano';
+                                        });
+                                    </script>
+                                    </div>-->
                                 </div>
                                 <fieldset class="teacherCards" style="animation-delay: 0s">
                                     <legend>Dyrektor</legend>
@@ -594,36 +607,19 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                         <h3>
                                             <span id='teacherImie'>Imię</span> <span id='teacherNazwisko'>Nazwisko</span>
                                         </h3>
-                                        <div
-                                            class="imgContainer imgContainer2"
-                                            id="teacherPhoto"
-                                        ></div>
+                                        <div class="imgContainer imgContainer2" id="teacherPhoto">
+                                            <label for="teacherImg" class='file-button submitButton'><span>Dodaj zdjęcie<span></label>
+                                            <input type="file" id="teacherImg" name="teacherImg" accept="image/*" style="display: none">
+                                        </div>
                                         <p id='teacherEmail' class="email emailPlacedBelow">
-                                            jeremi@yahoo.com
+                                            email
                                         </p>
-                                        <p id='teacherDesc' class="opinia">
-                                            Nauczyciel z pasją, potrafi zainteresować tematem i widać, że zależy mu na
-                                            uczniach. Zawsze cierpliwie wszystko tłumaczy i tworzy przyjazną atmosferę
-                                            na lekcjach.
-                                        </p>
+                                        <textarea id='teacherDesc' class="opinia" placeholder='Tutaj wpisz opis'></textarea>
                                     </div>
                                 </fieldset>
                             </div>
-                            <label for="teacherPhone">Numer telefonu</label>
-                            <input type="tel" name="teacherPhone" id="teacherPhone" placeholder="Numer telefonu">
-                            <div class='choose-image'>
-                                <label for="teacherImg" class='file-button submitButton'>Wybierz Zdjęcie</label>
-                                <input type="file" id="teacherImg" name="teacherImg" accept="image/*"
-                                       style="display: none">
-                                <span id='teacherImgFileName'>Nie wybrano</span>
-                                <script>
-                                    document.getElementById('articleImg').addEventListener('change', function (e) {
-                                        const fileName = e.target.files[0]?.name || '';
-                                        document.getElementById('teacherImgFileName').textContent = fileName ? fileName : 'Nie wybrano';
-                                    });
-                                </script>
-                            </div>
-                            <div style='width:100%; display: flex; justify-content:center'>
+                            
+                            <div style='width:100%; display: flex; justify-content:center; margin: 1em'>
                                 <input type="submit" value="Dodaj nauczyciela" class='submitButton'>
                             </div>
                         </div>

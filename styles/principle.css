@@ -264,6 +264,94 @@ button:hover{
 .main-panel-add-article .file-button:active {
     transform: scale(.98);
 }
+.teacherForm .container{
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+.teacherForm .container > div{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.teacherForm .submitButton{
+    font-size: 32px;
+    border-width: 5px;
+    border-radius: 15px;
+}
+.inputGroup {
+    border-left: 5px solid var(--green-darker);
+    padding: 0.4em;
+    text-align: left;
+    font-weight: bold;
+    font-family: 'Sour Gummy', sans-serif;
+    font-size: 32px;
+    background-color: rgba(0, 0, 0, 0.15);
+    width: 100%;
+    box-sizing: border-box;
+}
+.inputGroup input,
+.inputGroup select,
+.inputGroup option{
+    border: var(--green-darker) solid 3px;
+    border-radius: 6px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 28px;
+    background-color: var(--green-dark);
+    color: white;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.teacherForm .teacherCards{
+    width: 50%;
+    margin-top: 0;
+    animation: none;
+    opacity: 1;
+}
+.teacherForm .imgContainer{
+    display: block !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    height: 400px;
+    margin: 0;
+    position: relative;
+}
+.teacherForm .imgContainer label{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: none;
+    background-color: rgba(0, 0, 0, .15);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    border-radius: 0;
+}
+.teacherForm .imgContainer:hover label{
+    display: flex;
+}
+.teacherForm .imgContainer label > span{
+    padding: .5em;
+    background-color:rgba(0, 0, 0, .9);
+    border-radius: 15px;
+}
+.teacherForm .opinia{
+    width: 100%;
+}
+.teacherForm h3,
+.teacherForm .email{
+    text-align: center;
+}
+.teacherForm textarea{
+    color: white;
+    font-family: 'sour gummy', sans-serif;
+    border: none;
+}
+
 .main-panel-groups{
     font-family: 'sour gummy', sans-serif;
 }
@@ -447,66 +535,4 @@ button:hover{
     border-radius: 10px;
     width: 200px;
     height: 125px;
-}
-.teacherForm .container{
-    display: flex;
-    gap: 20px;
-    margin-top: 20px;
-}
-.teacherForm .container > div{
-    width: 50%;
-}
-.teacherForm .submitButton{
-    font-size: 32px;
-}
-.inputGroup {
-    margin: 0.5em 0;
-    border-left: 5px solid var(--green-darker);
-    padding: 0.4em;
-    text-align: left;
-    font-weight: bold;
-    font-family: 'Sour Gummy', sans-serif;
-    font-size: 32px;
-    background-color: rgba(0, 0, 0, 0.15);
-    width: 100%;
-    box-sizing: border-box;
-}
-.inputGroup input,
-.inputGroup select,
-.inputGroup option{
-    border: var(--green-darker) solid 3px;
-    border-radius: 6px;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-    font-size: 28px;
-    background-color: var(--green-dark);
-    color: white;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.teacherForm .teacherCards{
-    width: 50%;
-    margin-top: 0;
-    animation: none;
-    opacity: 1;
-}
-.teacherForm .teacherCards .imgContainer{
-    margin: 0;
-}
-.teacherForm .teacherCards .imgContainer1{
-    display: none;
-}
-.teacherForm .teacherCards .imgContainer2{
-    display: block !important;
-    min-width: 100% !important;
-    max-width: 100% !important;
-    height: 400px;
-}
-.teacherForm .teacherCards .opinia{
-    width: 100%;
-}
-.teacherForm .teacherCards h3,
-.teacherForm .teacherCards .email{
-    text-align: center;
 }
