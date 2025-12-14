@@ -155,7 +155,7 @@ if (!$_SESSION['logged']) {
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
-                echo '<td><span><img src="./../assets/lupa.png" alt="" class="mail_icons"><img src="./../assets/trash.png" class="mail_icons"></span></td>';
+                echo '<td><span><img src="./../assets/trash.png" class="mail_icons"></span></td>';
                 echo '</tr>';
             }
             ?>
@@ -181,7 +181,7 @@ if (!$_SESSION['logged']) {
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
-                echo '<td><span><img src="./../assets/lupa.png" alt="" class="mail_icons"><img src="./../assets/trash.png"</span></td>';
+                echo '<td><span><img src="./../assets/trash.png"</span></td>';
                 echo '</tr>';
             }
             ?>
@@ -207,7 +207,7 @@ if (!$_SESSION['logged']) {
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
-                echo '<td><span><img src="./../assets/lupa.png" alt="" class="mail_icons"><img src="./../assets/trash.png"</span></td>';
+                echo '<td><span><img src="./../assets/trash.png"</span></td>';
                 echo '</tr>';
             }
             ?>
@@ -233,7 +233,7 @@ if (!$_SESSION['logged']) {
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
-                echo '<td><span><img src="./../assets/lupa.png" alt="" class="mail_icons"><img src="./../assets/trash.png"</span></td>';
+                echo '<td><span><img src="./../assets/trash.png"</span></td>';
                 echo '</tr>';
             }
             ?>
