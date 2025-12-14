@@ -41,6 +41,13 @@ main{
     font-family: 'Courier New', Courier, monospace;
     background: var(--green-vibrant);
 }
+
+/*.bigContainers tr:nth-child(n){ animation: slideInViewFromBottom calc(n*0.1s) ease-out}*/
+
+/*.headerCard{*/
+/*    animation: none !important;*/
+/*}*/
+
 .checkboxLabel{
     font-family: system-ui, sans-serif;
     font-size: 2rem;
@@ -130,7 +137,8 @@ td img{
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--green-vibrant);
+    background: rgba(35, 100, 43, 0.95);
+    filter: blur(10);
     z-index: 99999;
     animation: slideInViewFromRight 0.2s ease-out;
 }
@@ -138,8 +146,8 @@ td img{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 90%;
-    height: 90%;
+    width: 85%;
+    height: 85%;
     border-radius: 10px;
     padding: 0 1.5vw;
     background-color: var(--green-vibrant);

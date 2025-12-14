@@ -386,7 +386,16 @@ button:hover{
     gap: 1em;
     padding: 0 0 1em 0;
 }
-.main-panel-groups .groupInfo > div{
+.main-panel-groups .inputGroup{
+    font-weight: normal;
+}
+.main-panel-groups form input,
+.main-panel-groups form select{
+    background-color: var(--green-dark);
+    border-color: var(--green-dark);
+}
+.main-panel-groups .groupInfo > div,
+.main-panel-groups .groupInfo form .inputGroup{
     flex-grow: 1;
     background-color: #ffffff26;
     border-radius: 15px;

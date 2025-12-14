@@ -49,6 +49,7 @@ if (!$_SESSION['logged']) {
     <title>Przedszkole Chaosek - Wiadomości</title>
     <script src="./../scripts/js/showLogin.js"></script>
     <script src="./../scripts/js/inbox.js"></script>
+    <script src="./../scripts/js/showUserPanel.js"></script>
 </head>
 <body>
 <header>
@@ -155,7 +156,7 @@ if (!$_SESSION['logged']) {
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
-                echo '<td><span><img src="./../assets/lupa.png" alt="" class="mail_icons"><img src="./../assets/trash.png" class="mail_icons"></span></td>';
+                echo '<td><span><img src="./../assets/trash.png" class="mail_icons"></span></td>';
                 echo '</tr>';
             }
             ?>
@@ -181,7 +182,7 @@ if (!$_SESSION['logged']) {
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
-                echo '<td><span><img src="./../assets/lupa.png" alt="" class="mail_icons"><img src="./../assets/trash.png"</span></td>';
+                echo '<td><span><img src="./../assets/trash.png"</span></td>';
                 echo '</tr>';
             }
             ?>
@@ -207,7 +208,7 @@ if (!$_SESSION['logged']) {
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
-                echo '<td><span><img src="./../assets/lupa.png" alt="" class="mail_icons"><img src="./../assets/trash.png"</span></td>';
+                echo '<td><span><img src="./../assets/trash.png"</span></td>';
                 echo '</tr>';
             }
             ?>
@@ -233,7 +234,7 @@ if (!$_SESSION['logged']) {
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
-                echo '<td><span><img src="./../assets/lupa.png" alt="" class="mail_icons"><img src="./../assets/trash.png"</span></td>';
+                echo '<td><span><img src="./../assets/trash.png"</span></td>';
                 echo '</tr>';
             }
             ?>
@@ -251,7 +252,44 @@ if (!$_SESSION['logged']) {
         <h1 class="logo-font">Nowa wiadomość</h1>
         <!--        logo font mail to ma być taki sam font tylko jakaś bardziej poważna wersja-->
         <div class="inputContainer">
-            <input id="newMesOdbiorcy" type="text" placeholder="Odbiorcy">
+            <?php
+            echo '<select id="newMesOdbiorcy submitButton" >';
+            if ($user->typ[0] == 1) {
+                $sql_mes = "SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u 
+                        INNER JOIN grupy g ON u.ID = g.Wychowawca 
+                        INNER JOIN dzieci d ON d.grupa = g.id WHERE d.IDRodzica = ". $user->id .  "
+                        UNION 
+                        SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u WHERE u.typ = 3;";
+            }
+            if ($user->typ[1] == 1) {
+                $sql_mes = "SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u 
+                        INNER JOIN dzieci d ON u.ID = d.IDRodzica 
+                        INNER JOIN grupy g ON d.grupa = g.id 
+                        WHERE g.Wychowawca = " . $user->id . "
+                        UNION 
+                        SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u WHERE u.typ = 3;";
+            }
+            if ($user->typ[2] == 1) {
+                $sql_mes = "SELECT ID, imie, nazwisko, typ FROM uzytkownicy WHERE id != " . $user->id . ";";
+            }
+
+            $result = $connection->query($sql_mes)->fetch_all();
+
+            for ($i = 0; $i < count($result); $i++){
+                $sql_typ = "SELECT * FROM uprawnienia WHERE ID = " . $result[$i][3] . ";";
+                $resultTyp = $connection->query($sql_typ )->fetch_all();
+                if((int)$resultTyp[0][3] == "1"){
+                    $typ = "Dyrekcja";
+                }elseif((int)$resultTyp[0][2] == "1"){
+                    $typ = "Nauczyciel";
+                }else{
+                    $typ = "Rodzic";
+                }
+                echo "<option class='submitButton' value='" . $result[$i][0] . "'>". $result[$i][1] . " ". $result[$i][2]. " - " . $typ . "</option>";
+            }
+            echo "</select>";
+            ?>
+
         </div>
         <div class="inputContainer">
             <input id="newMesTytul" type="text" placeholder="Tytuł">
@@ -269,6 +307,6 @@ if (!$_SESSION['logged']) {
 </div>
 
 
-<script src="./../scripts/js/showUserPanel.js"></script>
+
 </body>
 </html>
