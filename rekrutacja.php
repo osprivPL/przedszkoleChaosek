@@ -18,9 +18,6 @@ if (!isset($_SESSION['error'])) {
 
 if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
-    if ($user->typ[2] == 0) {
-        header('Location: ./electronicDiary/principle.php');
-    }
 }
 ?>
 

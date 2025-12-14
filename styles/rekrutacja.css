@@ -35,10 +35,10 @@ main {
     overflow-x: auto;
 }
 .containerLoggedOut{
-    width: 50vw;
+    width: 1000px;
 }
 .containerLoggedIn{
-    width: 40vw;
+    width: 800px;
 }
 .containerProcess{
     width: 600px;
@@ -184,4 +184,32 @@ h1{
     color: red;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
+}
+@media (max-width: 1000px){
+    header{
+        justify-content: center !important;
+    }
+    header .logo{
+        margin-left: -50px;
+    }
+    header .logo > span{
+        margin-left: -30px;
+    }
+    .containerLoggedOut{
+        width: 800px;
+    }
+    .containerResult{
+        width: 800px;
+        padding: 20px;
+    }
+}
+@media (max-width: 900px){
+    .containerLoggedIn{
+        width: 600px;
+    }
+}
+@media (max-width: 700px){
+    .containerProcess{
+        width: 400px;
+    }
 }

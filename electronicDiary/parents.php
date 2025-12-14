@@ -582,7 +582,7 @@ $resultChildren = $connection->query($sqlChildren)->fetch_all(MYSQLI_ASSOC);
 
                         <?php
                         if (empty($groups)) {
-                            echo "<div style='text-align:center; padding: 20px;'>Brak przypisanych grup.</div>";
+                            echo "<div style='text-align:center; padding: 20px;font-family: sour gummy, sans-serif; font-size: 48px; font-weight: bold'>Brak przypisanych grup.</div>";
                         }
                         foreach ($groups as $index => $groupID):
                             ?>
