@@ -134,12 +134,13 @@ if (!$_SESSION['logged']) {
     <!-- MAIN -->
     <!-- ============================= -->
     <main id="main">
-                    <!--Ma otwierać "nakładke" do pisania wiadomości-->
+        <!--Ma otwierać "nakładke" do pisania wiadomości-->
 
 
         <table id="receivedContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
-                <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)"></label></td>
+                <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1"
+                                                        onclick="selectAllCheckboxes(1)"></label></td>
                 <td><span class="messageTitle">Tytuł</span></td>
                 <td><span class="messageSender">Nadawca</span></td>
                 <td><span class="messageDate">Data wysłania</span></td>
@@ -161,11 +162,11 @@ if (!$_SESSION['logged']) {
             }
             ?>
             <script>setIleWiadomosci(<?php echo count($result);?>);</script>
-        </
-        >
+        </table>
         <table id="sentContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
-                <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)"></label></td>
+                <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1"
+                                                        onclick="selectAllCheckboxes(1)"></label></td>
                 <td><span class="messageTitle">Tytuł</span></td>
                 <td><span class="messageSender">Nadawca</span></td>
                 <td><span class="messageDate">Data wysłania</span></td>
@@ -173,7 +174,7 @@ if (!$_SESSION['logged']) {
             </tr>
             <?php
             $connection = new mysqli("localhost", "root", "", "przedszkole");
-            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE nadawcaID = " . $user->id . " AND Usunięte = 0 AND robocze = 0;" )->fetch_all();
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE nadawcaID = " . $user->id . " AND Usunięte = 0 AND robocze = 0;")->fetch_all();
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
@@ -191,7 +192,8 @@ if (!$_SESSION['logged']) {
         >
         <table id="deletedContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
-                <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)"></label></td>
+                <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1"
+                                                        onclick="selectAllCheckboxes(1)"></label></td>
                 <td><span class="messageTitle">Tytuł</span></td>
                 <td><span class="messageSender">Nadawca</span></td>
                 <td><span class="messageDate">Data wysłania</span></td>
@@ -199,7 +201,7 @@ if (!$_SESSION['logged']) {
             </tr>
             <?php
             $connection = new mysqli("localhost", "root", "", "przedszkole");
-            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE Usunięte = 1;" )->fetch_all();
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE Usunięte = 1;")->fetch_all();
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
@@ -217,7 +219,8 @@ if (!$_SESSION['logged']) {
 
         <table id="draftsContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
-                <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1" onclick="selectAllCheckboxes(1)"></label></td>
+                <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1"
+                                                        onclick="selectAllCheckboxes(1)"></label></td>
                 <td><span class="messageTitle">Tytuł</span></td>
                 <td><span class="messageSender">Nadawca</span></td>
                 <td><span class="messageDate">Data wysłania</span></td>
@@ -225,7 +228,7 @@ if (!$_SESSION['logged']) {
             </tr>
             <?php
             $connection = new mysqli("localhost", "root", "", "przedszkole");
-            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE robocze = 1;" )->fetch_all();
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE robocze = 1;")->fetch_all();
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
@@ -239,11 +242,9 @@ if (!$_SESSION['logged']) {
             }
             ?>
         </table>
-
-              </div>
-            </div>
     </main>
 </div>
+
 <div id="writeContainer" class="bigContainers">
     <form action="./../scripts/php/NewMessage.php" method="post">
         <div class="offButton" onclick="showContainer(0)">
@@ -257,9 +258,9 @@ if (!$_SESSION['logged']) {
             if ($user->typ[0] == 1) {
                 $sql_mes = "SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u 
                         INNER JOIN grupy g ON u.ID = g.Wychowawca 
-                        INNER JOIN dzieci d ON d.grupa = g.id WHERE d.IDRodzica = ". $user->id .  "
+                        INNER JOIN dzieci d ON d.grupa = g.id WHERE d.IDRodzica = " . $user->id . "
                         UNION 
-                        SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u WHERE u.typ = 3;";
+                        SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u WHERE u.typ = 3 ORDER BY u.nazwisko;";
             }
             if ($user->typ[1] == 1) {
                 $sql_mes = "SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u 
@@ -267,25 +268,25 @@ if (!$_SESSION['logged']) {
                         INNER JOIN grupy g ON d.grupa = g.id 
                         WHERE g.Wychowawca = " . $user->id . "
                         UNION 
-                        SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u WHERE u.typ = 3;";
+                        SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u WHERE u.typ = 3 ORDER BY u.nazwisko;";
             }
             if ($user->typ[2] == 1) {
-                $sql_mes = "SELECT ID, imie, nazwisko, typ FROM uzytkownicy WHERE id != " . $user->id . ";";
+                $sql_mes = "SELECT ID, imie, nazwisko, typ FROM uzytkownicy WHERE id != " . $user->id . "ORDER BY u.nazwisko;";
             }
 
             $result = $connection->query($sql_mes)->fetch_all();
 
-            for ($i = 0; $i < count($result); $i++){
+            for ($i = 0; $i < count($result); $i++) {
                 $sql_typ = "SELECT * FROM uprawnienia WHERE ID = " . $result[$i][3] . ";";
-                $resultTyp = $connection->query($sql_typ )->fetch_all();
-                if((int)$resultTyp[0][3] == "1"){
+                $resultTyp = $connection->query($sql_typ)->fetch_all();
+                if ((int)$resultTyp[0][3] == "1") {
                     $typ = "Dyrekcja";
-                }elseif((int)$resultTyp[0][2] == "1"){
+                } elseif ((int)$resultTyp[0][2] == "1") {
                     $typ = "Nauczyciel";
-                }else{
+                } else {
                     $typ = "Rodzic";
                 }
-                echo "<option class='submitButton' value='" . $result[$i][0] . "'>". $result[$i][1] . " ". $result[$i][2]. " - " . $typ . "</option>";
+                echo "<option class='submitButton' value='" . $result[$i][0] . "'>" . $result[$i][1] . " " . $result[$i][2] . " - " . $typ . "</option>";
             }
             echo "</select>";
             ?>
@@ -305,7 +306,6 @@ if (!$_SESSION['logged']) {
         </div>
     </form>
 </div>
-
 
 
 </body>
