@@ -1,5 +1,3 @@
-
-
 function openGroupTab(evt, tabId) {
     let contents = document.getElementsByClassName("tab-content");
     for (let i = 0; i < contents.length; i++) {
@@ -12,6 +10,7 @@ function openGroupTab(evt, tabId) {
     document.getElementById(tabId).style.display = "block";
     evt.currentTarget.className += " active";
 }
+
 function ukryjArtykul(idRekordu) {
     fetch('./../scripts/php/deleteArticle.php', {
         method: 'POST',
@@ -79,7 +78,7 @@ async function edytujArtykul(id) {
             const response = await fetch(sourceImg.src);
             const blob = await response.blob();
 
-            const file = new File([blob], "aktualne-zdjecie.jpg", { type: blob.type });
+            const file = new File([blob], "aktualne-zdjecie.jpg", {type: blob.type});
 
             const dataTransfer = new DataTransfer();
             dataTransfer.items.add(file);
@@ -131,7 +130,7 @@ async function editTeacher(id) {
             const response = await fetch(url);
             const blob = await response.blob();
 
-            const file = new File([blob], "teacher_photo.jpg", { type: blob.type });
+            const file = new File([blob], "teacher_photo.jpg", {type: blob.type});
 
             const dataTransfer = new DataTransfer();
             dataTransfer.items.add(file);
@@ -160,9 +159,8 @@ function usunDziecko(idRekordu) {
                     element.style.opacity = "0";
                     setTimeout(() => element.remove(), 500);
                 }
-            }
-            else {
-                alert('Wystąpił błąd podczas zapisu.'+ data.trim());
+            } else {
+                alert('Wystąpił błąd podczas zapisu.' + data.trim());
             }
         })
         .catch(error => console.error('Błąd sieci:', error));
@@ -170,13 +168,14 @@ function usunDziecko(idRekordu) {
 
 function edytujDziecko(daneDziecka, idPanel) {
     daneDziecka = daneDziecka.split(';');
-    document.getElementById("group"+idPanel+"Management").style.display="none";
+    document.getElementById("group" + idPanel + "Management").style.display = "none";
+    document.getElementById('senderDiv').value = idPanel;
     console.log("Dane dziecka:", daneDziecka);
-    document.getElementById('editChild').style.display='flex';
-    document.getElementById('editChildName').value=daneDziecka[0];
-    document.getElementById('editChildSurname').value=daneDziecka[1];
-    document.getElementById('editChildPesel').value=daneDziecka[2];
-    document.getElementById('editChildAddress').value=daneDziecka[3];
+    document.getElementById('editChild').style.display = 'flex';
+    document.getElementById('editChildName').value = daneDziecka[0];
+    document.getElementById('editChildSurname').value = daneDziecka[1];
+    document.getElementById('editChildPesel').value = daneDziecka[2];
+    document.getElementById('editChildAddress').value = daneDziecka[3];
     let select = document.getElementById('editChildGrupa');
     for (let i = 0; i < select.options.length; i++) {
         if (select.options[i].value === daneDziecka[7]) {
@@ -184,11 +183,17 @@ function edytujDziecko(daneDziecka, idPanel) {
             break;
         }
     }
-    document.getElementById('editChildId').value=daneDziecka[6];
+    document.getElementById('editChildId').value = daneDziecka[6];
     document.getElementById('editChildOpinion').value = daneDziecka[8];
 
 }
-function saveChildrenChanges(idRekordu){
+
+function cancelEditingChild(g) {
+    document.getElementById('editChild').style.display = 'none';
+    document.getElementById('group' + senderDiv.value +"Management").style.display = 'flex';
+}
+
+function saveChildrenChanges(idRekordu) {
     fetch('./../scripts/php/editChild.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -210,29 +215,28 @@ function saveChildrenChanges(idRekordu){
         .catch(error => console.error('Błąd sieci:', error));
 }
 
-function deleteGroup(g){
+function deleteGroup(g) {
     fetch('./../scripts/php/deleteGroup.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({id: g})
-    }).then (response => response.text()).then(data => {
+    }).then(response => response.text()).then(data => {
         if (data.trim() === 'OK') {
-            let element= document.getElementById('group'+g+'Management');
+            let element = document.getElementById('group' + g + 'Management');
             if (element) {
                 element.style.transition = "opacity 0.5s";
                 element.style.opacity = "0";
                 setTimeout(() => element.remove(), 500);
             }
-            element= document.getElementById('navGroup' + g);
+            element = document.getElementById('navGroup' + g);
             if (element) {
                 element.style.transition = "opacity 0.5s";
                 element.style.opacity = "0";
                 setTimeout(() => element.remove(), 500);
             }
             document.getElementById('witajPanel').style.display = "flex";
-        }
-        else{
-            alert('Wystąpił błąd podczas zapisu.'+ data.trim());
+        } else {
+            alert('Wystąpił błąd podczas zapisu.' + data.trim());
         }
     })
 }

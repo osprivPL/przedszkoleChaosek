@@ -1316,10 +1316,11 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small"><span>Edytuj dziecko</span></h1>
-                    <div id='goBackChild' onclick='' class='go-back logo-font-small'
+                    <div id='goBackChild' onclick='cancelEditingChild()' class='go-back logo-font-small'
                          style='left: 20px;'>↩
                     </div>
                     <form method="post" action="./../scripts/php/editChild.php">
+                        <input type="hidden" id="senderDiv">
                         <input type="hidden" id="editChildId" name="editChildId">
                         <label for="editChildName">Imię:</label>
                         <input type="text" name="editChildName" id="editChildName" required>
@@ -1340,6 +1341,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                         <textarea id="editChildOpinion" name="editChildOpinion"></textarea>
                         <button id="saveChanges">Zapisz zmiany</button>
                     </form>
+
                 </div>
             </div>
         </div>
