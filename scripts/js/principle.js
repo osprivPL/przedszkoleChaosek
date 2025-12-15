@@ -170,7 +170,6 @@ function usunDziecko(idRekordu) {
 
 function edytujDziecko(daneDziecka, idPanel) {
     daneDziecka = daneDziecka.split(';');
-    daneDziecka.splice(6,1);
     document.getElementById("group"+idPanel+"Management").style.display="none";
     console.log("Dane dziecka:", daneDziecka);
     document.getElementById('editChild').style.display='flex';
@@ -180,13 +179,13 @@ function edytujDziecko(daneDziecka, idPanel) {
     document.getElementById('editChildAddress').value=daneDziecka[3];
     let select = document.getElementById('editChildGrupa');
     for (let i = 0; i < select.options.length; i++) {
-        if (select.options[i].value === daneDziecka[6]) {
+        if (select.options[i].value === daneDziecka[7]) {
             select.options[i].selected = 'selected';
             break;
         }
     }
-    document.getElementById('editChildId').value=idPanel;
-    document.getElementById('editChildOpinion').value = daneDziecka[7];
+    document.getElementById('editChildId').value=daneDziecka[6];
+    document.getElementById('editChildOpinion').value = daneDziecka[8];
 
 }
 function saveChildrenChanges(idRekordu){
@@ -209,4 +208,31 @@ function saveChildrenChanges(idRekordu){
             }
         })
         .catch(error => console.error('Błąd sieci:', error));
+}
+
+function deleteGroup(g){
+    fetch('./../scripts/php/deleteGroup.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({id: g})
+    }).then (response => response.text()).then(data => {
+        if (data.trim() === 'OK') {
+            let element= document.getElementById('group'+g+'Management');
+            if (element) {
+                element.style.transition = "opacity 0.5s";
+                element.style.opacity = "0";
+                setTimeout(() => element.remove(), 500);
+            }
+            element= document.getElementById('navGroup' + g);
+            if (element) {
+                element.style.transition = "opacity 0.5s";
+                element.style.opacity = "0";
+                setTimeout(() => element.remove(), 500);
+            }
+            document.getElementById('witajPanel').style.display = "flex";
+        }
+        else{
+            alert('Wystąpił błąd podczas zapisu.'+ data.trim());
+        }
+    })
 }

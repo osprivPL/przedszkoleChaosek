@@ -15,6 +15,7 @@ if ($connection) {
     $opinia = $_POST['editChildOpinion'];
 
     $sql = "UPDATE dzieci SET imie = '$imie', nazwisko = '$nazwisko', pesel = '$pesel', adres = '$adres', grupa = '$grupa', opinia = '$opinia' WHERE id = $id";
+    echo $sql;
     $connection->query($sql);
     echo 'g';
     $_SESSION['powodzenie'] = "Dziecko zostało zaktualizowany pomyślnie.";
