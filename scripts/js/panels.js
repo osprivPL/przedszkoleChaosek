@@ -31,7 +31,7 @@ function edytujKomunikat(id){
     let select = document.getElementById('editKomunikatGrupa');
     let widocznosc = document.getElementById('annoucementVisibility'+id).innerHTML;
     for (let i = 0; i < select.options.length; i++) {
-        console.log(select.options[i].text);
+        // console.log(select.options[i].text);
         if (select.options[i].text ===widocznosc) {
             select.options[i].selected = true;
             break;

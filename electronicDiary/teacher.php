@@ -464,11 +464,11 @@ if ($resP) {
                     $sql = "SELECT tytul, tresc, data, przynaleznosc, id FROM komunikaty WHERE autor = " . $user->id . " ORDER BY data DESC";
                     $result = $connection->query($sql)->fetch_all();
                     for ($i = 0; $i < count($result); $i++) {
-                        echo "<div class='newsCards' style='animation-delay: ".$i*0.2 ."s'>
+                        echo "<div class='newsCards' id='komunikat" . $result[$i][4] . "' style='animation-delay: " . $i * 0.2 . "s'>
                                     <div class='header'>
-                                        <span class='title'>" . $result[$i][0] . "</span>
-                                        <span class='date'>" . $result[$i][2] . "
-                                        <br><span class='labelVisibleFor2' style='display:none'>";
+                                        <span class='title' id='annoucementHeader" . $result[$i][4] . "'>" . $result[$i][0] . "</span>
+                                        <span class='date' id='annoucementDate" . $result[$i][4] . "'>" . $result[$i][2] . "
+                                        <br><span class='labelVisibleFor2' id='annoucementVisibility".$result[$i][4]."' style='display:none'>";
                                         if ($result[$i][3] == 0) {
                                             echo "Wszyscy";
                                         } else {
@@ -476,7 +476,7 @@ if ($resP) {
                                         }
                                     echo "</span></span>
                                     </div>
-                                    <div><span class='content'>" . $result[$i][1] . "</span>
+                                    <div><span class='content' id='annoucementContent" . $result[$i][4] . "'>" . $result[$i][1] . "</span>
                                     <div style='display: flex; justify-content: space-between'>
                                     <div style='display: flex; align-items: flex-end'>
                                     <button class='delete_article submitButton' onclick='edytujKomunikat(" . $result[$i][4] . ")'>Edytuj komunikat</button>
@@ -585,6 +585,15 @@ if ($resP) {
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small"><span>Edytuj komunikat</span></h1>
+                    <div id='goBackKomunikat' onclick='backFromEditingAnnoucement()' class='go-back logo-font-small'
+                         style='left: 20px;'>↩
+                    </div>
+                    <script>
+                        function backFromEditingAnnoucement() {
+                            document.getElementById('editAnnoucements').style.display = 'none';
+                            document.getElementById('annoucementManager').style.display = 'flex';
+                        }
+                    </script>
                     <form method="post" action="./../scripts/php/editAnnoucement.php" id="frmEditKomunikat">
                         <input type="hidden" name="editKomunikatIdHiddenInput" id="editKomunikatIdHiddenInput">
                         <div class="article_header">

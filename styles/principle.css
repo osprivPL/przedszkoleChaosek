@@ -115,26 +115,7 @@ button:hover{
 .application {
     position: relative;
 }
-.go-back{
-    font-size: 60px;
-    line-height: 60px;
-    width: 60px;
-    text-align: center;
-    position: absolute;
-    top: 20px;
-    left: 0px;
-    background-color: var(--green-vibrant);
-    padding: 10px;
-    transition: background-color .3s;
-    z-index: 8;
-}
-.go-back:hover{
-    background-color: var(--green-dark);
-    cursor: pointer;
-}
-.go-back:active{
-    background-color: var(--green-darker);
-}
+
 .buttonContainer{
     display: flex;
     width: 40%;
