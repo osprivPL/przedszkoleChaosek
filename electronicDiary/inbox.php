@@ -246,7 +246,7 @@ if (!$_SESSION['logged']) {
 </div>
 
 <div id="writeContainer" class="bigContainers">
-    <form action="./../scripts/php/NewMessage.php" method="post">
+    <form action="./../scripts/php/addMessage.php" method="post">
         <div class="offButton" onclick="showContainer(0)">
             <p>X</p>
         </div>
@@ -260,7 +260,10 @@ if (!$_SESSION['logged']) {
                         INNER JOIN grupy g ON u.ID = g.Wychowawca 
                         INNER JOIN dzieci d ON d.grupa = g.id WHERE d.IDRodzica = " . $user->id . "
                         UNION 
-                        SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u WHERE u.typ = 3 ORDER BY u.nazwisko;";
+                        SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u 
+                        INNER JOIN uprawnienia a ON u.ID = a.ID
+                        WHERE a.dyrektor = 1 
+                        ORDER BY nazwisko;";
             }
             if ($user->typ[1] == 1) {
                 $sql_mes = "SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u 
@@ -268,10 +271,15 @@ if (!$_SESSION['logged']) {
                         INNER JOIN grupy g ON d.grupa = g.id 
                         WHERE g.Wychowawca = " . $user->id . "
                         UNION 
-                        SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u WHERE u.typ = 3 ORDER BY u.nazwisko;";
+                        SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u 
+                        INNER JOIN uprawnienia a ON u.ID = a.ID
+                        WHERE a.dyrektor = 1
+                        ORDER BY nazwisko;";
             }
             if ($user->typ[2] == 1) {
-                $sql_mes = "SELECT ID, imie, nazwisko, typ FROM uzytkownicy WHERE id != " . $user->id . "ORDER BY u.nazwisko;";
+                $sql_mes = "SELECT ID, imie, nazwisko, typ FROM uzytkownicy
+                            WHERE id != " . $user->id . " 
+                            ORDER BY nazwisko;";
             }
 
             $result = $connection->query($sql_mes)->fetch_all();
@@ -290,7 +298,6 @@ if (!$_SESSION['logged']) {
             }
             echo "</select>";
             ?>
-
         </div>
         <div class="inputContainer">
             <input id="newMesTytul" type="text" placeholder="Tytuł">
