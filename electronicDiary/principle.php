@@ -818,7 +818,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                         <img id='deleteGroup<?php echo $g; ?>' src="./../assets/trash.png"
                              style="width: 60px; left: calc(100% - 100px)" onclick="deleteGroup(<?php echo $g; ?>)"
                              class='go-back'>
-                        <div id='goBackGroup<?php echo $g; ?>' onclick='' class='go-back logo-font-small'
+                        <div id='goBackGroup<?php echo $g; ?>' onclick='cancelEditingGroup(<?php echo $g; ?>)' class='go-back logo-font-small'
                              style='display: none; left: 20px;'>↩
                         </div>
                         <div class='groupInfo'>
@@ -837,11 +837,22 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                 echo "<option value='" . $teachers[$i]['id'] . "'>" . $teachers[$i]['full_name'] . "</option>";
                             }
                             echo "</select></div>";
-                            echo "<button class='go-back logo-font-small' style='right: 20px; left: auto; width:80px; border: none'>✔</button>";
+                            echo "<button class='go-back logo-font-small' id='confirmGroup".$g."' style='right: 20px; left: auto; width:80px; border: none'>✔</button>";
                             echo "</form>";
-
-
                             ?>
+                            <script>
+                                function cancelEditingGroup(g) {
+                                    document.getElementById('olowek' + g).style.display = 'block';
+                                    document.getElementById('deleteGroup' + g).style.display = 'block';
+
+                                    document.getElementById('goBackGroup' + g).style.display = 'none';
+
+                                    document.getElementById('frmUpdateGroup' + g).style.display = 'none';
+
+                                    document.getElementById('divGroupName' + g).style.display = 'block';
+                                    document.getElementById('divGroupSupervisor' + g).style.display = 'block';
+                                }
+                            </script>
                         </div>
                         <div class="groupMembers">
                             <h2>Lista dzieci w grupie:</h2>
@@ -1132,9 +1143,15 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small"><span>Edytuj artykuł</span></h1>
-                    <div id='goBackArticle' onclick='' class='go-back logo-font-small'
-                             style='left: 20px;'>↩
-                        </div>
+                    <div id='goBackArticle' class='go-back logo-font-small'
+                         style='left: 20px;' onclick="backToManageArticles()">↩
+                    </div>
+                    <script>
+                        function backToManageArticles() {
+                            document.getElementById('editArticle').style.display = 'none';
+                            document.getElementById('main-panel-articles').style.display = 'flex';
+                        }
+                    </script>
                     <form method="post" action="../scripts/php/editArticle.php" enctype="multipart/form-data"
                           id="editArticleForm">
                         <input type="hidden" name="articleId" id="articleIdHiddenInput">
@@ -1226,9 +1243,15 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small"><span>Edytuj komunikat</span></h1>
-                    <div id='goBackKomunikat' onclick='' class='go-back logo-font-small'
-                             style='left: 20px;'>↩
-                        </div>
+                    <div id='goBackKomunikat' onclick='backFromEditingAnnoucement()' class='go-back logo-font-small'
+                         style='left: 20px;'>↩
+                    </div>
+                    <script>
+                        function backFromEditingAnnoucement() {
+                            document.getElementById('editAnnoucements').style.display = 'none';
+                            document.getElementById('annoucementManager').style.display = 'flex';
+                        }
+                    </script>
                     <form method="post" action="./../scripts/php/editAnnoucement.php" id="frmEditKomunikat">
                         <input type="hidden" name="editKomunikatIdHiddenInput" id="editKomunikatIdHiddenInput">
                         <div class="article_header">
@@ -1283,8 +1306,8 @@ $resultGroups = $connection->query($sql)->fetch_all();
                     <hr>
                     <h1 class="logo-font-small"><span>Edytuj dziecko</span></h1>
                     <div id='goBackChild' onclick='' class='go-back logo-font-small'
-                             style='left: 20px;'>↩
-                        </div>
+                         style='left: 20px;'>↩
+                    </div>
                     <form method="post" action="./../scripts/php/editChild.php">
                         <input type="hidden" id="editChildId" name="editChildId">
                         <label for="editChildName">Imię:</label>
@@ -1314,9 +1337,15 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small">Edytuj nauczyciela</h1>
-                    <div id='goBackTeacher' onclick='' class='go-back logo-font-small'
-                             style='left: 20px;'>↩
-                        </div>
+                    <div id='goBackTeacher' onclick='backToManageTeachers()' class='go-back logo-font-small'
+                         style='left: 20px;'>↩
+                    </div>
+                    <script>
+                        function backToManageTeachers() {
+                            document.getElementById('edit-teacher').style.display = 'none';
+                            document.getElementById('main-teachers').style.display = 'flex';
+                        }
+                    </script>
                     <form method="post" action="../scripts/php/editTeacher.php" id="frmEditTeacher"
                           enctype="multipart/form-data">
                         <input type="hidden" id="editTeacherId" name="editTeacherId">
