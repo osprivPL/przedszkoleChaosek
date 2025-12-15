@@ -91,6 +91,39 @@ async function edytujArtykul(id) {
     }
 }
 
+// async function edytujArtykul(id) {
+//     document.getElementById('main-panel-articles').style.display = "none";
+//     document.getElementById('editArticle').style.display = "flex";
+//     document.getElementById('editArticleHeader').value = document.getElementById('articleHeader' + id).innerHTML;
+//     document.getElementById('editArticleData').value = document.getElementById('articleDate' + id).innerHTML;
+//     document.getElementById('editArticleContent').innerHTML = document.getElementById('articleContent' + id).innerHTML;
+//     document.getElementById('articleIdHiddenInput').value = id;
+//
+//     const fileInput = document.getElementById('editArticleImg');
+//     const sourceImg = document.getElementById('articleImg' + id);
+//
+//     if (sourceImg && sourceImg.src) {
+//         try {
+//             const response = await fetch(sourceImg.src);
+//             const blob = await response.blob();
+//
+//             const imgUrl = new URL(sourceImg.src);
+//             const fullFileName = decodeURIComponent(imgUrl.pathname.split('/').pop());
+//             const fileName = fullFileName.replace(/_.{13}(?=\.[^.]+$)/, '');
+//
+//             const file = new File([blob], fileName, {type: blob.type});
+//
+//             const dataTransfer = new DataTransfer();
+//             dataTransfer.items.add(file);
+//             fileInput.files = dataTransfer.files;
+//             fileInput.dispatchEvent(new Event('change'));
+//
+//         } catch (e) {
+//             console.error(e);
+//         }
+//     }
+// }
+
 async function editTeacher(id) {
     document.getElementById("main-teachers").style.display = 'none';
     document.getElementById("edit-teacher").style.display = 'flex';
