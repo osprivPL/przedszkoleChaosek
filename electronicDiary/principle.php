@@ -758,14 +758,22 @@ $resultGroups = $connection->query($sql)->fetch_all();
                         }
                         echo '<legend id="teacherType' . $result[$i][8] . '">' . $typ . '</legend>';
                         echo '<div class="teacherInfo">';
-                        echo '<h3><span id="teacherName' . $result[$i][8] . '">' . $result[$i][0] . "</span> <span id='teacherLastName" . $result[$i][8] . "'>" . $result[$i][1] . '</span><span class="email" id="teacherEmail' . $result[$i][8] . '">' . $result[$i][2] . '</span> <span class="email" id="teacherPhoneNumber' . $result[$i][8] . '">' . $result[$i][9] . '</span></h3>';
+                        echo '<h3><span id="teacherName' . $result[$i][8] . '">' . $result[$i][0] . "</span> 
+                                <span id='teacherLastName" . $result[$i][8] . "'>" . $result[$i][1] . '</span>
+                                <span class="email" id="teacherEmail' . $result[$i][8] . '">' . $result[$i][2] . '</span>
+                                <span class="email" id="teacherPhoneNumber' . $result[$i][8] . '">' . $result[$i][9] . '</span> 
+                            </h3>';
                         echo "<div class='imgContainer imgContainer2' style='background-image: url(./../assets/staff/" . $result[$i][5] . ");display: none'></div>";
+                        echo '<span style="display: none" class="email emailPlacedBelow" id="secondTeacherEmail' . $result[$i][8] . '">' . $result[$i][2] . '</span>
+                            <span style="display: none" class="email emailPlacedBelow" id="secondTeacherPhoneNumber' . $result[$i][8] . '">' . $result[$i][9] . '</span>';
                         echo '<p class="opinia" id="teacherDesc' . $result[$i][8] . '"> ' . $result[$i][4] . "</p>";
+                        echo '<div class="button-container">';
+                        echo "<button class='submitButton' onclick='editTeacher(" . $result[$i][8] . ")'>Edytuj informacje o nauczycielu</button>";
+                        echo "<button class='submitButton' onclick='usunNauczyciela(" . $result[$i][8] . ")' style='margin-right: 0'>Usuń nauczyciela</button>";
+                        echo "</div>";
                         echo '</div>';
                         echo '<div>';
                         echo "<div class='imgContainer imgContainer1' id='teacherImg" . $result[$i][8] . "' style='background-image: url(./../assets/staff/" . $result[$i][5] . ")'></div>";
-                        echo "<button onclick='editTeacher(" . $result[$i][8] . ")'>Edytuj informacje o nauczycielu</button>";
-                        echo "<button onclick='usunNauczyciela(" . $result[$i][8] . ")'>Usuń nauczyciela</button>";
                         echo '</div>';
                         $typ = "";
                         echo '</fieldset>';

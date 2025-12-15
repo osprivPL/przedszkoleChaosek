@@ -349,7 +349,7 @@ aside, main {
     font-size: 0.9em;
     font-size: 20px;
 }
-.button-container{
+.main-panel-plan .button-container{
     display: flex;
     justify-content: space-between;
     gap: 10px;
@@ -417,7 +417,8 @@ aside, main {
     font-size: 24px;
     margin-bottom: 5px;
 }
-.newsCards .submitButton{
+.newsCards .submitButton,
+.teacherCards .submitButton{
     margin: 0 20px 0 0;
     font-size: 22px;
     border: none;
@@ -440,87 +441,6 @@ aside, main {
     font-size: 72px;
     height: fit-content;
 }
-@media (max-width: 1300px){
-    .options{
-        display: block;
-        opacity: 1;
-    }
-    .userLabel{
-        display: none;
-    }
-    .user{
-        padding: 0;
-    }
-    .user_pop_up{
-        left: auto;
-        right: 0;
-        width: 200px;
-    }
-    nav{
-        opacity: 1;
-        transform: translateX(-300px);
-        pointer-events: none;
-    }
-    main{
-        margin-left: 0;
-    }
-    .formContainer{
-        width: 100% !important;
-    }
-}
-@media (max-width: 650px){
-    .labelPrzedszkole{
-        display: none;
-    }
-    header .logo-font-small{
-        margin-left: -40px;
-    }
-    .formContainer h1.logo-font-small{
-        font-size: 48px;
-    }
-    .formContainer hr{
-        top: 2.5rem;
-    }
-
-
-    .teacherCards .imgContainer{
-        margin: 0;
-    }
-    .teacherCards .imgContainer1{
-        display: none;
-    }
-    .teacherCards .imgContainer2{
-        display: block !important;
-        min-width: 100% !important;
-        max-width: 100% !important;
-        height: 500px;
-    }
-    .teacherCards .opinia{
-        width: 100%;
-    }
-    .teacherCards h3,
-    .email{
-        text-align: center;
-    }
-    .labelVisibleFor1{
-        display: none;
-    }
-    .labelVisibleFor2{
-        display: inline-block !important;
-    }
-    .newsCards .date{
-        font-size: 20px;
-    }
-}
-@media (max-width:920px){
-    .email{
-        display: none;
-    }
-    .emailPlacedBelow{
-        display: block !important;
-    }
-}
-
 .main-panel-teachers .formContainer{
     width: 80%;
 }
@@ -585,11 +505,101 @@ aside, main {
     background-color: rgba(0,0,0,.15);
     min-height: 150px;
 }
-
+.teacherCards .button-container{
+    display: flex;
+    margin-top: 15px;
+}
 .main-panel-teachers .styling-panel{
     display: flex;
     justify-content: center;
 }
 .main-panel-teachers .formContainer{
     width: 80%;
+}
+@media (max-width: 1300px){
+    .options{
+        display: block;
+        opacity: 1;
+    }
+    .userLabel{
+        display: none;
+    }
+    .user{
+        padding: 0;
+    }
+    .user_pop_up{
+        left: auto;
+        right: 0;
+        width: 200px;
+    }
+    nav{
+        opacity: 1;
+        transform: translateX(-300px);
+        pointer-events: none;
+    }
+    main{
+        margin-left: 0;
+    }
+    .formContainer{
+        width: 100% !important;
+    }
+}
+@media (max-width: 650px){
+    .labelPrzedszkole{
+        display: none;
+    }
+    header .logo-font-small{
+        margin-left: -40px;
+    }
+    .formContainer h1.logo-font-small{
+        font-size: 48px;
+    }
+    .formContainer hr{
+        top: 2.5rem;
+    }
+
+
+    .teacherCards .imgContainer{
+        margin: 0;
+    }
+    .teacherCards .imgContainer1{
+        display: none;
+    }
+    .teacherCards .imgContainer2{
+        display: block !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        height: 500px;
+    }
+    .teacherCards .opinia{
+        width: 100%;
+    }
+    .teacherCards h3,
+    .email{
+        text-align: center;
+    }
+    .teacherCards .button-container{
+        margin-top: 25px;
+    }
+    .teacherCards .submitButton{
+        flex-grow: 1;
+    }
+    .labelVisibleFor1{
+        display: none;
+    }
+    .labelVisibleFor2{
+        display: inline-block !important;
+    }
+    .newsCards .date{
+        font-size: 20px;
+    }
+}
+@media (max-width:1100px){
+    .email{
+        display: none;
+    }
+    .emailPlacedBelow{
+        display: block !important;
+        margin-left: 0 !important;
+    }
 }
