@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     master.addEventListener('change', selectAllCheckboxes);
 });
 
-function showContainer(n){
+function showContainerInbox(n){
     let containers = ['receivedContainer', 'sentContainer', 'deletedContainer', 'draftsContainer', 'writeContainer'];
     for (let i = 0; i < containers.length; i++){
         document.getElementById(containers[i]).style.display = (i === n) ? 'flex' : 'none';

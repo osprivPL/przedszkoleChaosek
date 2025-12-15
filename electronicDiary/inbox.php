@@ -109,24 +109,24 @@ if (!$_SESSION['logged']) {
     <!-- ============================= -->
     <nav id='somethingBeingShown1'>
         <!-- ZROBIC IKONKI DO TEGO, CZYT. ZMIENIC -->
-        <div class="nav_child" onclick="showContainer(0)">
+        <div class="nav_child" onclick="showContainerInbox(0)">
             <img src="./../assets/mailbox.png" alt="">
             <span>Odebrane</span>
         </div>
-        <div class="nav_child " onclick="showContainer(1)">
+        <div class="nav_child " onclick="showContainerInbox(1)">
             <img src="./../assets/send.png" alt="">
             <span>Wysłane</span>
         </div>
-        <div class="nav_child " onclick="showContainer(2)">
+        <div class="nav_child " onclick="showContainerInbox(2)">
             <img src="./../assets/recycle-bin.png" alt="">
             <span>Usunięte</span>
         </div>
-        <div class="nav_child " onclick="showContainer(3)">
+        <div class="nav_child " onclick="showContainerInbox(3)">
             <img src="./../assets/drafts.png" alt="">
             <span class="toLong">Kopie robocze</span>
         </div>
         <div class="nav_exeption">
-            <button onclick="showContainer(4)">Nowa wiadomość</button>
+            <button onclick="showContainerInbox(4)">Nowa wiadomość</button>
         </div>
     </nav>
 
@@ -257,7 +257,7 @@ if (!$_SESSION['logged']) {
 
 <div id="writeContainer" class="bigContainers">
     <form action="./../scripts/php/addMessage.php" method="post" class="mailLayout">
-        <div class="offButton" onclick="showContainer(0)">
+        <div class="offButton" onclick="showContainerInbox(0)">
             <p>X</p>
         </div>
         <h1 class="logo-font">Nowa wiadomość</h1>
