@@ -231,14 +231,16 @@ if ($resP) {
     </script>
     <main id="main">
         <div class="main-panel bigContainers main-panel-witaj">
-            <span class='logo-font-small'>Witaj w panelu nauczyciela</span>
-            <?php
-            if (isset($_SESSION['powodzenie'])) {
-                echo "<div class='success-message'>" . $_SESSION['powodzenie'] . "</div>";
-                unset($_SESSION['powodzenie']);
-            }
-            ?>
-            <?php // print_r($_SESSION); ?>
+            <span class='logo-font-small'  style='text-wrap: wrap; text-align:center'>
+                <?php
+                    if(isset($_SESSION['powodzenie'])){
+                        echo $_SESSION['powodzenie'];
+                        unset($_SESSION['powodzenie']);
+                    }else{
+                        echo "Witaj w panelu nauczyciela!";
+                    }
+                ?>
+            </span>
         </div>
         <?php
         for ($i = 0; $i < count($resultGroups); $i++) {

@@ -152,6 +152,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
 
 </head>
 <body>
+<div class="dark_bg" id="dark_bg" style='display: none'></div>
 <header>
     <div class="square_container">
         <div class="square"></div>
@@ -276,16 +277,29 @@ $resultGroups = $connection->query($sql)->fetch_all();
     </script>
     <main id="main">
         <div class="main-panel bigContainers main-panel-witaj" id="witajPanel">
-            <span class='logo-font-small'>Witaj w panelu dyrekcji</span>
-            <?php
-            if (isset($_SESSION['powodzenie'])) {
-                echo "<div class='success-message'>" . $_SESSION['powodzenie'] . "</div>";
-                unset($_SESSION['powodzenie']);
-            }
-            ?>
+            <span class='logo-font-small' style='text-wrap: wrap;'>
+                <?php
+                if (isset($_SESSION['powodzenie'])) {
+                    echo $_SESSION['powodzenie'];
+                    unset($_SESSION['powodzenie']);
+                } else {
+                    echo "Witaj w panelu dyrekcji!";
+                }
+                ?>
+            </span>
         </div>
 
         <div class="main-panel bigContainers main-panel-rekrutacja">
+            <div class='warning' id="rekrutacjaWarning">
+                <div class='span-container'>
+                    <span class='warning-content'>Zmiany będą <span style='text-decoration:underline wavy'>nieodwracalne!</span></span><br>
+                    <span class='warning-question'>Jesteś <span style='text-decoration:underline'>pewien</span> swojej decyzji?</span>
+                </div>
+                <div class='button-container'>
+                    <button class='submitButton no' onclick="hideWarning()">Nie</button>
+                    <button id="btnWarningAcceptRekrutacja" class='submitButton yes'>Tak</button>
+                </div>
+            </div>
             <div class="styling-panel">
                 <div class="formContainer">
                     <div id='listOfApplications'>
@@ -309,7 +323,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
 
                             echo "<div><button class='more-info' onclick='rozpatrzWniosek(" . json_encode($result[$i], 1) . ")'>🔍︎​</button></div>";
                             echo "<div><button class='accept' onclick='przyjmijWniosek(" . $result[$i][0] . ")'>✔</button></div>";
-                            echo "<div><button class='deny' onclick='odrzucWniosek(" . $result[$i][0] . ")'>✖</button></div>";
+                            echo "<div><button class='deny' onclick='showWarningRekrutacja(" . $result[$i][0] . ")'>✖</button></div>";
                             echo "</div>";
                             echo "</div>";
                         }
@@ -356,91 +370,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 </div>
             </div>
             <script>
-                function dateFromPesel(pesel) {
-                    let rok = pesel.substring(0, 2);
-                    let miesiac = parseInt(pesel.substring(2, 4), 10);
-                    let dzien = pesel.substring(4, 6);
-                    let stulecie = '';
-                    if (miesiac >= 1 && miesiac <= 12) {
-                        stulecie = '19';
-                    } else if (miesiac >= 21 && miesiac <= 32) {
-                        stulecie = '20';
-                        miesiac -= 20;
-                    }
-                    let pelnyRok = stulecie + rok;
-                    miesiac = miesiac.toString().padStart(2, '0');
-                    return `${pelnyRok}-${miesiac}-${dzien}`;
-                }
 
-                function rozpatrzWniosek(rekord) {
-                    if (rekord === "") {
-                        document.getElementById('Application').style.display = "none";
-                        document.getElementById('listOfApplications').style.display = "block";
-                    } else {
-                        document.getElementById('wniosekNumber').innerHTML = "Wniosek #" + rekord[0];
-                        document.getElementById('Application').style.display = "block";
-                        document.getElementById('listOfApplications').style.display = "none";
-                        rekordy = [rekord[5], rekord[6], rekord[7], rekord[8], rekord[1], rekord[2], rekord[4], rekord[3], rekord[8]];
-                        informations = document.getElementsByClassName('information');
-                        for (i = 0; i < informations.length; i++) {
-                            informations[i].innerHTML = rekordy[i];
-                        }
-                        document.getElementById('dataur').innerHTML = dateFromPesel(rekord[7]);
-                    }
-                }
-
-                function odrzucWniosek(idRekordu) {
-                    fetch('./../scripts/php/deleteApplication.php', {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({id: idRekordu})
-                    })
-                        .then(response => response.text())
-                        .then(data => {
-                            if (data.trim() === 'OK') {
-                                const element = document.getElementById('Wniosek#' + idRekordu);
-                                if (element) {
-                                    element.style.transition = "opacity 0.5s";
-                                    element.style.opacity = "0";
-                                    setTimeout(() => element.remove(), 500);
-                                }
-                            } else {
-                                alert('Wystąpił błąd podczas zapisu.');
-                            }
-                        })
-                        .catch(error => console.error('Błąd sieci:', error));
-                }
-
-                function przyjmijWniosek(idRekordu) {
-                    const selectElement = document.getElementById("wniosek" + idRekordu + "select");
-                    const selectedGroup = selectElement ? selectElement.value : "BRAK ELEMENTU";
-                    console.log("Wysyłanie ID:", idRekordu, "Grupa:", selectedGroup);
-
-                    fetch('./../scripts/php/confirmChild.php', {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({
-                            id: idRekordu,
-                            group: selectedGroup
-                        })
-                    })
-                        .then(response => response.text())
-                        .then(data => {
-                            console.log("Odpowiedź PHP:", data);
-
-                            if (data.trim() === 'OK') {
-                                const element = document.getElementById('Wniosek#' + idRekordu);
-                                if (element) {
-                                    element.style.transition = "opacity 0.5s";
-                                    element.style.opacity = "0";
-                                    setTimeout(() => element.remove(), 500);
-                                }
-                            } else {
-                                alert('Serwer zwrócił błąd: ' + data);
-                            }
-                        })
-                        .catch(error => console.error('Błąd sieci:', error));
-                }
             </script>
         </div>
 
@@ -460,7 +390,8 @@ $resultGroups = $connection->query($sql)->fetch_all();
                         </div>
                         <div class="details">
                             <div class='choose-image'>
-                                <label for="articleImg" id = 'addImgToArticle' class='file-button submitButton'>Wybierz Zdjęcie</label>
+                                <label for="articleImg" id='addImgToArticle' class='file-button submitButton'>Wybierz
+                                    Zdjęcie</label>
                                 <input type="file" id="articleImg" name="articleImg" accept="image/*"
                                        style="display: none">
                                 <span id='fileName'>Nie wybrano</span>
@@ -472,7 +403,6 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                 </script>
                             </div>
                             <div><input type="submit" value="Dodaj artykuł" class='submitButton'></div>
-                            <span></span>
                         </div>
                     </form>
                     <script>
@@ -536,6 +466,16 @@ $resultGroups = $connection->query($sql)->fetch_all();
         </div>
 
         <div class="main-panel bigContainers main-panel-articles" id="main-panel-articles">
+            <div class='warning' id="artykulWarning">
+                <div class='span-container'>
+                    <span class='warning-content'>Zmiany będą <span style='text-decoration:underline wavy'>nieodwracalne!</span></span><br>
+                    <span class='warning-question'>Jesteś <span style='text-decoration:underline'>pewien</span> swojej decyzji?</span>
+                </div>
+                <div class='button-container'>
+                    <button class='submitButton no' onclick="hideWarning()">Nie</button>
+                    <button id="btnWarningAcceptArticle" class='submitButton yes'>Tak</button>
+                </div>
+            </div>
             <div class="styling-panel">
                 <div class="formContainer">
                     <hr>
@@ -557,7 +497,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                     <div style='display: flex; justify-content: space-between'>
                                     <div style='display: flex; align-items: flex-end'>
                                     <button class='edit_article submitButton' id='btnEditArticle" . $result[$i][4] . "' onclick='edytujArtykul(" . $result[$i][4] . ")'>Edytuj artykuł</button>
-                                    <button class='delete_article submitButton' onclick='ukryjArtykul(" . $result[$i][4] . ")'>Usuń artykuł</button></div>
+                                    <button class='delete_article submitButton' onclick='showWarningArtykul(" . $result[$i][4] . ")'>Usuń artykuł</button></div>
                                     </div>
                                     </div>
                                     <div></div>
@@ -740,6 +680,16 @@ $resultGroups = $connection->query($sql)->fetch_all();
         </script>
 
         <div class="main-panel bigContainers main-panel-teachers" id="main-teachers">
+            <div class='warning' id="teacherWarning">
+                <div class='span-container'>
+                    <span class='warning-content'>Zmiany będą <span style='text-decoration:underline wavy'>nieodwracalne!</span></span><br>
+                    <span class='warning-question'>Jesteś <span style='text-decoration:underline'>pewien</span> swojej decyzji?</span>
+                </div>
+                <div class='button-container'>
+                    <button class='submitButton no' onclick="hideWarning()">Nie</button>
+                    <button class='submitButton yes' id="btnWarningAcceptTeacher">Tak</button>
+                </div>
+            </div>
             <div class="styling-panel">
                 <div class="formContainer">
                     <hr>
@@ -769,7 +719,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                         echo '<p class="opinia" id="teacherDesc' . $result[$i][8] . '"> ' . $result[$i][4] . "</p>";
                         echo '<div class="button-container">';
                         echo "<button class='submitButton' onclick='editTeacher(" . $result[$i][8] . ")'>Edytuj informacje o nauczycielu</button>";
-                        echo "<button class='submitButton' onclick='usunNauczyciela(" . $result[$i][8] . ")' style='margin-right: 0'>Usuń nauczyciela</button>";
+                        echo "<button class='submitButton' onclick='showWarningTeacher(" . $result[$i][8] . ")' style='margin-right: 0'>Usuń nauczyciela</button>";
                         echo "</div>";
                         echo '</div>';
                         echo '<div>';
@@ -811,7 +761,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                         </div>
                     </form>
                     <script>
-                        document.getElementById('addGroupForm').addEventListener('submit', (e)=>{
+                        document.getElementById('addGroupForm').addEventListener('submit', (e) => {
                             e.preventDefault();
                             if (document.getElementById('groupName').value.length === 0) {
                                 document.getElementById('groupName').classList.add('error');
@@ -828,6 +778,26 @@ $resultGroups = $connection->query($sql)->fetch_all();
 
         <?php for ($g = 1; $g <= count($resultGroups); $g++): ?>
             <div class="main-panel bigContainers main-panel-groups" id="group<?php echo $g ?>Management">
+                <div class='warning' id="group<?php echo $g; ?>Warning">
+                    <div class='span-container'>
+                        <span class='warning-content'>Zmiany będą <span style='text-decoration:underline wavy'>nieodwracalne!</span></span><br>
+                        <span class='warning-question'>Jesteś <span style='text-decoration:underline'>pewien</span> swojej decyzji?</span>
+                    </div>
+                    <div class='button-container'>
+                        <button class='submitButton no' onclick="hideWarning()">Nie</button>
+                        <button class='submitButton yes' id="btnWarningAcceptGroup<?php echo $g; ?>">Tak</button>
+                    </div>
+                </div>
+                <div class='warning' id="childWarning<?php echo $g; ?>">
+                    <div class='span-container'>
+                        <span class='warning-content'>Zmiany będą <span style='text-decoration:underline wavy'>nieodwracalne!</span></span><br>
+                        <span class='warning-question'>Jesteś <span style='text-decoration:underline'>pewien</span> swojej decyzji?</span>
+                    </div>
+                    <div class='button-container'>
+                        <button class='submitButton no' onclick="hideWarning()">Nie</button>
+                        <button class='submitButton yes' id="btnWarningAcceptChild<?php echo $g ?>">Tak</button>
+                    </div>
+                </div>
                 <div class="styling-panel">
                     <div class='formContainer'>
                         <hr>
@@ -835,9 +805,10 @@ $resultGroups = $connection->query($sql)->fetch_all();
                         <img id='olowek<?php echo $g; ?>' src="./../assets/edit.png" style="width: 60px; left: 20px;"
                              onclick="editGroup(<?php echo $g; ?>)" class='go-back'>
                         <img id='deleteGroup<?php echo $g; ?>' src="./../assets/trash.png"
-                             style="width: 60px; left: calc(100% - 100px)" onclick="deleteGroup(<?php echo $g; ?>)"
+                             style="width: 60px; left: calc(100% - 100px)" onclick="showWarningGroup(<?php echo $g; ?>)"
                              class='go-back'>
-                        <div id='goBackGroup<?php echo $g; ?>' onclick='cancelEditingGroup(<?php echo $g; ?>)' class='go-back logo-font-small'
+                        <div id='goBackGroup<?php echo $g; ?>' onclick='cancelEditingGroup(<?php echo $g; ?>)'
+                             class='go-back logo-font-small'
                              style='display: none; left: 20px;'>↩
                         </div>
                         <div class='groupInfo'>
@@ -856,11 +827,11 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                 echo "<option value='" . $teachers[$i]['id'] . "'>" . $teachers[$i]['full_name'] . "</option>";
                             }
                             echo "</select></div>";
-                            echo "<button class='go-back logo-font-small' id='confirmGroup".$g."' style='right: 20px; left: auto; width:80px; border: none'>✔</button>";
+                            echo "<button class='go-back logo-font-small' id='confirmGroup" . $g . "' style='right: 20px; left: auto; width:80px; border: none'>✔</button>";
                             echo "</form>";
                             ?>
                             <script>
-                                document.getElementById('frmUpdateGroup<?php echo $g; ?>').addEventListener('submit', (e) =>{
+                                document.getElementById('frmUpdateGroup<?php echo $g; ?>').addEventListener('submit', (e) => {
                                     e.preventDefault();
                                     if (document.getElementById('inputGroupName<?php echo $g; ?>').value.length === 0) {
                                         document.getElementById('inputGroupName<?php echo $g; ?>').classList.add('error');
@@ -869,6 +840,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                         e.target.submit();
                                     }
                                 })
+
                                 function cancelEditingGroup(g) {
                                     document.getElementById('olowek' + g).style.display = 'block';
                                     document.getElementById('deleteGroup' + g).style.display = 'block';
@@ -904,10 +876,10 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                     echo "<div class='grid-cell'>" . $result[$i][2] . "</div>";
                                     echo "<div class='grid-cell'>" . $result[$i][3] . "</div>";
                                     echo "<div class='grid-cell'>" . $result[$i][4] . " " . $result[$i][5] . "</div>";
-                                    echo "<div class='grid-cell button-container'>
-                                        <button class='delete_child' onclick='usunDziecko(\"" . $result[$i][6] . "\")'>Usuń</button>
-                                        <button class='edit_child' onclick='edytujDziecko(\"" . $arr . "\", " . $g . ")'>Edytuj</button>
-                                    </div>";
+                                    echo "<div class='grid-cell button-container'>";
+                                    echo "    <button class='delete_child' onclick='showWarningChild(".$g.", " . $result[$i][6] . ")'>Usuń</button>";
+                                    echo "    <button class='edit_child' onclick='edytujDziecko(\"" . $arr . "\", " . $g . ")'>Edytuj</button>";
+                                    echo "</div>";
                                     echo "</div>";
                                 }
                                 ?>
@@ -1049,6 +1021,16 @@ $resultGroups = $connection->query($sql)->fetch_all();
         </div>
 
         <div class="main-panel bigContainers main-panel-komunikaty" id="annoucementManager">
+            <div class='warning' id="komunikatWarning">
+                <div class='span-container'>
+                    <span class='warning-content'>Zmiany będą <span style='text-decoration:underline wavy'>nieodwracalne!</span></span><br>
+                    <span class='warning-question'>Jesteś <span style='text-decoration:underline'>pewien</span> swojej decyzji?</span>
+                </div>
+                <div class='button-container'>
+                    <button class='submitButton no' onclick="hideWarning()">Nie</button>
+                    <button class='submitButton yes' id="btnWarningAcceptKomunikat">Tak</button>
+                </div>
+            </div>
             <div class="styling-panel">
                 <div class="formContainer">
                     <hr>
@@ -1073,7 +1055,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                     <div style='display: flex; justify-content: space-between; margin-top: 15px'>
                                     <div style='display: flex; align-items: flex-end'>
                                     <button class='delete_article submitButton' onclick='edytujKomunikat(" . $result[$i][4] . ")'>Edytuj komunikat</button>
-                                    <button class='delete_article submitButton' onclick='ukryjKomunikat(" . $result[$i][4] . ")'>Usuń komunikat</button></div>
+                                    <button class='delete_article submitButton' onclick='showWarningKomunikat(" . $result[$i][4] . ")'>Usuń komunikat</button></div>
                                     <span class='labelVisibleFor1' style='color: lightgray;' id='annoucementVisibility" . $result[$i][4] . "'>";
                         if ($result[$i][3] == 0) {
                             echo "Wszyscy";
@@ -1191,7 +1173,8 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                 <input type="text" id="editArticleHeader" name="editArticleHeader">
                                 <input type="date" id="editArticleData" name="editArticleData">
                             </div>
-                            <textarea id="editArticleContent" name="editArticleContent" rows="10" cols="50"></textarea><br><br>
+                            <textarea id="editArticleContent" name="editArticleContent" rows="10"
+                                      cols="50"></textarea><br><br>
                         </div>
                         <div class="details">
                             <div class='choose-image'>
@@ -1370,14 +1353,16 @@ $resultGroups = $connection->query($sql)->fetch_all();
                             </div>
                         </div>
                         <div class="inputGroup">
-                                <label for="editChildAddress">Adres zamieszkania:</label>
-                                <input type="text" name="editChildAddress" id="editChildAddress" required>
+                            <label for="editChildAddress">Adres zamieszkania:</label>
+                            <input type="text" name="editChildAddress" id="editChildAddress" required>
                         </div>
                         <div class="inputGroup">
                             <label for="editChildOpinion">Opinia:</label>
                             <textarea id="editChildOpinion" name="editChildOpinion" rows='4'></textarea>
                         </div>
-                        <button class='submitButton submitButtonAddon' id="saveChanges">Zapisz zmiany</button>
+                        <button class='go-back logo-font-small' id="saveChanges"
+                                style='right: 20px; left: auto; width:80px; border: none'>✔
+                        </button>
                     </form>
 
                 </div>
