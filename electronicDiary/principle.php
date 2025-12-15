@@ -213,11 +213,13 @@ $resultGroups = $connection->query($sql)->fetch_all();
             <span>Nauczyciele</span>
             <span class="nav_arrow">▽</span>
         </div>
-        <div class="nav_child nav_child_child nav_child_teacher" onclick="showContainer(<?php echo $conteiner; $conteiner++; ?>)">
+        <div class="nav_child nav_child_child nav_child_teacher" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
             <img src="./../assets/plus.png" alt="">
             <span>Dodaj nauczyciela</span>
         </div>
-        <div class="nav_child nav_child_child nav_child_teacher" onclick="showContainer(<?php echo $conteiner; $conteiner++; ?>)">
+        <div class="nav_child nav_child_child nav_child_teacher" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++; ?>)">
             <img src="./../assets/teacher.png" alt="">
             <span>Zarządzaj nauczycielami</span>
         </div>
@@ -226,18 +228,19 @@ $resultGroups = $connection->query($sql)->fetch_all();
             <span>Grupy</span>
             <span class="nav_arrow">▽</span>
         </div>
-        <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner; $conteiner++ ?>)">
+        <div class="nav_child nav_child_child nav_child_group" onclick="showContainer(<?php echo $conteiner;
+        $conteiner++ ?>)">
             <img src="./../assets/plus.png" alt="">
             <span>Dodaj grupe</span>
         </div>
         <?php
-            for ($i = 0; $i < count($resultGroups); $i++){
-                echo "<div class='nav_child nav_child_child nav_child_group' onclick='showContainer(" . $conteiner . ")'>
-                        <img src='./../assets/little-kid.png' alt=''>
-                        <span>Grupa " . $resultGroups[$i][0] . "</span>
-                      </div>";
-                $conteiner++;
-            }
+        for ($i = 0; $i < count($resultGroups); $i++) {
+            echo "<div class='nav_child nav_child_child nav_child_group' onclick='showContainer(" . $conteiner . ")' id='navGroup" . ($i + 1) . "'>
+                <img src='./../assets/little-kid.png' alt=''>
+                <span>Grupa " . $resultGroups[$i][0] . "</span>
+            </div>";
+            $conteiner++;
+        }
         ?>
         <div class="nav_child" onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
@@ -272,7 +275,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
         });
     </script>
     <main id="main">
-        <div class="main-panel bigContainers main-panel-witaj">
+        <div class="main-panel bigContainers main-panel-witaj" id="witajPanel">
             <span class='logo-font-small'>Witaj w panelu dyrekcji</span>
             <?php
             if (isset($_SESSION['powodzenie'])) {
@@ -570,7 +573,8 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small">Dodaj nauczyciela</h1>
-                    <form method="post" action="../scripts/php/addTeacher.php" id="frmAddTeacher" enctype="multipart/form-data">
+                    <form method="post" action="../scripts/php/addTeacher.php" id="frmAddTeacher"
+                          enctype="multipart/form-data">
                         <div class="teacherForm">
                             <div class='container'>
                                 <div>
@@ -602,11 +606,13 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                     <legend id="teacherType">Dyrektor</legend>
                                     <div class="teacherInfo">
                                         <h3>
-                                            <span id='teacherImie'>Imię</span> <span id='teacherNazwisko'>Nazwisko</span>
+                                            <span id='teacherImie'>Imię</span> <span
+                                                    id='teacherNazwisko'>Nazwisko</span>
                                         </h3>
                                         <div class="imgContainer imgContainer2" id="teacherPhoto">
                                             <label for="teacherImg" class='file-button submitButton'><span>Dodaj zdjęcie<span></label>
-                                            <input type="file" id="teacherImg" name="teacherImg" accept="image/*" style="display: none" >
+                                            <input type="file" id="teacherImg" name="teacherImg" accept="image/*"
+                                                   style="display: none">
                                         </div>
                                         <script>
                                             document.getElementById('teacherPhoto').addEventListener('change', function (e) {
@@ -618,11 +624,12 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                         <p id='addTeacherEmail2' class="email emailPlacedBelow">
                                             email
                                         </p>
-                                        <textarea id='teacherDesc' name="teacherDesc" class="opinia" placeholder='Tutaj wpisz opis'></textarea>
+                                        <textarea id='teacherDesc' name="teacherDesc" class="opinia"
+                                                  placeholder='Tutaj wpisz opis'></textarea>
                                     </div>
                                 </fieldset>
                             </div>
-                            
+
                             <div style='width:100%; display: flex; justify-content:center; margin: 1em'>
                                 <input type="submit" value="Dodaj nauczyciela" class='submitButton'>
                             </div>
@@ -723,7 +730,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 let img = e.target;
                 if (img.files && img.files[0]) {
                     const reader = new FileReader();
-                    reader.onload = function(event) {
+                    reader.onload = function (event) {
                         document.getElementById('teacherPhoto').style.backgroundImage = `url(${event.target.result})`;
                         document.getElementById('teacherPhoto').classList.remove('error');
                     };
@@ -742,23 +749,23 @@ $resultGroups = $connection->query($sql)->fetch_all();
                     $result = $connection->query($sql)->fetch_all();
                     //                    print_r($result);
                     for ($i = 0; $i < count($result); $i++) {
-                        echo '<fieldset class="teacherCards" style="animation-delay: '.$i*0.2 .'s" id="teacherCard'.$result[$i][8].'">';
+                        echo '<fieldset class="teacherCards" style="animation-delay: ' . $i * 0.2 . 's" id="teacherCard' . $result[$i][8] . '">';
                         if ($result[$i][6] == 1) {
                             $typ = "Nauczyciel";
-                        } if ($result[$i][7] == 1) {
+                        }
+                        if ($result[$i][7] == 1) {
                             $typ = "Dyrektor";
                         }
-                        echo '<legend id="teacherType'.$result[$i][8].'">' . $typ . '</legend>';
+                        echo '<legend id="teacherType' . $result[$i][8] . '">' . $typ . '</legend>';
                         echo '<div class="teacherInfo">';
-                        echo '<h3><span id="teacherName'.$result[$i][8].'">' . $result[$i][0] . "</span> <span id='teacherLastName".$result[$i][8]."'>" . $result[$i][1] . '</span><span class="email" id="teacherEmail'.$result[$i][8].'">' .$result[$i][2] . '</span> <span class="email" id="teacherPhoneNumber'.$result[$i][8].'">'.$result[$i][9].'</span></h3>';
-                        echo "<div class='imgContainer imgContainer2' style='background-image: url(./../assets/staff/".$result[$i][5].");display: none'></div>";
-                        echo '<p class="email emailPlacedBelow" style="display: none">'.$result[$i][2].'</p>';
-                        echo '<p class="opinia" id="teacherDesc'.$result[$i][8].'"> ' . $result[$i][4] . "</p>";
+                        echo '<h3><span id="teacherName' . $result[$i][8] . '">' . $result[$i][0] . "</span> <span id='teacherLastName" . $result[$i][8] . "'>" . $result[$i][1] . '</span><span class="email" id="teacherEmail' . $result[$i][8] . '">' . $result[$i][2] . '</span> <span class="email" id="teacherPhoneNumber' . $result[$i][8] . '">' . $result[$i][9] . '</span></h3>';
+                        echo "<div class='imgContainer imgContainer2' style='background-image: url(./../assets/staff/" . $result[$i][5] . ");display: none'></div>";
+                        echo '<p class="opinia" id="teacherDesc' . $result[$i][8] . '"> ' . $result[$i][4] . "</p>";
                         echo '</div>';
                         echo '<div>';
-                        echo "<div class='imgContainer imgContainer1' id='teacherImg".$result[$i][8]."' style='background-image: url(./../assets/staff/".$result[$i][5].")'></div>";
-                        echo "<button onclick='editTeacher(".$result[$i][8].")'>Edytuj informacje o nauczycielu</button>";
-                        echo "<button onclick='usunNauczyciela(".$result[$i][8].")'>Usuń nauczyciela</button>";
+                        echo "<div class='imgContainer imgContainer1' id='teacherImg" . $result[$i][8] . "' style='background-image: url(./../assets/staff/" . $result[$i][5] . ")'></div>";
+                        echo "<button onclick='editTeacher(" . $result[$i][8] . ")'>Edytuj informacje o nauczycielu</button>";
+                        echo "<button onclick='usunNauczyciela(" . $result[$i][8] . ")'>Usuń nauczyciela</button>";
                         echo '</div>';
                         $typ = "";
                         echo '</fieldset>';
@@ -800,15 +807,20 @@ $resultGroups = $connection->query($sql)->fetch_all();
         </div>
 
 
-
         <?php for ($g = 1; $g <= count($resultGroups); $g++): ?>
             <div class="main-panel bigContainers main-panel-groups" id="group<?php echo $g ?>Management">
                 <div class="styling-panel">
                     <div class='formContainer'>
                         <hr>
                         <h1 class='logo-font-small'><span>Grupa <?php echo $g; ?></span></h1>
-                        <img id='olowek<?php echo $g; ?>' src="./../assets/edit.png" style="width: 60px; left: 20px;" onclick="editGroup(<?php echo $g; ?>)" class='go-back'>
-                        <div id='goBackGroup<?php echo $g; ?>' onclick='' class='go-back logo-font-small' style='display: none; left: 20px;'>↩</div>
+                        <img id='olowek<?php echo $g; ?>' src="./../assets/edit.png" style="width: 60px; left: 20px;"
+                             onclick="editGroup(<?php echo $g; ?>)" class='go-back'>
+                        <img id='deleteGroup<?php echo $g; ?>' src="./../assets/trash.png"
+                             style="width: 60px; left: calc(100% - 100px)" onclick="deleteGroup(<?php echo $g; ?>)"
+                             class='go-back'>
+                        <div id='goBackGroup<?php echo $g; ?>' onclick='' class='go-back logo-font-small'
+                             style='display: none; left: 20px;'>↩
+                        </div>
                         <div class='groupInfo'>
                             <?php
                             $sql = "SELECT grupy.nazwa, uzytkownicy.imie, uzytkownicy.nazwisko FROM grupy JOIN uzytkownicy ON grupy.Wychowawca = uzytkownicy.ID WHERE grupy.id = $g";
@@ -816,16 +828,16 @@ $resultGroups = $connection->query($sql)->fetch_all();
                             echo "<div id='divGroupName" . $g . "'>Nazwa grupy: " . $result['nazwa'] . "</div>";
                             echo "<div id='divGroupSupervisor" . $g . "'>Wychowawca: " . $result['imie'] . " " . $result['nazwisko'] . "</div>";
                             echo "<form action='./../scripts/php/updateGroup.php' method='POST' id='frmUpdateGroup" . $g . "' style='display: none; width:100%; gap: 20px'>";
-                                echo "<input type='hidden' name='groupID' value='" . $g . "'>";
-                                echo "<div class='inputGroup'><label for='inputGroupName" . $g . "' id='labelGroupName" . $g . "'>Nazwa grupy: </label>";
-                                echo "<input type='text' id='inputGroupName" . $g . "' name='inputGroupName".$g."'></div>";
-                                echo "<div class='inputGroup'><label for='inputGroupSupervisor" . $g . "'  id='labelGroupSupervisor" . $g . "'>Wychowawca: </label>";
-                                echo "<select id='inputGroupSupervisor" . $g . "' name='inputGroupSupervisor".$g."'>";
-                                for ($i = 0; $i < count($teachers); $i++) {
-                                    echo "<option value='" . $teachers[$i]['id'] . "'>" . $teachers[$i]['full_name'] . "</option>";
-                                }
-                                echo "</select></div>";
-                                echo "<button class='go-back logo-font-small' style='right: 20px; left: auto; width:80px; border: none'>✔</button>";
+                            echo "<input type='hidden' name='groupID' value='" . $g . "'>";
+                            echo "<div class='inputGroup'><label for='inputGroupName" . $g . "' id='labelGroupName" . $g . "'>Nazwa grupy: </label>";
+                            echo "<input type='text' id='inputGroupName" . $g . "' name='inputGroupName" . $g . "'></div>";
+                            echo "<div class='inputGroup'><label for='inputGroupSupervisor" . $g . "'  id='labelGroupSupervisor" . $g . "'>Wychowawca: </label>";
+                            echo "<select id='inputGroupSupervisor" . $g . "' name='inputGroupSupervisor" . $g . "'>";
+                            for ($i = 0; $i < count($teachers); $i++) {
+                                echo "<option value='" . $teachers[$i]['id'] . "'>" . $teachers[$i]['full_name'] . "</option>";
+                            }
+                            echo "</select></div>";
+                            echo "<button class='go-back logo-font-small' style='right: 20px; left: auto; width:80px; border: none'>✔</button>";
                             echo "</form>";
 
 
@@ -1165,7 +1177,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                     title.classList.add('error');
                     error = true;
                 } else {
-                      title.classList.remove('error');
+                    title.classList.remove('error');
                 }
                 if (!val) {
                     articleData.classList.add('error');
@@ -1283,9 +1295,8 @@ $resultGroups = $connection->query($sql)->fetch_all();
                             ?>
                         </select>
                         <textarea id="editChildOpinion" name="editChildOpinion"></textarea>
-                        <button id="saveChanges" onclick="editChildren()">Zapisz zmiany</button>
+                        <button id="saveChanges">Zapisz zmiany</button>
                     </form>
-
                 </div>
             </div>
         </div>
@@ -1294,7 +1305,8 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small">Edytuj nauczyciela</h1>
-                    <form method="post" action="../scripts/php/editTeacher.php" id="frmEditTeacher" enctype="multipart/form-data">
+                    <form method="post" action="../scripts/php/editTeacher.php" id="frmEditTeacher"
+                          enctype="multipart/form-data">
                         <input type="hidden" id="editTeacherId" name="editTeacherId">
                         <div class="teacherForm">
                             <div class='container'>
@@ -1331,7 +1343,8 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                         </h3>
                                         <div class="imgContainer imgContainer2" id="editTeacherPhoto">
                                             <label for="editTeacherImg" class='file-button submitButton'><span>Dodaj zdjęcie<span></label>
-                                            <input type="file" id="editTeacherImg" name="editTeacherImg" accept="image/*" style="display: none" >
+                                            <input type="file" id="editTeacherImg" name="editTeacherImg"
+                                                   accept="image/*" style="display: none">
                                         </div>
                                         <script>
                                             document.getElementById('editTeacherImg').addEventListener('change', function (e) {
@@ -1343,7 +1356,8 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                         <p id='editTeacherEmail2' class="email emailPlacedBelow">
                                             email
                                         </p>
-                                        <textarea id='editTeacherDesc' name="editTeacherDesc" class="opinia" placeholder='Tutaj wpisz opis'></textarea>
+                                        <textarea id='editTeacherDesc' name="editTeacherDesc" class="opinia"
+                                                  placeholder='Tutaj wpisz opis'></textarea>
                                     </div>
                                 </fieldset>
                             </div>
@@ -1448,7 +1462,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 let img = e.target;
                 if (img.files && img.files[0]) {
                     const reader = new FileReader();
-                    reader.onload = function(event) {
+                    reader.onload = function (event) {
                         document.getElementById('editTeacherPhoto').style.backgroundImage = `url(${event.target.result})`;
                         document.getElementById('editTeacherPhoto').classList.remove('error');
                     };

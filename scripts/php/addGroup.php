@@ -19,8 +19,12 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 if ($connection) {
     $name = htmlentities($_POST['newGroupName'], ENT_QUOTES, 'UTF-8');
     $supervisor = htmlentities($_POST['newGroupSupervisor'], ENT_QUOTES, 'UTF-8');
-    $stmt = $connection->prepare('INSERT INTO grupy (nazwa, wychowawca) VALUES (?, ?)');
-    $stmt->bind_param("si", $name, $supervisor);
+    $sql = "SELECT MAX(id) FROM grupy";
+    $result = $connection->query($sql);
+    $row = $result->fetch_row();
+    $groupId = $row[0]+1;
+    $stmt = $connection->prepare('INSERT INTO grupy (id,nazwa, wychowawca) VALUES (?,?, ?)');
+    $stmt->bind_param("isi", $groupId, $name, $supervisor);
 
     if ($stmt->execute()) {
         $_SESSION['powodzenie'] = "Grupa został dodany pomyślnie.";
