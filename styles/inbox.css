@@ -107,6 +107,7 @@ table{
     width: 100%;
 }
 tr{
+    z-index: 1;
     border-bottom: 1px solid black;
     width: 100%;
 }
@@ -166,14 +167,14 @@ h1{
     background-color: var(--green-vibrant);
     padding: 0 2rem;
 }
-.inputContainer{
+.content{
     width: 90%;
     margin: 0.5em 0;
     text-align: left;
     border-left: 5px solid var(--green-dark);
     padding: 0.2em;
 }
-.inputContainer input, textarea {
+.content input, textarea {
     border: var(--green-darker) solid 2px;
     border-radius: 6px;
     font-family: 'Courier New', Courier, monospace;
@@ -243,9 +244,12 @@ h1{
     background: #D22E2E;
 }
 
+#OpenedMessage{
+    display: flex;
+    flex-direction: column;
+}
 
-
-#sentContainer, #deletedContainer, #draftsContainer, #writeContainer{
+#sentContainer, #deletedContainer, #draftsContainer, #writeContainer, #OpenedMessage{
     display: none;
 }
 

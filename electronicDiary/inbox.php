@@ -154,7 +154,7 @@ if (!$_SESSION['logged']) {
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
-                echo '<tr class="messageCard" onclick="OpenMessage()">';
+                echo '<tr class="messageCard" onclick="OpenMessage('. $message[0] . ', 0)">';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -183,7 +183,7 @@ if (!$_SESSION['logged']) {
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
-                echo '<tr class="messageCard">';
+                echo '<tr class="messageCard" onclick="OpenMessage('. $message[0] . ', 0)">';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -213,7 +213,7 @@ if (!$_SESSION['logged']) {
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
-                echo '<tr class="messageCard">';
+                echo '<tr class="messageCard" onclick="OpenMessage('. $message[0] . ', 2)">';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -242,7 +242,7 @@ if (!$_SESSION['logged']) {
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
-                echo '<tr class="messageCard">';
+                echo '<tr class="messageCard" onclick="OpenMessage('. $message[0] . ', 1)">';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -262,7 +262,7 @@ if (!$_SESSION['logged']) {
         </div>
         <h1 class="logo-font">Nowa wiadomość</h1>
         <!--        logo font mail to ma być taki sam font tylko jakaś bardziej poważna wersja-->
-        <div class="inputContainer">
+        <div class="content">
             <?php
             echo '<select class="newMesOdbiorcy submitButton" name="odbiorca">';
             if ($user->typ[0] == 1) {
@@ -309,13 +309,13 @@ if (!$_SESSION['logged']) {
             echo "</select>";
             ?>
         </div>
-        <div class="inputContainer">
+        <div class="content">
             <input id="newMesTytul" type="text" name="tytle" placeholder="Tytuł">
         </div>
-        <div class="inputContainer inputTextarea">
+        <div class="content inputTextarea">
             <textarea id="newMesTresc" name="tresc" placeholder="Treść"></textarea>
         </div>
-        <div class="inputContainer inputButtons">
+        <div class="content inputButtons">
             <button type="submit" onclick="showContainer(0)" name="action" value="draft" class="buttonDraft">Zapisz Kopie roboczą</button>
             <button type="submit" onclick="showContainer(0)" name="action" value="sent" class="buttonSent">Wyślij</button>
 
@@ -323,6 +323,9 @@ if (!$_SESSION['logged']) {
     </form>
 </div>
 
+<div id="OpenedMessage">
+
+</div>
 
 </body>
 </html>

@@ -32,5 +32,8 @@ function showContainer(n){
 }
 
 function OpenMessage(){
+alert("cwek")
+}
+function CloseMessage(){
 
 }
