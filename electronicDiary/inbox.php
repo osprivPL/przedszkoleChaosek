@@ -154,7 +154,7 @@ if (!$_SESSION['logged']) {
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
-                echo '<tr class="messageCard" onclick="OpenMessage('. $message[0] . ', 0)">';
+                echo '<tr class="messageCard" onclick="OpenMessage('. $message[1] . ', '.  $message[2] . ', '.  $message[3] . ', '.  $message[4] . ', '. $user->id . ', 0)">';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -183,7 +183,7 @@ if (!$_SESSION['logged']) {
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
-                echo '<tr class="messageCard" onclick="OpenMessage('. $message[0] . ', 0)">';
+                echo '<tr class="messageCard" onclick="OpenMessage('. $message[1] . ', '.  $message[2] . ', '.  $message[3] . ', '.  $user->id . ', '. $message[4] . ', 0)">';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -213,7 +213,7 @@ if (!$_SESSION['logged']) {
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
-                echo '<tr class="messageCard" onclick="OpenMessage('. $message[0] . ', 2)">';
+                echo '<tr class="messageCard" onclick="OpenMessage('. $message[1] . ', '.  $message[2] . ', '.  $message[3] . ', '.  $message[4] . ', '. $user->id . ', 2)">';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -238,11 +238,11 @@ if (!$_SESSION['logged']) {
             </tr>
             <?php
             $connection = new mysqli("localhost", "root", "", "przedszkole");
-            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE robocze = 1;")->fetch_all();
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID  FROM wiadomosci WHERE robocze = 1;")->fetch_all();
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
-                echo '<tr class="messageCard" onclick="OpenMessage('. $message[0] . ', 1)">';
+                echo '<tr class="messageCard" onclick="OpenMessage("'. $message[1] . '", "'.  $message[2] . '", "'.  $message[3] . '", "'. $sender[0][0] . '", "' . $sender[0][1]   . '", "'. $user->imie . '" ,"'. $user->nazwisko .'" ,1)">';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -256,7 +256,7 @@ if (!$_SESSION['logged']) {
 </div>
 
 <div id="writeContainer" class="bigContainers">
-    <form action="./../scripts/php/addMessage.php" method="post">
+    <form action="./../scripts/php/addMessage.php" method="post" class="mailLayout">
         <div class="offButton" onclick="showContainer(0)">
             <p>X</p>
         </div>
@@ -324,7 +324,31 @@ if (!$_SESSION['logged']) {
 </div>
 
 <div id="OpenedMessage">
+    <div class="mailLayout">
+        <div class="offButton" onclick="CloseMessage()">
+            <p>X</p>
+        </div>
 
+        <div class="OnetimeUse">
+            <h1 class="logo-font" id="MessageTytle">123</h1>
+            <h2 id="MessageData">Data</h2>
+        </div>
+
+        <div class="content">
+            <span>Od</span>
+            <select class="newMesOdbiorcy submitButton" disabled>
+                <option id="MessegaOd">Jeremiasz</option>
+            </select>
+        </div>
+        <div class="content">
+            <select class="newMesOdbiorcy submitButton" disabled>
+                <option id="MessageDo"></option>
+            </select>
+        </div>
+        <div class="content">
+            <textarea id="MessageTextarea" disabled>tresc</textarea>
+        </div>
+    </div>
 </div>
 
 </body>

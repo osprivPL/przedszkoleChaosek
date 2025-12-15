@@ -42,12 +42,6 @@ main{
     background: var(--green-vibrant);
 }
 
-/*.bigContainers tr:nth-child(n){ animation: slideInViewFromBottom calc(n*0.1s) ease-out}*/
-
-/*.headerCard{*/
-/*    animation: none !important;*/
-/*}*/
-
 .checkboxLabel{
     font-family: system-ui, sans-serif;
     font-size: 2rem;
@@ -56,7 +50,7 @@ main{
     display: grid;
     grid-template-columns: 1em auto;
     gap: 0.5em;
-
+    justify-self: center;
 }
 input[type="checkbox"]{
     -webkit-appearance: none;
@@ -70,6 +64,8 @@ input[type="checkbox"]{
     border-radius: 10px ;
     transform: translateY(-0.075em);
 
+    justify-self: center;
+    align-self: center;
     display: grid;
     place-content: center;
 }
@@ -94,7 +90,7 @@ input[type="checkbox"]:checked::before {
     width: 100%;
     display: flex;
     flex-direction: column;
-    
+
 }
 .messageCard{
     width: 100%;
@@ -127,7 +123,7 @@ td img{
     margin: 5px;
 }
 
-#writeContainer{
+#writeContainer, #OpenedMessage{
     /*DODAJ TU BACKGROUND IMAGE STATU*/
     font-family: 'Courier New', Courier, monospace;
     position: absolute;
@@ -138,12 +134,12 @@ td img{
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(35, 100, 43, 0.95);
+    background: rgba(35, 100, 43, 0.9);
     filter: blur(10);
     z-index: 99999;
     animation: slideInViewFromRight 0.2s ease-out;
 }
-#writeContainer>form{
+.mailLayout{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -157,7 +153,9 @@ td img{
     position: relative;
     overflow-x: auto;
 }
-
+#OpenedMessage>.mailLayout{
+    height: fit-content;
+}
 h1{
     color: white;
     margin-top: 0.2em;
@@ -171,6 +169,7 @@ h1{
     width: 90%;
     margin: 0.5em 0;
     text-align: left;
+    color: white;
     border-left: 5px solid var(--green-dark);
     padding: 0.2em;
 }
@@ -244,9 +243,12 @@ h1{
     background: #D22E2E;
 }
 
-#OpenedMessage{
+.OnetimeUse{
+    width: 90%;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
 }
 
 #sentContainer, #deletedContainer, #draftsContainer, #writeContainer, #OpenedMessage{

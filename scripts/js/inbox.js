@@ -31,8 +31,8 @@ function showContainer(n){
     }
 }
 
-function OpenMessage(){
-alert("cwek")
+function OpenMessage(tytul, tresc, data, nadawca_imie, nadawca_nazwisko, odbiorca_imie, odbiorca_nazwisko, typ){
+    alert(tytul);
 }
 function CloseMessage(){
 
