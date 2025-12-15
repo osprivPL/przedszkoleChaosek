@@ -254,7 +254,7 @@ if (!$_SESSION['logged']) {
         <!--        logo font mail to ma być taki sam font tylko jakaś bardziej poważna wersja-->
         <div class="inputContainer">
             <?php
-            echo '<select id="newMesOdbiorcy submitButton" >';
+            echo '<select class="newMesOdbiorcy submitButton" name="odbiorca">';
             if ($user->typ[0] == 1) {
                 $sql_mes = "SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u 
                         INNER JOIN grupy g ON u.ID = g.Wychowawca 
@@ -300,15 +300,14 @@ if (!$_SESSION['logged']) {
             ?>
         </div>
         <div class="inputContainer">
-            <input id="newMesTytul" type="text" placeholder="Tytuł">
+            <input id="newMesTytul" type="text" name="tytle" placeholder="Tytuł">
         </div>
         <div class="inputContainer inputTextarea">
-            <textarea id="newMesTresc" placeholder="Treść"></textarea>
+            <textarea id="newMesTresc" name="tresc" placeholder="Treść"></textarea>
         </div>
         <div class="inputContainer inputButtons">
-            <button onclick="showContainer(0); SaveDraft()" class="buttonDraft">Zapisz Kopie roboczą</button>
-            <button onclick="showContainer(0); Delete()" class="buttonDelete">Usuń</button>
-            <button onclick="showContainer(0); Sent()" class="buttonSent">Wyślij</button>
+            <button type="submit" onclick="showContainer(0)" name="action" value="draft" class="buttonDraft">Zapisz Kopie roboczą</button>
+            <button type="submit" onclick="showContainer(0)" name="action" value="sent" class="buttonSent">Wyślij</button>
 
         </div>
     </form>
