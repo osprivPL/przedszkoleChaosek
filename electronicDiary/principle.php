@@ -1132,6 +1132,9 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small"><span>Edytuj artykuł</span></h1>
+                    <div id='goBackArticle' onclick='' class='go-back logo-font-small'
+                             style='left: 20px;'>↩
+                        </div>
                     <form method="post" action="../scripts/php/editArticle.php" enctype="multipart/form-data"
                           id="editArticleForm">
                         <input type="hidden" name="articleId" id="articleIdHiddenInput">
@@ -1223,6 +1226,9 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small"><span>Edytuj komunikat</span></h1>
+                    <div id='goBackKomunikat' onclick='' class='go-back logo-font-small'
+                             style='left: 20px;'>↩
+                        </div>
                     <form method="post" action="./../scripts/php/editAnnoucement.php" id="frmEditKomunikat">
                         <input type="hidden" name="editKomunikatIdHiddenInput" id="editKomunikatIdHiddenInput">
                         <div class="article_header">
@@ -1276,6 +1282,9 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small"><span>Edytuj dziecko</span></h1>
+                    <div id='goBackChild' onclick='' class='go-back logo-font-small'
+                             style='left: 20px;'>↩
+                        </div>
                     <form method="post" action="./../scripts/php/editChild.php">
                         <input type="hidden" id="editChildId" name="editChildId">
                         <label for="editChildName">Imię:</label>
@@ -1305,6 +1314,9 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 <div class="formContainer">
                     <hr>
                     <h1 class="logo-font-small">Edytuj nauczyciela</h1>
+                    <div id='goBackTeacher' onclick='' class='go-back logo-font-small'
+                             style='left: 20px;'>↩
+                        </div>
                     <form method="post" action="../scripts/php/editTeacher.php" id="frmEditTeacher"
                           enctype="multipart/form-data">
                         <input type="hidden" id="editTeacherId" name="editTeacherId">
