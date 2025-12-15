@@ -83,22 +83,18 @@ if (move_uploaded_file($_FILES["teacherImg"]["tmp_name"], $targetFile)) {
         $stmt = $connection->prepare('INSERT INTO uzytkownicy (imie, nazwisko, login, typ, numerTelefonu, haslo, firstLogin, zdjecie, opinia) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $stmt->bind_param("sssississ", $name, $lastname, $email, $permissionId, $phone, $hashedPassword, $firstLogin, $imgNameDB, $desc);
 
-    if ($stmt->execute()) {
-        $_SESSION['powodzenie'] = "Nauczyciel został dodany pomyślnie.";
-        sendTempPasswordTeacher($password);
-        if ($user->typ[2] == 1) {
-            header("Location: ./../../electronicDiary/principle.php");
-        } else {
-            header("Location: ./../../electronicDiary/teacher.php");
+        if ($stmt->execute()) {
+            $_SESSION['powodzenie'] = "Nauczyciel został dodany pomyślnie.";
+            sendTempPasswordTeacher($password);
+            if ($user->typ[2] == 1) {
+                header("Location: ./../../electronicDiary/principle.php");
+            } else {
+                header("Location: ./../../electronicDiary/teacher.php");
+            }
         }
-    }
-} else {
+    } else {
         $_SESSION['powodzenie'] = "Wystąpił błąd, spróbuj ponownie później.";
-        if ($user->typ[2] == 1) {
-            header("Location: ./../../electronicDiary/principle.php");
-        } else {
-            header("Location: ./../../electronicDiary/teacher.php");
-        }
+        header("Location: ./../../electronicDiary/principle.php");
     }
 }
 die();

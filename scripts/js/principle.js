@@ -92,7 +92,58 @@ async function edytujArtykul(id) {
     }
 }
 
+async function editTeacher(id) {
+    document.getElementById("main-teachers").style.display = 'none';
+    document.getElementById("edit-teacher").style.display = 'flex';
 
+    document.getElementById('editTeacherId').value = id;
+    document.getElementById('editTeacherFirstName').value = document.getElementById('teacherName' + id).innerHTML;
+    document.getElementById('editTeacherImie').innerHTML = document.getElementById('teacherName' + id).innerHTML;
+
+    document.getElementById('editTeacherLastName').value = document.getElementById('teacherLastName' + id).innerHTML;
+    document.getElementById('editTeacherNazwisko').innerHTML = document.getElementById('teacherLastName' + id).innerHTML;
+
+    document.getElementById('editTeacherEmail').value = document.getElementById('teacherEmail' + id).innerHTML;
+    document.getElementById('editTeacherEmail2').innerHTML = document.getElementById('teacherEmail' + id).innerHTML;
+
+    if (document.getElementById('teacherType' + id).innerHTML.trim() === 'Nauczyciel') {
+        document.getElementById('editTeacherRole').options[1].selected = 'selected';
+        document.getElementById('editTeacherType').innerHTML = 'Nauczyciel';
+    } else {
+        document.getElementById('editTeacherRole').options[0].selected = 'selected';
+        document.getElementById('editTeacherType').innerHTML = 'Dyrektor';
+    }
+
+    document.getElementById('editTeacherPhone').value = document.getElementById('teacherPhoneNumber' + id).innerHTML;
+    document.getElementById('editTeacherDesc').value = document.getElementById('teacherDesc' + id).innerHTML;
+
+    const fileInput = document.getElementById('editTeacherImg');
+    const sourceElement = document.getElementById('teacherImg' + id);
+
+    const computedStyle = window.getComputedStyle(sourceElement);
+    const bgImage = computedStyle.backgroundImage;
+    document.getElementById('editTeacherPhoto').style.backgroundImage = bgImage;
+
+    const url = bgImage.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
+
+    if (url && url !== 'none') {
+        try {
+            const response = await fetch(url);
+            const blob = await response.blob();
+
+            const file = new File([blob], "teacher_photo.jpg", { type: blob.type });
+
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            fileInput.files = dataTransfer.files;
+
+            fileInput.dispatchEvent(new Event('change'));
+
+        } catch (e) {
+            console.error("Nie udało się pobrać tła do inputa", e);
+        }
+    }
+}
 
 function usunDziecko(idRekordu) {
     fetch('./../scripts/php/deleteChild.php', {
@@ -109,8 +160,9 @@ function usunDziecko(idRekordu) {
                     element.style.opacity = "0";
                     setTimeout(() => element.remove(), 500);
                 }
-            } else {
-                alert('Wystąpił błąd podczas zapisu.');
+            }
+            else {
+                alert('Wystąpił błąd podczas zapisu.'+ data.trim());
             }
         })
         .catch(error => console.error('Błąd sieci:', error));

@@ -615,7 +615,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
 
                                             });
                                         </script>
-                                        <p id='teacherEmail2' class="email emailPlacedBelow">
+                                        <p id='addTeacherEmail2' class="email emailPlacedBelow">
                                             email
                                         </p>
                                         <textarea id='teacherDesc' name="teacherDesc" class="opinia" placeholder='Tutaj wpisz opis'></textarea>
@@ -705,9 +705,9 @@ $resultGroups = $connection->query($sql)->fetch_all();
 
             document.getElementById('teacherEmail').addEventListener('input', (e) => {
                 if (e.target.value === '') {
-                    document.getElementById('teacherEmail2').innerHTML = 'email';
+                    document.getElementById('addTeacherEmail2').innerHTML = 'email';
                 } else {
-                    document.getElementById('teacherEmail2').innerHTML = e.target.value;
+                    document.getElementById('addTeacherEmail2').innerHTML = e.target.value;
                 }
             });
 
@@ -738,7 +738,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                     <hr>
                     <h1 class='logo-font-small'>Nauczyciele</h1>
                     <?php
-                    $sql = "SELECT imie, nazwisko, login ,typ, opinia, zdjecie, nauczyciel, dyrektor, uzytkownicy.id FROM uzytkownicy INNER JOIN uprawnienia ON typ = uprawnienia.ID WHERE nauczyciel = 1 OR dyrektor = 1 ORDER BY typ DESC";
+                    $sql = "SELECT imie, nazwisko, login ,typ, opinia, zdjecie, nauczyciel, dyrektor, uzytkownicy.id, numerTelefonu FROM uzytkownicy INNER JOIN uprawnienia ON typ = uprawnienia.ID WHERE nauczyciel = 1 OR dyrektor = 1 ORDER BY typ DESC";
                     $result = $connection->query($sql)->fetch_all();
                     //                    print_r($result);
                     for ($i = 0; $i < count($result); $i++) {
@@ -748,16 +748,16 @@ $resultGroups = $connection->query($sql)->fetch_all();
                         } if ($result[$i][7] == 1) {
                             $typ = "Dyrektor";
                         }
-                        echo '<legend>' . $typ . '</legend>';
+                        echo '<legend id="teacherType'.$result[$i][8].'">' . $typ . '</legend>';
                         echo '<div class="teacherInfo">';
-                        echo '<h3>' . $result[$i][0] . " " . $result[$i][1] . '<span class="email">' .$result[$i][2] . '</span></h3>';
+                        echo '<h3><span id="teacherName'.$result[$i][8].'">' . $result[$i][0] . "</span> <span id='teacherLastName".$result[$i][8]."'>" . $result[$i][1] . '</span><span class="email" id="teacherEmail'.$result[$i][8].'">' .$result[$i][2] . '</span> <span class="email" id="teacherPhoneNumber'.$result[$i][8].'">'.$result[$i][9].'</span></h3>';
                         echo "<div class='imgContainer imgContainer2' style='background-image: url(./../assets/staff/".$result[$i][5].");display: none'></div>";
                         echo '<p class="email emailPlacedBelow" style="display: none">'.$result[$i][2].'</p>';
-                        echo '<p class="opinia"> ' . $result[$i][4] . "</p>";
+                        echo '<p class="opinia" id="teacherDesc'.$result[$i][8].'"> ' . $result[$i][4] . "</p>";
                         echo '</div>';
                         echo '<div>';
-                        echo "<div class='imgContainer imgContainer1' style='background-image: url(./../assets/staff/".$result[$i][5].")'></div>";
-                        echo "<button>Edytuj informacje o nauczycielu</button>";
+                        echo "<div class='imgContainer imgContainer1' id='teacherImg".$result[$i][8]."' style='background-image: url(./../assets/staff/".$result[$i][5].")'></div>";
+                        echo "<button onclick='editTeacher(".$result[$i][8].")'>Edytuj informacje o nauczycielu</button>";
                         echo "<button onclick='usunNauczyciela(".$result[$i][8].")'>Usuń nauczyciela</button>";
                         echo '</div>';
                         $typ = "";
@@ -1165,7 +1165,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                     title.classList.add('error');
                     error = true;
                 } else {
-                    title.classList.remove('error');
+                      title.classList.remove('error');
                 }
                 if (!val) {
                     articleData.classList.add('error');
@@ -1289,6 +1289,173 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 </div>
             </div>
         </div>
+        <div class="main-panel bigContainers main-panel-edit-teacher" id="edit-teacher">
+            <div class="styling-panel">
+                <div class="formContainer">
+                    <hr>
+                    <h1 class="logo-font-small">Edytuj nauczyciela</h1>
+                    <form method="post" action="../scripts/php/editTeacher.php" id="frmEditTeacher" enctype="multipart/form-data">
+                        <input type="hidden" id="editTeacherId" name="editTeacherId">
+                        <div class="teacherForm">
+                            <div class='container'>
+                                <div>
+                                    <div class="inputGroup">
+                                        <label for="editTeacherFirstName">Imię:</label><br>
+                                        <input type="text" id="editTeacherFirstName" name="editTeacherFirstName">
+                                    </div>
+                                    <div class="inputGroup">
+                                        <label for="editTeacherLastName">Nazwisko:</label><br>
+                                        <input type="text" id="editTeacherLastName" name="editTeacherLastName">
+                                    </div>
+                                    <div class="inputGroup">
+                                        <label for="editTeacherEmail">Email:</label><br>
+                                        <input type="email" id="editTeacherEmail" name="editTeacherEmail">
+                                    </div>
+                                    <div class="inputGroup">
+                                        <label for="editTeacherRole">Rola:</label><br>
+                                        <select id="editTeacherRole" name="editTeacherRole">
+                                            <option value="2">Dyrektor</option>
+                                            <option value="1">Nauczyciel</option>
+                                        </select>
+                                    </div>
+                                    <div class="inputGroup">
+                                        <label for="editTeacherPhone">Numer telefonu</label>
+                                        <input type="tel" name="editTeacherPhone" id="editTeacherPhone">
+                                    </div>
+                                </div>
+                                <fieldset class="teacherCards" style="animation-delay: 0s">
+                                    <legend id="editTeacherType">Dyrektor</legend>
+                                    <div class="teacherInfo">
+                                        <h3>
+                                            <span id='editTeacherImie'>Imię</span> <span id='editTeacherNazwisko'>Nazwisko</span>
+                                        </h3>
+                                        <div class="imgContainer imgContainer2" id="editTeacherPhoto">
+                                            <label for="editTeacherImg" class='file-button submitButton'><span>Dodaj zdjęcie<span></label>
+                                            <input type="file" id="editTeacherImg" name="editTeacherImg" accept="image/*" style="display: none" >
+                                        </div>
+                                        <script>
+                                            document.getElementById('editTeacherImg').addEventListener('change', function (e) {
+                                                let img = e.target;
+                                                const fileName = img.files[0]?.name || '';
+
+                                            });
+                                        </script>
+                                        <p id='editTeacherEmail2' class="email emailPlacedBelow">
+                                            email
+                                        </p>
+                                        <textarea id='editTeacherDesc' name="editTeacherDesc" class="opinia" placeholder='Tutaj wpisz opis'></textarea>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div style='width:100%; display: flex; justify-content:center; margin: 1em'>
+                                <input type="submit" value="Dodaj nauczyciela" class='submitButton'>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.getElementById('frmEditTeacher').addEventListener('submit', (e) => {
+                let error = false;
+                let firstName = document.getElementById('editTeacherFirstName');
+                let lastName = document.getElementById('editTeacherLastName');
+                let email = document.getElementById('editTeacherEmail');
+                let phone = document.getElementById('editTeacherPhone');
+                let desc = document.getElementById('editTeacherDesc');
+
+                let fileInput = document.getElementById('editTeacherImg');
+                let imgDiv = document.getElementById('editTeacherPhoto');
+
+                if (firstName.value.length === 0) {
+                    firstName.classList.add('error');
+                    error = true;
+                } else {
+                    firstName.classList.remove('error');
+                }
+                if (lastName.value.length === 0) {
+                    lastName.classList.add('error');
+                    error = true;
+                } else {
+                    lastName.classList.remove('error');
+                }
+                if (phone.value.length === 0) {
+                    phone.classList.add('error');
+                    error = true;
+                } else {
+                    phone.classList.remove('error');
+                }
+                if (desc.value.length === 0) {
+                    desc.classList.add('error');
+                    error = true;
+                } else {
+                    desc.classList.remove('error');
+                }
+
+                if (email.value.length === 0 || (!email.value.includes('@') && !email.value.includes('.'))) {
+                    email.classList.add('error');
+                    error = true;
+                } else {
+                    email.classList.remove('error');
+                }
+
+                if (fileInput.files.length === 0) {
+                    imgDiv.classList.add('error');
+                    error = true;
+                } else {
+                    imgDiv.classList.remove('error');
+                }
+
+                if (error) {
+                    e.preventDefault();
+                }
+            })
+
+            document.getElementById('editTeacherFirstName').addEventListener('input', (e) => {
+                if (e.target.value === '') {
+                    document.getElementById('editTeacherImie').innerHTML = 'Imię';
+                } else {
+                    document.getElementById('editTeacherImie').innerHTML = e.target.value;
+                }
+            });
+
+            document.getElementById('editTeacherLastName').addEventListener('input', (e) => {
+                if (e.target.value === '') {
+                    document.getElementById('editTeacherNazwisko').innerHTML = 'Nazwisko';
+                } else {
+                    document.getElementById('editTeacherNazwisko').innerHTML = e.target.value;
+                }
+            });
+
+            document.getElementById('editTeacherEmail').addEventListener('input', (e) => {
+                if (e.target.value === '') {
+                    document.getElementById('editTeacherEmail2').innerHTML = 'email';
+                } else {
+                    document.getElementById('editTeacherEmail2').innerHTML = e.target.value;
+                }
+            });
+
+            document.getElementById('editTeacherRole').addEventListener('change', (e) => {
+                if (e.target.value === '2') {
+                    document.getElementById('editTeacherType').innerHTML = 'Dyrektor';
+                } else {
+                    document.getElementById('editTeacherType').innerHTML = 'Nauczyciel';
+                }
+            });
+
+            document.getElementById('editTeacherImg').addEventListener('change', (e) => {
+                let img = e.target;
+                if (img.files && img.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        document.getElementById('editTeacherPhoto').style.backgroundImage = `url(${event.target.result})`;
+                        document.getElementById('editTeacherPhoto').classList.remove('error');
+                    };
+                    reader.readAsDataURL(img.files[0]);
+                }
+            });
+        </script>
     </main>
 </div>
 </body>

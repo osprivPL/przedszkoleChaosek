@@ -134,7 +134,7 @@ img {
 }
 
 .error{
-    border-color: red !important;
+    border: solid red 3px !important;
 }
 textarea{
     resize: none;
