@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2025 at 09:16 PM
+-- Generation Time: Dec 15, 2025 at 04:14 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -113,7 +113,7 @@ INSERT INTO `godzinylekcyjne` (`id`, `start_time`, `end_time`) VALUES
 CREATE TABLE `grupy` (
   `id` int(11) NOT NULL,
   `nazwa` varchar(50) NOT NULL,
-  `Wychowawca` int(11) NOT NULL
+  `Wychowawca` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 --
@@ -471,7 +471,12 @@ INSERT INTO `uprawnienia` (`ID`, `rodzic`, `nauczyciel`, `dyrektor`) VALUES
 (7, 1, 0, 0),
 (8, 1, 0, 0),
 (9, 1, 0, 0),
-(10, 1, 0, 0);
+(10, 1, 0, 0),
+(11, 0, 1, 1),
+(12, 0, 1, 0),
+(13, 0, 1, 0),
+(14, 0, 1, 0),
+(15, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -561,7 +566,7 @@ ALTER TABLE `godzinylekcyjne`
 -- Indexes for table `grupy`
 --
 ALTER TABLE `grupy`
-  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`),
   ADD KEY `Wychowawca` (`Wychowawca`);
 
 --
@@ -652,12 +657,6 @@ ALTER TABLE `godzinylekcyjne`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `grupy`
---
-ALTER TABLE `grupy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT for table `jadlospis`
 --
 ALTER TABLE `jadlospis`
@@ -691,13 +690,13 @@ ALTER TABLE `pracedomowe`
 -- AUTO_INCREMENT for table `uprawnienia`
 --
 ALTER TABLE `uprawnienia`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `wiadomosci`
