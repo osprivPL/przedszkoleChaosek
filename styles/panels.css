@@ -434,12 +434,14 @@ aside, main {
 }
 .main-panel-witaj span{
     background-color: var(--green-vibrant);
-    padding: 2em;
+    padding: 1.5em;
     border-radius: 15px;
+    max-width: 60%;
     border: 5px solid var(--green-dark);
     box-shadow: 0 0 50px rgba(0,0,0,0.5);
     font-size: 72px;
     height: fit-content;
+    line-height: 72px;
 }
 .main-panel-teachers .formContainer{
     width: 80%;
@@ -515,6 +517,7 @@ aside, main {
 }
 .main-panel-teachers .formContainer{
     width: 80%;
+    padding-bottom: 20px;
 }
 @media (max-width: 1300px){
     .options{

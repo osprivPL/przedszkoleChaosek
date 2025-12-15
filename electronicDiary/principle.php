@@ -152,6 +152,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
 
 </head>
 <body>
+<div class="dark_bg" style='display: none'></div>
 <header>
     <div class="square_container">
         <div class="square"></div>
@@ -276,16 +277,29 @@ $resultGroups = $connection->query($sql)->fetch_all();
     </script>
     <main id="main">
         <div class="main-panel bigContainers main-panel-witaj" id="witajPanel">
-            <span class='logo-font-small'>Witaj w panelu dyrekcji</span>
-            <?php
-            if (isset($_SESSION['powodzenie'])) {
-                echo "<div class='success-message'>" . $_SESSION['powodzenie'] . "</div>";
-                unset($_SESSION['powodzenie']);
-            }
-            ?>
+            <span class='logo-font-small' style='text-wrap: wrap;'>
+                <?php
+                    if(isset($_SESSION['powodzenie'])){
+                        echo $_SESSION['powodzenie'];
+                        unset($_SESSION['powodzenie']);
+                    }else{
+                        echo "Witaj w panelu dyrekcji!";
+                    }
+                ?>
+            </span>
         </div>
 
         <div class="main-panel bigContainers main-panel-rekrutacja">
+            <div class='warning'>
+                <div class='span-container'>
+                    <span class='warning-content'>Zmiany będą <span style='text-decoration:underline wavy'>nieodwracalne!</span></span><br>
+                    <span class='warning-question'>Jesteś <span style='text-decoration:underline'>pewien</span> swojej decyzji?</span>
+                </div>
+                <div class='button-container'>
+                    <button class='submitButton no'>Nie</button>
+                    <button class='submitButton yes'>Tak</button>
+                </div>  
+            </div>
             <div class="styling-panel">
                 <div class="formContainer">
                     <div id='listOfApplications'>
@@ -472,7 +486,6 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                 </script>
                             </div>
                             <div><input type="submit" value="Dodaj artykuł" class='submitButton'></div>
-                            <span></span>
                         </div>
                     </form>
                     <script>
@@ -536,6 +549,16 @@ $resultGroups = $connection->query($sql)->fetch_all();
         </div>
 
         <div class="main-panel bigContainers main-panel-articles" id="main-panel-articles">
+            <div class='warning'>
+                <div class='span-container'>
+                    <span class='warning-content'>Zmiany będą <span style='text-decoration:underline wavy'>nieodwracalne!</span></span><br>
+                    <span class='warning-question'>Jesteś <span style='text-decoration:underline'>pewien</span> swojej decyzji?</span>
+                </div>
+                <div class='button-container'>
+                    <button class='submitButton no'>Nie</button>
+                    <button class='submitButton yes'>Tak</button>
+                </div>  
+            </div>
             <div class="styling-panel">
                 <div class="formContainer">
                     <hr>
@@ -740,6 +763,16 @@ $resultGroups = $connection->query($sql)->fetch_all();
         </script>
 
         <div class="main-panel bigContainers main-panel-teachers" id="main-teachers">
+            <div class='warning'>
+                <div class='span-container'>
+                    <span class='warning-content'>Zmiany będą <span style='text-decoration:underline wavy'>nieodwracalne!</span></span><br>
+                    <span class='warning-question'>Jesteś <span style='text-decoration:underline'>pewien</span> swojej decyzji?</span>
+                </div>
+                <div class='button-container'>
+                    <button class='submitButton no'>Nie</button>
+                    <button class='submitButton yes'>Tak</button>
+                </div>  
+            </div>
             <div class="styling-panel">
                 <div class="formContainer">
                     <hr>
@@ -828,6 +861,16 @@ $resultGroups = $connection->query($sql)->fetch_all();
 
         <?php for ($g = 1; $g <= count($resultGroups); $g++): ?>
             <div class="main-panel bigContainers main-panel-groups" id="group<?php echo $g ?>Management">
+                <div class='warning'>
+                    <div class='span-container'>
+                        <span class='warning-content'>Zmiany będą <span style='text-decoration:underline wavy'>nieodwracalne!</span></span><br>
+                        <span class='warning-question'>Jesteś <span style='text-decoration:underline'>pewien</span> swojej decyzji?</span>
+                    </div>
+                    <div class='button-container'>
+                        <button class='submitButton no'>Nie</button>
+                        <button class='submitButton yes'>Tak</button>
+                    </div>  
+                </div>
                 <div class="styling-panel">
                     <div class='formContainer'>
                         <hr>
@@ -1049,6 +1092,16 @@ $resultGroups = $connection->query($sql)->fetch_all();
         </div>
 
         <div class="main-panel bigContainers main-panel-komunikaty" id="annoucementManager">
+            <div class='warning'>
+                <div class='span-container'>
+                    <span class='warning-content'>Zmiany będą <span style='text-decoration:underline wavy'>nieodwracalne!</span></span><br>
+                    <span class='warning-question'>Jesteś <span style='text-decoration:underline'>pewien</span> swojej decyzji?</span>
+                </div>
+                <div class='button-container'>
+                    <button class='submitButton no'>Nie</button>
+                    <button class='submitButton yes'>Tak</button>
+                </div>  
+            </div>
             <div class="styling-panel">
                 <div class="formContainer">
                     <hr>
@@ -1377,7 +1430,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                             <label for="editChildOpinion">Opinia:</label>
                             <textarea id="editChildOpinion" name="editChildOpinion" rows='4'></textarea>
                         </div>
-                        <button class='submitButton submitButtonAddon' id="saveChanges">Zapisz zmiany</button>
+                        <button class='go-back logo-font-small' id="saveChanges" style='right: 20px; left: auto; width:80px; border: none'>✔</button>
                     </form>
 
                 </div>
