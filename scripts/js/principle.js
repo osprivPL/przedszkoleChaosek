@@ -1,3 +1,100 @@
+function hideWarning() {
+    let warnings = document.getElementsByClassName('warning');
+    for (let i = 0; i < warnings.length; i++) {
+        warnings[i].style.display='none';
+    }
+    document.getElementById('dark_bg').style.display='none';
+}
+
+function dateFromPesel(pesel) {
+    let rok = pesel.substring(0, 2);
+    let miesiac = parseInt(pesel.substring(2, 4), 10);
+    let dzien = pesel.substring(4, 6);
+    let stulecie = '';
+    if (miesiac >= 1 && miesiac <= 12) {
+        stulecie = '19';
+    } else if (miesiac >= 21 && miesiac <= 32) {
+        stulecie = '20';
+        miesiac -= 20;
+    }
+    let pelnyRok = stulecie + rok;
+    miesiac = miesiac.toString().padStart(2, '0');
+    return `${pelnyRok}-${miesiac}-${dzien}`;
+}
+
+function rozpatrzWniosek(rekord) {
+    if (rekord === "") {
+        document.getElementById('Application').style.display = "none";
+        document.getElementById('listOfApplications').style.display = "block";
+    } else {
+        document.getElementById('wniosekNumber').innerHTML = "Wniosek #" + rekord[0];
+        document.getElementById('Application').style.display = "block";
+        document.getElementById('listOfApplications').style.display = "none";
+        rekordy = [rekord[5], rekord[6], rekord[7], rekord[8], rekord[1], rekord[2], rekord[4], rekord[3], rekord[8]];
+        informations = document.getElementsByClassName('information');
+        for (i = 0; i < informations.length; i++) {
+            informations[i].innerHTML = rekordy[i];
+        }
+        document.getElementById('dataur').innerHTML = dateFromPesel(rekord[7]);
+    }
+}
+
+function odrzucWniosek(idRekordu) {
+    fetch('./../scripts/php/deleteApplication.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({id: idRekordu})
+    })
+        .then(response => response.text())
+        .then(data => {
+            if (data.trim() === 'OK') {
+                const element = document.getElementById('Wniosek#' + idRekordu);
+                if (element) {
+                    element.style.transition = "opacity 0.5s";
+                    element.style.opacity = "0";
+                    setTimeout(() => element.remove(), 500);
+                }
+            } else {
+                alert('Wystąpił błąd podczas zapisu.');
+            }
+            hideWarning()
+        })
+        .catch(error => console.error('Błąd sieci:', error));
+    hideWarning();
+}
+
+function przyjmijWniosek(idRekordu) {
+    const selectElement = document.getElementById("wniosek" + idRekordu + "select");
+    const selectedGroup = selectElement ? selectElement.value : "BRAK ELEMENTU";
+    console.log("Wysyłanie ID:", idRekordu, "Grupa:", selectedGroup);
+
+    fetch('./../scripts/php/confirmChild.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            id: idRekordu,
+            group: selectedGroup
+        })
+    })
+        .then(response => response.text())
+        .then(data => {
+            console.log("Odpowiedź PHP:", data);
+
+            if (data.trim() === 'OK') {
+                const element = document.getElementById('Wniosek#' + idRekordu);
+                if (element) {
+                    element.style.transition = "opacity 0.5s";
+                    element.style.opacity = "0";
+                    setTimeout(() => element.remove(), 500);
+                }
+            } else {
+                alert('Serwer zwrócił błąd: ' + data);
+            }
+        })
+        .catch(error => console.error('Błąd sieci:', error));
+}
+
+
 function openGroupTab(evt, tabId) {
     let contents = document.getElementsByClassName("tab-content");
     for (let i = 0; i < contents.length; i++) {
@@ -24,17 +121,19 @@ function ukryjArtykul(idRekordu) {
                 if (element) {
                     element.style.transition = "opacity 0.5s";
                     element.style.opacity = "0";
-
                     setTimeout(() => element.remove(), 500);
                 }
-            } else {
+            }
+            else {
                 console.error('Błąd serwera:', data);
                 alert('Wystąpił błąd podczas zapisu.');
             }
+            hideWarning();
         })
         .catch(error => {
             console.error('Błąd sieci:', error);
         });
+    hideWarning();
 }
 
 function usunNauczyciela(idRekordu) {
@@ -57,10 +156,12 @@ function usunNauczyciela(idRekordu) {
                 console.error('Błąd serwera:', data);
                 alert('Wystąpił błąd podczas zapisu.');
             }
+            hideWarning();
         })
         .catch(error => {
             console.error('Błąd sieci:', error);
         });
+    hideWarning();
 }
 
 async function edytujArtykul(id) {
@@ -90,6 +191,7 @@ async function edytujArtykul(id) {
         }
     }
 }
+
 
 // async function edytujArtykul(id) {
 //     document.getElementById('main-panel-articles').style.display = "none";
@@ -195,8 +297,10 @@ function usunDziecko(idRekordu) {
             } else {
                 alert('Wystąpił błąd podczas zapisu.' + data.trim());
             }
+            hideWarning();
         })
         .catch(error => console.error('Błąd sieci:', error));
+    hideWarning();
 }
 
 function edytujDziecko(daneDziecka, idPanel) {
@@ -267,9 +371,41 @@ function deleteGroup(g) {
                 element.style.opacity = "0";
                 setTimeout(() => element.remove(), 500);
             }
+            hideWarning();
             document.getElementById('witajPanel').style.display = "flex";
         } else {
             alert('Wystąpił błąd podczas zapisu.' + data.trim());
+            hideWarning();
         }
     })
 }
+
+function showWarningRekrutacja(id){
+    document.getElementById('dark_bg').style.display='block';
+    document.getElementById('rekrutacjaWarning').style.display='flex';
+    document.getElementById('btnWarningAcceptRekrutacja').onclick = function(){odrzucWniosek(id)};
+}
+
+function showWarningArtykul(id){
+    document.getElementById('dark_bg').style.display='block';
+    document.getElementById('artykulWarning').style.display='flex';
+    document.getElementById('btnWarningAcceptArticle').onclick = function(){ukryjArtykul(id)};
+}
+
+function showWarningTeacher(id){
+    document.getElementById('dark_bg').style.display='block';
+    document.getElementById('teacherWarning').style.display='flex';
+    document.getElementById('btnWarningAcceptTeacher').onclick = function(){usunNauczyciela(id)};
+}
+function showWarningGroup(id){
+    document.getElementById('dark_bg').style.display='block';
+    document.getElementById('group'+id+'Warning').style.display='flex';
+    document.getElementById('btnWarningAcceptGroup'+id).onclick = function(){deleteGroup(id)};
+}
+
+function showWarningChild(groupId, id){
+    document.getElementById('dark_bg').style.display='block';
+    document.getElementById('childWarning'+groupId).style.display='flex';
+    document.getElementById('btnWarningAcceptChild'+groupId).onclick = function(){usunDziecko(id)};
+}
+

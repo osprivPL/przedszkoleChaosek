@@ -54,6 +54,14 @@ function showGroups(n){
         })
     }
 }
+function hideWarning() {
+    let warnings = document.getElementsByClassName('warning');
+    for (let i = 0; i < warnings.length; i++) {
+        warnings[i].style.display='none';
+    }
+    document.getElementById('dark_bg').style.display='none';
+}
+
 function ukryjKomunikat(idRekordu) {
     fetch('./../scripts/php/deleteAnnoucement.php', {
         method: 'POST',
@@ -74,10 +82,17 @@ function ukryjKomunikat(idRekordu) {
                 console.error('Błąd serwera:', data);
                 alert('Wystąpił błąd podczas zapisu.');
             }
+            hideWarning();
         })
         .catch(error => {
             console.error('Błąd sieci:', error);
         });
+    hideWarning();
+}
+function showWarningKomunikat(id){
+    document.getElementById('dark_bg').style.display='block';
+    document.getElementById('komunikatWarning').style.display='flex';
+    document.getElementById('btnWarningAcceptKomunikat').onclick = function(){ukryjKomunikat(id)};
 }
 function showGroupPlan(groupId) {
     const containers = document.querySelectorAll('.group-plan-container');
