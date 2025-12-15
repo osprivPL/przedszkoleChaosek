@@ -31,9 +31,54 @@ function showContainerInbox(n){
     }
 }
 
-function OpenMessage(tytul, tresc, data, nadawca_imie, nadawca_nazwisko, odbiorca_imie, odbiorca_nazwisko, typ){
-    alert(tytul);
+function OpenMessage(json_array, typ){
+
+    if (document.getElementById('OpenedMessage').getAnimations) {
+        document.getElementById('OpenedMessage').getAnimations().forEach(a => a.cancel());
+    }
+
+    document.getElementById('OpenedMessage').style.display = "flex";
+    document.getElementById('MessageTytle').textContent = json_array[0];
+    document.getElementById('MessageTextarea').textContent = json_array[1];
+    document.getElementById('MessageData').textContent = json_array[2];
+    document.getElementById('MessageOd').textContent = json_array[3] + " " + json_array[4];
+    document.getElementById('MessageDo').textContent = json_array[5] + " " + json_array[6];
+
+
+    document.getElementById('OpenedMessage').style.transform = 'translateX(0)';
+    if (document.getElementById('OpenedMessage').getAnimations) {
+        document.getElementById('OpenedMessage').getAnimations().forEach(a => a.cancel());
+    }
+    const animationOpen = document.getElementById('OpenedMessage').animate(
+        [
+            { transform: 'translateX(100vw)'},
+            { transform: 'translateX(0)'}
+        ],
+        {
+            duration: 200,
+            easing: 'ease-out',
+            fill: 'forwards'
+        }
+    );
+
 }
 function CloseMessage(){
-
+    // document.getElementById('OpenedMessage').style.display = 'none';
+    if (document.getElementById('OpenedMessage').getAnimations) {
+        document.getElementById('OpenedMessage').getAnimations().forEach(a => a.cancel());
+    }
+    const animationClose = document.getElementById('OpenedMessage').animate(
+        [
+            { transform: 'translateX(0)'},
+            { transform: 'translateX(100vw)'}
+        ],
+        {
+            duration: 200,
+            easing: 'ease-out',
+            fill: 'forwards'
+        }
+    );
+    animationClose.finished.then(() => {
+        document.getElementById('OpenedMessage').style.display = 'none';
+    });
 }

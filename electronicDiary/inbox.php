@@ -154,7 +154,15 @@ if (!$_SESSION['logged']) {
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
-                echo '<tr class="messageCard" onclick="OpenMessage('. $message[1] . ', '.  $message[2] . ', '.  $message[3] . ', '.  $message[4] . ', '. $user->id . ', 0)">';
+                $tempAr=array();
+                $tempAr[] = $message[1];
+                $tempAr[] =  $message[2] ;
+                $tempAr[] = $message[3];
+                $tempAr[] = $sender[0][0];
+                $tempAr[] = $sender[0][1] ;
+                $tempAr[] =  $user->imie ;
+                $tempAr[] = $user->nazwisko;
+                echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 0)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -183,7 +191,16 @@ if (!$_SESSION['logged']) {
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
-                echo '<tr class="messageCard" onclick="OpenMessage('. $message[1] . ', '.  $message[2] . ', '.  $message[3] . ', '.  $user->id . ', '. $message[4] . ', 0)">';
+
+                $tempAr = array();
+                $tempAr[] = $message[1];
+                $tempAr[] =  $message[2] ;
+                $tempAr[] = $message[3];
+                $tempAr[] =  $user->imie ;
+                $tempAr[] = $user->nazwisko;
+                $tempAr[] = $sender[0][0];
+                $tempAr[] = $sender[0][1] ;
+                echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 0)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -213,7 +230,15 @@ if (!$_SESSION['logged']) {
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
-                echo '<tr class="messageCard" onclick="OpenMessage('. $message[1] . ', '.  $message[2] . ', '.  $message[3] . ', '.  $message[4] . ', '. $user->id . ', 2)">';
+                $tempAr=array();
+                $tempAr[] = $message[1];
+                $tempAr[] =  $message[2] ;
+                $tempAr[] = $message[3];
+                $tempAr[] = $sender[0][0];
+                $tempAr[] = $sender[0][1] ;
+                $tempAr[] =  $user->imie ;
+                $tempAr[] = $user->nazwisko;
+                echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 2)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -242,7 +267,15 @@ if (!$_SESSION['logged']) {
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
-                echo '<tr class="messageCard" onclick="OpenMessage("'. $message[1] . '", "'.  $message[2] . '", "'.  $message[3] . '", "'. $sender[0][0] . '", "' . $sender[0][1]   . '", "'. $user->imie . '" ,"'. $user->nazwisko .'" ,1)">';
+                $tempAr=array();
+                $tempAr[] = $message[1];
+                $tempAr[] =  $message[2] ;
+                $tempAr[] = $message[3];
+                $tempAr[] = $sender[0][0];
+                $tempAr[] = $sender[0][1] ;
+                $tempAr[] =  $user->imie ;
+                $tempAr[] = $user->nazwisko;
+                echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 1)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -335,15 +368,16 @@ if (!$_SESSION['logged']) {
         </div>
 
         <div class="content">
-            <span>Od</span>
-            <select class="newMesOdbiorcy submitButton" disabled>
-                <option id="MessegaOd">Jeremiasz</option>
-            </select>
+            <div class="newMesOdbiorcy submitButton">
+                <span>Od:</span>
+                <span id="MessageOd"></span>
+            </div>
         </div>
         <div class="content">
-            <select class="newMesOdbiorcy submitButton" disabled>
-                <option id="MessageDo"></option>
-            </select>
+            <div class="newMesOdbiorcy submitButton">
+                <span>Do:</span>
+                <span id="MessageDo"></span>
+            </div>
         </div>
         <div class="content">
             <textarea id="MessageTextarea" disabled>tresc</textarea>

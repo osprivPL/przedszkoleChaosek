@@ -155,6 +155,7 @@ td img{
 }
 #OpenedMessage>.mailLayout{
     height: fit-content;
+    animation: none;
 }
 h1{
     color: white;
@@ -173,7 +174,9 @@ h1{
     border-left: 5px solid var(--green-dark);
     padding: 0.2em;
 }
-.content input, textarea {
+.content input, textarea, textarea:disabled {
+    color: black;
+    background: white;
     border: var(--green-darker) solid 2px;
     border-radius: 6px;
     font-family: 'Courier New', Courier, monospace;
@@ -250,6 +253,7 @@ h1{
     align-items: center;
     color: white;
 }
+
 
 #sentContainer, #deletedContainer, #draftsContainer, #writeContainer, #OpenedMessage{
     display: none;
