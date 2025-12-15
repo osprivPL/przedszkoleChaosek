@@ -460,7 +460,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                         </div>
                         <div class="details">
                             <div class='choose-image'>
-                                <label for="articleImg" class='file-button submitButton'>Wybierz Zdjęcie</label>
+                                <label for="articleImg" id = 'addImgToArticle' class='file-button submitButton'>Wybierz Zdjęcie</label>
                                 <input type="file" id="articleImg" name="articleImg" accept="image/*"
                                        style="display: none">
                                 <span id='fileName'>Nie wybrano</span>
@@ -522,10 +522,10 @@ $resultGroups = $connection->query($sql)->fetch_all();
                                 articleContent.classList.remove('error');
                             }
                             if (fileName.innerHTML === 'Nie wybrano') {
-                                document.getElementById('articleImg').classList.add('error');
+                                document.getElementById('addImgToArticle').classList.add('error');
                                 error = true;
                             } else {
-                                document.getElementById('articleImg').classList.remove('error');
+                                document.getElementById('addImgToArticle').classList.remove('error');
                             }
 
                             if (!error) form.submit();
@@ -793,11 +793,11 @@ $resultGroups = $connection->query($sql)->fetch_all();
                         <div>
                             <div class="inputGroup">
                                 <label for="groupName">Nazwa grupy:</label>
-                                <input type="text" id="groupName" name="newGroupName" required>
+                                <input type="text" id="groupName" name="newGroupName">
                             </div>
                             <div class="inputGroup">
                                 <label for="groupSupervisor">Wychowawca grupy:</label>
-                                <select id="groupSupervisor" name="newGroupSupervisor" required>
+                                <select id="groupSupervisor" name="newGroupSupervisor">
                                     <?php
                                     for ($i = 0; $i < count($teachers); $i++) {
                                         echo "<option value='" . $teachers[$i]['id'] . "'>" . $teachers[$i]['full_name'] . "</option>";
@@ -810,6 +810,17 @@ $resultGroups = $connection->query($sql)->fetch_all();
                             <input type="submit" value="Dodaj grupę" class='submitButton'>
                         </div>
                     </form>
+                    <script>
+                        document.getElementById('addGroupForm').addEventListener('submit', (e)=>{
+                            e.preventDefault();
+                            if (document.getElementById('groupName').value.length === 0) {
+                                document.getElementById('groupName').classList.add('error');
+                            } else {
+                                document.getElementById('groupName').classList.remove('error');
+                                e.target.submit();
+                            }
+                        })
+                    </script>
                 </div>
             </div>
         </div>
@@ -849,6 +860,15 @@ $resultGroups = $connection->query($sql)->fetch_all();
                             echo "</form>";
                             ?>
                             <script>
+                                document.getElementById('frmUpdateGroup<?php echo $g; ?>').addEventListener('submit', (e) =>{
+                                    e.preventDefault();
+                                    if (document.getElementById('inputGroupName<?php echo $g; ?>').value.length === 0) {
+                                        document.getElementById('inputGroupName<?php echo $g; ?>').classList.add('error');
+                                    } else {
+                                        document.getElementById('inputGroupName<?php echo $g; ?>').classList.remove('error');
+                                        e.target.submit();
+                                    }
+                                })
                                 function cancelEditingGroup(g) {
                                     document.getElementById('olowek' + g).style.display = 'block';
                                     document.getElementById('deleteGroup' + g).style.display = 'block';
@@ -1168,11 +1188,10 @@ $resultGroups = $connection->query($sql)->fetch_all();
                         <input type="hidden" name="articleId" id="articleIdHiddenInput">
                         <div class="article">
                             <div class="article_header">
-                                <input type="text" id="editArticleHeader" name="editArticleHeader" required>
+                                <input type="text" id="editArticleHeader" name="editArticleHeader">
                                 <input type="date" id="editArticleData" name="editArticleData">
                             </div>
-                            <textarea id="editArticleContent" name="editArticleContent" rows="10" cols="50"
-                                      required></textarea><br><br>
+                            <textarea id="editArticleContent" name="editArticleContent" rows="10" cols="50"></textarea><br><br>
                         </div>
                         <div class="details">
                             <div class='choose-image'>

@@ -67,7 +67,7 @@ async function edytujArtykul(id) {
     document.getElementById('main-panel-articles').style.display = "none";
     document.getElementById('editArticle').style.display = "flex";
     document.getElementById('editArticleHeader').value = document.getElementById('articleHeader' + id).innerHTML;
-    document.getElementById('editArticleData').value = document.getElementById('articleDate' + id).innerHTML.substr(6, document.getElementById('articleDate' + id).innerHTML.length);
+    document.getElementById('editArticleData').value = document.getElementById('articleDate' + id).innerHTML;
     document.getElementById('editArticleContent').innerHTML = document.getElementById('articleContent' + id).innerHTML;
     document.getElementById('articleIdHiddenInput').value = id;
     const fileInput = document.getElementById('editArticleImg');
