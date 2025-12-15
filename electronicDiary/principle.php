@@ -1341,24 +1341,43 @@ $resultGroups = $connection->query($sql)->fetch_all();
                     <form method="post" action="./../scripts/php/editChild.php">
                         <input type="hidden" id="senderDiv">
                         <input type="hidden" id="editChildId" name="editChildId">
-                        <label for="editChildName">Imię:</label>
-                        <input type="text" name="editChildName" id="editChildName" required>
-                        <label for="editChildSurname">Nazwisko:</label>
-                        <input type="text" name="editChildSurname" id="editChildSurname" required>
-                        <label for="editChildPesel">PESEL:</label>
-                        <input type="text" name="editChildPesel" id="editChildPesel" required>
-                        <label for="editChildAddress">Adres zamieszkania:</label>
-                        <input type="text" name="editChildAddress" id="editChildAddress" required>
-                        <label for="editChildGrupa">Grupa:</label>
-                        <select id="editChildGrupa" name="editChildGrupa" class="submitButton">
-                            <?php
-                            for ($j = 0; $j < count($resultGroups); $j++) {
-                                echo "<option value='" . $resultGroups[$j][0] . "'>Grupa " . $resultGroups[$j][0] . " </option>";
-                            }
-                            ?>
-                        </select>
-                        <textarea id="editChildOpinion" name="editChildOpinion"></textarea>
-                        <button id="saveChanges">Zapisz zmiany</button>
+                        <div class='container'>
+                            <div>
+                                <div class="inputGroup">
+                                    <label for="editChildName">Imię:</label>
+                                    <input type="text" name="editChildName" id="editChildName" required>
+                                </div>
+                                <div class="inputGroup">
+                                    <label for="editChildSurname">Nazwisko:</label>
+                                    <input type="text" name="editChildSurname" id="editChildSurname" required>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="inputGroup">
+                                    <label for="editChildPesel">PESEL:</label>
+                                    <input type="text" name="editChildPesel" id="editChildPesel" required>
+                                </div>
+                                <div class="inputGroup">
+                                    <label for="editChildGrupa">Grupa:</label>
+                                    <select id="editChildGrupa" name="editChildGrupa">
+                                        <?php
+                                        for ($j = 0; $j < count($resultGroups); $j++) {
+                                            echo "<option value='" . $resultGroups[$j][0] . "'>Grupa " . $resultGroups[$j][0] . " </option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inputGroup">
+                                <label for="editChildAddress">Adres zamieszkania:</label>
+                                <input type="text" name="editChildAddress" id="editChildAddress" required>
+                        </div>
+                        <div class="inputGroup">
+                            <label for="editChildOpinion">Opinia:</label>
+                            <textarea id="editChildOpinion" name="editChildOpinion" rows='4'></textarea>
+                        </div>
+                        <button class='submitButton submitButtonAddon' id="saveChanges">Zapisz zmiany</button>
                     </form>
 
                 </div>

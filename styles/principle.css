@@ -258,7 +258,8 @@ button:hover{
 }
 .inputGroup input,
 .inputGroup select,
-.inputGroup option{
+.inputGroup option,
+.inputGroup textarea{
     border: var(--green-darker) solid 3px;
     border-radius: 6px;
     font-family: 'Courier New', Courier, monospace;
@@ -329,7 +330,8 @@ button:hover{
     font-family: 'sour gummy', sans-serif;
     border: none;
 }
-.teacherForm .submitButton{
+.teacherForm .submitButton,
+.submitButtonAddon{
     font-size: 32px;
     border-width: 5px;
     border-radius: 15px;
@@ -573,4 +575,22 @@ button:hover{
     border-radius: 10px;
     width: 200px;
     height: 125px;
+}
+.main-panel-edit-child form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.main-panel-edit-child .container{
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    gap: 20px;
+}
+.main-panel-edit-child .container > div{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    box-sizing: border-box;
+    gap: 15px;
 }
