@@ -136,7 +136,9 @@ if (!$_SESSION['logged']) {
     <main id="main">
         <!--Ma otwierać "nakładke" do pisania wiadomości-->
 
-
+        <!--=======================================================-->
+        <!-- ODEBRANE        -->
+        <!--=======================================================-->
         <table id="receivedContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
                 <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1"
@@ -163,18 +165,21 @@ if (!$_SESSION['logged']) {
             ?>
             <script>setIleWiadomosci(<?php echo count($result);?>);</script>
         </table>
+        <!--=======================================================-->
+        <!-- WYSŁANE        -->
+        <!--=======================================================-->
         <table id="sentContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
                 <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1"
                                                         onclick="selectAllCheckboxes(1)"></label></td>
                 <td><span class="messageTitle">Tytuł</span></td>
-                <td><span class="messageSender">Nadawca</span></td>
+                <td><span class="messageSender">Odbiorca</span></td>
                 <td><span class="messageDate">Data wysłania</span></td>
                 <td></td>
             </tr>
             <?php
             $connection = new mysqli("localhost", "root", "", "przedszkole");
-            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE nadawcaID = " . $user->id . " AND Usunięte = 0 AND robocze = 0;")->fetch_all();
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, odbiorcaID FROM wiadomosci WHERE nadawcaID = " . $user->id . " AND Usunięte = 0 AND robocze = 0;")->fetch_all();
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
@@ -190,6 +195,9 @@ if (!$_SESSION['logged']) {
             <script>setIleWiadomosci(<?php echo count($result);?>);</script>
         </
         >
+        <!--=======================================================-->
+        <!-- USUNIĘTE        -->
+        <!--=======================================================-->
         <table id="deletedContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
                 <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1"
@@ -216,7 +224,9 @@ if (!$_SESSION['logged']) {
             ?>
             <script>setIleWiadomosci(<?php echo count($result);?>);</script>
         </table>
-
+        <!--=======================================================-->
+        <!-- KOPIE ROBOCZE        -->
+        <!--=======================================================-->
         <table id="draftsContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
                 <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1"
