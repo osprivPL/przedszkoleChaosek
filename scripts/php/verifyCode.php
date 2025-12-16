@@ -2,11 +2,11 @@
 session_start();
 require_once "./printArr.php";
 $kod = $_POST["tbxCode"];
+$poprawny =$_SESSION['kod']
 $sqlTemp = $_SESSION['sql'];
 printArr($_SESSION);
 if ($kod == $_SESSION['kod']) {
     session_destroy();
-    $_SESSION['kod'] = $kod;
     session_start();
     $_SESSION['registered'] = true;
     $_SESSION['sql'] = $sqlTemp;
@@ -14,7 +14,7 @@ if ($kod == $_SESSION['kod']) {
     die();
 } else {
     $_SESSION['error'] = 3;
-    $_SESSION['kod'] = $kod;
+    $_SESSION['kod'] = $poprawny
     header('Location: ./../../mailCode.php');
     die();
 }
