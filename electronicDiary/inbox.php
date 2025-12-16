@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+error_reporting(E_ERROR | E_PARSE);
 require_once "./../scripts/php/printArr.php";
 require_once __DIR__ . '/../models/User.php';
 

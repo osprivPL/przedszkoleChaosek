@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+error_reporting(E_ERROR | E_PARSE);
 require_once __DIR__ . '/models/User.php';
 
 use models\User;
@@ -155,10 +156,10 @@ if (isset($_SESSION['user'])) {
             <button id="btnRekrutacja" class="submitButton">Zapisz dziecko!</button>
             <?php
             if ($_SESSION['error'] == 2) {
-                echo '<span class="error">Wystąpił błąd podczas wysyłania formularza. Spróbuj ponownie później.</span>';
+                echo '<span id="registerError" class="error">Wystąpił błąd podczas wysyłania formularza. Spróbuj ponownie później.</span>';
                 unset($_SESSION['error']);
             } ?>
-            <span id="registerError" class="error"></span>
+            <span></span>
         </form>
         <script>
             document.getElementById('frmRekrutacja').addEventListener('submit', (e) => {

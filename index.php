@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+error_reporting(E_ERROR | E_PARSE);
 echo "<script src='./scripts/js/showLogin.js'></script>";
 header("Cache-Control: no-cache");
 

@@ -14,7 +14,7 @@ if ($connection) {
     $stmt->bind_param("sii", $nazwa, $opiekun, $id);
     if ($stmt->execute()) {
         echo 'g';
-        $_SESSION['powodzenie'] = "Grupa zostało zaktualizowany pomyślnie.";
+        $_SESSION['powodzenie'] = "Grupa została zaktualizowana pomyślnie.";
     }
     else{
         echo 'nieg';

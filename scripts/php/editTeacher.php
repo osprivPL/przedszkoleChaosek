@@ -60,7 +60,7 @@ if (move_uploaded_file($_FILES["editTeacherImg"]["tmp_name"], $targetFile)) {
         $connection->query($sql);
 
         echo 'g';
-        $_SESSION['powodzenie'] = "Nauczyciel zostało zaktualizowany pomyślnie.";
+        $_SESSION['powodzenie'] = "Informacje o nauczycielu zostały zaktualizowane pomyślnie";
     } else {
         echo 'nieg';
         $_SESSION['powodzenie'] = "Wystąpił błąd, spróbuj ponownie później.";

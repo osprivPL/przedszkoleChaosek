@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <?php
+error_reporting(E_ERROR | E_PARSE);
 require_once "./../scripts/php/printArr.php";
-require_once __DIR__ . '/../models/User.php';
 require_once "./../scripts/php/weekDayFromDate.php";
 
+require_once __DIR__ . '/../models/User.php';
 use models\User;
 
 session_start();
@@ -333,7 +334,16 @@ $resultChildren = $connection->query($sqlChildren)->fetch_all(MYSQLI_ASSOC);
                         <span>Ostatni Komunikat</span>
                     </h1>
                     <?php
-                    $sql = "SELECT tytul, tresc, data FROM komunikaty WHERE przynaleznosc = 0 ORDER BY data DESC LIMIT 1;";
+                    $condition = "";
+                    for ($i = 0; $i < count($groups); $i++){
+                        if ($i == count($groups) - 1) {
+                            $condition .= "przynaleznosc = " . $groups[$i];
+                        } else {
+                            $condition .= "przynaleznosc = " . $groups[$i] . " OR ";
+                        }
+                    }
+                    $sql = "SELECT tytul, tresc, data,przynaleznosc FROM komunikaty WHERE przynaleznosc = 0 OR ".$condition." ORDER BY data DESC LIMIT 1;";
+//                    $sql = "SELECT tytul, tresc, data FROM komunikaty WHERE przynaleznosc = 0 ORDER BY data DESC LIMIT 1;";
                     $result = $connection->query($sql)->fetch_all();
                     if (isset($result[0])) {
                         echo "<div class='news-item'>
@@ -426,9 +436,9 @@ $resultChildren = $connection->query($sqlChildren)->fetch_all(MYSQLI_ASSOC);
                         if (count($result) == 0) {
                             echo "Dzień wolny od przedszkola";
                         } else {
-                            echo "<div><span>II śniadanie:</span><span> " . substr($result[0][0], 0, 50) . "</span></div>";
-                            echo "<div><span>Obiad:</span><span> " . substr($result[1][0], 0, 50) . "</span></div>";
-                            echo "<div><span>Podwieczorek:</span><span> " . substr($result[2][0], 0, 50) . "</span></div>";
+                            echo "<div><span>II śniadanie:</span><span> " . substr($result[0][0], 0, 50) . "...</span></div>";
+                            echo "<div><span>Obiad:</span><span> " . substr($result[1][0], 0, 50) . "...</span></div>";
+                            echo "<div><span>Podwieczorek:</span><span> " . substr($result[2][0], 0, 50) . "...</span></div>";
                         }
                         echo "</div>";
                         ?>
@@ -447,7 +457,7 @@ $resultChildren = $connection->query($sqlChildren)->fetch_all(MYSQLI_ASSOC);
                     <hr>
                     <h1 class='logo-font-small'>Nauczyciele</h1>
                     <?php
-                    $sql = "SELECT imie, nazwisko, login ,typ, opinia, zdjecie, nauczyciel, dyrektor FROM uzytkownicy INNER JOIN uprawnienia ON typ = uprawnienia.ID WHERE nauczyciel = 1 OR dyrektor = 1 ORDER BY typ DESC";
+                    $sql = "SELECT imie, nazwisko, login ,typ, opinia, zdjecie, nauczyciel, dyrektor FROM uzytkownicy INNER JOIN uprawnienia ON typ = uprawnienia.ID WHERE nauczyciel = 1 OR dyrektor = 1 ORDER BY dyrektor DESC, nazwisko;";
                     $result = $connection->query($sql)->fetch_all();
                     //                    print_r($result);
                     for ($i = 0; $i < count($result); $i++) {
@@ -538,9 +548,17 @@ $resultChildren = $connection->query($sqlChildren)->fetch_all(MYSQLI_ASSOC);
                 <div class="formContainer">
                     <hr>
                     <h1 class='logo-font-small'>Komunikaty</h1>
-                    <!-- TO SA NARAZIE DLA CALRGO PRZEDSZKOLA, TRZEBA ZROBIC TO ROZWIJANE DLA OGOLNYCH KOMUUNIKATOW I KONKRETNYCH GRUP-->
+
                     <?php
-                    $sql = "SELECT tytul, tresc, data,przynaleznosc FROM komunikaty WHERE przynaleznosc = 0 ORDER BY data DESC;";
+                    $condition = "";
+                    for ($i = 0; $i < count($groups); $i++){
+                        if ($i == count($groups) - 1) {
+                            $condition .= "przynaleznosc = " . $groups[$i];
+                        } else {
+                            $condition .= "przynaleznosc = " . $groups[$i] . " OR ";
+                        }
+                    }
+                    $sql = "SELECT tytul, tresc, data,przynaleznosc FROM komunikaty WHERE przynaleznosc = 0 OR ".$condition." ORDER BY data DESC;";
                     $result = $connection->query($sql)->fetch_all();
                     for ($i = 0; $i < count($result); $i++) {
                         echo "<div class='newsCards' style='animation-delay: ".$i*0.2 ."s'>
