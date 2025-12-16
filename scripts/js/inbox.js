@@ -14,14 +14,17 @@ function selectAllCheckboxes(n){
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('messagesContainer').addEventListener('change', (e) => {
-        if (e.target.classList.contains('messageCheckbox')) {
+    document.addEventListener('change', (e) => {
+        if (e.target.classList && e.target.classList.contains('messageCheckbox')) {
             if (e.target.checked) zaznaczone++; else zaznaczone--;
-            document.getElementById('selectAllCheckbox').checked = (zaznaczone === ileWiadomosci);
+            const sel = document.getElementById('selectAllCheckbox');
+            if (sel) sel.checked = (zaznaczone === ileWiadomosci);
         }
     });
+    // prevent checkbox clicks from bubbling to row onclick (which opens the message)
+    document.querySelectorAll('.messageCheckbox').forEach(cb => cb.addEventListener('click', e => e.stopPropagation()));
     const master = document.getElementById('selectAllCheckbox');
-    master.addEventListener('change', selectAllCheckboxes);
+    if (master) master.addEventListener('change', selectAllCheckboxes);
 });
 
 function showContainerInbox(n){
