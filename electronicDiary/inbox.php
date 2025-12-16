@@ -356,15 +356,13 @@ if (!$_SESSION['logged']) {
                 } else {
                     $typ = "Rodzic";
                 }
-                echo "<option class='submitButton' value='" . $result[$i][0] . "' onclick='CrealNewMes()'>" . $result[$i][1] . " " . $result[$i][2] . " - " . $typ . "</option>";
+                echo "<option class='submitButton' value='" . $result[$i][0] . "' onclick='clearNewMes()'>" . $result[$i][1] . " " . $result[$i][2] . " - " . $typ . "</option>";
             }
             echo "</select>";
             ?>
         </div>
-        <div class="content">
-            <input id="newMesTytul" type="text" name="tytle" placeholder="Tytuł">
-        </div>
-        <div class="content inputTextarea">
+
+        <div class="content inputTextarea inputGroup">
             <textarea id="newMesTresc" name="tresc" placeholder="Treść"></textarea>
         </div>
         <div class="content inputButtons">

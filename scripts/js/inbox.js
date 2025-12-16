@@ -48,6 +48,9 @@ function showContainerInbox(n) {
     for (let i = 0; i < containers.length; i++) {
         const el = document.getElementById(containers[i]);
         if (el) el.style.display = (i === n) ? 'flex' : 'none';
+        if( containers[i] == 'writeContainer'){
+            clearNewMes();
+        }
     }
 
     checkEmptyLists();
@@ -147,38 +150,47 @@ function PopUpDraft(){
     if (mesTopic.value.trim() !== '' && mesContent.value.trim() !== ''){
         document.getElementById('writeContainer').style.display = 'none';
         document.getElementById('warningPopUp').style.display = 'flex';
+        clearNewMes()
     }
     else{
         if (mesTopic.value.trim() == '' && mesContent.value.trim() == ''){
             showContainerInbox(0);
         }else{
             if (mesTopic.value.trim() == ''){
-                mesTopic.classList.add('emptySpace');
+                mesTopic.classList.add('error');
+            }else {
+                mesTopic.classList.remove('error');
             }
             if (mesContent.value.trim() == ''){
-                mesContent.classList.add('emptySpace');
+                mesContent.classList.add('error');
+            }else {
+                mesContent.classList.remove('error');
             }
         }
 
     }
 }
-function CrealNewMes(){
+function clearNewMes(){
     const a = document.getElementById("newMesTytul");
-    a.value = '';
-    a.classList.remove('emptySpace');
     const b = document.getElementById("newMesTresc");
+
+    a.value = '';
     b.value = '';
-    b.classList.remove('emptySpace');
+
+    if (a.classList.contains('error') || b.classList.contains('error')) {
+        a.classList.remove('error');
+        b.classList.remove('error');
+    }
 }
 function SaveAsDraft(){
     document.getElementById('warningPopUp').style.display = 'none';
     document.getElementById('buttonDraftId').click();
-    CrealNewMes();
+    clearNewMes();
     showContainerInbox(0);
 }
 function DontSaveDraft(){
     document.getElementById('warningPopUp').style.display = 'none';
-    CrealNewMes();
+    clearNewMes();
     showContainerInbox(0);
 }
 
@@ -229,6 +241,19 @@ function OpenMessage(json_array, typ) {
         document.getElementById('FormButtons').appendChild(buttonOdp);
     }
 
+    if (typ == 2) {
+        const formEdit = document.createElement('form');
+        formEdit.method = 'POST';
+        formEdit.action = './../scripts/php/editDraftMessage.php';
+        const buttonEdit = document.createElement('button');
+        buttonEdit.type = 'submit';
+        buttonEdit.name = 'messageId';
+        buttonEdit.value = json_array[0] + "|" + json_array[1] + "|" + json_array[2];
+        buttonEdit.classList = 'submitButton';
+        buttonEdit.innerHTML = 'Zapisz';
+        formEdit.appendChild(buttonEdit);
+        document.getElementById('FormButtons').appendChild(formEdit);
+    }
     if (typ == 1 && json_array[8] == json_array[10] && json_array[9] == 1) {
         const form1 = document.createElement('form');
         form1.method = 'POST';
@@ -284,7 +309,7 @@ function OpenMessage(json_array, typ) {
     );
 
 }
-function EditMessage(){
+function EditMessage(json_array){
     document.getElementById('OpenedMessage').style.display = 'none';
 }
 
