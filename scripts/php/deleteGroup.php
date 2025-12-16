@@ -8,7 +8,7 @@ $id = isset($input['id']) ? (int)$input['id'] : 0;
 if ($id > 0 && isset($connection)) {
     $rows = $connection->query("SELECT * FROM dzieci WHERE grupa = $id")->num_rows;
     if ($rows > 0) {
-        echo "Błąd: Nie można usunąć grupy, do której przypisane są dzieci.";
+        echo "dzieciGrupa";
         exit();
     }
     $stmt = $connection->prepare("DELETE FROM grupy WHERE id = ?");

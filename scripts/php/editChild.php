@@ -18,7 +18,7 @@ if ($connection) {
     echo $sql;
     $connection->query($sql);
     echo 'g';
-    $_SESSION['powodzenie'] = "Dziecko zostało zaktualizowany pomyślnie.";
+    $_SESSION['powodzenie'] = "Informacje o dziecku zostały zaktualizowane.";
 }
 else{
     echo 'nieg';

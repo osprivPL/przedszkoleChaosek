@@ -1,9 +1,20 @@
+function hideInformation() {
+    document.getElementById('informationPopUp').style.display = 'none';
+    document.getElementById('dark_bg').style.display = 'none';
+}
+
+function showInformation(text) {
+    document.getElementById('informationPopUp').style.display = 'flex';
+    document.getElementById('dark_bg').style.display = 'block';
+    document.getElementById('warningText').innerHTML = text;
+}
+
 function hideWarning() {
     let warnings = document.getElementsByClassName('warning');
     for (let i = 0; i < warnings.length; i++) {
-        warnings[i].style.display='none';
+        warnings[i].style.display = 'none';
     }
-    document.getElementById('dark_bg').style.display='none';
+    document.getElementById('dark_bg').style.display = 'none';
 }
 
 function dateFromPesel(pesel) {
@@ -55,11 +66,14 @@ function odrzucWniosek(idRekordu) {
                     setTimeout(() => element.remove(), 500);
                 }
             } else {
-                alert('Wystąpił błąd podczas zapisu.');
+                showInformation("Wystąpił błąd, spróbuj ponownie później.");
             }
             hideWarning()
         })
-        .catch(error => console.error('Błąd sieci:', error));
+        .catch(error => {
+            // console.error('Błąd sieci:', error)
+            showInformation("Wystąpił błąd, spróbuj ponownie później")
+        });
     hideWarning();
 }
 
@@ -78,7 +92,7 @@ function przyjmijWniosek(idRekordu) {
     })
         .then(response => response.text())
         .then(data => {
-            console.log("Odpowiedź PHP:", data);
+            // console.log("Odpowiedź PHP:", data);
 
             if (data.trim() === 'OK') {
                 const element = document.getElementById('Wniosek#' + idRekordu);
@@ -91,7 +105,7 @@ function przyjmijWniosek(idRekordu) {
                 alert('Serwer zwrócił błąd: ' + data);
             }
         })
-        .catch(error => console.error('Błąd sieci:', error));
+        .catch(error => showInformation("Wystąpił błąd, spróbuj ponownie później"));
 }
 
 
@@ -123,15 +137,16 @@ function ukryjArtykul(idRekordu) {
                     element.style.opacity = "0";
                     setTimeout(() => element.remove(), 500);
                 }
-            }
-            else {
-                console.error('Błąd serwera:', data);
-                alert('Wystąpił błąd podczas zapisu.');
+            } else {
+                // console.error('Błąd serwera:', data);
+                // alert('Wystąpił błąd podczas zapisu.');
+                showInformation("Wystąpił błąd, spróbuj ponownie później.");
             }
             hideWarning();
         })
         .catch(error => {
-            console.error('Błąd sieci:', error);
+            // console.error('Błąd sieci:', error);
+            showInformation("Wystąpił błąd, spróbuj ponownie później.");
         });
     hideWarning();
 }
@@ -153,13 +168,15 @@ function usunNauczyciela(idRekordu) {
                     setTimeout(() => element.remove(), 500);
                 }
             } else {
-                console.error('Błąd serwera:', data);
-                alert('Wystąpił błąd podczas zapisu.');
+                // console.error('Błąd serwera:', data);
+                // alert('Wystąpił błąd podczas zapisu.');
+                showInformation("Wystąpił błąd, spróbuj ponownie później.");
             }
             hideWarning();
         })
         .catch(error => {
-            console.error('Błąd sieci:', error);
+            // console.error('Błąd sieci:', error);
+            showInformation("Wystąpił błąd, spróbuj ponownie później.");
         });
     hideWarning();
 }
@@ -187,7 +204,8 @@ async function edytujArtykul(id) {
             fileInput.dispatchEvent(new Event('change'));
 
         } catch (e) {
-            console.error("Nie udało się pobrać obrazka do edycji", e);
+            // console.error("Nie udało się pobrać obrazka do edycji", e);
+            showInformation("Nie udało się pobrać obrazka do edycji.");
         }
     }
 }
@@ -222,6 +240,7 @@ async function edytujArtykul(id) {
 //
 //         } catch (e) {
 //             console.error(e);
+//              showInformation("Nie udało się pobrać obrazka do edycji.");
 //         }
 //     }
 // }
@@ -274,7 +293,8 @@ async function editTeacher(id) {
             fileInput.dispatchEvent(new Event('change'));
 
         } catch (e) {
-            console.error("Nie udało się pobrać tła do inputa", e);
+            // console.error("Nie udało się pobrać obrazka do pliku", e);
+            showInformation("Nie udało się pobrać obrazka do pliku.");
         }
     }
 }
@@ -295,11 +315,12 @@ function usunDziecko(idRekordu) {
                     setTimeout(() => element.remove(), 500);
                 }
             } else {
-                alert('Wystąpił błąd podczas zapisu.' + data.trim());
+                // alert('Wystąpił błąd podczas zapisu.' + data.trim());
+                showInformation("Wystąpił błąd, spróbuj ponownie później.");
             }
             hideWarning();
         })
-        .catch(error => console.error('Błąd sieci:', error));
+        .catch(error => showInformation("Wystąpił błąd, spróbuj ponownie później."));
     hideWarning();
 }
 
@@ -327,7 +348,7 @@ function edytujDziecko(daneDziecka, idPanel) {
 
 function cancelEditingChild(g) {
     document.getElementById('editChild').style.display = 'none';
-    document.getElementById('group' + senderDiv.value +"Management").style.display = 'flex';
+    document.getElementById('group' + senderDiv.value + "Management").style.display = 'flex';
 }
 
 function saveChildrenChanges(idRekordu) {
@@ -346,10 +367,11 @@ function saveChildrenChanges(idRekordu) {
                     setTimeout(() => element.remove(), 500);
                 }
             } else {
-                alert('Wystąpił błąd podczas zapisu.');
+                // alert('Wystąpił błąd podczas zapisu.');
+                showInformation("Wystąpił błąd, spróbuj ponownie później.");
             }
         })
-        .catch(error => console.error('Błąd sieci:', error));
+        .catch(error => showInformation('Wystąpił błąd, spróbuj ponownie później.'));
 }
 
 function deleteGroup(g) {
@@ -373,39 +395,56 @@ function deleteGroup(g) {
             }
             hideWarning();
             document.getElementById('witajPanel').style.display = "flex";
-        } else {
-            alert('Wystąpił błąd podczas zapisu.' + data.trim());
+        }
+        else if (data.trim() === 'dzieciGrupa'){
             hideWarning();
+            showInformation("Nie można usunąć grupy, w której są dzieci");
+        }
+        else {
+            // alert('Wystąpił błąd podczas zapisu.' + data.trim());
+            hideWarning();
+            showInformation("Wystąpił błąd, spróbuj ponownie później.");
         }
     })
 }
 
-function showWarningRekrutacja(id){
-    document.getElementById('dark_bg').style.display='block';
-    document.getElementById('rekrutacjaWarning').style.display='flex';
-    document.getElementById('btnWarningAcceptRekrutacja').onclick = function(){odrzucWniosek(id)};
+function showWarningRekrutacja(id) {
+    document.getElementById('dark_bg').style.display = 'block';
+    document.getElementById('rekrutacjaWarning').style.display = 'flex';
+    document.getElementById('btnWarningAcceptRekrutacja').onclick = function () {
+        odrzucWniosek(id)
+    };
 }
 
-function showWarningArtykul(id){
-    document.getElementById('dark_bg').style.display='block';
-    document.getElementById('artykulWarning').style.display='flex';
-    document.getElementById('btnWarningAcceptArticle').onclick = function(){ukryjArtykul(id)};
+function showWarningArtykul(id) {
+    document.getElementById('dark_bg').style.display = 'block';
+    document.getElementById('artykulWarning').style.display = 'flex';
+    document.getElementById('btnWarningAcceptArticle').onclick = function () {
+        ukryjArtykul(id)
+    };
 }
 
-function showWarningTeacher(id){
-    document.getElementById('dark_bg').style.display='block';
-    document.getElementById('teacherWarning').style.display='flex';
-    document.getElementById('btnWarningAcceptTeacher').onclick = function(){usunNauczyciela(id)};
-}
-function showWarningGroup(id){
-    document.getElementById('dark_bg').style.display='block';
-    document.getElementById('group'+id+'Warning').style.display='flex';
-    document.getElementById('btnWarningAcceptGroup'+id).onclick = function(){deleteGroup(id)};
+function showWarningTeacher(id) {
+    document.getElementById('dark_bg').style.display = 'block';
+    document.getElementById('teacherWarning').style.display = 'flex';
+    document.getElementById('btnWarningAcceptTeacher').onclick = function () {
+        usunNauczyciela(id)
+    };
 }
 
-function showWarningChild(groupId, id){
-    document.getElementById('dark_bg').style.display='block';
-    document.getElementById('childWarning'+groupId).style.display='flex';
-    document.getElementById('btnWarningAcceptChild'+groupId).onclick = function(){usunDziecko(id)};
+function showWarningGroup(id) {
+    document.getElementById('dark_bg').style.display = 'block';
+    document.getElementById('group' + id + 'Warning').style.display = 'flex';
+    document.getElementById('btnWarningAcceptGroup' + id).onclick = function () {
+        deleteGroup(id)
+    };
+}
+
+function showWarningChild(groupId, id) {
+    document.getElementById('dark_bg').style.display = 'block';
+    document.getElementById('childWarning' + groupId).style.display = 'flex';
+    document.getElementById('btnWarningAcceptChild' + groupId).onclick = function () {
+        usunDziecko(id)
+    };
 }
 

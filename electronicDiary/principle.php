@@ -148,7 +148,6 @@ $resultGroups = $connection->query($sql)->fetch_all();
     <script src="./../scripts/js/panels.js"></script>
     <script src="./../scripts/js/showUserPanel.js"></script>
     <script src="./../scripts/js/principle.js"></script>
-    <script src="./../scripts/js/editGroups.js"></script>
 
 </head>
 <body>
@@ -276,16 +275,16 @@ $resultGroups = $connection->query($sql)->fetch_all();
         });
     </script>
     <main id="main">
-        <div class="information">
+        <div class="information" id="informationPopUp">
             <div class='header'>
                 <span class='circle'>i</span>
                 <span>Informacja</span>
             </div>
             <div class='span-container'>
-                <span class='information-content'>Coś tam Coś tam</span><br>
+                <span class='information-content' id="warningText">Coś tam Coś tam</span><br>
             </div>
             <div class='button-container'>
-                <button id="btnInformationAccept" class='submitButton okay'>OK</button>
+                <button id="btnInformationAccept" class='submitButton okay' onclick="hideInformation()">OK</button>
             </div>
         </div>
         <div class="main-panel bigContainers main-panel-witaj" id="witajPanel">
@@ -483,6 +482,10 @@ $resultGroups = $connection->query($sql)->fetch_all();
 
         <div class="main-panel bigContainers main-panel-articles" id="main-panel-articles">
             <div class='warning' id="artykulWarning">
+                <div class='header'>
+                    <span class='circle'>!</span>
+                    <span>Ostrzeżenie</span>
+                </div>
                 <div class='span-container'>
                     <span class='warning-content'>Zmiany będą <span style='text-decoration:underline wavy'>nieodwracalne!</span></span><br>
                     <span class='warning-question'>Jesteś <span style='text-decoration:underline'>pewien</span> swojej decyzji?</span>
@@ -697,6 +700,10 @@ $resultGroups = $connection->query($sql)->fetch_all();
 
         <div class="main-panel bigContainers main-panel-teachers" id="main-teachers">
             <div class='warning' id="teacherWarning">
+                <div class='header'>
+                    <span class='circle'>!</span>
+                    <span>Ostrzeżenie</span>
+                </div>
                 <div class='span-container'>
                     <span class='warning-content'>Zmiany będą <span style='text-decoration:underline wavy'>nieodwracalne!</span></span><br>
                     <span class='warning-question'>Jesteś <span style='text-decoration:underline'>pewien</span> swojej decyzji?</span>
@@ -795,6 +802,10 @@ $resultGroups = $connection->query($sql)->fetch_all();
         <?php for ($g = 1; $g <= count($resultGroups); $g++): ?>
             <div class="main-panel bigContainers main-panel-groups" id="group<?php echo $g ?>Management">
                 <div class='warning' id="group<?php echo $g; ?>Warning">
+                    <div class='header'>
+                        <span class='circle'>!</span>
+                        <span>Ostrzeżenie</span>
+                    </div>
                     <div class='span-container'>
                         <span class='warning-content'>Zmiany będą <span style='text-decoration:underline wavy'>nieodwracalne!</span></span><br>
                         <span class='warning-question'>Jesteś <span style='text-decoration:underline'>pewien</span> swojej decyzji?</span>
@@ -805,6 +816,10 @@ $resultGroups = $connection->query($sql)->fetch_all();
                     </div>
                 </div>
                 <div class='warning' id="childWarning<?php echo $g; ?>">
+                    <div class='header'>
+                        <span class='circle'>!</span>
+                        <span>Ostrzeżenie</span>
+                    </div>
                     <div class='span-container'>
                         <span class='warning-content'>Zmiany będą <span style='text-decoration:underline wavy'>nieodwracalne!</span></span><br>
                         <span class='warning-question'>Jesteś <span style='text-decoration:underline'>pewien</span> swojej decyzji?</span>
@@ -1038,6 +1053,10 @@ $resultGroups = $connection->query($sql)->fetch_all();
 
         <div class="main-panel bigContainers main-panel-komunikaty" id="annoucementManager">
             <div class='warning' id="komunikatWarning">
+                <div class='header'>
+                    <span class='circle'>!</span>
+                    <span>Ostrzeżenie</span>
+                </div>
                 <div class='span-container'>
                     <span class='warning-content'>Zmiany będą <span style='text-decoration:underline wavy'>nieodwracalne!</span></span><br>
                     <span class='warning-question'>Jesteś <span style='text-decoration:underline'>pewien</span> swojej decyzji?</span>
