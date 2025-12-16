@@ -519,6 +519,110 @@ aside, main {
     width: 80%;
     padding-bottom: 20px;
 }
+
+
+.warning,
+.information{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 350px;
+    flex-direction: column;
+    z-index: 10001;
+    align-items: center;
+    font-family: 'sour gummy', sans-serif;
+    font-size: 36px;
+    background-image: url('../assets/login.png');
+    background-size: 100% 100%;
+    border-radius: 15px;
+    border: 5px solid var(--green-dark);
+    box-sizing: border-box;
+    justify-content: space-between;
+    display: flex;
+    display: none;
+}
+.information .header,
+.warning .header{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    gap: 20px;
+    width: calc(100% - 10px);
+    transform: translateY(-10px);
+    background-color: var(--green-dark);
+    border: 5px solid var(--green-darker);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    color: lightgray;
+    font-size: 28px;
+}
+.information .circle,
+.warning .circle{
+    border-radius: 100%;
+    font-weight: bold;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    box-sizing: border-box;
+    font-size: 36px;
+}
+.information .circle{
+    background-color: darkslateblue;
+    font-family: 'Courier New', Courier, monospace;
+}
+.warning .circle{
+    background-color: red;
+    font-family: 'sour gummy', sans-serif;
+}
+.warning .span-container{
+    color: white;
+    text-align: center;
+}
+.information .span-container{
+    font-weight: bold;
+    color:white;
+    text-align: center;
+    padding: 0 30px;
+    box-sizing: border-box;
+}
+.warning .warning-content{
+    color: red;
+    font-weight: bold;
+}
+.warning .button-container,
+.information .button-container{
+    display: flex;
+    width: 100%;
+}
+.warning button,
+.information button{
+    flex-grow: 1;
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+    font-family: inherit;
+    background-color: var(--green-dark);
+    transition: .3s;
+}
+.warning button:hover,
+.information button:hover{
+    background-color: var(--green-darker);
+}
+.information .okay{
+    color: darkslateblue;
+}
+.warning .no{
+    color: red;
+}
+.warning .yes{
+    color: limegreen;
+}
+
+
 @media (max-width: 1300px){
     .options{
         display: block;
