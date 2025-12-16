@@ -664,10 +664,14 @@ button:hover{
 }
 .warning .span-container{
     color: white;
+    text-align: center;
 }
 .information .span-container{
     font-weight: bold;
     color:white;
+    text-align: center;
+    padding: 0 30px;
+    box-sizing: border-box;
 }
 .warning .warning-content{
     color: red;

@@ -275,13 +275,13 @@ $resultGroups = $connection->query($sql)->fetch_all();
         });
     </script>
     <main id="main">
-        <div class="information" id="informationPopUp">
+        <div class="information" id="informationPopUp" style='display: flex;'>
             <div class='header'>
                 <span class='circle'>i</span>
                 <span>Informacja</span>
             </div>
-            <div class='span-container'>
-                <span class='information-content' id="warningText">Coś tam Coś tam</span><br>
+            <div class='span-container' id="warningText">
+                Coś tam Coś fdasfdsafsdfdasfdsa
             </div>
             <div class='button-container'>
                 <button id="btnInformationAccept" class='submitButton okay' onclick="hideInformation()">OK</button>
