@@ -29,7 +29,7 @@ if ($connection->connect_errno == 0 ) {
     }
 //    $imgNameDB = $connection->real_escape_string($newFileName);
 
-    $sql = "INSERT INTO wiadomosci (tytul, tresc, dataWyslania, nadawcaID, odbiorcaID, robocze, Usunięte) VALUES ('$title', '$content', '$date', $user->id , $reciver, $draft, 0)";
+    $sql = "INSERT INTO wiadomosci (tytul, tresc, dataWyslania, nadawcaID, odbiorcaID, robocze, usunieteNadawca, usunieteOdbiorca) VALUES ('$title', '$content', '$date', $user->id , $reciver, $draft, 0, 0)";
 
 
 
