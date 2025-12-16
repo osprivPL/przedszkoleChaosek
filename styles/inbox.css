@@ -327,3 +327,36 @@ h1{
 
 
 
+/* ================================================= */
+/* STYLIZACJA STANU INDETERMINATE (MINUS)            */
+/* ================================================= */
+
+/* Selector targetujący checkboxy w nagłówku tabeli, które mają stan indeterminate */
+.headerCard input[type="checkbox"]:indeterminate {
+    /* Upewniamy się, że tło jest zielone */
+    background-color: #1b4d3e; /* Dopasuj ten kolor do swojego ciemnozielonego */
+
+    /* Resetujemy wygląd systemowy */
+    -webkit-appearance: none;
+    appearance: none;
+
+    /* Podstawowe style pudełka (jeśli nie są dziedziczone) */
+    width: 20px;  /* Dopasuj wielkość do swoich checkboxów */
+    height: 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+}
+
+/* Rysowanie minusa */
+.headerCard input[type="checkbox"]:indeterminate::after {
+    content: '';
+    width: 12px;       /* Szerokość kreski minusa */
+    height: 3px;       /* Grubość kreski minusa */
+    background-color: white;
+    display: block;
+    border-radius: 2px;
+}
