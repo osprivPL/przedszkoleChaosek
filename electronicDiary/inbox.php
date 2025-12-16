@@ -47,6 +47,8 @@ if (!$_SESSION['logged']) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
 
     <!-- ikonka -->
     <link rel="icon" type="image/x-icon" href="./../assets/logo_tornado.svg">
@@ -169,7 +171,7 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $user->nazwisko;
                 $tempAr[] = $message[5];
                 $tempAr[] = $user->id;
-                echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 0)\'>';
+                echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 0)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -208,7 +210,7 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $sender[0][1];
                 $tempAr[] = $message[5];
                 $tempAr[] = $user->id;
-                echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 0)\'>';
+                echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 0)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -247,7 +249,7 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $user->nazwisko;
                 $tempAr[] = $message[5];
                 $tempAr[] = $user->id;
-                echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 2)\'>';
+                echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 2)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -285,7 +287,7 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $user->nazwisko;
                 $tempAr[] = $message[5];
                 $tempAr[] = $user->id;
-                echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 1)\'>';
+                echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 1)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';

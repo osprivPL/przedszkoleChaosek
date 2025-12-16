@@ -39,9 +39,34 @@
 main{
     font-size: x-large;
     font-family: 'Courier New', Courier, monospace;
-    background: var(--green-vibrant);
+    background: url('../assets/tlo_dziennik.png');
+    background-size: 100% 100%;
 }
-
+.headerCard > td{
+    background-color: var(--green-dark);
+    border: 3px solid var(--green-darker);
+    font-weight: bold;
+}
+.message{
+    background-color: var(--green-vibrant);
+    border: 3px solid var(--green-dark);
+    font-family: 'sour gummy', sans-serif;
+    box-sizing: border-box;
+    padding: 10px 0;
+}
+.message:has(input[type="checkbox"]:checked){
+    background-color: var(--green-dark);
+    border-color: var(--green-darker);
+}
+.message:hover{
+    background-color: var(--green-dark);
+    border-color: var(--green-darker);
+    cursor: pointer;
+}
+.message:active{
+    background-color: var(--green-darker);
+    border-color: var(--green-darkerer);
+}
 .checkboxLabel{
     font-family: system-ui, sans-serif;
     font-size: 2rem;
@@ -69,7 +94,9 @@ input[type="checkbox"]{
     display: grid;
     place-content: center;
 }
-
+input[type="checkbox"]:hover{
+    border: 5px solid limegreen;
+}
 input[type="checkbox"]::before {
     content: "";
     width: 0.65em;
