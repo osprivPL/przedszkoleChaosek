@@ -19,9 +19,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 if ($connection->connect_errno == 0 ) {
     $id = $connection->real_escape_string(($_POST['messageId']));
 
-    $sql = "UPDATE wiadomosci SET Usunięte = 0, robocze = 0 WHERE id = ". $id. ";";
-
-
+    $sql = "UPDATE wiadomosci SET robocze = 0 WHERE id = ". $id. ";";
 
     if ($connection->query($sql)) {
         $_SESSION['powodzenie'] = "Wiadomosć wysłana!";

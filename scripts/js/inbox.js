@@ -37,16 +37,29 @@ function OpenMessage(json_array, typ){
         document.getElementById('OpenedMessage').getAnimations().forEach(a => a.cancel());
     }
 
+    // json[0]  -> id
+    // json[1]  -> tytul
+    // json[2]  -> tresc
+    // json[3]  -> dataWyslana
+    // json[4]  -> imie nadawca/odbiorca
+    // json[5]  -> nazwisko nadawca/odbiorca
+    // json[6]  -> imie_user
+    // json[7]  -> nazwisko_user
+    // json[8]  -> nadawcaID
+    // json[9]  -> usunieteNadawca
+    // json[10] -> userID
+
     document.getElementById('OpenedMessage').style.display = "flex";
     document.getElementById('MessageTytle').textContent = json_array[1];
     document.getElementById('MessageTextarea').textContent = json_array[2];
     document.getElementById('MessageData').textContent = json_array[3];
     document.getElementById('MessageOd').textContent = json_array[4] + " " + json_array[5];
     document.getElementById('MessageDo').textContent = json_array[6] + " " + json_array[7];
-    if (typ != 0){
+    //typ = 0 -> wysłane / odebrane
+    if (typ != 0 && typ != 1){ //BUTTON SEND
         const form0 = document.createElement('form');
         form0.method = 'POST';
-        form0.action = './../scripts/php/moveBackMessage.php';
+        form0.action = './../scripts/php/moveToSendMessage.php';
         const button0 = document.createElement('button');
         button0.type = 'submit';
         button0.name = 'messageId';
@@ -56,7 +69,8 @@ function OpenMessage(json_array, typ){
         form0.appendChild(button0);
         document.getElementById('FormButtons').appendChild(form0);
     }
-    if (typ != 1  || json_array[8] == json_array[9]) {
+    //typ = 1 -> usunięte
+    if (typ = 1 && json_array[8] == json_array[10] && json_array[9] == 1) { //BUTTON drafts
         const form1 = document.createElement('form');
         form1.method = 'POST';
         form1.action = './../scripts/php/moveToDraftsMessage.php';
@@ -69,14 +83,14 @@ function OpenMessage(json_array, typ){
         form1.appendChild(button1);
         document.getElementById('FormButtons').appendChild(form1);
     }
-    if (typ != 2) {
+    if (typ != 1) { //BUTTON trash
         const form2 = document.createElement('form');
         form2.method = 'POST';
         form2.action = './../scripts/php/moveToTrashMessage.php';
         const button2 = document.createElement('button');
         button2.type = 'submit';
-        button2.name = 'messageId';
-        button2.value = json_array[0];
+        button2.name = 'value';
+        button2.value = json_array[0] + "|" + json_array[10] + "|" + json_array[8];
         button2.classList = 'jsFormButton';
         button2.innerHTML = "<img src='./../assets/trash.png'>";
         form2.appendChild(button2);

@@ -17,9 +17,19 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
 if ($connection->connect_errno == 0 ) {
-    $id = $connection->real_escape_string(($_POST['messageId']));
 
-    $sql = "UPDATE wiadomosci SET Usunięte = 1, robocze = 0 WHERE id = ". $id. ";";
+    $value = $connection->real_escape_string(($_POST['value']));
+    $arr = explode('|', $value);
+    $messageID = $arr[0];
+    $userID = $arr[1];
+    $nadawcaID = $arr[2];
+
+    if ($userID == $nadawcaID){
+        $sql = "UPDATE wiadomosci SET usunieteNadawca = 1, robocze = 0 WHERE id = ". $messageID . ";";
+    }
+    else{
+        $sql = "UPDATE wiadomosci SET usunieteOdbiorca = 1, robocze = 0 WHERE id = ". $messageID . ";";
+    }
 
 
 

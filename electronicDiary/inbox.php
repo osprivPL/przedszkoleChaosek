@@ -154,21 +154,22 @@ if (!$_SESSION['logged']) {
             </tr>
             <?php
             $connection = new mysqli("localhost", "root", "", "przedszkole");
-            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID, odbiorcaID FROM wiadomosci WHERE odbiorcaID = " . $user->id . " AND Usunięte = 0 AND robocze = 0;")->fetch_all();
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID, odbiorcaID, usunieteNadawca FROM wiadomosci WHERE odbiorcaID = " . $user->id . " AND usunieteOdbiorca = 0 AND robocze = 0;")->fetch_all();
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
                 $tempAr=array();
-                $tempAr[] = $message[0];
-                $tempAr[] = $message[1];
-                $tempAr[] =  $message[2] ;
-                $tempAr[] = $message[3];
-                $tempAr[] = $sender[0][0];
-                $tempAr[] = $sender[0][1] ;
-                $tempAr[] =  $user->imie ;
-                $tempAr[] = $user->nazwisko;
-                $tempAr[] = $message[5];
-                $tempAr[] = $user->id;
+                $tempAr[] = $message[0]; //id
+                $tempAr[] = $message[1]; //tytul
+                $tempAr[] =  $message[2]; //tresc
+                $tempAr[] = $message[3]; //dataWyslana
+                $tempAr[] = $sender[0][0]; //imie-nadawca/odborca
+                $tempAr[] = $sender[0][1]; //nazwsko-nadawca/odbiorca
+                $tempAr[] =  $user->imie ; //imie-user
+                $tempAr[] = $user->nazwisko; //nazwisko-user
+                $tempAr[] = $message[4]; //nadawcaID
+                $tempAr[] = $message[6]; //usunieteNadawca
+                $tempAr[] = $user->id; //user id
                 echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 0)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
@@ -192,22 +193,23 @@ if (!$_SESSION['logged']) {
             </tr>
             <?php
             $connection = new mysqli("localhost", "root", "", "przedszkole");
-            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID , odbiorcaID FROM wiadomosci WHERE nadawcaID = " . $user->id . " AND Usunięte = 0 AND robocze = 0;")->fetch_all();
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID , odbiorcaID, usunieteNadawca FROM wiadomosci WHERE nadawcaID = " . $user->id . " AND usunieteNadawca = 0 AND robocze = 0;")->fetch_all();
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[5] . ";")->fetch_all();
 
                 $tempAr = array();
-                $tempAr[] = $message[0];
-                $tempAr[] = $message[1];
-                $tempAr[] =  $message[2] ;
-                $tempAr[] = $message[3];
-                $tempAr[] =  $user->imie ;
-                $tempAr[] = $user->nazwisko;
-                $tempAr[] = $sender[0][0];
-                $tempAr[] = $sender[0][1];
-                $tempAr[] = $message[5];
-                $tempAr[] = $user->id;
+                $tempAr[] = $message[0]; //id
+                $tempAr[] = $message[1]; //tytul
+                $tempAr[] =  $message[2]; //tresc
+                $tempAr[] = $message[3]; //dataWyslana
+                $tempAr[] =  $user->imie ; //imie-user
+                $tempAr[] = $user->nazwisko; //nazwisko-user
+                $tempAr[] = $sender[0][0]; //imie-nadawca/odborca
+                $tempAr[] = $sender[0][1]; //nazwsko-nadawca/odbiorca
+                $tempAr[] = $message[4]; //nadawcaID
+                $tempAr[] = $message[6]; //usunieteNadawca
+                $tempAr[] = $user->id; //user id
                 echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 0)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
@@ -232,22 +234,23 @@ if (!$_SESSION['logged']) {
             </tr>
             <?php
             $connection = new mysqli("localhost", "root", "", "przedszkole");
-            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID, odbiorcaID FROM wiadomosci WHERE Usunięte = 1;")->fetch_all();
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID, odbiorcaID, usunieteNadawca FROM wiadomosci WHERE (usunieteOdbiorca = 1 AND odbiorcaID = " . $user->id . ") OR (nadawcaID = " . $user->id . " AND usunieteNadawca = 1);")->fetch_all();
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[5] . ";")->fetch_all();
                 $tempAr=array();
-                $tempAr[] = $message[0];
-                $tempAr[] = $message[1];
-                $tempAr[] =  $message[2] ;
-                $tempAr[] = $message[3];
-                $tempAr[] = $sender[0][0];
-                $tempAr[] = $sender[0][1] ;
-                $tempAr[] =  $user->imie ;
-                $tempAr[] = $user->nazwisko;
-                $tempAr[] = $message[5];
-                $tempAr[] = $user->id;
-                echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 2)\'>';
+                $tempAr[] = $message[0]; //id
+                $tempAr[] = $message[1]; //tytul
+                $tempAr[] =  $message[2]; //tresc
+                $tempAr[] = $message[3]; //dataWyslana
+                $tempAr[] = $sender[0][0]; //imie-nadawca/odborca
+                $tempAr[] = $sender[0][1]; //nazwsko-nadawca/odbiorca
+                $tempAr[] =  $user->imie ; //imie-user
+                $tempAr[] = $user->nazwisko; //nazwisko-user
+                $tempAr[] = $message[4]; //nadawcaID
+                $tempAr[] = $message[6]; //usunieteNadawca
+                $tempAr[] = $user->id; //user id
+                echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 1)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -270,22 +273,23 @@ if (!$_SESSION['logged']) {
             </tr>
             <?php
             $connection = new mysqli("localhost", "root", "", "przedszkole");
-            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID, odbiorcaID  FROM wiadomosci WHERE robocze = 1;")->fetch_all();
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID, odbiorcaID, usunieteNadawca  FROM wiadomosci WHERE robocze = 1 AND usunieteNadawca = 0;")->fetch_all();
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[5] . ";")->fetch_all();
                 $tempAr=array();
-                $tempAr[] = $message[0];
-                $tempAr[] = $message[1];
-                $tempAr[] =  $message[2] ;
-                $tempAr[] = $message[3];
-                $tempAr[] = $sender[0][0];
-                $tempAr[] = $sender[0][1] ;
-                $tempAr[] =  $user->imie ;
-                $tempAr[] = $user->nazwisko;
-                $tempAr[] = $message[5];
-                $tempAr[] = $user->id;
-                echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 1)\'>';
+                $tempAr[] = $message[0]; //id
+                $tempAr[] = $message[1]; //tytul
+                $tempAr[] =  $message[2]; //tresc
+                $tempAr[] = $message[3]; //dataWyslana
+                $tempAr[] = $sender[0][0]; //imie-nadawca/odborca
+                $tempAr[] = $sender[0][1]; //nazwsko-nadawca/odbiorca
+                $tempAr[] =  $user->imie ; //imie-user
+                $tempAr[] = $user->nazwisko; //nazwisko-user
+                $tempAr[] = $message[4]; //nadawcaID
+                $tempAr[] = $message[6]; //usunieteNadawca
+                $tempAr[] = $user->id; //user id
+                echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 2)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -391,9 +395,7 @@ if (!$_SESSION['logged']) {
         <div class="content">
             <textarea id="MessageTextarea" disabled>tresc</textarea>
         </div>
-        <div class="content inputButtons" id="FormButtons">
-
-        </div>
+        <div class="content inputButtons" id="FormButtons"></div>
     </div>
 </div>
 

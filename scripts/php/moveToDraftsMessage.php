@@ -19,7 +19,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 if ($connection->connect_errno == 0 ) {
     $id = $connection->real_escape_string(($_POST['messageId']));
 
-    $sql = "UPDATE wiadomosci SET Usunięte = 0, robocze = 1 WHERE id = ". $id. ";";
+    $sql = "UPDATE wiadomosci SET usunieteNadawca = 0, robocze = 1 WHERE id = ". $id. ";";
 
 
 
