@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2025 at 04:14 PM
+-- Generation Time: Dec 16, 2025 at 06:22 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -43,7 +43,6 @@ INSERT INTO `artykuly` (`ID`, `naglowek`, `tresc`, `data`, `img`) VALUES
 (1, 'Jesienna wycieczka do parku', 'W październiku nasze przedszkolaki wybrały się na kolorową wycieczkę do parku, gdzie obserwowały zmieniającą się przyrodę. Dzieci zbierały liście i bawiły się na świeżym powietrzu.', '2025-11-12', './assets/articles/jesienna_wycieczka_do_parku_6935a8fb8bd92.png'),
 (3, 'Warsztaty kulinarne – robimy sałatkę owocową', 'Przedszkolaki własnoręcznie przygotowały zdrową i pyszną sałatkę owocową, ucząc się rozpoznawać różne owoce oraz dbając o higienę.', '2025-10-10', './assets/articles/salatka.png'),
 (4, 'Teatrzyk kukiełkowy', 'Nauczyciele przygotowali przedstawienie kukiełkowe, które bardzo spodobało się dzieciom i zainspirowało je do własnej twórczości.', '2025-10-27', './assets/articles/teatrzyk.png'),
-(8, 'Chaotyczna Wielkanoc', 'Sesja zdjęciowa na wielkanoc tworzy ciepłą atmosferę i buduje wyjątkowe tradycje w naszej placówce.', '2025-04-20', './assets/articles/wielkanoc.png'),
 (9, 'Halloween', 'Przebieranki na Halloween rozwijają kreatywność i sprawiają, że wspólna zabawa staje się prawdziwą przygodą.', '2025-10-31', './assets/articles/halloween.png');
 
 -- --------------------------------------------------------
@@ -69,14 +68,13 @@ CREATE TABLE `dzieci` (
 --
 
 INSERT INTO `dzieci` (`ID`, `imie`, `nazwisko`, `pesel`, `adres`, `grupa`, `img`, `IDRodzica`, `opinia`) VALUES
-(1, 'Jonaszek', 'Kruk', '20271912141', 'Łódź, ul. Sienkiewicza 6, m. 7', 2, 'Jonaszek_Kruk.png', 1, 'chujoza'),
+(1, 'Jonaszek', 'Kruk', '20271912141', 'Łódź, ul. Sienkiewicza 6, m. 7', 2, 'Jonaszek_Kruk.png', 1, 'Dziecko potrafi komunikować swoje potrzeby, podejmuje interakcje z innymi dziećmi. Wrażliwy na uwagi.'),
 (2, 'Aldona', 'Kruk', '20271912145', 'Łódź, ul. Sienkiewicza 6, m. 7', 1, 'Aldona_Kruk.png', 1, 'Dziecko systematycznie pracuje na zajęciach, sumiennie wywiązuje się z obowiązków i dąży do poprawy wyników.'),
-(3, 'Zosia', 'Kowalska', '21231501234', 'Łódź, ul. Kwiatowa 5/10', 1, 'brak', 4, 'Uczeń prezentuje wysoką kulturę osobistą, szanuje kolegów i nauczycieli oraz dba o dobrą atmosferę w klasie.'),
+(3, 'Zosia', 'Kowalska', '21231501234', 'Łódź, ul. Kwiatowa 5/10', 5, 'brak', 4, 'Uczeń prezentuje wysoką kulturę osobistą, szanuje kolegów i nauczycieli oraz dba o dobrą atmosferę w klasie.'),
 (4, 'Jan', 'Kowalski', '18251209876', 'Łódź, ul. Kwiatowa 5/10', 4, 'brak', 4, 'Dziecko aktywnie uczestniczy w lekcjach, zadaje pytania i chętnie dzieli się swoimi spostrzeżeniami'),
 (5, 'Krzyś', 'Nowak', '20252005432', 'Łódź, ul. Słoneczna 12', 2, 'brak', 5, 'Uczeń potrafi pracować zarówno samodzielnie, jak i w grupie, przejmuje odpowiedzialność za powierzone zadania.'),
 (6, 'Ala', 'Wiśniewska', '19301011223', 'Łódź, ul. Lipowa 3', 3, 'brak', 6, 'Dziecko rozwija swoje mocne strony, wykazuje ciekawość świata i chętnie podejmuje nowe wyzwania edukacyjne.'),
 (7, 'Olek', 'Wiśniewski', '21310533441', 'Łódź, ul. Lipowa 3', 1, 'brak', 6, 'Uczeń stosuje się do zasad panujących w klasie, reaguje na uwagi i stara się korygować swoje zachowanie.'),
-(8, 'Filip', 'Wiśniewski', '18222855667', 'Łódź, ul. Lipowa 3', 4, 'brak', 6, 'Dziecko jest empatyczne, wspiera rówieśników i potrafi rozwiązywać drobne konflikty w spokojny sposób.'),
 (9, 'Michał', 'Zieliński', '19260199887', 'Łódź, ul. Długa 50/4', 3, 'brak', 7, 'Uczeń dobrze organizuje swoją pracę, zazwyczaj przygotowuje się do zajęć i przynosi potrzebne materiały.'),
 (18, 'Brajan', 'Symilak', '22230711738', 'Wojska Polskiego 19/10', 1, 'brak', 21, 'Dziecko robi zauważalne postępy, a jego wysiłek i systematyczność pozytywnie wpływają na osiągane wyniki.');
 
@@ -124,7 +122,8 @@ INSERT INTO `grupy` (`id`, `nazwa`, `Wychowawca`) VALUES
 (1, 'Smerfy', 2),
 (2, 'Reksie', 3),
 (3, 'Muminki', 3),
-(4, 'Flinstonowie', 3);
+(4, 'Flinstonowie', 3),
+(5, 'test', 3);
 
 -- --------------------------------------------------------
 
@@ -188,7 +187,22 @@ INSERT INTO `jadlospis` (`id`, `kiedy`, `typ`, `opis`) VALUES
 (42, '2025-12-11', 2, 'Smoothie bananowo-truskawkowe'),
 (43, '2025-12-12', 0, 'Rogalik z miodem i masłem, mleko ciepłe'),
 (44, '2025-12-12', 1, 'Zupa szczawiowa z jajkiem. Ryba dorsz pieczona w ziołach, ziemniaki, surówka z marchewki i jabłka'),
-(45, '2025-12-12', 2, 'Ciastka owsiane z żurawiną');
+(45, '2025-12-12', 2, 'Ciastka owsiane z żurawiną'),
+(196, '2025-12-15', 0, 'Kanapki z chleba razowego z szynką drobiową, sałatą i pomidorem, herbata z cytryną'),
+(197, '2025-12-15', 1, 'Zupa ogórkowa z ryżem i koperkiem. Spaghetti bolognese z mięsem wieprzowym i serem żółtym, kompot wieloowocowy'),
+(198, '2025-12-15', 2, 'Jabłko pieczone z cynamonem'),
+(199, '2025-12-16', 0, 'Płatki owsiane na mleku z suszoną żurawiną, weka z masłem'),
+(200, '2025-12-16', 1, 'Rosół z makaronem nitki i natką pietruszki. Udko z kurczaka pieczone, ziemniaki tłuczone, mizeria ze śmietaną'),
+(201, '2025-12-16', 2, 'Jogurt naturalny z musem truskawkowym i herbatnikami'),
+(202, '2025-12-17', 0, 'Bułka kajzerka z pastą jajeczną i szczypiorkiem, rzodkiewka, kakao na mleku'),
+(203, '2025-12-17', 1, 'Zupa krem z białych warzyw z grzankami. Kotlet mielony, kasza gryczana, buraczki zasmażane na ciepło'),
+(204, '2025-12-17', 2, 'Banan i chrupki kukurydziane'),
+(205, '2025-12-18', 0, 'Parówki z szynki na ciepło (2 szt.), ketchup, chleb wrocławski, herbata owocowa'),
+(206, '2025-12-18', 1, 'Zupa krupnik z ziemniakami i zieleniną. Naleśniki z serem twarogowym i polewą jogurtową, sok jabłkowy'),
+(207, '2025-12-18', 2, 'Ciasto drożdżowe z kruszonką, mleko ciepłe'),
+(208, '2025-12-19', 0, 'Twarożek wiejski z rzodkiewką i ogórkiem zielonym, pieczywo mieszane, kawa inka'),
+(209, '2025-12-19', 1, 'Zupa pomidorowa z makaronem świderki. Ryba miruna w panierce, ziemniaki z wody, surówka z kiszonej kapusty'),
+(210, '2025-12-19', 2, 'Kisiel wiśniowy z tartym jabłkiem');
 
 -- --------------------------------------------------------
 
@@ -221,8 +235,7 @@ INSERT INTO `komunikaty` (`ID`, `tytul`, `tresc`, `data`, `przynaleznosc`, `auto
 (37, 'Wyjście do parku', 'Grupa 2: Jutro idziemy na dłuższy spacer do parku, prosimy o wygodne obuwie.', '2025-10-10', 2, 3),
 (38, 'Materiały plastyczne', 'Rodzice Grupy 2: Zbieramy rolki po ręcznikach papierowych i kartony na zajęcia plastyczne.', '2025-11-18', 2, 3),
 (39, 'Mikołajki', 'Grupa 3: Prosimy, aby w dniu 6 grudnia dzieci przyszły ubrane na czerwono lub w czapkach Mikołaja.', '2025-11-29', 3, 3),
-(40, 'Zajęcia z rytmiki', 'Dla Grupy 3: W czwartek odbędą się zajęcia z rytmiki, prosimy o strój gimnastyczny w worku.', '2025-11-27', 3, 3),
-(44, 'mamdosc', 'backendowiec tego dziennika ma dosc.', '2025-12-02', 0, 3);
+(40, 'Zajęcia z rytmiki', 'Dla Grupy 3: W czwartek odbędą się zajęcia z rytmiki, prosimy o strój gimnastyczny w worku.', '2025-11-27', 3, 3);
 
 -- --------------------------------------------------------
 
@@ -271,8 +284,7 @@ CREATE TABLE `oczekujace` (
 --
 
 INSERT INTO `oczekujace` (`ID`, `imieRodzica`, `nazwiskoRodzica`, `numerTelefonu`, `email`, `imieDziecka`, `nazwiskoDziecka`, `pesel`, `adres`) VALUES
-(29, 'Ja', 'Nie', '903241678', 'tajny@email.com', 'Maciek', 'to samo', '11111111111', 'Łódź, Harcerska 6/7'),
-(30, 'Jeremiasz', 'Michorczyk', '666777888', 'jeremi@yahoo.com', '', '', '', '');
+(29, 'Ja', 'Nie', '903241678', 'tajny@email.com', 'Maciek', 'to samo', '11111111111', 'Łódź, Harcerska 6/7');
 
 -- --------------------------------------------------------
 
@@ -476,7 +488,9 @@ INSERT INTO `uprawnienia` (`ID`, `rodzic`, `nauczyciel`, `dyrektor`) VALUES
 (12, 0, 1, 0),
 (13, 0, 1, 0),
 (14, 0, 1, 0),
-(15, 0, 1, 0);
+(15, 0, 1, 0),
+(16, 0, 1, 1),
+(17, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -527,16 +541,17 @@ CREATE TABLE `wiadomosci` (
   `nadawcaID` int(11) NOT NULL,
   `odbiorcaID` int(11) NOT NULL,
   `robocze` int(11) NOT NULL COMMENT '0 - nie, 1 - tak',
-  `Usunięte` int(11) NOT NULL COMMENT '0 - nie, 1 - tak'
+  `usunieteOdbiorca` int(11) NOT NULL COMMENT '0 - nie, 1 - tak',
+  `usunieteNadawca` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
 --
 -- Dumping data for table `wiadomosci`
 --
 
-INSERT INTO `wiadomosci` (`id`, `tytul`, `tresc`, `dataWyslania`, `nadawcaID`, `odbiorcaID`, `robocze`, `Usunięte`) VALUES
-(1, 'Pana syn to chuj', 'Pana syn to chuj', '0000-00-00', 2, 1, 0, 0),
-(3, 'pana tez', 'pana tez', '2025-11-27', 1, 2, 0, 0);
+INSERT INTO `wiadomosci` (`id`, `tytul`, `tresc`, `dataWyslania`, `nadawcaID`, `odbiorcaID`, `robocze`, `usunieteOdbiorca`, `usunieteNadawca`) VALUES
+(1, 'Pana syn to chuj', 'Pana syn to chuj', '0000-00-00', 2, 1, 0, 0, 0),
+(3, 'pana tez', 'pana tez', '2025-11-27', 1, 2, 0, 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -648,7 +663,7 @@ ALTER TABLE `artykuly`
 -- AUTO_INCREMENT for table `dzieci`
 --
 ALTER TABLE `dzieci`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `godzinylekcyjne`
@@ -660,7 +675,7 @@ ALTER TABLE `godzinylekcyjne`
 -- AUTO_INCREMENT for table `jadlospis`
 --
 ALTER TABLE `jadlospis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=196;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
 
 --
 -- AUTO_INCREMENT for table `komunikaty`
@@ -690,13 +705,13 @@ ALTER TABLE `pracedomowe`
 -- AUTO_INCREMENT for table `uprawnienia`
 --
 ALTER TABLE `uprawnienia`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `wiadomosci`
