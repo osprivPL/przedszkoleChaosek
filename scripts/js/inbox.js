@@ -30,12 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
 function showContainerInbox(n){
     let containers = ['receivedContainer', 'sentContainer', 'deletedContainer', 'draftsContainer', 'writeContainer'];
     for (let i = 0; i < containers.length; i++){
-        document.getElementById(containers[i]).style.display = (i === n) ? 'flex' : 'none';
-        if (ontainers[i] == 'writeContainer'){
-            document.getElementById('newMesTresc').textContent = "";
-            document.getElementById('newMesTytul').textContent = "";
+        if (containers[i] == 'writeContainer'){
+            document.getElementById('newMesTresc').value = "";
+            document.getElementById('newMesTytul').value = "";
         }
+        document.getElementById(containers[i]).style.display = (i === n) ? 'flex' : 'none';
     }
+
 }
 
 function OpenMessage(json_array, typ){
