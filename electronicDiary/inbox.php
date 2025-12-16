@@ -1,10 +1,5 @@
 <!DOCTYPE html>
 <?php
-//      gozik do przenoszenia do kopie robocze powinien się NIE pokazywać w odebranych oraz dla wiadomości z odebranych przeniesionych do usunięte!!!
-//      ikonka do guzika który przenosi do wysłane / odebrane
-//		chceckboxy
-//		validacja czy jest tytuł i tresć
-
 require_once "./../scripts/php/printArr.php";
 require_once __DIR__ . '/../models/User.php';
 
@@ -37,20 +32,16 @@ if (!$_SESSION['logged']) {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="author" content="Michał Ożdżyński Stanisław Odrowski Piotr Peryt">
 
-    <!-- style -->
     <link rel="stylesheet" href="./../styles/style.css">
     <link rel="stylesheet" href="./../styles/panels.css">
-    <!--    <link rel="stylesheet" href="./../styles/parents.css">-->
     <link rel="stylesheet" href="./../styles/inbox.css">
 
-    <!-- czcionka -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
 
-    <!-- ikonka -->
     <link rel="icon" type="image/x-icon" href="./../assets/logo_tornado.svg">
 
     <title>Przedszkole Chaosek - Wiadomości</title>
@@ -70,7 +61,6 @@ if (!$_SESSION['logged']) {
         <img src="./../assets/logo_tornado.svg" alt="logo">
         <span class='logo-font-small'>Przedszkole Chaosek</span>
     </a>
-    <!--Tymon zrobił by to lepiej-->
     <div class="header-ui">
         <a href="./parents.php"><img id="mail" src="./../assets/main_page2.png" alt="główna"></a>
         <div onclick="showSomething(2)" class="user">
@@ -111,11 +101,7 @@ if (!$_SESSION['logged']) {
 </header>
 
 <div class="layout">
-    <!-- ============================= -->
-    <!-- NAVIGATION -->
-    <!-- ============================= -->
     <nav id='somethingBeingShown1'>
-        <!-- ZROBIC IKONKI DO TEGO, CZYT. ZMIENIC -->
         <div class="nav_child" onclick="showContainerInbox(0)">
             <img src="./../assets/mailbox.png" alt="">
             <span>Odebrane</span>
@@ -137,19 +123,12 @@ if (!$_SESSION['logged']) {
         </div>
     </nav>
 
-    <!-- ============================= -->
-    <!-- MAIN -->
-    <!-- ============================= -->
     <main id="main">
-        <!--Ma otwierać "nakładke" do pisania wiadomości-->
-
-        <!--=======================================================-->
-        <!-- ODEBRANE        -->
-        <!--=======================================================-->
         <table id="receivedContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
-                <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1"
-                                                        onclick="selectAllCheckboxes(1)"></label></td>
+                <td><label class="checkboxLabel">
+                        <input type="checkbox" id="selectAllCheckboxReceived" onchange="toggleAll(this, 'receivedContainer')">
+                    </label></td>
                 <td><span class="messageTitle">Tytuł</span></td>
                 <td><span class="messageSender">Nadawca</span></td>
                 <td><span class="messageDate">Data wysłania</span></td>
@@ -173,29 +152,26 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $message[6]; //usunieteNadawca
                 $tempAr[] = $user->id; //user id
                 echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 0)\'>';
-                echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
+                echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox receivedCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
                 echo '</tr>';
             }
             ?>
-            <script>setIleWiadomosci(<?php echo count($result);?>);</script>
         </table>
-        <!--=======================================================-->
-        <!-- WYSŁANE        -->
-        <!--=======================================================-->
         <table id="sentContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
-                <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1"
-                                                        onclick="selectAllCheckboxes(1)"></label></td>
+                <td><label class="checkboxLabel">
+                        <input type="checkbox" id="selectAllCheckboxSent" onchange="toggleAll(this, 'sentContainer')">
+                    </label></td>
                 <td><span class="messageTitle">Tytuł</span></td>
                 <td><span class="messageSender">Odbiorca</span></td>
                 <td><span class="messageDate">Data wysłania</span></td>
             </tr>
             <?php
             $connection = new mysqli("localhost", "root", "", "przedszkole");
-            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID , odbiorcaID, usunieteNadawca FROM wiadomosci WHERE nadawcaID = " . $user->id . " AND usunieteNadawca = 0 AND robocze = 0;")->fetch_all();
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID , odbiorcaID, usunieteNadawca FROM wiadomosci WHERE nadawcaID = " . $user->id . " AND usunieteNadawca = 0 AND robocze = 0 ORDER BY dataWyslania DESC;")->fetch_all();
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[5] . ";")->fetch_all();
@@ -213,23 +189,19 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $message[6]; //usunieteNadawca
                 $tempAr[] = $user->id; //user id
                 echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 0)\'>';
-                echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
+                echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox sentCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
                 echo '</tr>';
             }
             ?>
-            <script>setIleWiadomosci(<?php echo count($result);?>);</script>
-        </
-        >
-        <!--=======================================================-->
-        <!-- USUNIĘTE        -->
-        <!--=======================================================-->
+        </table>
         <table id="deletedContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
-                <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1"
-                                                        onclick="selectAllCheckboxes(1)"></label></td>
+                <td><label class="checkboxLabel">
+                        <input type="checkbox" id="selectAllCheckboxDeleted" onchange="toggleAll(this, 'deletedContainer')">
+                    </label></td>
                 <td><span class="messageTitle">Tytuł</span></td>
                 <td><span class="messageSender">Nadawca/Odbiorca</span></td>
                 <td><span class="messageDate">Data wysłania</span></td>
@@ -253,22 +225,19 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $message[6]; //usunieteNadawca
                 $tempAr[] = $user->id; //user id
                 echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 1)\'>';
-                echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
+                echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox deletedCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
                 echo '</tr>';
             }
             ?>
-            <script>setIleWiadomosci(<?php echo count($result);?>);</script>
         </table>
-        <!--=======================================================-->
-        <!-- KOPIE ROBOCZE        -->
-        <!--=======================================================-->
         <table id="draftsContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
-                <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1"
-                                                        onclick="selectAllCheckboxes(1)"></label></td>
+                <td><label class="checkboxLabel">
+                        <input type="checkbox" id="selectAllCheckboxDrafts" onchange="toggleAll(this, 'draftsContainer')">
+                    </label></td>
                 <td><span class="messageTitle">Tytuł</span></td>
                 <td><span class="messageSender">Nadawca</span></td>
                 <td><span class="messageDate">Data wysłania</span></td>
@@ -292,7 +261,7 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $message[6]; //usunieteNadawca
                 $tempAr[] = $user->id; //user id
                 echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 2)\'>';
-                echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
+                echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox draftsCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
@@ -322,7 +291,6 @@ if (!$_SESSION['logged']) {
             <p>X</p>
         </div>
         <h1 class="logo-font">Nowa wiadomość</h1>
-        <!--        logo font mail to ma być taki sam font tylko jakaś bardziej poważna wersja-->
         <div class="content">
             <?php
             echo '<select class="newMesOdbiorcy submitButton" name="odbiorca">';

@@ -1,56 +1,134 @@
-let ileWiadomosci = 0;
-let zaznaczone = 0;
+function checkEmptyLists() {
+    const map = [
+        { container: 'receivedContainer', master: 'selectAllCheckboxReceived' },
+        { container: 'sentContainer',     master: 'selectAllCheckboxSent' },
+        { container: 'deletedContainer',  master: 'selectAllCheckboxDeleted' },
+        { container: 'draftsContainer',   master: 'selectAllCheckboxDrafts' }
+    ];
 
-function setIleWiadomosci(n){
-    ileWiadomosci = n;
-}
+    map.forEach(item => {
+        const container = document.getElementById(item.container);
+        const master = document.getElementById(item.master);
 
-function selectAllCheckboxes(n){
-    const master = document.getElementById('selectAllCheckbox'+n);
-    const check = master.checked;
-    const boxes = document.querySelectorAll('.messageCheckbox');
-    zaznaczone = check ? boxes.length : 0;
-    boxes.forEach(cb => cb.checked = check);
-}
+        if (container && master) {
+            const messageCount = container.querySelectorAll('.message').length;
 
-document.addEventListener('DOMContentLoaded', () => {
-    document.addEventListener('change', (e) => {
-        if (e.target.classList && e.target.classList.contains('messageCheckbox')) {
-            if (e.target.checked) zaznaczone++; else zaznaczone--;
-            const sel = document.getElementById('selectAllCheckbox');
-            if (sel) sel.checked = (zaznaczone === ileWiadomosci);
+            if (messageCount === 0) {
+                master.disabled = true;
+                master.checked = false;
+                master.indeterminate = false;
+                master.style.cursor = 'not-allowed';
+            } else {
+                master.disabled = false;
+                master.style.cursor = 'pointer';
+            }
         }
     });
-    // prevent checkbox clicks from bubbling to row onclick (which opens the message)
-    document.querySelectorAll('.messageCheckbox').forEach(cb => cb.addEventListener('click', e => e.stopPropagation()));
-    const master = document.getElementById('selectAllCheckbox');
-    if (master) master.addEventListener('change', selectAllCheckboxes);
-});
+}
 
-function showContainerInbox(n){
+function showContainerInbox(n) {
     let containers = ['receivedContainer', 'sentContainer', 'deletedContainer', 'draftsContainer', 'writeContainer'];
-    for (let i = 0; i < containers.length; i++){
-        document.getElementById(containers[i]).style.display = (i === n) ? 'flex' : 'none';
+
+    document.querySelectorAll('.messageCheckbox').forEach(cb => cb.checked = false);
+
+    const masters = [
+        'selectAllCheckboxReceived',
+        'selectAllCheckboxSent',
+        'selectAllCheckboxDeleted',
+        'selectAllCheckboxDrafts'
+    ];
+    masters.forEach(id => {
+        const el = document.getElementById(id);
+        if(el) {
+            el.checked = false;
+            el.indeterminate = false;
+        }
+    });
+
+    for (let i = 0; i < containers.length; i++) {
+        const el = document.getElementById(containers[i]);
+        if (el) el.style.display = (i === n) ? 'flex' : 'none';
+    }
+
+    checkEmptyLists();
+}
+
+function toggleAll(master, containerId) {
+    const container = document.getElementById(containerId);
+    const boxes = container.querySelectorAll('.messageCheckbox');
+
+    if (boxes.length === 0) {
+        master.checked = false;
+        master.indeterminate = false;
+        return;
+    }
+
+    boxes.forEach(box => {
+        box.checked = master.checked;
+    });
+    master.indeterminate = false;
+}
+
+function updateMasterState(containerId, masterId) {
+    const container = document.getElementById(containerId);
+    const master = document.getElementById(masterId);
+    const boxes = container.querySelectorAll('.messageCheckbox');
+
+    const total = boxes.length;
+    const checkedCount = Array.from(boxes).filter(b => b.checked).length;
+
+    if (total === 0) {
+        master.checked = false;
+        master.indeterminate = false;
+        return;
+    }
+
+    if (checkedCount === 0) {
+        master.indeterminate = false;
+        master.checked = false;
+    } else if (checkedCount === total) {
+        master.indeterminate = false;
+        master.checked = true;
+    } else {
+        master.checked = false;
+        master.indeterminate = true;
     }
 }
 
-function OpenMessage(json_array, typ){
+document.addEventListener('change', (e) => {
+    if (e.target.classList.contains('messageCheckbox')) {
+        const container = e.target.closest('.messagesContainer');
+        if (!container) return;
+
+        let masterId = '';
+        if (container.id === 'receivedContainer') masterId = 'selectAllCheckboxReceived';
+        if (container.id === 'sentContainer') masterId = 'selectAllCheckboxSent';
+        if (container.id === 'deletedContainer') masterId = 'selectAllCheckboxDeleted';
+        if (container.id === 'draftsContainer') masterId = 'selectAllCheckboxDrafts';
+
+        if (masterId) updateMasterState(container.id, masterId);
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    checkEmptyLists();
+
+    document.querySelectorAll('.messageCheckbox').forEach(cb => {
+        cb.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    });
+});
+
+function OpenMessage(json_array, typ) {
+    const anyChecked = document.querySelectorAll('.messageCheckbox:checked').length > 0;
+    if (anyChecked) {
+        return;
+    }
 
     if (document.getElementById('OpenedMessage').getAnimations) {
         document.getElementById('OpenedMessage').getAnimations().forEach(a => a.cancel());
     }
-
-    // json[0]  -> id
-    // json[1]  -> tytul
-    // json[2]  -> tresc
-    // json[3]  -> dataWyslana
-    // json[4]  -> imie nadawca/odbiorca
-    // json[5]  -> nazwisko nadawca/odbiorca
-    // json[6]  -> imie_user
-    // json[7]  -> nazwisko_user
-    // json[8]  -> nadawcaID
-    // json[9]  -> usunieteNadawca
-    // json[10] -> userID
 
     document.getElementById('OpenedMessage').style.display = "flex";
     document.getElementById('MessageTytle').textContent = json_array[1];
@@ -58,8 +136,10 @@ function OpenMessage(json_array, typ){
     document.getElementById('MessageData').textContent = json_array[3];
     document.getElementById('MessageOd').textContent = json_array[4] + " " + json_array[5];
     document.getElementById('MessageDo').textContent = json_array[6] + " " + json_array[7];
-    //typ = 0 -> wysłane / odebrane
-    if (typ != 0 && typ != 1){ //BUTTON SEND
+
+    document.getElementById('FormButtons').innerHTML = '';
+
+    if (typ != 0 && typ != 1){
         const form0 = document.createElement('form');
         form0.method = 'POST';
         form0.action = './../scripts/php/moveToSendMessage.php';
@@ -72,8 +152,8 @@ function OpenMessage(json_array, typ){
         form0.appendChild(button0);
         document.getElementById('FormButtons').appendChild(form0);
     }
-    //typ = 1 -> usunięte
-    if (typ = 1 && json_array[8] == json_array[10] && json_array[9] == 1) { //BUTTON drafts
+
+    if (typ == 1 && json_array[8] == json_array[10] && json_array[9] == 1) {
         const form1 = document.createElement('form');
         form1.method = 'POST';
         form1.action = './../scripts/php/moveToDraftsMessage.php';
@@ -86,7 +166,8 @@ function OpenMessage(json_array, typ){
         form1.appendChild(button1);
         document.getElementById('FormButtons').appendChild(form1);
     }
-    if (typ != 1) { //BUTTON trash
+
+    if (typ != 1) {
         const form2 = document.createElement('form');
         form2.method = 'POST';
         form2.action = './../scripts/php/moveToTrashMessage.php';
@@ -100,12 +181,7 @@ function OpenMessage(json_array, typ){
         document.getElementById('FormButtons').appendChild(form2);
     }
 
-
-
     document.getElementById('OpenedMessage').style.transform = 'translateX(0)';
-    if (document.getElementById('OpenedMessage').getAnimations) {
-        document.getElementById('OpenedMessage').getAnimations().forEach(a => a.cancel());
-    }
     const animationOpen = document.getElementById('OpenedMessage').animate(
         [
             { transform: 'translateX(100vw)'},
@@ -117,10 +193,9 @@ function OpenMessage(json_array, typ){
             fill: 'forwards'
         }
     );
-
 }
+
 function CloseMessage(){
-    // document.getElementById('OpenedMessage').style.display = 'none';
     document.getElementById('FormButtons').innerHTML = '';
     if (document.getElementById('OpenedMessage').getAnimations) {
         document.getElementById('OpenedMessage').getAnimations().forEach(a => a.cancel());
