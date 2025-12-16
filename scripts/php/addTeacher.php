@@ -85,7 +85,7 @@ if (move_uploaded_file($_FILES["teacherImg"]["tmp_name"], $targetFile)) {
 
         if ($stmt->execute()) {
             $_SESSION['powodzenie'] = "Nauczyciel został dodany pomyślnie.";
-            sendTempPasswordTeacher($password);
+            sendTempPasswordTeacher($password, $email);
             if ($user->typ[2] == 1) {
                 header("Location: ./../../electronicDiary/principle.php");
             } else {

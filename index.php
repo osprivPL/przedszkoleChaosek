@@ -325,15 +325,15 @@ if ($user->firstLogin) {
 
             </div>
         </div>
-        <form action="./scripts/php/loginAsParent.php" method="post">
-            <button type="submit" id="btnLoginAsParent">Zaloguj się jako Rodzic (demo)</button>
-        </form>
-        <form action="./scripts/php/loginAsTeacher.php" method="post">
-            <button type="submit" id="btnLoginAsTeacher">Zaloguj się jako Nauczyciel (demo)</button>
-        </form>
-        <form action="./scripts/php/loginAsPrinciple.php" method="post">
-            <button type="submit" id="btnLoginAsPrinciple">Zaloguj się jako Dyrektor (demo)</button>
-        </form>
+<!--        <form action="./scripts/php/loginAsParent.php" method="post">-->
+<!--            <button type="submit" id="btnLoginAsParent">Zaloguj się jako Rodzic (demo)</button>-->
+<!--        </form>-->
+<!--        <form action="./scripts/php/loginAsTeacher.php" method="post">-->
+<!--            <button type="submit" id="btnLoginAsTeacher">Zaloguj się jako Nauczyciel (demo)</button>-->
+<!--        </form>-->
+<!--        <form action="./scripts/php/loginAsPrinciple.php" method="post">-->
+<!--            <button type="submit" id="btnLoginAsPrinciple">Zaloguj się jako Dyrektor (demo)</button>-->
+<!--        </form>-->
         <a href="#o_nas">O nas</a>
         <a href="#aktualnosci">Aktualności</a>
         <a href="#dojazd">Dojazd</a>

@@ -76,7 +76,7 @@ if ($id > 0 && $connection && $group > 0) {
 
             if ($stmtDel->execute()) {
                 try {
-                    sendTempPassword($haslo, $result['imieRodzica'], $result['nazwiskoRodzica']);
+                    sendTempPassword($haslo, $result['imieDziecka'], $result['nazwiskoDziecka'], $result['email']);
                 } catch (Exception $e) {
                 }
 

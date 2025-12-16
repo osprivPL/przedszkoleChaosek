@@ -14,7 +14,7 @@ require_once("./../../vendor/phpmailer/phpmailer/src/Exception.php");
 require_once './../../vendor/autoload.php';
 
 
-function sendTempPasswordTeacher($tempPass){
+function sendTempPasswordTeacher($tempPass, $email){
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
@@ -32,7 +32,7 @@ function sendTempPasswordTeacher($tempPass){
 
         $mail->CharSet = 'UTF-8';
         $mail->setFrom('m.ozdzynski@zsp10.elodz.edu.pl', 'Przedszkole Chaosek');
-        $mail->addAddress('snapmic@gmail.com');
+        $mail->addAddress($email);
         $mail->addReplyTo('m.ozdzynski@zsp10.elodz.edu.pl', 'Przedszkole Chaosek');
 
         $mail->isHTML(true);
@@ -51,7 +51,7 @@ function sendTempPasswordTeacher($tempPass){
     }
 }
 
-function sendTempPassword($tempPass, $imie, $nazwisko){
+function sendTempPassword($tempPass, $imie, $nazwisko, $email){
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
@@ -69,7 +69,7 @@ function sendTempPassword($tempPass, $imie, $nazwisko){
 
         $mail->CharSet = 'UTF-8';
         $mail->setFrom('m.ozdzynski@zsp10.elodz.edu.pl', 'Przedszkole Chaosek');
-        $mail->addAddress('snapmic@gmail.com');
+        $mail->addAddress($email);
         $mail->addReplyTo('m.ozdzynski@zsp10.elodz.edu.pl', 'Przedszkole Chaosek');
 
         $mail->isHTML(true);
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['frmParentImie'])) {
 
         $mail->CharSet = 'UTF-8';
         $mail->setFrom('m.ozdzynski@zsp10.elodz.edu.pl', 'Przedszkole Chaosek');
-        $mail->addAddress('snapmic@gmail.com');
+        $mail->addAddress($_POST['frmParentEmail']);
         $mail->addReplyTo('m.ozdzynski@zsp10.elodz.edu.pl', 'Przedszkole Chaosek');
 
         $mail->isHTML(true);
