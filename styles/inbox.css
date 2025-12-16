@@ -321,7 +321,7 @@ h1{
 }
 
 
-#sentContainer, #deletedContainer, #draftsContainer, #writeContainer, #OpenedMessage{
+#sentContainer, #deletedContainer, #draftsContainer, #writeContainer, #OpenedMessage, #popUpContainer{
     display: none;
 }
 
@@ -359,4 +359,8 @@ h1{
     background-color: white;
     display: block;
     border-radius: 2px;
+}
+
+.emptySpace{
+
 }

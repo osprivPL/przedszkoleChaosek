@@ -151,6 +151,7 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $message[4]; //nadawcaID
                 $tempAr[] = $message[6]; //usunieteNadawca
                 $tempAr[] = $user->id; //user id
+                $tempAr[] = $message[5]; // odbiorcaID
                 echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 0)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox receivedCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
@@ -188,6 +189,7 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $message[4]; //nadawcaID
                 $tempAr[] = $message[6]; //usunieteNadawca
                 $tempAr[] = $user->id; //user id
+                $tempAr[] = $message[5]; // odbiorcaID
                 echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 0)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox sentCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
@@ -224,6 +226,7 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $message[4]; //nadawcaID
                 $tempAr[] = $message[6]; //usunieteNadawca
                 $tempAr[] = $user->id; //user id
+                $tempAr[] = $message[5]; // odbiorcaID
                 echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 1)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox deletedCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
@@ -260,6 +263,7 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $message[4]; //nadawcaID
                 $tempAr[] = $message[6]; //usunieteNadawca
                 $tempAr[] = $user->id; //user id
+                $tempAr[] = $message[5]; // odbiorcaID
                 echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 2)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox draftsCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
@@ -272,22 +276,24 @@ if (!$_SESSION['logged']) {
     </main>
 </div>
 
-<div id="writeContainer" class="bigContainers">
-    <div class='warning' id="roboczeWarning">
-        <div class='header'>
-            <span class='circle'>!</span>
-            <span>Ostrzeżenie</span>
-        </div>
-        <div class='span-container'>
-            <span class='warning-content'>Czy chcesz zapisać wiadomość jako kopia roboczej? </span><br>
-        </div>
-        <div class='button-container'>
-            <button class='submitButton no' onclick="deleteMessageContent()">Nie</button>
-            <button id="btnWarningAcceptRekrutacja" onclick="saveAsDraft" class='submitButton yes'>Tak</button>
-        </div>
+<div class='warning' id="warningPopUp">
+    <div class='header'>
+        <span class='circle'>!</span>
+        <span>Ostrzeżenie</span>
     </div>
+    <div class='span-container'>
+        <span class='warning-content'>Czy chcesz zapisać wiadomość jako kopia roboczej? </span><br>
+    </div>
+    <div class='button-container'>
+        <button class='submitButton no' onclick="DontSaveDraft(); ">Nie</button>
+        <button id="btnWarningAcceptRekrutacja" onclick="SaveAsDraft()" class='submitButton yes'>Tak</button>
+    </div>
+</div>
+
+<div id="writeContainer" class="bigContainers">
+
     <form action="./../scripts/php/addMessage.php" method="post" class="mailLayout">
-        <div class="offButton" onclick="showContainerInbox(0)">
+        <div class="offButton" onclick="PopUpDraft()">
             <p>X</p>
         </div>
         <h1 class="logo-font">Nowa wiadomość</h1>
@@ -333,7 +339,7 @@ if (!$_SESSION['logged']) {
                 } else {
                     $typ = "Rodzic";
                 }
-                echo "<option class='submitButton' value='" . $result[$i][0] . "'>" . $result[$i][1] . " " . $result[$i][2] . " - " . $typ . "</option>";
+                echo "<option class='submitButton' value='" . $result[$i][0] . "' onclick='CrealNewMes()'>" . $result[$i][1] . " " . $result[$i][2] . " - " . $typ . "</option>";
             }
             echo "</select>";
             ?>
@@ -345,9 +351,8 @@ if (!$_SESSION['logged']) {
             <textarea id="newMesTresc" name="tresc" placeholder="Treść"></textarea>
         </div>
         <div class="content inputButtons">
-            <button type="submit" onclick="showContainer(0)" name="action" value="draft" class="buttonDraft">Zapisz Kopie roboczą</button>
+            <button type="submit" onclick="showContainer(0)" name="action" value="draft" class="buttonDraft" id="buttonDraftId">Zapisz Kopie roboczą</button>
             <button type="submit" onclick="showContainer(0)" name="action" value="sent" class="buttonSent">Wyślij</button>
-
         </div>
     </form>
 </div>

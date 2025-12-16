@@ -47,10 +47,6 @@ function showContainerInbox(n) {
 
     for (let i = 0; i < containers.length; i++) {
         const el = document.getElementById(containers[i]);
-        if (containers[i] == 'writeContainer'){
-            document.getElementById('newMesTresc').value = "";
-            document.getElementById('newMesTytul').value = "";
-        }
         if (el) el.style.display = (i === n) ? 'flex' : 'none';
     }
 
@@ -124,6 +120,48 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+function PopUpDraft(){
+    const mesTopic = document.getElementById("newMesTytul");
+    const mesContent = document.getElementById("newMesTresc");
+
+    if (mesTopic.value.trim() !== '' && mesContent.value.trim() !== ''){
+        document.getElementById('writeContainer').style.display = 'none';
+        document.getElementById('warningPopUp').style.display = 'flex';
+    }
+    else{
+        if (mesTopic.value.trim() == '' && mesContent.value.trim() == ''){
+            showContainerInbox(0);
+        }else{
+            if (mesTopic.value.trim() == ''){
+                mesTopic.classList.add('emptySpace');
+            }
+            if (mesContent.value.trim() == ''){
+                mesContent.classList.add('emptySpace');
+            }
+        }
+
+    }
+}
+function CrealNewMes(){
+    const a = document.getElementById("newMesTytul");
+    a.value = '';
+    a.classList.remove('emptySpace');
+    const b = document.getElementById("newMesTresc");
+    b.value = '';
+    b.classList.remove('emptySpace');
+}
+function SaveAsDraft(){
+    document.getElementById('warningPopUp').style.display = 'none';
+    document.getElementById('buttonDraftId').click();
+    CrealNewMes();
+    showContainerInbox(0);
+}
+function DontSaveDraft(){
+    document.getElementById('warningPopUp').style.display = 'none';
+    CrealNewMes();
+    showContainerInbox(0);
+}
+
 function OpenMessage(json_array, typ) {
     const anyChecked = document.querySelectorAll('.messageCheckbox:checked').length > 0;
 
@@ -152,6 +190,7 @@ function OpenMessage(json_array, typ) {
     // json[8]  -> nadawcaID
     // json[9]  -> usunieteNadawca
     // json[10] -> userID
+    // json[11] - > odbiorcaID
 
     document.getElementById('OpenedMessage').style.display = "flex";
     document.getElementById('MessageTytle').textContent = json_array[1];
@@ -161,6 +200,15 @@ function OpenMessage(json_array, typ) {
     document.getElementById('MessageDo').textContent = json_array[6] + " " + json_array[7];
 
     document.getElementById('FormButtons').innerHTML = '';
+
+    if (json_array[10] == json_array[11]){
+        const buttonOdp = document.createElement('button');
+        buttonOdp.classList = 'jsFormButton';
+        buttonOdp.innerHTML = "<img src='./../assets/send.png'>";
+        buttonOdp.onclick = EditMessage;
+        buttonOdp.innerHTML="edit";
+        document.getElementById('FormButtons').appendChild(buttonOdp);
+    }
 
     if (typ != 0 && typ != 1){
         const form0 = document.createElement('form');
@@ -219,7 +267,7 @@ function OpenMessage(json_array, typ) {
 
 }
 function EditMessage(){
-
+    document.getElementById('OpenedMessage').style.display = 'none';
 }
 
 function CloseMessage(){
