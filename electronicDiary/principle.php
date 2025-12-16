@@ -275,7 +275,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
         });
     </script>
     <main id="main">
-        <div class="information" id="informationPopUp" style='display: flex;'>
+        <div class="information" id="informationPopUp">
             <div class='header'>
                 <span class='circle'>i</span>
                 <span>Informacja</span>
