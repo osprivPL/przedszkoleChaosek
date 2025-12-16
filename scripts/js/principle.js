@@ -78,6 +78,7 @@ function odrzucWniosek(idRekordu) {
 }
 
 function przyjmijWniosek(idRekordu) {
+    document.getElementById('loading').style.display = "block";
     const selectElement = document.getElementById("wniosek" + idRekordu + "select");
     const selectedGroup = selectElement ? selectElement.value : "BRAK ELEMENTU";
     console.log("Wysyłanie ID:", idRekordu, "Grupa:", selectedGroup);
@@ -99,9 +100,11 @@ function przyjmijWniosek(idRekordu) {
                 if (element) {
                     element.style.transition = "opacity 0.5s";
                     element.style.opacity = "0";
+                    document.getElementById('loading').style.display = "none";
                     setTimeout(() => element.remove(), 500);
                 }
             } else {
+                document.getElementById('loading').style.display = "none";
                 alert('Serwer zwrócił błąd: ' + data);
             }
         })

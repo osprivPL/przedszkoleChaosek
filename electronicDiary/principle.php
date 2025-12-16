@@ -277,6 +277,9 @@ $resultGroups = $connection->query($sql)->fetch_all();
         });
     </script>
     <main id="main">
+        <div class="loading" id='loading'>
+            <img src='../assets/loading.gif' alt='Ładowanie'>
+        </div>
         <div class="information" id="informationPopUp">
             <div class='header'>
                 <span class='circle'>i</span>
