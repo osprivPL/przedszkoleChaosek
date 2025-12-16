@@ -304,6 +304,19 @@ if (!$_SESSION['logged']) {
 </div>
 
 <div id="writeContainer" class="bigContainers">
+    <div class='warning' id="roboczeWarning">
+        <div class='header'>
+            <span class='circle'>!</span>
+            <span>Ostrzeżenie</span>
+        </div>
+        <div class='span-container'>
+            <span class='warning-content'>Czy chcesz zapisać wiadomość jako kopia roboczej? </span><br>
+        </div>
+        <div class='button-container'>
+            <button class='submitButton no' onclick="deleteMessageContent()">Nie</button>
+            <button id="btnWarningAcceptRekrutacja" onclick="saveAsDraft" class='submitButton yes'>Tak</button>
+        </div>
+    </div>
     <form action="./../scripts/php/addMessage.php" method="post" class="mailLayout">
         <div class="offButton" onclick="showContainerInbox(0)">
             <p>X</p>
