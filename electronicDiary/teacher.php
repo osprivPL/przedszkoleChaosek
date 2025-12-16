@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+error_reporting(E_ERROR | E_PARSE);
 require_once "./../scripts/php/printArr.php";
 require_once "./../scripts/php/weekDayFromDate.php";
 
@@ -195,7 +196,7 @@ if ($resP) {
         <div class="nav_child " onclick="showContainer(<?php echo $conteiner;
         $conteiner++; ?>)">
             <img src="./../assets/restaurant.png" alt="">
-            <span>Stołówka</span>
+            <span>Jadłospis</span>
         </div>
         <div class="nav_child" onclick="showChildren(3)">
             <img src="./../assets/speaker.png" alt="">
@@ -292,7 +293,7 @@ if ($resP) {
                     <hr>
                     <h1 class='logo-font-small'>Nauczyciele</h1>
                     <?php
-                    $sql = "SELECT imie, nazwisko, login ,typ, opinia, zdjecie, nauczyciel, dyrektor FROM uzytkownicy INNER JOIN uprawnienia ON typ = uprawnienia.ID WHERE nauczyciel = 1 OR dyrektor = 1 ORDER BY typ DESC";
+                    $sql = "SELECT imie, nazwisko, login ,typ, opinia, zdjecie, nauczyciel, dyrektor FROM uzytkownicy INNER JOIN uprawnienia ON typ = uprawnienia.ID WHERE nauczyciel = 1 OR dyrektor = 1 ORDER BY dyrektor DESC, nazwisko;";
                     $result = $connection->query($sql)->fetch_all();
                     //                    print_r($result);
                     for ($i = 0; $i < count($result); $i++) {

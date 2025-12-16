@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+error_reporting(E_ERROR | E_PARSE);
 require_once __DIR__ . '/models/User.php';
 
 use models\User;
@@ -19,6 +20,7 @@ if (isset($_SESSION['user'])) {
 }
 //echo $_SESSION['sql'];
 $_SESSION['sql'] = $_SESSION['sql'];
+$_SESSION['kod'] = $_SESSION['kod'];
 ?>
 
 <html lang="pl">
@@ -56,9 +58,6 @@ $_SESSION['sql'] = $_SESSION['sql'];
     </a>
 </header>
 <main>
-    <?php
-    //printArr($_SESSION);
-    ?>
     <div id="container" class='container containerProcess'>
         <hr>
         <h1 class='logo-font'>Rekrutacja</h1>
@@ -90,11 +89,10 @@ $_SESSION['sql'] = $_SESSION['sql'];
             </script>
             <?php
             if ($_SESSION['error'] == 3) {
-                echo "<span class='error'>Nieprawidłowy kod</span>";
+                echo "<span id='codeError' style='color: red'>Nieprawidłowy kod</span>";
                 unset($_SESSION['error']);
             }
             ?>
-            <span class="error" id="codeError"></span>
         </div>
     </div>
 </main>

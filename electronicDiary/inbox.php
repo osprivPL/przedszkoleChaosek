@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+error_reporting(E_ERROR | E_PARSE);
 require_once "./../scripts/php/printArr.php";
 require_once __DIR__ . '/../models/User.php';
 
@@ -62,9 +63,8 @@ if (!$_SESSION['logged']) {
         <span class='logo-font-small'>Przedszkole Chaosek</span>
     </a>
     <div class="header-ui">
-        <a href="./parents.php"><img id="mail" src="./../assets/main_page2.png" alt="główna"></a>
         <div onclick="showSomething(2)" class="user">
-            <div><?php echo $user->imie . ' ' . $user->nazwisko; ?><br>
+            <div class='userLabel'><?php echo $user->imie . ' ' . $user->nazwisko; ?><br>
                 <?php
                 if ($user->typ[0] == 1) {
                     $typ = "Rodzic/";
@@ -122,7 +122,15 @@ if (!$_SESSION['logged']) {
             <button onclick="showContainerInbox(4)">Nowa wiadomość</button>
         </div>
     </nav>
-
+    <script>
+        const nav = document.getElementById('somethingBeingShown1');
+        nav.addEventListener('mouseleave', () => {
+        nav.classList.remove('visible');
+        });
+    </script>
+    <!-- ============================= -->
+    <!-- MAIN -->
+    <!-- ============================= -->
     <main id="main">
         <table id="receivedContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
@@ -274,6 +282,10 @@ if (!$_SESSION['logged']) {
             ?>
         </table>
     </main>
+    <div class='deleting'>
+        <span>Wybrano: <span id='howMuchCheckboxes'>0</span></span>
+        <button onclick='removeEverything()' class="submitButton">Usuń wszystkie wiadomości</button>
+    </div>
 </div>
 
 <div class='warning' id="warningPopUp">
@@ -296,8 +308,13 @@ if (!$_SESSION['logged']) {
         <div class="offButton" onclick="PopUpDraft()">
             <p>X</p>
         </div>
-        <h1 class="logo-font">Nowa wiadomość</h1>
-        <div class="content">
+        <!--        logo font mail to ma być taki sam font tylko jakaś bardziej poważna wersja-->
+        <hr>
+        <h1 class='logo-font'>Nowa wiadomość</h1>
+        <div class="content inputGroup">
+            <input id="newMesTytul" class='title' type="text" name="tytle" placeholder="Tytuł">
+        </div>
+        <div class="content inputGroup">
             <?php
             echo '<select class="newMesOdbiorcy submitButton" name="odbiorca">';
             if ($user->typ[0] == 1) {
@@ -351,36 +368,34 @@ if (!$_SESSION['logged']) {
             <textarea id="newMesTresc" name="tresc" placeholder="Treść"></textarea>
         </div>
         <div class="content inputButtons">
-            <button type="submit" onclick="showContainer(0)" name="action" value="draft" class="buttonDraft" id="buttonDraftId">Zapisz Kopie roboczą</button>
-            <button type="submit" onclick="showContainer(0)" name="action" value="sent" class="buttonSent">Wyślij</button>
+            <button type="submit" onclick="showContainer(0)" name="action" value="draft" class="submitButton id="buttonDraftId"">Zapisz Kopie roboczą</button>
+            <button type="submit" onclick="showContainer(0)" name="action" value="sent" class="submitButton">Wyślij</button>
         </div>
     </form>
 </div>
 
 <div id="OpenedMessage">
-    <div class="mailLayout">
+    <div class="mailLayout formContainer">
         <div class="offButton" onclick="CloseMessage()">
             <p>X</p>
         </div>
 
         <div class="OnetimeUse">
-            <h1 class="logo-font" id="MessageTytle">123</h1>
-            <h2 id="MessageData">Data</h2>
+            <hr>
+            <h1 class="logo-font">Wiadomość</h1>
+            <h2 id="MessageData" style='position: absolute;z-index:2;top: 20px; right: 80px;'>Data</h2>
         </div>
 
-        <div class="content">
-            <div class="newMesOdbiorcy submitButton">
-                <span>Od:</span>
-                <span id="MessageOd"></span>
-            </div>
+        <div class="content inputGroup">
+            <span>Od: <span id="MessageOd"></span></span>
         </div>
-        <div class="content">
-            <div class="newMesOdbiorcy submitButton">
-                <span>Do:</span>
-                <span id="MessageDo"></span>
-            </div>
+        <div class="content inputGroup">
+            <span>Do: <span id="MessageDo"></span></span>
         </div>
-        <div class="content">
+        <div class="content inputGroup">
+            <span>Temat: <span id="MessageTytle">123</span></span>
+        </div>
+        <div class="content inputGroup">
             <textarea id="MessageTextarea" disabled>tresc</textarea>
         </div>
         <div class="content inputButtons" id="FormButtons"></div>

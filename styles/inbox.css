@@ -1,6 +1,8 @@
 @import 'root.css';
 
-
+body{
+    overflow: hidden;
+}
 .nav_exeption{
     justify-self: center;
     width: 80%;
@@ -190,17 +192,17 @@ td img{
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     max-width: 85%;
     max-height: 85%;
     width: 65%;
-    height: 85%;
+    height: 75%;
     border-radius: 10px;
     padding: 0 1.5vw;
     background-color: var(--green-vibrant);
     border: solid 5px var(--green-dark);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
     position: relative;
-    overflow-x: auto;
 }
 #OpenedMessage>.mailLayout{
     min-height: 50vh;
@@ -226,19 +228,19 @@ td img{
 h1{
     color: white;
     margin-top: 0.2em;
-    order: -1;
     font-size: 72px;
     z-index: 1;
     background-color: var(--green-vibrant);
     padding: 0 2rem;
 }
 .content{
-    width: 90%;
+    width: 100%;
     margin: 0.5em 0;
     text-align: left;
     color: white;
     border-left: 5px solid var(--green-dark);
     padding: 0.2em;
+    overflow: hidden;
 }
 .content input, textarea, textarea:disabled {
     color: black;
@@ -253,7 +255,6 @@ h1{
     margin: auto;
     box-sizing: border-box;
 }
-
 .inputTextarea{
     height: 55%;
 }
@@ -265,17 +266,16 @@ h1{
     display: flex;
     justify-content: flex-end;
     border: none;
+    gap: 20px;
 }
 .inputButtons>button{
-    width: 15%;
     height: 100%;
     margin: 0 10px;
     padding: 5px;
     font-size: 24px;
     font-weight: bold;
     color: white;
-    border-radius: 30px;
-    border:none;
+    border-radius: 15px;
 }
 .inputButtons>button:hover{
     filter: brightness(120%);
@@ -286,10 +286,6 @@ h1{
     filter: brightness(75%);
     transition: all 0s;
 }
-.buttonDraft{background: darkslategrey}
-.buttonDelete{background: #f44336}
-.buttonSent{background: var(--green-vibranter)}
-
 .offButton{
     display: flex;
     justify-content: center;
@@ -315,17 +311,39 @@ h1{
 .OnetimeUse{
     width: 90%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     color: white;
 }
 
 
-#sentContainer, #deletedContainer, #draftsContainer, #writeContainer, #OpenedMessage, #popUpContainer{
+#sentContainer, #deletedContainer, #draftsContainer, #writeContainer, #OpenedMessage{
     display: none;
 }
+.inputGroup input,
+.inputGroup select,
+.inputGroup option,
+.inputGroup textarea,
+.inputGroup > span{
+    border: var(--green-darker) solid 3px;
+    border-radius: 6px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 28px;
+    background-color: var(--green-dark);
+    color: white;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+}
+#OpenedMessage textarea{
+    min-height: 35vh;
+}
 
-
+.submitButton{
+    font-size: 24px;
+    padding: 0 20px;
+}
 
 /* ================================================= */
 /* STYLIZACJA STANU INDETERMINATE (MINUS)            */
@@ -360,7 +378,41 @@ h1{
     display: block;
     border-radius: 2px;
 }
+.title{
+    font-size: 36px !important;
+}
+.formContainer{
+    overflow: hidden !important;
+}
+
+.deleting{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: .5em 1em;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: var(--green-vibrant);
+    color: white;
+    box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.3);
+    width: calc(100% - 300px);
+    font-family: 'sour gummy', sans-serif;
+    font-size: 24px;
+    transform: translateY(100%);
+    transition: transform .2s;
+}
+.deleting.visible{
+    transform: translateY(0);
+}
 
 .emptySpace{
 
+}
+
+@media (max-width:1300px){
+    .deleting{
+        width: 100%;
+    }
 }

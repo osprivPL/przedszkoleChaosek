@@ -43,12 +43,15 @@ if ($id > 0 && $connection && $group > 0) {
     if ($result) {
         $idRodzica = 0;
 
-        $sqlCzyIstnieje = "SELECT ID FROM uzytkownicy WHERE login = '" . $connection->real_escape_string($result['email']) . "'";
+        $sqlCzyIstnieje = "SELECT ID, typ FROM uzytkownicy WHERE login = '" . $connection->real_escape_string($result['email']) . "'";
         $queryCheck = $connection->query($sqlCzyIstnieje);
 
         if ($queryCheck->num_rows > 0) {
             $row = $queryCheck->fetch_assoc();
             $idRodzica = (int)$row['ID'];
+            $permissionId = (int)$row['typ'];
+            $sql = "UPDATE uprawnienia SET rodzic = 1 WHERE id = " . $permissionId;
+            $connection->query($sql);
         } else {
             if ($connection->query("INSERT INTO uprawnienia(rodzic, nauczyciel, dyrektor) VALUES(1,0,0)")) {
                 $permissionId = $connection->insert_id;
@@ -73,7 +76,7 @@ if ($id > 0 && $connection && $group > 0) {
 
             if ($stmtDel->execute()) {
                 try {
-                    sendTempPassword($haslo, $result['imieRodzica'], $result['nazwiskoRodzica']);
+                    sendTempPassword($haslo, $result['imieDziecka'], $result['nazwiskoDziecka'], $result['email']);
                 } catch (Exception $e) {
                 }
 

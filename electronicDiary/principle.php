@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+error_reporting(E_ERROR | E_PARSE);
 require_once "./../scripts/php/printArr.php";
 require_once __DIR__ . '/../models/User.php';
 require_once "./../scripts/php/weekDayFromDate.php";
@@ -148,6 +149,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
     <script src="./../scripts/js/panels.js"></script>
     <script src="./../scripts/js/showUserPanel.js"></script>
     <script src="./../scripts/js/principle.js"></script>
+    <script src="./../scripts/js/editGroups.js"></script>
 
 </head>
 <body>
@@ -353,18 +355,18 @@ $resultGroups = $connection->query($sql)->fetch_all();
                             <button class='applicationButton' onclick='changeInfo(2)'>Dane Rodzica</button>
                         </div>
                         <div class='infoDziecko info'>
-                            <div>Imie Dziecka: <span class='information' id='imie'></span></div>
-                            <div>Nazwisko Dziecka: <span class='information' id='nazwisko'></span></div>
+                            <div>Imie Dziecka: <span class="information1" id='imie'></span></div>
+                            <div>Nazwisko Dziecka: <span class='information1' id='nazwisko'></span></div>
                             <div>Data Urodzenia: <span id='dataur'></span></div>
-                            <div>Pesel: <span class='information' id='pesel'></span></div>
-                            <div>Adres Zamieszkania: <span class='information' id='adres'></span></div>
+                            <div>Pesel: <span class='information1' id='pesel'></span></div>
+                            <div>Adres Zamieszkania: <span class='information1' id='adres'></span></div>
                         </div>
                         <div class='infoRodzic info' style='display: none'>
-                            <div>Imie Rodzica: <span class='information' id='imieR'></span></div>
-                            <div>Nazwisko Rodzica: <span class='information' id='nazwiskoR'></span></div>
-                            <div>Email Rodzica: <span class='information' id='email'></span></div>
-                            <div>Numer Telefonu: <span class='information' id='nrtel'></span></div>
-                            <div>Adres Zamieszkania: <span class='information' id='adres'></span></div>
+                            <div>Imie Rodzica: <span class='information1' id='imieR'></span></div>
+                            <div>Nazwisko Rodzica: <span class='information1' id='nazwiskoR'></span></div>
+                            <div>Email Rodzica: <span class='information1' id='email'></span></div>
+                            <div>Numer Telefonu: <span class='information1' id='nrtel'></span></div>
+                            <div>Adres Zamieszkania: <span class='information1' id='adres'></span></div>
                         </div>
                         <script>
                             function changeInfo(n) {
@@ -385,6 +387,38 @@ $resultGroups = $connection->query($sql)->fetch_all();
                 </div>
             </div>
             <script>
+                function dateFromPesel(pesel) {
+                    let rok = pesel.substring(0, 2);
+                    let miesiac = parseInt(pesel.substring(2, 4), 10);
+                    let dzien = pesel.substring(4, 6);
+                    let stulecie = '';
+                    if (miesiac >= 1 && miesiac <= 12) {
+                        stulecie = '19';
+                    } else if (miesiac >= 21 && miesiac <= 32) {
+                        stulecie = '20';
+                        miesiac -= 20;
+                    }
+                    let pelnyRok = stulecie + rok;
+                    miesiac = miesiac.toString().padStart(2, '0');
+                    return `${pelnyRok}-${miesiac}-${dzien}`;
+                }
+
+                function rozpatrzWniosek(rekord) {
+                    if (rekord === "") {
+                        document.getElementById('Application').style.display = "none";
+                        document.getElementById('listOfApplications').style.display = "block";
+                    } else {
+                        document.getElementById('wniosekNumber').innerHTML = "Wniosek #" + rekord[0];
+                        document.getElementById('Application').style.display = "block";
+                        document.getElementById('listOfApplications').style.display = "none";
+                        rekordy = [rekord[5], rekord[6], rekord[7], rekord[8], rekord[1], rekord[2], rekord[4], rekord[3], rekord[8]];
+                        informations = document.getElementsByClassName('information1');
+                        for (i = 0; i < informations.length; i++) {
+                            informations[i].innerHTML = rekordy[i];
+                        }
+                        document.getElementById('dataur').innerHTML = dateFromPesel(rekord[7]);
+                    }
+                }
 
             </script>
         </div>
