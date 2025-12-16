@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <?php
+//      gozik do przenoszenia do kopie robocze powinien się NIE pokazywać w odebranych oraz dla wiadomości z odebranych przeniesionych do usunięte!!!
+//      ikonka do guzika który przenosi do wysłane / odebrane
+//		chceckboxy
+//		validacja czy jest tytuł i tresć
+
 require_once "./../scripts/php/printArr.php";
 require_once __DIR__ . '/../models/User.php';
 
@@ -146,15 +151,15 @@ if (!$_SESSION['logged']) {
                 <td><span class="messageTitle">Tytuł</span></td>
                 <td><span class="messageSender">Nadawca</span></td>
                 <td><span class="messageDate">Data wysłania</span></td>
-                <td></td>
             </tr>
             <?php
             $connection = new mysqli("localhost", "root", "", "przedszkole");
-            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE odbiorcaID = " . $user->id . " AND Usunięte = 0 AND robocze = 0;")->fetch_all();
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID, odbiorcaID FROM wiadomosci WHERE odbiorcaID = " . $user->id . " AND Usunięte = 0 AND robocze = 0;")->fetch_all();
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
                 $tempAr=array();
+                $tempAr[] = $message[0];
                 $tempAr[] = $message[1];
                 $tempAr[] =  $message[2] ;
                 $tempAr[] = $message[3];
@@ -162,12 +167,13 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $sender[0][1] ;
                 $tempAr[] =  $user->imie ;
                 $tempAr[] = $user->nazwisko;
+                $tempAr[] = $message[5];
+                $tempAr[] = $user->id;
                 echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 0)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
-                echo '<td><span><img src="./../assets/trash.png" class="mail_icons"></span></td>';
                 echo '</tr>';
             }
             ?>
@@ -183,29 +189,30 @@ if (!$_SESSION['logged']) {
                 <td><span class="messageTitle">Tytuł</span></td>
                 <td><span class="messageSender">Odbiorca</span></td>
                 <td><span class="messageDate">Data wysłania</span></td>
-                <td></td>
             </tr>
             <?php
             $connection = new mysqli("localhost", "root", "", "przedszkole");
-            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, odbiorcaID FROM wiadomosci WHERE nadawcaID = " . $user->id . " AND Usunięte = 0 AND robocze = 0;")->fetch_all();
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID , odbiorcaID FROM wiadomosci WHERE nadawcaID = " . $user->id . " AND Usunięte = 0 AND robocze = 0;")->fetch_all();
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
-                $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
+                $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[5] . ";")->fetch_all();
 
                 $tempAr = array();
+                $tempAr[] = $message[0];
                 $tempAr[] = $message[1];
                 $tempAr[] =  $message[2] ;
                 $tempAr[] = $message[3];
                 $tempAr[] =  $user->imie ;
                 $tempAr[] = $user->nazwisko;
                 $tempAr[] = $sender[0][0];
-                $tempAr[] = $sender[0][1] ;
+                $tempAr[] = $sender[0][1];
+                $tempAr[] = $message[5];
+                $tempAr[] = $user->id;
                 echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 0)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
-                echo '<td><span><img src="./../assets/trash.png"></span></td>';
                 echo '</tr>';
             }
             ?>
@@ -220,17 +227,17 @@ if (!$_SESSION['logged']) {
                 <td><label class="checkboxLabel"><input type="checkbox" id="selectAllCheckbox1"
                                                         onclick="selectAllCheckboxes(1)"></label></td>
                 <td><span class="messageTitle">Tytuł</span></td>
-                <td><span class="messageSender">Nadawca</span></td>
+                <td><span class="messageSender">Nadawca/Odbiorca</span></td>
                 <td><span class="messageDate">Data wysłania</span></td>
-                <td></td>
             </tr>
             <?php
             $connection = new mysqli("localhost", "root", "", "przedszkole");
-            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID FROM wiadomosci WHERE Usunięte = 1;")->fetch_all();
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID, odbiorcaID FROM wiadomosci WHERE Usunięte = 1;")->fetch_all();
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
-                $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
+                $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[5] . ";")->fetch_all();
                 $tempAr=array();
+                $tempAr[] = $message[0];
                 $tempAr[] = $message[1];
                 $tempAr[] =  $message[2] ;
                 $tempAr[] = $message[3];
@@ -238,12 +245,13 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $sender[0][1] ;
                 $tempAr[] =  $user->imie ;
                 $tempAr[] = $user->nazwisko;
+                $tempAr[] = $message[5];
+                $tempAr[] = $user->id;
                 echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 2)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
-                echo '<td><span><img src="./../assets/trash.png"></span></td>';
                 echo '</tr>';
             }
             ?>
@@ -259,15 +267,15 @@ if (!$_SESSION['logged']) {
                 <td><span class="messageTitle">Tytuł</span></td>
                 <td><span class="messageSender">Nadawca</span></td>
                 <td><span class="messageDate">Data wysłania</span></td>
-                <td></td>
             </tr>
             <?php
             $connection = new mysqli("localhost", "root", "", "przedszkole");
-            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID  FROM wiadomosci WHERE robocze = 1;")->fetch_all();
+            $result = $connection->query("SELECT id, tytul, tresc, dataWyslania, nadawcaID, odbiorcaID  FROM wiadomosci WHERE robocze = 1;")->fetch_all();
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
-                $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
+                $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[5] . ";")->fetch_all();
                 $tempAr=array();
+                $tempAr[] = $message[0];
                 $tempAr[] = $message[1];
                 $tempAr[] =  $message[2] ;
                 $tempAr[] = $message[3];
@@ -275,12 +283,13 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $sender[0][1] ;
                 $tempAr[] =  $user->imie ;
                 $tempAr[] = $user->nazwisko;
+                $tempAr[] = $message[5];
+                $tempAr[] = $user->id;
                 echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 1)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
                 echo '<td><span class="messageDate">' . $message[3] . '</span></td>';
-                echo '<td><span><img src="./../assets/trash.png"></span></td>';
                 echo '</tr>';
             }
             ?>
@@ -381,6 +390,9 @@ if (!$_SESSION['logged']) {
         </div>
         <div class="content">
             <textarea id="MessageTextarea" disabled>tresc</textarea>
+        </div>
+        <div class="content inputButtons" id="FormButtons">
+
         </div>
     </div>
 </div>
