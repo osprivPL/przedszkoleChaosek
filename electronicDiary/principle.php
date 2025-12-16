@@ -276,6 +276,18 @@ $resultGroups = $connection->query($sql)->fetch_all();
         });
     </script>
     <main id="main">
+        <div class="information">
+            <div class='header'>
+                <span class='circle'>i</span>
+                <span>Informacja</span>
+            </div>
+            <div class='span-container'>
+                <span class='information-content'>Coś tam Coś tam</span><br>
+            </div>
+            <div class='button-container'>
+                <button id="btnInformationAccept" class='submitButton okay'>OK</button>
+            </div>
+        </div>
         <div class="main-panel bigContainers main-panel-witaj" id="witajPanel">
             <span class='logo-font-small' style='text-wrap: wrap;'>
                 <?php
@@ -291,6 +303,10 @@ $resultGroups = $connection->query($sql)->fetch_all();
 
         <div class="main-panel bigContainers main-panel-rekrutacja">
             <div class='warning' id="rekrutacjaWarning">
+                <div class='header'>
+                    <span class='circle'>!</span>
+                    <span>Ostrzeżenie</span>
+                </div>
                 <div class='span-container'>
                     <span class='warning-content'>Zmiany będą <span style='text-decoration:underline wavy'>nieodwracalne!</span></span><br>
                     <span class='warning-question'>Jesteś <span style='text-decoration:underline'>pewien</span> swojej decyzji?</span>
