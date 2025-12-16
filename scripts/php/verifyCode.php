@@ -2,7 +2,7 @@
 session_start();
 require_once "./printArr.php";
 $kod = $_POST["tbxCode"];
-$poprawny =$_SESSION['kod']
+$poprawny =$_SESSION['kod'];
 $sqlTemp = $_SESSION['sql'];
 printArr($_SESSION);
 if ($kod == $_SESSION['kod']) {
@@ -14,7 +14,7 @@ if ($kod == $_SESSION['kod']) {
     die();
 } else {
     $_SESSION['error'] = 3;
-    $_SESSION['kod'] = $poprawny
+    $_SESSION['kod'] = $poprawny;
     header('Location: ./../../mailCode.php');
     die();
 }
