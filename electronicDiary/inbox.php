@@ -172,7 +172,7 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $message[4]; //nadawcaID
                 $tempAr[] = $message[6]; //usunieteNadawca
                 $tempAr[] = $user->id; //user id
-                echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 0)\'>';
+                echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 0)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -212,7 +212,7 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $message[4]; //nadawcaID
                 $tempAr[] = $message[6]; //usunieteNadawca
                 $tempAr[] = $user->id; //user id
-                echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 0)\'>';
+                echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 0)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -252,7 +252,7 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $message[4]; //nadawcaID
                 $tempAr[] = $message[6]; //usunieteNadawca
                 $tempAr[] = $user->id; //user id
-                echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 1)\'>';
+                echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 1)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -291,7 +291,7 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $message[4]; //nadawcaID
                 $tempAr[] = $message[6]; //usunieteNadawca
                 $tempAr[] = $user->id; //user id
-                echo '<tr class="messageCard" onclick=\'OpenMessage('. json_encode($tempAr) . ', 2)\'>';
+                echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 2)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';

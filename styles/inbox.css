@@ -41,11 +41,15 @@ main{
     font-family: 'Sour Gummy', sans-serif;
     background: url('../assets/tlo_dziennik.png');
     background-size: 100% 100%;
+    overflow-y: auto;
 }
 .headerCard > td{
     background-color: var(--green-dark);
     border: 3px solid var(--green-darker);
     font-weight: bold;
+}
+.headerCard > td:nth-child(2){
+    padding-left: 20px;
 }
 .message{
     background-color: var(--green-vibrant);
@@ -71,6 +75,15 @@ main{
     background-color: var(--green-dark) !important;
     border-color: var(--green-darker) !important;
 }
+.messageCard > td:first-child{
+    width:100px;
+}
+.messageCard > td:nth-child(2){
+    width: calc(50% - 100px);
+}
+.messageCard > td:nth-child(2) span{
+    justify-content: flex-start;
+}
 .checkboxLabel{
     font-family: system-ui, sans-serif;
     font-size: 2rem;
@@ -78,7 +91,6 @@ main{
     line-height: 1.1;
     display: grid;
     grid-template-columns: 1em auto;
-    gap: 0.5em;
     justify-self: center;
 }
 input[type="checkbox"]{
@@ -91,7 +103,6 @@ input[type="checkbox"]{
     width: 1.15em;
     height: 1.15em;
     border-radius: 10px ;
-    transform: translateY(-0.075em);
 
     justify-self: center;
     align-self: center;
