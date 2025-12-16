@@ -51,6 +51,7 @@ function showContainerInbox(n) {
     }
 
     checkEmptyLists();
+    updateDeletingBar();
 }
 
 function toggleAll(master, containerId) {
@@ -67,6 +68,7 @@ function toggleAll(master, containerId) {
         box.checked = master.checked;
     });
     master.indeterminate = false;
+    updateDeletingBar();
 }
 
 function updateMasterState(containerId, masterId) {
@@ -93,6 +95,7 @@ function updateMasterState(containerId, masterId) {
         master.checked = false;
         master.indeterminate = true;
     }
+    updateDeletingBar();
 }
 
 document.addEventListener('change', (e) => {
@@ -110,6 +113,22 @@ document.addEventListener('change', (e) => {
     }
 });
 
+// updates the deleting bar visibility and the selected count
+function updateDeletingBar() {
+    const deletingBar = document.querySelector('.deleting');
+    const countSpan = document.getElementById('howMuchCheckboxes');
+    if (!deletingBar || !countSpan) return;
+    // count all checked messageCheckboxes except those with class 'example'
+    const checked = document.querySelectorAll('.messageCheckbox:not(.example):checked').length;
+    countSpan.textContent = checked;
+    if(checked > 0){
+        deletingBar.classList.add('visible');
+    }
+    else{
+        deletingBar.classList.remove('visible');
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     checkEmptyLists();
 
@@ -118,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.stopPropagation();
         });
     });
+    updateDeletingBar();
 });
 
 function OpenMessage(json_array, typ) {
@@ -146,20 +166,6 @@ function OpenMessage(json_array, typ) {
 
     document.getElementById('FormButtons').innerHTML = '';
 
-    if (typ != 0 && typ != 1){
-        const form0 = document.createElement('form');
-        form0.method = 'POST';
-        form0.action = './../scripts/php/moveToSendMessage.php';
-        const button0 = document.createElement('button');
-        button0.type = 'submit';
-        button0.name = 'messageId';
-        button0.value = json_array[0];
-        button0.classList = 'jsFormButton';
-        button0.innerHTML = "<img src='./../assets/send.png'>";
-        form0.appendChild(button0);
-        document.getElementById('FormButtons').appendChild(form0);
-    }
-
     if (typ == 1 && json_array[8] == json_array[10] && json_array[9] == 1) {
         const form1 = document.createElement('form');
         form1.method = 'POST';
@@ -168,8 +174,8 @@ function OpenMessage(json_array, typ) {
         button1.type = 'submit';
         button1.name = 'messageId';
         button1.value = json_array[0];
-        button1.classList = 'jsFormButton';
-        button1.innerHTML = "<img src='./../assets/drafts_button.png'>";
+        button1.classList = 'submitButton';
+        button1.innerHTML = 'Zapisz Kopie roboczą';
         form1.appendChild(button1);
         document.getElementById('FormButtons').appendChild(form1);
     }
@@ -182,10 +188,23 @@ function OpenMessage(json_array, typ) {
         button2.type = 'submit';
         button2.name = 'value';
         button2.value = json_array[0] + "|" + json_array[10] + "|" + json_array[8];
-        button2.classList = 'jsFormButton';
-        button2.innerHTML = "<img src='./../assets/trash.png'>";
+        button2.classList = 'submitButton';
+        button2.innerHTML = 'Usuń wiadomość';
         form2.appendChild(button2);
         document.getElementById('FormButtons').appendChild(form2);
+    }
+    if (typ != 0 && typ != 1){
+        const form0 = document.createElement('form');
+        form0.method = 'POST';
+        form0.action = './../scripts/php/moveToSendMessage.php';
+        const button0 = document.createElement('button');
+        button0.type = 'submit';
+        button0.name = 'messageId';
+        button0.value = json_array[0];
+        button0.classList = 'submitButton';
+        button0.innerHTML = 'Wyślij';
+        form0.appendChild(button0);
+        document.getElementById('FormButtons').appendChild(form0);
     }
 
     document.getElementById('OpenedMessage').style.transform = 'translateX(0)';
