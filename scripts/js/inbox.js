@@ -122,7 +122,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function OpenMessage(json_array, typ) {
     const anyChecked = document.querySelectorAll('.messageCheckbox:checked').length > 0;
+
     if (anyChecked) {
+        const messageId = json_array[0];
+        const checkbox = document.querySelector('input[name="message' + messageId + '"]');
+        if (checkbox) {
+            checkbox.checked = !checkbox.checked;
+            checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+        }
         return;
     }
 
