@@ -302,9 +302,10 @@ function OpenMessage(json_array, typ) {
     tytle.value = json_array[1];
     textArea.textContent = json_array[2];
     document.getElementById('MessageData').textContent = json_array[3];
+    document.getElementById('MessageDo').textContent = json_array[6] + " " + json_array[7];
     if (typ != 2){
         document.getElementById('MessageOd').textContent = json_array[4] + " " + json_array[5];
-
+        //Nie mam głowy na to już
     }else {
         spanDo.style.display = 'none';
         selectDo.style.display = 'block';
@@ -312,12 +313,16 @@ function OpenMessage(json_array, typ) {
         textArea.disabled = false;
     }
 
-    document.getElementById('MessageDo').textContent = json_array[6] + " " + json_array[7];
+    if (typ == 1 && json_array[10] == json_array[11]){
+        document.getElementById('MessageOd').textContent = js;
+    }
+
 
     document.getElementById('FormButtons').innerHTML = '';
     if (json_array[10] == json_array[11]){
         const buttonOdp = document.createElement('button');
         buttonOdp.classList = 'submitButton';
+        buttonOdp.type = 'button';
         buttonOdp.innerHTML = "<img src='./../assets/send.png'>";
         buttonOdp.onclick =  () => EditMessage(json_array);
         buttonOdp.innerHTML="Odpisz";
@@ -402,7 +407,8 @@ function OpenMessage(json_array, typ) {
 }
 function EditMessage(json_array){
     document.getElementById('OpenedMessage').style.display = 'none';
-    //new Message w tytułem taki sam jak tam ale z dopiskiem Re:
+    showContainerInbox(4);
+    document.getElementById('newMesTytul').value = 'Re:' + json_array[1];
 
 }
 
