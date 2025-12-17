@@ -101,6 +101,72 @@ function updateMasterState(containerId, masterId) {
     updateDeletingBar();
 }
 
+function removeEverything() {
+    const containers = ['receivedContainer', 'sentContainer', 'deletedContainer', 'draftsContainer'];
+    let currentContainerId = null;
+    let messageType = -1;
+
+    for (let i = 0; i < containers.length; i++) {
+        const el = document.getElementById(containers[i]);
+        if (el && el.style.display === 'flex') {
+            currentContainerId = containers[i];
+            messageType = i;
+            break;
+        }
+    }
+
+    if (messageType === -1) {
+        console.error("No valid message container is visible or selected.");
+        return;
+    }
+
+    const container = document.getElementById(currentContainerId);
+    if (!container) return;
+
+    const checkedBoxes = container.querySelectorAll('.messageCheckbox:checked');
+    const messageIds = [];
+
+    checkedBoxes.forEach(checkbox => {
+        const name = checkbox.getAttribute('name');
+        const id = name.replace('message', '');
+        messageIds.push(id);
+    });
+
+    if (messageIds.length === 0) {
+        alert("Wybierz wiadomości do usunięcia.");
+        return;
+    }
+
+    if (!confirm(`Czy na pewno chcesz usunąć ${messageIds.length} wiadomości?`)) {
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('idToExplode', messageIds.join(','));
+    formData.append('type', messageType);
+
+    const deleteUrl = './../scripts/php/moveToTrashChecked.php';
+
+    fetch(deleteUrl, {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Błąd serwera (Status: ${response.status})`);
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log("Deletion response:", data);
+            alert("Wiadomości zostały usunięte pomyślnie.");
+            showContainerInbox(messageType);
+        })
+        .catch(error => {
+            console.error('Błąd podczas usuwania wiadomości:', error);
+            alert(`Wystąpił błąd podczas usuwania. Sprawdź konsolę.`);
+        });
+}
 document.addEventListener('change', (e) => {
     if (e.target.classList.contains('messageCheckbox')) {
         const container = e.target.closest('.messagesContainer');
