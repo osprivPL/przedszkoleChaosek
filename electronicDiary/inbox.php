@@ -287,7 +287,8 @@ if (!$_SESSION['logged']) {
     </main>
     <div class='deleting'>
         <span>Wybrano: <span id='howMuchCheckboxes'>0</span></span>
-        <button onclick='removeEverything()' class="submitButton">Usuń wszystkie wiadomości</button>
+        <span></span>
+<!--        <button onclick='removeEverything()' class="submitButton">Usuń wszystkie wiadomości</button>-->
     </div>
 </div>
 
