@@ -604,3 +604,15 @@ button:hover{
     box-sizing: border-box;
     gap: 15px;
 }
+.loading{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    padding: 15px;
+    background-color: var(--green-dark);
+    border: 10px solid var(--green-darker);
+    border-radius: 15px;
+    z-index: 9999;
+    display: none;
+}

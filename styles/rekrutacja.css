@@ -213,3 +213,16 @@ h1{
         width: 400px;
     }
 }
+
+.loading{
+    position: absolute;
+    top: calc(50% + 7.5vh);
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    padding: 15px;
+    background-color: var(--green-dark);
+    border: 10px solid var(--green-darker);
+    border-radius: 15px;
+    z-index: 9999;
+    display: none;
+}

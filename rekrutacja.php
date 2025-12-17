@@ -48,6 +48,9 @@ if (isset($_SESSION['user'])) {
 
 </head>
 <body id='body'>
+    <div class="loading" id='loading'>
+        <img src='./assets/loading.gif' alt='Ładowanie'>
+    </div>
 <!-- ============================= -->
 <!-- HEADER -->
 <!-- ============================= -->
@@ -165,6 +168,7 @@ if (isset($_SESSION['user'])) {
             document.getElementById('frmRekrutacja').addEventListener('submit', (e) => {
                 e.preventDefault();
                 const form = e.target;
+                document.getElementById("loading").style.display = "block";
                 let childImie = document.getElementById('frmChildImie');
                 let childNazwisko = document.getElementById('frmChildNazwisko');
                 let childPesel = document.getElementById('frmChildPesel');
@@ -249,7 +253,10 @@ if (isset($_SESSION['user'])) {
                 else{
                     childPesel.classList.remove('error')
                 }
-                if (error) return;
+                if (error){
+                    document.getElementById("loading").style.display = "none";
+                    return;
+                }
                 form.submit();
             });
         </script>
