@@ -230,9 +230,6 @@ if ($user->firstLogin) {
 <!--Sticky nav-->
 <!--============================-->
 <div class="sticky-banner">
-    <script>
-        console.log(<?php echo print_r($user->typ); ?>);
-    </script>
     <div class="square_container">
         <div class="square"></div>
     </div>
@@ -257,9 +254,6 @@ if ($user->firstLogin) {
         <a href="#dojazd" class='sectionss'>Dojazd</a>
         <a href="./rekrutacja.php" class='sectionss'>Rekrutacja</a>
         <a href="#kontakt" class='sectionss'>Kontakt</a>
-        <script>
-            console.log(<?php echo print_r($user->typ); ?>);
-        </script>
         <?php
         if ($_SESSION['logged']) {
             if ($user->typ[0] == 1) {
@@ -333,7 +327,7 @@ if ($user->firstLogin) {
 <!--        </form>-->
 <!--        <form action="./scripts/php/loginAsPrinciple.php" method="post">-->
 <!--            <button type="submit" id="btnLoginAsPrinciple">Zaloguj się jako Dyrektor (demo)</button>-->
-<!--        </form>-->
+<!--        </form>e-->
         <a href="#o_nas">O nas</a>
         <a href="#aktualnosci">Aktualności</a>
         <a href="#dojazd">Dojazd</a>

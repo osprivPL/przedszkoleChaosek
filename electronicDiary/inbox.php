@@ -51,6 +51,19 @@ if (!$_SESSION['logged']) {
     <script src="./../scripts/js/showUserPanel.js"></script>
 </head>
 <body>
+<div id="dark_bg"></div>
+<div class="information" id="informationPopUp">
+    <div class='header'>
+        <span class='circle'>i</span>
+        <span>Informacja</span>
+    </div>
+    <div class='span-container' id="warningText">
+        Coś tam Coś fdasfdsafsdfdasfdsa
+    </div>
+    <div class='button-container'>
+        <button id="btnInformationAccept" class='submitButton okay' onclick="hideInformation()">OK</button>
+    </div>
+</div>
 <header>
     <div class="square_container">
         <div class="square"></div>
@@ -125,7 +138,7 @@ if (!$_SESSION['logged']) {
     <script>
         const nav = document.getElementById('somethingBeingShown1');
         nav.addEventListener('mouseleave', () => {
-        nav.classList.remove('visible');
+            nav.classList.remove('visible');
         });
     </script>
     <!-- ============================= -->
@@ -135,7 +148,8 @@ if (!$_SESSION['logged']) {
         <table id="receivedContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
                 <td><label class="checkboxLabel">
-                        <input type="checkbox" id="selectAllCheckboxReceived" onchange="toggleAll(this, 'receivedContainer')">
+                        <input type="checkbox" id="selectAllCheckboxReceived"
+                               onchange="toggleAll(this, 'receivedContainer')">
                     </label></td>
                 <td><span class="messageTitle">Tytuł</span></td>
                 <td><span class="messageSender">Nadawca</span></td>
@@ -147,20 +161,20 @@ if (!$_SESSION['logged']) {
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
-                $tempAr=array();
+                $tempAr = array();
                 $tempAr[] = $message[0]; //id
                 $tempAr[] = $message[1]; //tytul
-                $tempAr[] =  $message[2]; //tresc
+                $tempAr[] = $message[2]; //tresc
                 $tempAr[] = $message[3]; //dataWyslana
                 $tempAr[] = $sender[0][0]; //imie-nadawca/odborca
                 $tempAr[] = $sender[0][1]; //nazwsko-nadawca/odbiorca
-                $tempAr[] =  $user->imie ; //imie-user
+                $tempAr[] = $user->imie; //imie-user
                 $tempAr[] = $user->nazwisko; //nazwisko-user
                 $tempAr[] = $message[4]; //nadawcaID
                 $tempAr[] = $message[6]; //usunieteNadawca
                 $tempAr[] = $user->id; //user id
                 $tempAr[] = $message[5]; // odbiorcaID
-                echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 0)\'>';
+                echo '<tr class="messageCard message" onclick=\'OpenMessage(' . json_encode($tempAr) . ', 0)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox receivedCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -188,9 +202,9 @@ if (!$_SESSION['logged']) {
                 $tempAr = array();
                 $tempAr[] = $message[0]; //id
                 $tempAr[] = $message[1]; //tytul
-                $tempAr[] =  $message[2]; //tresc
+                $tempAr[] = $message[2]; //tresc
                 $tempAr[] = $message[3]; //dataWyslana
-                $tempAr[] =  $user->imie ; //imie-user
+                $tempAr[] = $user->imie; //imie-user
                 $tempAr[] = $user->nazwisko; //nazwisko-user
                 $tempAr[] = $sender[0][0]; //imie-nadawca/odborca
                 $tempAr[] = $sender[0][1]; //nazwsko-nadawca/odbiorca
@@ -198,7 +212,7 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $message[6]; //usunieteNadawca
                 $tempAr[] = $user->id; //user id
                 $tempAr[] = $message[5]; // odbiorcaID
-                echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 0)\'>';
+                echo '<tr class="messageCard message" onclick=\'OpenMessage(' . json_encode($tempAr) . ', 0)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox sentCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -210,7 +224,8 @@ if (!$_SESSION['logged']) {
         <table id="deletedContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
                 <td><label class="checkboxLabel">
-                        <input type="checkbox" id="selectAllCheckboxDeleted" onchange="toggleAll(this, 'deletedContainer')">
+                        <input type="checkbox" id="selectAllCheckboxDeleted"
+                               onchange="toggleAll(this, 'deletedContainer')">
                     </label></td>
                 <td><span class="messageTitle">Tytuł</span></td>
                 <td><span class="messageSender">Nadawca/Odbiorca</span></td>
@@ -223,14 +238,14 @@ if (!$_SESSION['logged']) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[5] . ";")->fetch_all();
                 $sender2 = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
-                $tempAr=array();
+                $tempAr = array();
                 $tempAr[] = $message[0]; //id
                 $tempAr[] = $message[1]; //tytul
-                $tempAr[] =  $message[2]; //tresc
+                $tempAr[] = $message[2]; //tresc
                 $tempAr[] = $message[3]; //dataWyslana
                 $tempAr[] = $sender[0][0]; //imie-nadawca/odborca
                 $tempAr[] = $sender[0][1]; //nazwsko-nadawca/odbiorca
-                $tempAr[] =  $user->imie ; //imie-user
+                $tempAr[] = $user->imie; //imie-user
                 $tempAr[] = $user->nazwisko; //nazwisko-user
                 $tempAr[] = $message[4]; //nadawcaID
                 $tempAr[] = $message[6]; //usunieteNadawca
@@ -238,7 +253,7 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $message[5]; // odbiorcaID
                 $tempAr[] = $sender2[0][0];
                 $tempAr[] = $sender2[0][1];
-                echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 1)\'>';
+                echo '<tr class="messageCard message" onclick=\'OpenMessage(' . json_encode($tempAr) . ', 1)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox deletedCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -250,7 +265,8 @@ if (!$_SESSION['logged']) {
         <table id="draftsContainer" class="messagesContainer bigContainers">
             <tr class="messageCard headerCard">
                 <td><label class="checkboxLabel">
-                        <input type="checkbox" id="selectAllCheckboxDrafts" onchange="toggleAll(this, 'draftsContainer')">
+                        <input type="checkbox" id="selectAllCheckboxDrafts"
+                               onchange="toggleAll(this, 'draftsContainer')">
                     </label></td>
                 <td><span class="messageTitle">Tytuł</span></td>
                 <td><span class="messageSender">Nadawca</span></td>
@@ -262,12 +278,12 @@ if (!$_SESSION['logged']) {
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[5] . ";")->fetch_all();
-                $tempAr=array();
+                $tempAr = array();
                 $tempAr[] = $message[0]; //id
                 $tempAr[] = $message[1]; //tytul
                 $tempAr[] = $message[2]; //tresc
                 $tempAr[] = $message[3]; //dataWyslana
-                $tempAr[] = $user->imie ; //imie-user
+                $tempAr[] = $user->imie; //imie-user
                 $tempAr[] = $user->nazwisko; //nazwisko-user
                 $tempAr[] = $sender[0][0]; //imie-nadawca/odborca
                 $tempAr[] = $sender[0][1]; //nazwsko-nadawca/odbiorca
@@ -275,7 +291,7 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $message[6]; //usunieteNadawca
                 $tempAr[] = $user->id; //user id
                 $tempAr[] = $message[5]; // odbiorcaID
-                echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 2)\'>';
+                echo '<tr class="messageCard message" onclick=\'OpenMessage(' . json_encode($tempAr) . ', 2)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox draftsCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
                 echo '<td><span class="messageSender">' . $sender[0][0] . ' ' . $sender[0][1] . '</span></td>';
@@ -297,13 +313,33 @@ if (!$_SESSION['logged']) {
         <span>Ostrzeżenie</span>
     </div>
     <div class='span-container'>
-        <span class='warning-content'>Czy chcesz zapisać wiadomość jako kopia roboczej? </span><br>
+        <span class='warning-content'>Czy chcesz zapisać wiadomość jako kopia robocza? </span><br>
     </div>
     <div class='button-container'>
         <button class='submitButton no' onclick="DontSaveDraft(); ">Nie</button>
         <button id="btnWarningAcceptRekrutacja" onclick="SaveAsDraft()" class='submitButton yes'>Tak</button>
     </div>
 </div>
+
+<div class='warning' id="deleteFewMessagesPopUp">
+    <div class='header'>
+        <span class='circle'>!</span>
+        <span>Ostrzeżenie</span>
+    </div>
+    <div class='span-container'>
+        <span class='warning-content' id="warningContent">Czy napewno chcesz usunąć zaznaczone wiadomości? </span><br>
+    </div>
+    <div class='button-container'>
+        <button class='submitButton no' onclick="hidePopUp()">Nie</button>
+        <button id="btnWarningAcceptDeleting" class='submitButton yes' onclick="deleteFew()">Tak</button>
+    </div>
+</div>
+<script>
+    function hidePopUp() {
+        document.getElementById('deleteFewMessagesPopUp').style.display = 'none';
+        document.getElementById('dark_bg').style.display = 'none';
+    }
+</script>
 
 <div id="writeContainer" class="bigContainers">
 
@@ -369,8 +405,10 @@ if (!$_SESSION['logged']) {
             <textarea id="newMesTresc" name="tresc" placeholder="Treść"></textarea>
         </div>
         <div class="content inputButtons">
-            <button type="submit"  name="action" value="draft" class="submitButton" id="buttonDraftId">Zapisz Kopie roboczą</button>
-            <button type="submit"  name="action" value="sent" class="submitButton">Wyślij</button>
+            <button type="submit" name="action" value="draft" class="submitButton" id="buttonDraftId">Zapisz Kopie
+                roboczą
+            </button>
+            <button type="submit" name="action" value="sent" class="submitButton">Wyślij</button>
         </div>
     </form>
 </div>
@@ -387,15 +425,15 @@ if (!$_SESSION['logged']) {
             <h2 id="MessageData" style='position: absolute;z-index:2;top: 20px; right: 80px;'>Data</h2>
         </div>
         <form action="./../scripts/php/editAndSaveDraftMessage.php" method="post" id="secretFormForEdit">
-        <div class="content inputGroup">
-            <span>Od: <span id="MessageOd"></span></span>
-        </div>
-        <div class="content inputGroup" id="MessageDoDiv">
-            <span id="MessageDoSpan">Do: <span id="MessageDo"></span></span>
-            <?php
-            echo '<select class="submitButton" name="odbiorca" id="MessageDoSelect">';
-            if ($user->typ[0] == 1) {
-                $sql_mes = "SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u 
+            <div class="content inputGroup">
+                <input type="text" id="MessageTytle" disabled placeholder="temat">
+            </div>
+            <div class="content inputGroup" id="MessageDoDiv">
+                <span id="MessageDoSpan">Do: <span id="MessageDo"></span></span>
+                <?php
+                echo '<select class="submitButton" name="odbiorca" id="MessageDoSelect">';
+                if ($user->typ[0] == 1) {
+                    $sql_mes = "SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u 
                         INNER JOIN grupy g ON u.ID = g.Wychowawca 
                         INNER JOIN dzieci d ON d.grupa = g.id WHERE d.IDRodzica = " . $user->id . "
                         UNION 
@@ -403,9 +441,9 @@ if (!$_SESSION['logged']) {
                         INNER JOIN uprawnienia a ON u.ID = a.ID
                         WHERE a.dyrektor = 1 
                         ORDER BY nazwisko;";
-            }
-            if ($user->typ[1] == 1) {
-                $sql_mes = "SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u 
+                }
+                if ($user->typ[1] == 1) {
+                    $sql_mes = "SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u 
                         INNER JOIN dzieci d ON u.ID = d.IDRodzica 
                         INNER JOIN grupy g ON d.grupa = g.id 
                         WHERE g.Wychowawca = " . $user->id . "
@@ -414,37 +452,34 @@ if (!$_SESSION['logged']) {
                         INNER JOIN uprawnienia a ON u.ID = a.ID
                         WHERE a.dyrektor = 1
                         ORDER BY nazwisko;";
-            }
-            if ($user->typ[2] == 1) {
-                $sql_mes = "SELECT ID, imie, nazwisko, typ FROM uzytkownicy
+                }
+                if ($user->typ[2] == 1) {
+                    $sql_mes = "SELECT ID, imie, nazwisko, typ FROM uzytkownicy
                             WHERE id != " . $user->id . " 
                             ORDER BY nazwisko;";
-            }
-
-            $result = $connection->query($sql_mes)->fetch_all();
-
-            for ($i = 0; $i < count($result); $i++) {
-                $sql_typ = "SELECT * FROM uprawnienia WHERE ID = " . $result[$i][3] . ";";
-                $resultTyp = $connection->query($sql_typ)->fetch_all();
-                if ((int)$resultTyp[0][3] == "1") {
-                    $typ = "Dyrekcja";
-                } elseif ((int)$resultTyp[0][2] == "1") {
-                    $typ = "Nauczyciel";
-                } else {
-                    $typ = "Rodzic";
                 }
-                echo "<option class='submitButton' value='" . $result[$i][0] . "'>" . $result[$i][1] . " " . $result[$i][2] . " - " . $typ . "</option>";
-            }
-            echo "</select>";
-            ?>
-        </div>
-        <div class="content inputGroup">
-            <span>Temat: <input type="text" id="MessageTytle" disabled></span>
-        </div>
-        <div class="content inputGroup">
-            <textarea id="MessageTextarea" disabled>tresc</textarea>
-        </div>
-        <div class="content inputButtons" id="FormButtons"></div>
+
+                $result = $connection->query($sql_mes)->fetch_all();
+
+                for ($i = 0; $i < count($result); $i++) {
+                    $sql_typ = "SELECT * FROM uprawnienia WHERE ID = " . $result[$i][3] . ";";
+                    $resultTyp = $connection->query($sql_typ)->fetch_all();
+                    if ((int)$resultTyp[0][3] == "1") {
+                        $typ = "Dyrekcja";
+                    } elseif ((int)$resultTyp[0][2] == "1") {
+                        $typ = "Nauczyciel";
+                    } else {
+                        $typ = "Rodzic";
+                    }
+                    echo "<option class='submitButton' value='" . $result[$i][0] . "'>" . $result[$i][1] . " " . $result[$i][2] . " - " . $typ . "</option>";
+                }
+                echo "</select>";
+                ?>
+            </div>
+            <div class="content inputGroup">
+                <textarea id="MessageTextarea" disabled>tresc</textarea>
+            </div>
+            <div class="content inputButtons" id="FormButtons"></div>
 
         </form>
     </div>

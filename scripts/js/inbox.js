@@ -1,9 +1,23 @@
+let messageIds = [];
+let messageType = -1;
+
+function showInformation(text) {
+    document.getElementById('informationPopUp').style.display = 'flex';
+    document.getElementById('dark_bg').style.display = 'block';
+    document.getElementById('warningText').innerHTML = text;
+}
+
+function hideInformation() {
+    document.getElementById('informationPopUp').style.display = 'none';
+    document.getElementById('dark_bg').style.display = 'none';
+}
+
 function checkEmptyLists() {
     const map = [
-        { container: 'receivedContainer', master: 'selectAllCheckboxReceived' },
-        { container: 'sentContainer',     master: 'selectAllCheckboxSent' },
-        { container: 'deletedContainer',  master: 'selectAllCheckboxDeleted' },
-        { container: 'draftsContainer',   master: 'selectAllCheckboxDrafts' }
+        {container: 'receivedContainer', master: 'selectAllCheckboxReceived'},
+        {container: 'sentContainer', master: 'selectAllCheckboxSent'},
+        {container: 'deletedContainer', master: 'selectAllCheckboxDeleted'},
+        {container: 'draftsContainer', master: 'selectAllCheckboxDrafts'}
     ];
 
     map.forEach(item => {
@@ -39,7 +53,7 @@ function showContainerInbox(n) {
     ];
     masters.forEach(id => {
         const el = document.getElementById(id);
-        if(el) {
+        if (el) {
             el.checked = false;
             el.indeterminate = false;
         }
@@ -48,7 +62,7 @@ function showContainerInbox(n) {
     for (let i = 0; i < containers.length; i++) {
         const el = document.getElementById(containers[i]);
         if (el) el.style.display = (i === n) ? 'flex' : 'none';
-        if(containers[i] == 'writeContainer'){
+        if (containers[i] == 'writeContainer') {
             clearNewMes();
         }
     }
@@ -317,13 +331,13 @@ function OpenMessage(json_array, typ) {
 
 
     document.getElementById('FormButtons').innerHTML = '';
-    if (json_array[10] == json_array[11]){
+    if (json_array[10] == json_array[11]) {
         const buttonOdp = document.createElement('button');
         buttonOdp.classList = 'submitButton';
         buttonOdp.type = 'button';
         buttonOdp.innerHTML = "<img src='./../assets/send.png'>";
-        buttonOdp.onclick =  () => EditMessage(json_array);
-        buttonOdp.innerHTML="Odpisz";
+        buttonOdp.onclick = () => EditMessage(json_array);
+        buttonOdp.innerHTML = "Odpisz";
         document.getElementById('FormButtons').appendChild(buttonOdp);
     }
 
