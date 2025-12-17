@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 16, 2025 at 06:22 PM
+-- Generation Time: Dec 17, 2025 at 09:53 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -43,7 +43,8 @@ INSERT INTO `artykuly` (`ID`, `naglowek`, `tresc`, `data`, `img`) VALUES
 (1, 'Jesienna wycieczka do parku', 'W październiku nasze przedszkolaki wybrały się na kolorową wycieczkę do parku, gdzie obserwowały zmieniającą się przyrodę. Dzieci zbierały liście i bawiły się na świeżym powietrzu.', '2025-11-12', './assets/articles/jesienna_wycieczka_do_parku_6935a8fb8bd92.png'),
 (3, 'Warsztaty kulinarne – robimy sałatkę owocową', 'Przedszkolaki własnoręcznie przygotowały zdrową i pyszną sałatkę owocową, ucząc się rozpoznawać różne owoce oraz dbając o higienę.', '2025-10-10', './assets/articles/salatka.png'),
 (4, 'Teatrzyk kukiełkowy', 'Nauczyciele przygotowali przedstawienie kukiełkowe, które bardzo spodobało się dzieciom i zainspirowało je do własnej twórczości.', '2025-10-27', './assets/articles/teatrzyk.png'),
-(9, 'Halloween', 'Przebieranki na Halloween rozwijają kreatywność i sprawiają, że wspólna zabawa staje się prawdziwą przygodą.', '2025-10-31', './assets/articles/halloween.png');
+(9, 'Halloween', 'Przebieranki na Halloween rozwijają kreatywność i sprawiają, że wspólna zabawa staje się prawdziwą przygodą.', '2025-10-31', './assets/articles/halloween.png'),
+(16, 'Boże Narodzenie w Chaosku', 'Dzisiaj w przedszkolu odbyły się jasełka. Dzieci przebrały się za różne biblijne postacie, i odegrały scene porodu Jezusa', '2025-12-17', './assets/articles/boze_narodzenie_w_chaosku_69426bb09ca98.jpg');
 
 -- --------------------------------------------------------
 
@@ -68,15 +69,16 @@ CREATE TABLE `dzieci` (
 --
 
 INSERT INTO `dzieci` (`ID`, `imie`, `nazwisko`, `pesel`, `adres`, `grupa`, `img`, `IDRodzica`, `opinia`) VALUES
-(1, 'Jonaszek', 'Kruk', '20271912141', 'Łódź, ul. Sienkiewicza 6, m. 7', 2, 'Jonaszek_Kruk.png', 1, 'Dziecko potrafi komunikować swoje potrzeby, podejmuje interakcje z innymi dziećmi. Wrażliwy na uwagi.'),
-(2, 'Aldona', 'Kruk', '20271912145', 'Łódź, ul. Sienkiewicza 6, m. 7', 1, 'Aldona_Kruk.png', 1, 'Dziecko systematycznie pracuje na zajęciach, sumiennie wywiązuje się z obowiązków i dąży do poprawy wyników.'),
-(3, 'Zosia', 'Kowalska', '21231501234', 'Łódź, ul. Kwiatowa 5/10', 5, 'brak', 4, 'Uczeń prezentuje wysoką kulturę osobistą, szanuje kolegów i nauczycieli oraz dba o dobrą atmosferę w klasie.'),
-(4, 'Jan', 'Kowalski', '18251209876', 'Łódź, ul. Kwiatowa 5/10', 4, 'brak', 4, 'Dziecko aktywnie uczestniczy w lekcjach, zadaje pytania i chętnie dzieli się swoimi spostrzeżeniami'),
-(5, 'Krzyś', 'Nowak', '20252005432', 'Łódź, ul. Słoneczna 12', 2, 'brak', 5, 'Uczeń potrafi pracować zarówno samodzielnie, jak i w grupie, przejmuje odpowiedzialność za powierzone zadania.'),
-(6, 'Ala', 'Wiśniewska', '19301011223', 'Łódź, ul. Lipowa 3', 3, 'brak', 6, 'Dziecko rozwija swoje mocne strony, wykazuje ciekawość świata i chętnie podejmuje nowe wyzwania edukacyjne.'),
-(7, 'Olek', 'Wiśniewski', '21310533441', 'Łódź, ul. Lipowa 3', 1, 'brak', 6, 'Uczeń stosuje się do zasad panujących w klasie, reaguje na uwagi i stara się korygować swoje zachowanie.'),
-(9, 'Michał', 'Zieliński', '19260199887', 'Łódź, ul. Długa 50/4', 3, 'brak', 7, 'Uczeń dobrze organizuje swoją pracę, zazwyczaj przygotowuje się do zajęć i przynosi potrzebne materiały.'),
-(18, 'Brajan', 'Symilak', '22230711738', 'Wojska Polskiego 19/10', 1, 'brak', 21, 'Dziecko robi zauważalne postępy, a jego wysiłek i systematyczność pozytywnie wpływają na osiągane wyniki.');
+(1, 'Jonaszek', 'Kruk', '20271912141', 'Łódź, ul. Sienkiewicza 6, m. 7', 2, 'brak.png', 1, 'Dziecko potrafi komunikować swoje potrzeby, podejmuje interakcje z innymi dziećmi. Wrażliwy na uwagi.'),
+(2, 'Aldona', 'Kruk', '20271912145', 'Łódź, ul. Sienkiewicza 6, m. 7', 1, 'brak.png', 1, 'Dziecko systematycznie pracuje na zajęciach, sumiennie wywiązuje się z obowiązków i dąży do poprawy wyników.'),
+(3, 'Zosia', 'Kowalska', '21231501234', 'Łódź, ul. Kwiatowa 5/10', 5, 'brak.png', 4, 'Uczeń prezentuje wysoką kulturę osobistą, szanuje kolegów i nauczycieli oraz dba o dobrą atmosferę w klasie.'),
+(4, 'Jan', 'Kowalski', '18251209876', 'Łódź, ul. Kwiatowa 5/10', 4, 'brak.png', 4, 'Dziecko aktywnie uczestniczy w lekcjach, zadaje pytania i chętnie dzieli się swoimi spostrzeżeniami'),
+(5, 'Krzyś', 'Nowak', '20252005432', 'Łódź, ul. Słoneczna 12', 2, 'brak.png', 5, 'Uczeń potrafi pracować zarówno samodzielnie, jak i w grupie, przejmuje odpowiedzialność za powierzone zadania.'),
+(6, 'Ala', 'Wiśniewska', '19301011223', 'Łódź, ul. Lipowa 3', 3, 'brak.png', 6, 'Dziecko rozwija swoje mocne strony, wykazuje ciekawość świata i chętnie podejmuje nowe wyzwania edukacyjne.'),
+(7, 'Olek', 'Wiśniewski', '21310533441', 'Łódź, ul. Lipowa 3', 1, 'brak.png', 6, 'Uczeń stosuje się do zasad panujących w klasie, reaguje na uwagi i stara się korygować swoje zachowanie.'),
+(9, 'Michał', 'Zieliński', '19260199887', 'Łódź, ul. Długa 50/4', 3, 'brak.png', 7, 'Uczeń dobrze organizuje swoją pracę, zazwyczaj przygotowuje się do zajęć i przynosi potrzebne materiały.'),
+(18, 'Brajan', 'Symilak', '22230711738', 'Wojska Polskiego 19/10', 1, 'brak.png', 2, 'Dziecko robi zauważalne postępy, a jego wysiłek i systematyczność pozytywnie wpływają na osiągane wyniki.'),
+(21, 'Asa', 'Mitaka', '21320702342', 'Łódź, ul. Zagajnikowa 6/7', 5, 'brak', 3, '');
 
 -- --------------------------------------------------------
 
@@ -120,10 +122,10 @@ CREATE TABLE `grupy` (
 
 INSERT INTO `grupy` (`id`, `nazwa`, `Wychowawca`) VALUES
 (1, 'Smerfy', 2),
-(2, 'Reksie', 3),
+(2, 'Reksie', 2),
 (3, 'Muminki', 3),
 (4, 'Flinstonowie', 3),
-(5, 'test', 3);
+(5, 'Potworki', 30);
 
 -- --------------------------------------------------------
 
@@ -279,13 +281,6 @@ CREATE TABLE `oczekujace` (
   `adres` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
 
---
--- Dumping data for table `oczekujace`
---
-
-INSERT INTO `oczekujace` (`ID`, `imieRodzica`, `nazwiskoRodzica`, `numerTelefonu`, `email`, `imieDziecka`, `nazwiskoDziecka`, `pesel`, `adres`) VALUES
-(29, 'Ja', 'Nie', '903241678', 'tajny@email.com', 'Maciek', 'to samo', '11111111111', 'Łódź, Harcerska 6/7');
-
 -- --------------------------------------------------------
 
 --
@@ -305,126 +300,126 @@ CREATE TABLE `plan_lekcji` (
 --
 
 INSERT INTO `plan_lekcji` (`id`, `grupaID`, `lekcjaID`, `day_of_week`, `godzinaLekcyjna`) VALUES
-(105, 1, 1, 1, 1),
-(106, 1, 2, 1, 2),
-(107, 1, 3, 1, 3),
-(108, 1, 6, 1, 4),
-(109, 1, 7, 1, 5),
-(110, 1, 1, 1, 6),
-(111, 1, 1, 2, 1),
-(112, 1, 4, 2, 2),
-(113, 1, 5, 2, 3),
-(114, 1, 1, 2, 4),
-(115, 1, 7, 2, 5),
-(116, 1, 1, 2, 6),
-(117, 1, 1, 3, 1),
-(118, 1, 3, 3, 2),
-(119, 1, 2, 3, 3),
-(120, 1, 4, 3, 4),
-(121, 1, 7, 3, 5),
-(122, 1, 1, 3, 6),
-(123, 1, 1, 4, 1),
-(124, 1, 5, 4, 2),
-(125, 1, 6, 4, 3),
-(126, 1, 3, 4, 4),
-(127, 1, 7, 4, 5),
-(128, 1, 1, 4, 6),
-(129, 1, 1, 5, 1),
-(130, 1, 4, 5, 2),
-(131, 1, 1, 5, 3),
-(132, 1, 2, 5, 4),
-(133, 1, 7, 5, 5),
-(134, 1, 6, 5, 6),
-(135, 2, 1, 1, 1),
-(136, 2, 3, 1, 2),
-(137, 2, 4, 1, 3),
-(138, 2, 5, 1, 4),
-(139, 2, 7, 1, 5),
-(140, 2, 1, 1, 6),
-(141, 2, 1, 2, 1),
-(142, 2, 6, 2, 2),
-(143, 2, 2, 2, 3),
-(144, 2, 3, 2, 4),
-(145, 2, 7, 2, 5),
-(146, 2, 1, 2, 6),
-(147, 2, 1, 3, 1),
-(148, 2, 5, 3, 2),
-(149, 2, 1, 3, 3),
-(150, 2, 6, 3, 4),
-(151, 2, 7, 3, 5),
-(152, 2, 1, 3, 6),
-(153, 2, 1, 4, 1),
-(154, 2, 4, 4, 2),
-(155, 2, 3, 4, 3),
-(156, 2, 2, 4, 4),
-(157, 2, 7, 4, 5),
-(158, 2, 1, 4, 6),
-(159, 2, 1, 5, 1),
-(160, 2, 2, 5, 2),
-(161, 2, 5, 5, 3),
-(162, 2, 1, 5, 4),
-(163, 2, 7, 5, 5),
-(164, 2, 6, 5, 6),
-(165, 3, 1, 1, 1),
-(166, 3, 5, 1, 2),
-(167, 3, 6, 1, 3),
-(168, 3, 2, 1, 4),
-(169, 3, 7, 1, 5),
-(170, 3, 1, 1, 6),
-(171, 3, 1, 2, 1),
-(172, 3, 3, 2, 2),
-(173, 3, 4, 2, 3),
-(174, 3, 5, 2, 4),
-(175, 3, 7, 2, 5),
-(176, 3, 1, 2, 6),
-(177, 3, 1, 3, 1),
-(178, 3, 6, 3, 2),
-(179, 3, 1, 3, 3),
-(180, 3, 3, 3, 4),
-(181, 3, 7, 3, 5),
-(182, 3, 1, 3, 6),
-(183, 3, 1, 4, 1),
-(184, 3, 2, 4, 2),
-(185, 3, 5, 4, 3),
-(186, 3, 4, 4, 4),
-(187, 3, 7, 4, 5),
-(188, 3, 1, 4, 6),
-(189, 3, 1, 5, 1),
-(190, 3, 3, 5, 2),
-(191, 3, 2, 5, 3),
-(192, 3, 6, 5, 4),
-(193, 3, 7, 5, 5),
-(194, 3, 6, 5, 6),
-(195, 4, 1, 1, 1),
-(196, 4, 6, 1, 2),
-(197, 4, 5, 1, 3),
-(198, 4, 3, 1, 4),
-(199, 4, 7, 1, 5),
-(200, 4, 1, 1, 6),
-(201, 4, 1, 2, 1),
-(202, 4, 2, 2, 2),
-(203, 4, 1, 2, 3),
-(204, 4, 4, 2, 4),
-(205, 4, 7, 2, 5),
-(206, 4, 1, 2, 6),
-(207, 4, 1, 3, 1),
-(208, 4, 4, 3, 2),
-(209, 4, 3, 3, 3),
-(210, 4, 5, 3, 4),
-(211, 4, 7, 3, 5),
-(212, 4, 1, 3, 6),
-(213, 4, 1, 4, 1),
-(214, 4, 6, 4, 2),
-(215, 4, 4, 4, 3),
-(216, 4, 2, 4, 4),
-(217, 4, 7, 4, 5),
-(218, 4, 1, 4, 6),
-(219, 4, 1, 5, 1),
-(220, 4, 5, 5, 2),
-(221, 4, 6, 5, 3),
-(222, 4, 3, 5, 4),
-(223, 4, 7, 5, 5),
-(224, 4, 6, 5, 6);
+(1, 1, 1, 1, 1),
+(2, 1, 2, 1, 2),
+(3, 1, 3, 1, 3),
+(4, 1, 6, 1, 4),
+(5, 1, 7, 1, 5),
+(6, 1, 1, 1, 6),
+(7, 1, 1, 2, 1),
+(8, 1, 4, 2, 2),
+(9, 1, 5, 2, 3),
+(10, 1, 1, 2, 4),
+(11, 1, 7, 2, 5),
+(12, 1, 1, 2, 6),
+(13, 1, 1, 3, 1),
+(14, 1, 3, 3, 2),
+(15, 1, 2, 3, 3),
+(16, 1, 4, 3, 4),
+(17, 1, 7, 3, 5),
+(18, 1, 1, 3, 6),
+(19, 1, 1, 4, 1),
+(20, 1, 5, 4, 2),
+(21, 1, 6, 4, 3),
+(22, 1, 3, 4, 4),
+(23, 1, 7, 4, 5),
+(24, 1, 1, 4, 6),
+(25, 1, 1, 5, 1),
+(26, 1, 4, 5, 2),
+(27, 1, 1, 5, 3),
+(28, 1, 2, 5, 4),
+(29, 1, 7, 5, 5),
+(30, 1, 6, 5, 6),
+(31, 2, 1, 1, 1),
+(32, 2, 3, 1, 2),
+(33, 2, 4, 1, 3),
+(34, 2, 5, 1, 4),
+(35, 2, 7, 1, 5),
+(36, 2, 1, 1, 6),
+(37, 2, 1, 2, 1),
+(38, 2, 6, 2, 2),
+(39, 2, 2, 2, 3),
+(40, 2, 3, 2, 4),
+(41, 2, 7, 2, 5),
+(42, 2, 1, 2, 6),
+(43, 2, 1, 3, 1),
+(44, 2, 5, 3, 2),
+(45, 2, 1, 3, 3),
+(46, 2, 6, 3, 4),
+(47, 2, 7, 3, 5),
+(48, 2, 1, 3, 6),
+(49, 2, 1, 4, 1),
+(50, 2, 4, 4, 2),
+(51, 2, 3, 4, 3),
+(52, 2, 2, 4, 4),
+(53, 2, 7, 4, 5),
+(54, 2, 1, 4, 6),
+(55, 2, 1, 5, 1),
+(56, 2, 2, 5, 2),
+(57, 2, 5, 5, 3),
+(58, 2, 1, 5, 4),
+(59, 2, 7, 5, 5),
+(60, 2, 6, 5, 6),
+(61, 3, 1, 1, 1),
+(62, 3, 5, 1, 2),
+(63, 3, 6, 1, 3),
+(64, 3, 2, 1, 4),
+(65, 3, 7, 1, 5),
+(66, 3, 1, 1, 6),
+(67, 3, 1, 2, 1),
+(68, 3, 3, 2, 2),
+(69, 3, 4, 2, 3),
+(70, 3, 5, 2, 4),
+(71, 3, 7, 2, 5),
+(72, 3, 1, 2, 6),
+(73, 3, 1, 3, 1),
+(74, 3, 6, 3, 2),
+(75, 3, 1, 3, 3),
+(76, 3, 3, 3, 4),
+(77, 3, 7, 3, 5),
+(78, 3, 1, 3, 6),
+(79, 3, 1, 4, 1),
+(80, 3, 2, 4, 2),
+(81, 3, 5, 4, 3),
+(82, 3, 4, 4, 4),
+(83, 3, 7, 4, 5),
+(84, 3, 1, 4, 6),
+(85, 3, 1, 5, 1),
+(86, 3, 3, 5, 2),
+(87, 3, 2, 5, 3),
+(88, 3, 6, 5, 4),
+(89, 3, 7, 5, 5),
+(90, 3, 6, 5, 6),
+(91, 4, 1, 1, 1),
+(92, 4, 6, 1, 2),
+(93, 4, 5, 1, 3),
+(94, 4, 3, 1, 4),
+(95, 4, 7, 1, 5),
+(96, 4, 1, 1, 6),
+(97, 4, 1, 2, 1),
+(98, 4, 2, 2, 2),
+(99, 4, 1, 2, 3),
+(100, 4, 4, 2, 4),
+(101, 4, 7, 2, 5),
+(102, 4, 1, 2, 6),
+(103, 4, 1, 3, 1),
+(104, 4, 4, 3, 2),
+(105, 4, 3, 3, 3),
+(106, 4, 5, 3, 4),
+(107, 4, 7, 3, 5),
+(108, 4, 1, 3, 6),
+(109, 4, 1, 4, 1),
+(110, 4, 6, 4, 2),
+(111, 4, 4, 4, 3),
+(112, 4, 2, 4, 4),
+(113, 4, 7, 4, 5),
+(114, 4, 1, 4, 6),
+(115, 4, 1, 5, 1),
+(116, 4, 5, 5, 2),
+(117, 4, 6, 5, 3),
+(118, 4, 3, 5, 4),
+(119, 4, 7, 5, 5),
+(120, 4, 6, 5, 6);
 
 -- --------------------------------------------------------
 
@@ -475,8 +470,8 @@ CREATE TABLE `uprawnienia` (
 
 INSERT INTO `uprawnienia` (`ID`, `rodzic`, `nauczyciel`, `dyrektor`) VALUES
 (1, 1, 0, 0),
-(2, 0, 1, 0),
-(3, 0, 1, 1),
+(2, 1, 1, 0),
+(3, 1, 1, 1),
 (4, 1, 0, 0),
 (5, 1, 0, 0),
 (6, 1, 0, 0),
@@ -490,7 +485,9 @@ INSERT INTO `uprawnienia` (`ID`, `rodzic`, `nauczyciel`, `dyrektor`) VALUES
 (14, 0, 1, 0),
 (15, 0, 1, 0),
 (16, 0, 1, 1),
-(17, 0, 1, 0);
+(17, 0, 1, 0),
+(18, 0, 1, 1),
+(20, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -516,7 +513,7 @@ CREATE TABLE `uzytkownicy` (
 --
 
 INSERT INTO `uzytkownicy` (`ID`, `imie`, `nazwisko`, `typ`, `numerTelefonu`, `login`, `haslo`, `firstLogin`, `opinia`, `zdjecie`) VALUES
-(1, 'Jan', 'Kruk', 1, '123456789', 'jKruk@gmail.com', '$2y$10$V5DNoqC33NA5fe9CJ/QTMu7SSHWuKcPZfgl6GIaPtlA4hwGrwQWfq', 1, NULL, NULL),
+(1, 'Jan', 'Kruk', 1, '123456789', 'jKruk@gmail.com', '$2y$10$FSHPFms21PzJjF2Vjip1Xeq3uMzg3QP3jxYSIRR9vAm.YBck8V.kO', 0, NULL, NULL),
 (2, 'Stanisław', 'Odrowski', 2, '999999999', 'stasiu@outlook.com', '$2y$10$GklSuzP8xNagCDpk4IPUaOI2Aahwb9rFtCZoPiOOwv9u7wk0me8B6', 0, 'Bardzo fajny nauczyciel, ma świetne podejście do dzieci i potrafi stworzyć na lekcjach miłą atmosferę. Tłumaczy w sposób zrozumiały i zawsze stara się, żeby każdy wszystko dobrze zrozumiał. Widać, że lubi swoją pracę i zależy mu na uczniach.\n', 'stanislawOdrowski.jpg'),
 (3, 'Jeremiasz', 'Michorczyk', 3, '666777888', 'jeremi@yahoo.com', '$2y$10$ZFmNZui9uCZRAkrpCsYTdOzpAM2BiRn1gHEnaC5M45ItwDdC.yclu', 0, 'Nauczyciel z pasją, potrafi zainteresować tematem i widać, że zależy mu na uczniach. Zawsze cierpliwie wszystko tłumaczy i tworzy przyjazną atmosferę na lekcjach.\n', 'jeremiaszMichorczyk.jpg'),
 (4, 'Anna', 'Kowalska', 4, '501234567', 'anna.kowalska@poczta.pl', 'haslo123', 0, NULL, NULL),
@@ -525,7 +522,8 @@ INSERT INTO `uzytkownicy` (`ID`, `imie`, `nazwisko`, `typ`, `numerTelefonu`, `lo
 (7, 'Tomasz', 'Zieliński', 7, '511000111', 'tomek.zielinski@wp.pl', 'qwertyuiop', 0, NULL, NULL),
 (8, 'Katarzyna', 'Wójcik', 8, '698765432', 'kasia.wojcik@poczta.fm', 'rodzic1', 0, NULL, NULL),
 (15, 'Jakub', 'Juźwicki', 9, '666777678', 'juzwik@zhp.pl', '$2y$10$ziAoEp1XqJOOM/xrsN0G7O9W20qikbc7dmQG6fHFzQ9D6SkxBQ7la', 0, NULL, NULL),
-(21, 'Marcin', 'Symilak', 10, '191019101', 'mSymilak@pilka.pl', '$2y$10$xnKq49lr1AYi.5ws807NuuzJ2YSBdr8av9xXRDtYLG8PsZSKn.d9q', 0, NULL, NULL);
+(21, 'Marcin', 'Symilak', 10, '191019101', 'mSymilak@pilka.pl', '$2y$10$xnKq49lr1AYi.5ws807NuuzJ2YSBdr8av9xXRDtYLG8PsZSKn.d9q', 0, NULL, NULL),
+(30, 'Nikodem', 'Klepczarek', 20, '566734112', 'nKlepczarek@chaosek.pl', '$2y$10$LNiZUY2tvR8.vx7ntHQReONcs18Rs8nZGdBqu0/aJTRajfFFP5oUO', 1, 'Nauczyciel z zamiłowaniem do nauki, i dzieci. Wie jak się nimi zająć, aby nie nudziły się przez chociażby chwile', 'niko_69426a75aa268.jpg');
 
 -- --------------------------------------------------------
 
@@ -550,8 +548,24 @@ CREATE TABLE `wiadomosci` (
 --
 
 INSERT INTO `wiadomosci` (`id`, `tytul`, `tresc`, `dataWyslania`, `nadawcaID`, `odbiorcaID`, `robocze`, `usunieteOdbiorca`, `usunieteNadawca`) VALUES
-(1, 'Pana syn to chuj', 'Pana syn to chuj', '0000-00-00', 2, 1, 0, 0, 0),
-(3, 'pana tez', 'pana tez', '2025-11-27', 1, 2, 0, 0, 0);
+(4, 'Nieobecność Jasia', 'Dzień dobry, zgłaszam, że Jaś jest przeziębiony i nie będzie go w przedszkolu do końca tygodnia.', '2025-12-15', 1, 2, 0, 0, 1),
+(5, 'Jasełka - strój aniołka', 'Przypominam o przyniesieniu stroju na piątkowe przedstawienie. Proszę podpisać ubrania.', '2025-12-15', 2, 1, 0, 0, 0),
+(6, 'Zaległa płatność za wyżywienie', 'Szanowni Państwo, uprzejmie prosimy o uregulowanie zaległości za posiłki za miesiąc listopad.', '2025-12-10', 3, 1, 0, 0, 0),
+(7, 'Wniosek urlopowy', 'Czy mogę prosić o dzień wolny w najbliższy poniedziałek? Zastępstwo jest już ustalone z Panią Anią.', '2025-12-14', 2, 3, 0, 0, 0),
+(8, 'Dyżur w ferie zimowe', 'Czy przedszkole będzie otwarte w drugim tygodniu ferii? Chcielibyśmy zapisać córkę.', '2025-12-16', 1, 3, 0, 0, 1),
+(9, 'Zebranie rady pedagogicznej', 'Zapraszam na krótkie spotkanie organizacyjne w środę o 15:00 w moim gabinecie.', '2025-12-16', 3, 2, 0, 0, 0),
+(10, 'Pytanie o urodziny', 'Chciałam zapytać czy można przynieść tort...', '2025-12-16', 1, 2, 0, 0, 1),
+(11, 'Reklama zdjęć', 'Oferta sesji zdjęciowej dla grupy...', '2025-12-01', 1, 2, 0, 1, 1),
+(17, 'Nieobecność Zuzi', 'Dzień dobry, Zuzia jest chora na ospę. Nie będzie jej przez najbliższe 2 tygodnie.', '2025-12-18', 1, 2, 0, 0, 0),
+(18, 'Dzień Babci i Dziadka', 'Serdecznie zapraszamy na występy grupy pt. \"Biedronki\", który odbędzie się 21 stycznia o godz. 10:00.', '2025-01-10', 2, 1, 0, 0, 0),
+(19, 'Zebranie zespołu', 'Proszę o przygotowanie planów miesięcznych na zebranie w czwartek.', '2025-12-19', 3, 2, 0, 0, 0),
+(20, 'Zaświadczenie do pracy', 'Czy mogę prosić o wystawienie zaświadczenia o opłatach za przedszkole za rok 2025?', '2025-01-02', 1, 3, 0, 0, 0),
+(21, 'Materiały plastyczne', 'Kończy się blok techniczny i klej w naszej sali. Proszę o zamówienie.', '2025-12-20', 2, 3, 0, 0, 0),
+(22, 'Dyżur wakacyjny', 'Szanowni Państwo, ruszają zapisy na dyżur lipcowy. Formularze dostępne w sekretariacie.', '2025-05-01', 3, 1, 0, 0, 0),
+(23, 'Zagubiona czapka', 'Czy w szatni nie została może różowa czapka z pomponem? Córka wczoraj jej nie przyniosła.', '2025-12-17', 1, 2, 0, 0, 0),
+(24, 'Ubrania na zmianę', 'Prosimy o uzupełnienie worka z ubraniami na zmianę, skarpetki zostały zamoczone na spacerze.', '2025-11-15', 2, 1, 0, 0, 1),
+(25, 'Urlop na żądanie', 'Zgłaszam konieczność wzięcia urlopu na żądanie w dniu jutrzejszym z powodów rodzinnych.', '2025-02-14', 2, 3, 0, 0, 0),
+(26, 'Dieta bezmleczna', 'Przypominam, że od jutra Kubuś przechodzi na dietę bezmleczną zgodnie z zaleceniem lekarza.', '2025-01-05', 1, 2, 0, 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -657,13 +671,13 @@ ALTER TABLE `wiadomosci`
 -- AUTO_INCREMENT for table `artykuly`
 --
 ALTER TABLE `artykuly`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `dzieci`
 --
 ALTER TABLE `dzieci`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `godzinylekcyjne`
@@ -675,25 +689,25 @@ ALTER TABLE `godzinylekcyjne`
 -- AUTO_INCREMENT for table `jadlospis`
 --
 ALTER TABLE `jadlospis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=271;
 
 --
 -- AUTO_INCREMENT for table `komunikaty`
 --
 ALTER TABLE `komunikaty`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `oczekujace`
 --
 ALTER TABLE `oczekujace`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `plan_lekcji`
 --
 ALTER TABLE `plan_lekcji`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=225;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT for table `pracedomowe`
@@ -705,19 +719,19 @@ ALTER TABLE `pracedomowe`
 -- AUTO_INCREMENT for table `uprawnienia`
 --
 ALTER TABLE `uprawnienia`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `wiadomosci`
 --
 ALTER TABLE `wiadomosci`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Constraints for dumped tables
