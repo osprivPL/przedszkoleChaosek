@@ -63,6 +63,9 @@ function odrzucWniosek(idRekordu) {
                 if (element) {
                     element.style.transition = "opacity 0.5s";
                     element.style.opacity = "0";
+                    if(document.getElementsByClassName('wniosek').length < 2){
+                        document.getElementById('brak').style.display =  "block";
+                    }
                     setTimeout(() => element.remove(), 500);
                 }
             } else {
@@ -101,6 +104,9 @@ function przyjmijWniosek(idRekordu) {
                     element.style.transition = "opacity 0.5s";
                     element.style.opacity = "0";
                     document.getElementById('loading').style.display = "none";
+                    if(document.getElementsByClassName('wniosek').length < 2){
+                        document.getElementById('brak').style.display =  "block";
+                    }
                     setTimeout(() => element.remove(), 500);
                 }
             } else {

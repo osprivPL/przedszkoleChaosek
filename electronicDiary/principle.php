@@ -320,6 +320,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
                     <button id="btnWarningAcceptRekrutacja" class='submitButton yes'>Tak</button>
                 </div>
             </div>
+            <div class="brak" id="brak" style="display: none">Brak wniosków.</div>
             <div class="styling-panel">
                 <div class="formContainer">
                     <div id='listOfApplications'>
@@ -328,6 +329,11 @@ $resultGroups = $connection->query($sql)->fetch_all();
                         <?php
                         $sql = "SELECT * FROM oczekujace ORDER BY ID";
                         $result = $connection->query($sql)->fetch_all();
+                        if(count($result) < 1){
+                            echo "<script>
+                            document.getElementById('brak').style.display = 'block';
+                            </script>";
+                        }
                         for ($i = 0; $i < count($result); $i++) {
                             echo "<div id='Wniosek#" . $result[$i][0] . "' class='wniosek'>";
                             echo "<span class='wniosek-number'>Wniosek #" . $result[$i][0] . "</span> ";
