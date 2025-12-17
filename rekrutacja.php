@@ -253,6 +253,15 @@ if (isset($_SESSION['user'])) {
                 else{
                     childPesel.classList.remove('error')
                 }
+                const d = new Date();
+                const wiek = d.getFullYear() - parseInt(dateFromPesel(childPesel.value).substring(0,4));
+                if(wiek < 3 || wiek > 6){
+                    childPesel.classList.add('error')
+                    error = true;
+                }else{
+                    childPesel.classList.remove('error')
+                }
+
                 if (error){
                     document.getElementById("loading").style.display = "none";
                     return;
@@ -264,6 +273,6 @@ if (isset($_SESSION['user'])) {
 </main>
 
 <script src="scripts/js/registerValidator.js"></script>
-<?php printArr($_SESSION); ?>
+<script src="scripts/js/childrens.js"></script>
 </body>
 </html>
