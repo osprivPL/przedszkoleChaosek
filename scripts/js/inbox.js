@@ -302,11 +302,9 @@ function OpenMessage(json_array, typ) {
     tytle.value = json_array[1];
     textArea.textContent = json_array[2];
     document.getElementById('MessageData').textContent = json_array[3];
-    document.getElementById('MessageDo').textContent = json_array[6] + " " + json_array[7];
-    if (typ != 2){
-        document.getElementById('MessageOd').textContent = json_array[4] + " " + json_array[5];
-        //Nie mam głowy na to już
-    }else {
+    document.getElementById('MessageDo').textContent = json_array[4] + " " + json_array[5];
+    document.getElementById('MessageOd').textContent = json_array[6] + " " + json_array[7];
+    if (typ == 2){
         spanDo.style.display = 'none';
         selectDo.style.display = 'block';
         tytle.disabled = false;
@@ -314,7 +312,7 @@ function OpenMessage(json_array, typ) {
     }
 
     if (typ == 1 && json_array[10] == json_array[11]){
-        document.getElementById('MessageOd').textContent = js;
+        document.getElementById('MessageOd').textContent = json_array[12] + " " + json_array[13];
     }
 
 
