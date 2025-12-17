@@ -471,7 +471,7 @@ CREATE TABLE `uprawnienia` (
 INSERT INTO `uprawnienia` (`ID`, `rodzic`, `nauczyciel`, `dyrektor`) VALUES
 (1, 1, 0, 0),
 (2, 1, 1, 0),
-(3, 1, 1, 1),
+(3, 0, 1, 1),
 (4, 1, 0, 0),
 (5, 1, 0, 0),
 (6, 1, 0, 0),
@@ -487,7 +487,7 @@ INSERT INTO `uprawnienia` (`ID`, `rodzic`, `nauczyciel`, `dyrektor`) VALUES
 (16, 0, 1, 1),
 (17, 0, 1, 0),
 (18, 0, 1, 1),
-(20, 0, 1, 0);
+(20, 0, 1, 0                                                                                                                                                                                                                                                                                                                );
 
 -- --------------------------------------------------------
 
@@ -513,7 +513,7 @@ CREATE TABLE `uzytkownicy` (
 --
 
 INSERT INTO `uzytkownicy` (`ID`, `imie`, `nazwisko`, `typ`, `numerTelefonu`, `login`, `haslo`, `firstLogin`, `opinia`, `zdjecie`) VALUES
-(1, 'Jan', 'Kruk', 1, '123456789', 'jKruk@gmail.com', '$2y$10$FSHPFms21PzJjF2Vjip1Xeq3uMzg3QP3jxYSIRR9vAm.YBck8V.kO', 0, NULL, NULL),
+(1, 'Jan', 'Kruk', 1, '123456789', 'jKruk@gmail.com', '$2y$10$FSHPFms21PzJjF2Vjip1Xeq3uMzg3QP3jxYSIRR9vAm.YBck8V.kO', 1, NULL, NULL),
 (2, 'Stanisław', 'Odrowski', 2, '999999999', 'stasiu@outlook.com', '$2y$10$GklSuzP8xNagCDpk4IPUaOI2Aahwb9rFtCZoPiOOwv9u7wk0me8B6', 0, 'Bardzo fajny nauczyciel, ma świetne podejście do dzieci i potrafi stworzyć na lekcjach miłą atmosferę. Tłumaczy w sposób zrozumiały i zawsze stara się, żeby każdy wszystko dobrze zrozumiał. Widać, że lubi swoją pracę i zależy mu na uczniach.\n', 'stanislawOdrowski.jpg'),
 (3, 'Jeremiasz', 'Michorczyk', 3, '666777888', 'jeremi@yahoo.com', '$2y$10$ZFmNZui9uCZRAkrpCsYTdOzpAM2BiRn1gHEnaC5M45ItwDdC.yclu', 0, 'Nauczyciel z pasją, potrafi zainteresować tematem i widać, że zależy mu na uczniach. Zawsze cierpliwie wszystko tłumaczy i tworzy przyjazną atmosferę na lekcjach.\n', 'jeremiaszMichorczyk.jpg'),
 (4, 'Anna', 'Kowalska', 4, '501234567', 'anna.kowalska@poczta.pl', 'haslo123', 0, NULL, NULL),
