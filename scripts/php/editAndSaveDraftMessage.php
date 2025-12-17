@@ -29,7 +29,7 @@ if ($connection->connect_errno == 0) {
     }
 //    $imgNameDB = $connection->real_escape_string($newFileName);
 
-    $sql = "UPDATE wiadomosci SET tytul = ". $title .", tresc, dataWyslania, nadawcaID, odbiorcaID, robocze, usunieteNadawca, usunieteOdbiorca WHERE id =  ";
+    $sql = "UPDATE wiadomosci SET tytul = ". $title  .", tresc, dataWyslania, nadawcaID, odbiorcaID, robocze, usunieteNadawca, usunieteOdbiorca WHERE id =  ";
 
 
     if ($connection->query($sql)) {

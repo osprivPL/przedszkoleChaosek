@@ -268,15 +268,7 @@ h1{
     border: none;
     gap: 20px;
 }
-.inputButtons>button{
-    height: 100%;
-    margin: 0 10px;
-    padding: 5px;
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    border-radius: 15px;
-}
+
 .inputButtons>button:hover{
     filter: brightness(120%);
     transition: all 0.2s;
@@ -343,6 +335,13 @@ h1{
 .submitButton{
     font-size: 24px;
     padding: 0 20px;
+}
+
+#secretFormForEdit{
+    width: 100%;
+}
+#MessageDoSelect{
+    display: none;
 }
 
 /* ================================================= */

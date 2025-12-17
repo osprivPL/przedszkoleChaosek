@@ -262,12 +262,12 @@ if (!$_SESSION['logged']) {
                 $tempAr=array();
                 $tempAr[] = $message[0]; //id
                 $tempAr[] = $message[1]; //tytul
-                $tempAr[] =  $message[2]; //tresc
+                $tempAr[] = $message[2]; //tresc
                 $tempAr[] = $message[3]; //dataWyslana
+                $tempAr[] = $user->imie ; //imie-user
+                $tempAr[] = $user->nazwisko; //nazwisko-user
                 $tempAr[] = $sender[0][0]; //imie-nadawca/odborca
                 $tempAr[] = $sender[0][1]; //nazwsko-nadawca/odbiorca
-                $tempAr[] =  $user->imie ; //imie-user
-                $tempAr[] = $user->nazwisko; //nazwisko-user
                 $tempAr[] = $message[4]; //nadawcaID
                 $tempAr[] = $message[6]; //usunieteNadawca
                 $tempAr[] = $user->id; //user id
@@ -383,20 +383,67 @@ if (!$_SESSION['logged']) {
             <h1 class="logo-font">Wiadomość</h1>
             <h2 id="MessageData" style='position: absolute;z-index:2;top: 20px; right: 80px;'>Data</h2>
         </div>
-
+        <form action="./../scripts/php/editAndSaveDraftMessage.php" method="post" id="secretFormForEdit">
         <div class="content inputGroup">
             <span>Od: <span id="MessageOd"></span></span>
         </div>
-        <div class="content inputGroup">
-            <span>Do: <span id="MessageDo"></span></span>
+        <div class="content inputGroup" id="MessageDoDiv">
+            <span id="MessageDoSpan">Do: <span id="MessageDo"></span></span>
+            <?php
+            echo '<select class="submitButton" name="odbiorca" id="MessageDoSelect">';
+            if ($user->typ[0] == 1) {
+                $sql_mes = "SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u 
+                        INNER JOIN grupy g ON u.ID = g.Wychowawca 
+                        INNER JOIN dzieci d ON d.grupa = g.id WHERE d.IDRodzica = " . $user->id . "
+                        UNION 
+                        SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u 
+                        INNER JOIN uprawnienia a ON u.ID = a.ID
+                        WHERE a.dyrektor = 1 
+                        ORDER BY nazwisko;";
+            }
+            if ($user->typ[1] == 1) {
+                $sql_mes = "SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u 
+                        INNER JOIN dzieci d ON u.ID = d.IDRodzica 
+                        INNER JOIN grupy g ON d.grupa = g.id 
+                        WHERE g.Wychowawca = " . $user->id . "
+                        UNION 
+                        SELECT u.ID, u.imie, u.nazwisko, u.typ FROM uzytkownicy u 
+                        INNER JOIN uprawnienia a ON u.ID = a.ID
+                        WHERE a.dyrektor = 1
+                        ORDER BY nazwisko;";
+            }
+            if ($user->typ[2] == 1) {
+                $sql_mes = "SELECT ID, imie, nazwisko, typ FROM uzytkownicy
+                            WHERE id != " . $user->id . " 
+                            ORDER BY nazwisko;";
+            }
+
+            $result = $connection->query($sql_mes)->fetch_all();
+
+            for ($i = 0; $i < count($result); $i++) {
+                $sql_typ = "SELECT * FROM uprawnienia WHERE ID = " . $result[$i][3] . ";";
+                $resultTyp = $connection->query($sql_typ)->fetch_all();
+                if ((int)$resultTyp[0][3] == "1") {
+                    $typ = "Dyrekcja";
+                } elseif ((int)$resultTyp[0][2] == "1") {
+                    $typ = "Nauczyciel";
+                } else {
+                    $typ = "Rodzic";
+                }
+                echo "<option class='submitButton' value='" . $result[$i][0] . "'>" . $result[$i][1] . " " . $result[$i][2] . " - " . $typ . "</option>";
+            }
+            echo "</select>";
+            ?>
         </div>
         <div class="content inputGroup">
-            <span>Temat: <span id="MessageTytle">123</span></span>
+            <span>Temat: <span id="MessageTytle"></span></span>
         </div>
         <div class="content inputGroup">
             <textarea id="MessageTextarea" disabled>tresc</textarea>
         </div>
         <div class="content inputButtons" id="FormButtons"></div>
+
+        </form>
     </div>
 </div>
 

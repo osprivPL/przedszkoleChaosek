@@ -211,7 +211,7 @@ function OpenMessage(json_array, typ) {
         document.getElementById('OpenedMessage').getAnimations().forEach(a => a.cancel());
     }
 
-    // json[0]  -> id
+    // json[0]  -> id wiadomości
     // json[1]  -> tytul
     // json[2]  -> tresc
     // json[3]  -> dataWyslana
@@ -222,37 +222,57 @@ function OpenMessage(json_array, typ) {
     // json[8]  -> nadawcaID
     // json[9]  -> usunieteNadawca
     // json[10] -> userID
-    // json[11] - > odbiorcaID
+    // json[11] -> odbiorcaID
+    const spanDo = document.getElementById('MessageDoSpan');
+    const selectDo = document.getElementById('MessageDoSelect')
+    if (spanDo.style.display == 'none'){
+        spanDo.style.display = 'block';
+        selectDo.style.display = 'none';
+    }
 
     document.getElementById('OpenedMessage').style.display = "flex";
     document.getElementById('MessageTytle').textContent = json_array[1];
     document.getElementById('MessageTextarea').textContent = json_array[2];
     document.getElementById('MessageData').textContent = json_array[3];
-    document.getElementById('MessageOd').textContent = json_array[4] + " " + json_array[5];
+    if (typ != 2){
+        document.getElementById('MessageOd').textContent = json_array[4] + " " + json_array[5];
+    }else {
+        spanDo.style.display = 'none';
+        selectDo.style.display = 'block';
+    }
+
     document.getElementById('MessageDo').textContent = json_array[6] + " " + json_array[7];
 
     document.getElementById('FormButtons').innerHTML = '';
     if (json_array[10] == json_array[11]){
         const buttonOdp = document.createElement('button');
-        buttonOdp.classList = 'jsFormButton';
+        buttonOdp.classList = 'submitButton';
         buttonOdp.innerHTML = "<img src='./../assets/send.png'>";
-        buttonOdp.onclick = EditMessage;
-        buttonOdp.innerHTML="edit";
+        buttonOdp.onclick =  () => EditMessage(json_array);
+        buttonOdp.innerHTML="Odpisz";
         document.getElementById('FormButtons').appendChild(buttonOdp);
     }
 
     if (typ == 2) {
-        const formEdit = document.createElement('form');
-        formEdit.method = 'POST';
-        formEdit.action = './../scripts/php/editDraftMessage.php';
+        spanDo.style.display = 'none';
+        const selectDo = document.createElement('select')
+        document.getElementById('MessageOd')
         const buttonEdit = document.createElement('button');
         buttonEdit.type = 'submit';
         buttonEdit.name = 'messageId';
-        buttonEdit.value = json_array[0] + "|" + json_array[1] + "|" + json_array[2];
+        buttonEdit.value = json_array[0] + "|" + json_array[1] + "|" + json_array[2] + "|" + json_array[11] + "|" + "save" ;
         buttonEdit.classList = 'submitButton';
         buttonEdit.innerHTML = 'Zapisz';
-        formEdit.appendChild(buttonEdit);
-        document.getElementById('FormButtons').appendChild(formEdit);
+        document.getElementById('FormButtons').appendChild(buttonEdit);
+
+        const button0 = document.createElement('button');
+        button0.type = 'submit';
+        button0.name = 'messageId';
+        button0.value = json_array[0] + "|" + json_array[1] + "|" + json_array[2] + "|" + json_array[11] + "|" + "send" ;
+        button0.classList = 'submitButton';
+        button0.innerHTML = 'Wyślij';
+        document.getElementById('FormButtons').appendChild(button0);
+
     }
     if (typ == 1 && json_array[8] == json_array[10] && json_array[9] == 1) {
         const form1 = document.createElement('form');
@@ -281,7 +301,7 @@ function OpenMessage(json_array, typ) {
         form2.appendChild(button2);
         document.getElementById('FormButtons').appendChild(form2);
     }
-    if (typ != 0 && typ != 1){
+    if (typ != 0 && typ != 1 && typ != 2){
         const form0 = document.createElement('form');
         form0.method = 'POST';
         form0.action = './../scripts/php/moveToSendMessage.php';
@@ -311,6 +331,8 @@ function OpenMessage(json_array, typ) {
 }
 function EditMessage(json_array){
     document.getElementById('OpenedMessage').style.display = 'none';
+    //new Message w tytułem taki sam jak tam ale z dopiskiem Re:
+
 }
 
 function CloseMessage(){
