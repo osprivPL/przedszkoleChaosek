@@ -163,7 +163,7 @@ $resultGroups = $connection->query($sql)->fetch_all();
     </div>
     <a href="../index.php" id="logo" class='logo'>
         <img src="./../assets/logo_tornado.svg" alt="logo">
-        <span class='logo-font-small'>Przedszkole Chaosek</span>
+        <span class='logo-font-small'><span class="labelPrzedszkole">Przedszkole</span> Chaosek</span>
     </a>
     <div class="header-ui">
         <div onclick="showSomething(2)" class="user">
