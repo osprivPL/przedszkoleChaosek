@@ -304,7 +304,7 @@ if (!$_SESSION['logged']) {
 
 <div id="writeContainer" class="bigContainers">
 
-    <form action="./../scripts/php/addMessage.php" method="post" class="mailLayout">
+    <form action="./../scripts/php/addMessage.php" method="post" class="mailLayout" id="NewMailForm">
         <div class="offButton" onclick="PopUpDraft()">
             <p>X</p>
         </div>
@@ -356,7 +356,7 @@ if (!$_SESSION['logged']) {
                 } else {
                     $typ = "Rodzic";
                 }
-                echo "<option class='submitButton' value='" . $result[$i][0] . "' onclick='clearNewMes()'>" . $result[$i][1] . " " . $result[$i][2] . " - " . $typ . "</option>";
+                echo "<option class='submitButton' value='" . $result[$i][0] . "'>" . $result[$i][1] . " " . $result[$i][2] . " - " . $typ . "</option>";
             }
             echo "</select>";
             ?>
@@ -366,8 +366,8 @@ if (!$_SESSION['logged']) {
             <textarea id="newMesTresc" name="tresc" placeholder="Treść"></textarea>
         </div>
         <div class="content inputButtons">
-            <button type="submit" onclick="showContainer(0)" name="action" value="draft" class="submitButton id="buttonDraftId"">Zapisz Kopie roboczą</button>
-            <button type="submit" onclick="showContainer(0)" name="action" value="sent" class="submitButton">Wyślij</button>
+            <button type="submit"  name="action" value="draft" class="submitButton" id="buttonDraftId">Zapisz Kopie roboczą</button>
+            <button type="submit"  name="action" value="sent" class="submitButton">Wyślij</button>
         </div>
     </form>
 </div>
@@ -436,7 +436,7 @@ if (!$_SESSION['logged']) {
             ?>
         </div>
         <div class="content inputGroup">
-            <span>Temat: <span id="MessageTytle"></span></span>
+            <span>Temat: <input type="text" id="MessageTytle" disabled></span>
         </div>
         <div class="content inputGroup">
             <textarea id="MessageTextarea" disabled>tresc</textarea>

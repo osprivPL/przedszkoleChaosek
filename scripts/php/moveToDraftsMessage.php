@@ -24,7 +24,7 @@ if ($connection->connect_errno == 0 ) {
 
 
     if ($connection->query($sql)) {
-        $_SESSION['powodzenie'] = "Wiadomosć wysłana!";
+        $_SESSION['powodzenie'] = "Wszystko poszło OK";
     } else {
         $_SESSION['powodzenie'] = "Wystąpił błąd, spróbuj ponownie później.";
     }

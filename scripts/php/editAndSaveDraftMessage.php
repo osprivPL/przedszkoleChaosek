@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/../../models/User.php';
 
 use models\User;
@@ -17,27 +16,34 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 
 $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
-if ($connection->connect_errno == 0) {
-    $reciver = $connection->real_escape_string($_POST['odbiorca']);
-    $title = $connection->real_escape_string($_POST['tytle']);
-    $content = $connection->real_escape_string($_POST['tresc']);
-    $date = date('Y-m-d');
-    if ($connection->real_escape_string($_POST['action']) == "draft") {
-        $draft = 1;
-    } else {
-        $draft = 0;
-    }
-//    $imgNameDB = $connection->real_escape_string($newFileName);
+if ($connection->connect_errno == 0 ) {
 
-    $sql = "UPDATE wiadomosci SET tytul = ". $title  .", tresc, dataWyslania, nadawcaID, odbiorcaID, robocze, usunieteNadawca, usunieteOdbiorca WHERE id =  ";
+    $value = $connection->real_escape_string($_POST['value']);
+    $arr = explode('|', $value);
+    $messageID = $arr[0];
+    $tytle = $arr[1];
+    $content = $arr[2];
+    $reciver = $connection->real_escape_string($_POST['odbiorca']);
+    $action = $arr[3];
+    echo $action;
+
+    if ($action == 'save'){
+        $sql = "UPDATE wiadomosci SET tytul = '". $tytle ."', tresc = '". $content ."', odbiorcaID = '". $reciver ."', robocze = 1  WHERE id = ". $messageID . ";";
+    }
+    else{
+        $sql = "UPDATE wiadomosci SET tytul = '". $tytle ."', tresc = '". $content ."', odbiorcaID = '". $reciver ."', robocze = 0 WHERE id = ". $messageID . ";";
+    }
+
+
 
 
     if ($connection->query($sql)) {
-        $_SESSION['powodzenie'] = "Wiadomosć wysłana!";
+        $_SESSION['powodzenie'] = "Wszystko poszło OK";
     } else {
         $_SESSION['powodzenie'] = "Wystąpił błąd, spróbuj ponownie później.";
     }
-} else {
+}
+else {
     $_SESSION['powodzenie'] = "Wystąpił błąd, spróbuj ponownie później.";
 }
 header("Location: ./../../electronicDiary/inbox.php");

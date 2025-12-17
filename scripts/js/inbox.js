@@ -48,7 +48,7 @@ function showContainerInbox(n) {
     for (let i = 0; i < containers.length; i++) {
         const el = document.getElementById(containers[i]);
         if (el) el.style.display = (i === n) ? 'flex' : 'none';
-        if( containers[i] == 'writeContainer'){
+        if(containers[i] == 'writeContainer'){
             clearNewMes();
         }
     }
@@ -150,7 +150,6 @@ function PopUpDraft(){
     if (mesTopic.value.trim() !== '' && mesContent.value.trim() !== ''){
         document.getElementById('writeContainer').style.display = 'none';
         document.getElementById('warningPopUp').style.display = 'flex';
-        clearNewMes()
     }
     else{
         if (mesTopic.value.trim() == '' && mesContent.value.trim() == ''){
@@ -183,10 +182,9 @@ function clearNewMes(){
     }
 }
 function SaveAsDraft(){
-    document.getElementById('warningPopUp').style.display = 'none';
     document.getElementById('buttonDraftId').click();
-    clearNewMes();
-    showContainerInbox(0);
+    document.getElementById('warningPopUp').style.display = 'none';
+    //showContainerInbox(0);
 }
 function DontSaveDraft(){
     document.getElementById('warningPopUp').style.display = 'none';
@@ -225,20 +223,27 @@ function OpenMessage(json_array, typ) {
     // json[11] -> odbiorcaID
     const spanDo = document.getElementById('MessageDoSpan');
     const selectDo = document.getElementById('MessageDoSelect')
+    const tytle = document.getElementById('MessageTytle');
+    const textArea = document.getElementById('MessageTextarea');
     if (spanDo.style.display == 'none'){
         spanDo.style.display = 'block';
         selectDo.style.display = 'none';
+        tytle.disabled = true;
+        textArea.disabled = true;
     }
 
     document.getElementById('OpenedMessage').style.display = "flex";
-    document.getElementById('MessageTytle').textContent = json_array[1];
-    document.getElementById('MessageTextarea').textContent = json_array[2];
+    tytle.value = json_array[1];
+    textArea.textContent = json_array[2];
     document.getElementById('MessageData').textContent = json_array[3];
     if (typ != 2){
         document.getElementById('MessageOd').textContent = json_array[4] + " " + json_array[5];
+
     }else {
         spanDo.style.display = 'none';
         selectDo.style.display = 'block';
+        tytle.disabled = false;
+        textArea.disabled = false;
     }
 
     document.getElementById('MessageDo').textContent = json_array[6] + " " + json_array[7];
@@ -259,7 +264,7 @@ function OpenMessage(json_array, typ) {
         document.getElementById('MessageOd')
         const buttonEdit = document.createElement('button');
         buttonEdit.type = 'submit';
-        buttonEdit.name = 'messageId';
+        buttonEdit.name = 'value';
         buttonEdit.value = json_array[0] + "|" + json_array[1] + "|" + json_array[2] + "|" + json_array[11] + "|" + "save" ;
         buttonEdit.classList = 'submitButton';
         buttonEdit.innerHTML = 'Zapisz';
@@ -267,7 +272,7 @@ function OpenMessage(json_array, typ) {
 
         const button0 = document.createElement('button');
         button0.type = 'submit';
-        button0.name = 'messageId';
+        button0.name = 'value';
         button0.value = json_array[0] + "|" + json_array[1] + "|" + json_array[2] + "|" + json_array[11] + "|" + "send" ;
         button0.classList = 'submitButton';
         button0.innerHTML = 'Wyślij';

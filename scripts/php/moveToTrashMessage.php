@@ -18,7 +18,7 @@ $connection = mysqli_connect("localhost", "root", "", "przedszkole");
 
 if ($connection->connect_errno == 0 ) {
 
-    $value = $connection->real_escape_string(($_POST['value']));
+    $value = $connection->real_escape_string($_POST['value']);
     $arr = explode('|', $value);
     $messageID = $arr[0];
     $userID = $arr[1];
@@ -34,7 +34,7 @@ if ($connection->connect_errno == 0 ) {
 
 
     if ($connection->query($sql)) {
-        $_SESSION['powodzenie'] = "Wiadomosć wysłana!";
+        $_SESSION['powodzenie'] = "Wszystko poszło OK";
     } else {
         $_SESSION['powodzenie'] = "Wystąpił błąd, spróbuj ponownie później.";
     }
