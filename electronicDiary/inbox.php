@@ -222,6 +222,7 @@ if (!$_SESSION['logged']) {
             for ($i = 0; $i < count($result); $i++) {
                 $message = $result[$i];
                 $sender = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[5] . ";")->fetch_all();
+                $sender2 = $connection->query("SELECT imie, nazwisko FROM uzytkownicy WHERE id = " . $message[4] . ";")->fetch_all();
                 $tempAr=array();
                 $tempAr[] = $message[0]; //id
                 $tempAr[] = $message[1]; //tytul
@@ -235,6 +236,8 @@ if (!$_SESSION['logged']) {
                 $tempAr[] = $message[6]; //usunieteNadawca
                 $tempAr[] = $user->id; //user id
                 $tempAr[] = $message[5]; // odbiorcaID
+                $tempAr[] = $sender2[0][0];
+                $tempAr[] = $sender2[0][1];
                 echo '<tr class="messageCard message" onclick=\'OpenMessage('. json_encode($tempAr) . ', 1)\'>';
                 echo '<td><label class="checkboxLabel"><input type="checkbox" class="messageCheckbox deletedCheckbox" name="message' . $message[0] . '"></label></td>';
                 echo '<td><span class="messageTitle">' . $message[1] . '</span></td>';
